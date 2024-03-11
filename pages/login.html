@@ -11,7 +11,8 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous" />
     <!-- CSS only -->
-    <link rel="stylesheet" href="/assests/css/colorPallete.css">
+    <link rel="stylesheet" href="/assests/css/colorPallete.css" />
+    <link rel="stylesheet" href="/assests/css/login.css">
   </head>
   <body class="bg-pastel">
     <!--- Navbar -->
@@ -47,46 +48,41 @@
       </nav>
     </header>
 
-    <section class="container-fluid">
-        <!-- Formulario de registro -->
-        <div name="formulario" class="bg-pastel">
-            <div class="d-flex flex-column align-items-center mt-5 bg-blanco shadow rounded" style="width: 24rem;">
-                <div class="" >
-                    <div>
-                        <p class="fs-1">Inicio de seccion</p>
-                    </div>
-                    <div>
-                        <div class="form-floating mb-3">
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="formId1"
-                            id="formId1"
-                            placeholder=""
-                        />
-                        <label for="formId1">Name</label>
-                    </div>
-                    <div>
-                        <div class="form-floating mb-3">
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="formId1"
-                            id="formId1"
-                            placeholder=""
-                        />
-                        <label for="formId1">Contraseña</label>
-                    </div>                
-                    <button
-                        type="submit"
-                        class="btn btn-primary"
-                    >
-                        Submit
-                    </button>
-                    
+    <section name="formulario">
+      <!-- Formulario de registro -->
+      <div name="formulario" class="bg-pastel">
+        <div
+          class="d-flex flex-column align-items-center justify-content-center formulario pt-2 bg-blanco shadow rounded">
+          <div class="">
+            <div>
+              <p class="fs-1">Inicio de seccion</p>
             </div>
+            <div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="formId1"
+                  id="formId1"
+                  placeholder="" />
+                <label for="formId1">Name</label>
+              </div>
+            </div>
+            <div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="formId1"
+                  id="formId1"
+                  placeholder="" />
+                <label for="formId1">Contraseña</label>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary mb-3">Iniciar Seccion</button>
+          </div>
         </div>
-        
+      </div>
     </section>
   </body>
 </html>
