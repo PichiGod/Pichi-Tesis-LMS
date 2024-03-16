@@ -19,8 +19,8 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer" />
     <!-- CSS only -->
-    <link rel="stylesheet" href="/assests/css/colorPallete.css" />
-    <link rel="stylesheet" href="/assests/css/viewUser.css" />
+    <link rel="stylesheet" href="../assests/css/colorPallete.css" />
+    <link rel="stylesheet" href="../assests/css/viewUser.css" />
   </head>
 
   <body class="bg-pastel">
@@ -28,9 +28,9 @@
     <header>
       <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand ms-3" href="/index.html">
+          <a class="navbar-brand ms-3" href="../index.html">
             <img
-              src="/assests/img/text-1710023184778.png"
+              src="../assests/img/text-1710023184778.png"
               alt="Bootstrap"
               width="70"
               height="24" />
