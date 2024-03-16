@@ -31,7 +31,7 @@
               name="regis"
               id="regis"
               class="btn btn-secundary d-flex shadow me-3"
-              href="registro.html"
+              href="registro.php"
               role="button"
               >Registrarse</a
             >
