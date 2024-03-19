@@ -94,7 +94,7 @@
           </a>
         </li>
         <li>
-          <a href="#" class="nav-link link-dark">
+          <a href="viewCalif.php" class="nav-link link-dark">
             <i class="fa-solid fa-newspaper me-2" witdh="16" height="16"></i>
             Evaluaciones
           </a>
