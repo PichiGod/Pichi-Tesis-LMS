@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Perfil de Usuario</title>
+    <title>Chat en Linea</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -28,12 +28,12 @@
                     <li class="nav-item" id="listaUsuarios">
                         <table>
                             <tbody>
-                                <tr class="border border-1">
-                                    <td id="fotoDePerfil">
-                                        <img src="https://github.com/PichiGod.png" witdh="35" height="35" alt="...">
+                                <tr class="border">
+                                    <td id="fotoDePerfil" class="py-2">
+                                        <img src="https://github.com/PichiGod.png" witdh="38" height="38" alt="...">
                                     </td>
-                                    <td>
-                                        <p><strong>Jose Duarte</strong></p>
+                                    <td class="py-2 pe-2">
+                                        <span><strong>Jose Duarte</strong></span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -63,11 +63,11 @@
                     </div>
                 </li>
             </ul>
-            <div id="input-chat" class="bg-white" style="position: fixed; bottom: 0;">
-                <div class="form-inline bg-white">
+            <div id="input-chat" style="position: fixed; bottom: 0;">
+                <div class="form-inline ">
                     <div class="d-flex">
                         <span class="form-group">
-                            <input type="text" class="form-control" size="76">
+                            <input type="text" class="form-control" size="150">
                         </span>
                         <span>
                             <button type="submit" class="btn btn-primary mx-1">Enviar</button>
