@@ -87,7 +87,7 @@
         </ul>
     </div>
 
-    <!--Contenido Usuario-->
+    <!--Contenido Calificaciones-->
     <section>
         <div class="container-fluid bg-blanco mt-3 shadow w-75" style="margin-left: 21rem;">
             <p class="fs-1"><strong>Calificaciones</strong></p>
