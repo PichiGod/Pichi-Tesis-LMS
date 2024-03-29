@@ -1,0 +1,104 @@
+.TituloCrearCurso{
+
+    padding: 20px;
+
+}
+
+.DivPrinFormulario{
+
+    display: flex;
+
+    flex-direction: column;
+
+    width: 95%;
+
+}
+
+.div1Crear, .div2Crear, .div3Crear, .div4Crear, .div5Crear, .div6Crear, .div45Crear{
+
+    display: flex;
+
+    flex-direction: row;
+
+    padding-top: 15px;
+
+    padding-bottom: 15px;
+
+}
+
+.seleccion{
+
+    margin-left: 3em;
+
+}
+
+.fechaInicio{
+
+    margin-left: 4em;
+
+    width: 10em;
+
+    height: 2.9em;
+
+}
+
+.fechaFin{
+
+    margin-left: 1em;
+
+    width: 10em;
+
+    height: 2.5em;
+
+}
+
+.minimos{
+
+    margin-left: 1.5em;
+
+}
+
+.maximos{
+
+    margin-left: 1.5em;
+
+}
+
+.inputperiodo{
+
+    margin-left: 3.2em;
+
+}
+
+.containerButtonCrearCursoFin{
+
+    display: flex;
+
+    width: 100%;
+
+    justify-content: center;
+
+    align-items: center;
+
+    margin-top: 2em;
+
+    margin-bottom: 1em;
+
+}
+
+.botonCrearCursoFin{
+
+    margin-bottom: 1em;
+
+    margin: 10px;
+
+}
+
+.botonRegresar{
+
+    margin-bottom: 1em;
+
+    margin: 10px;
+
+}
+

@@ -1,0 +1,382 @@
+
+  .carousel-item{
+  
+      height: 80vh;
+      min-height: 400px;
+      
+      }
+      
+      .carousel-caption{
+      
+      bottom: 220px;
+      z-index: 2;
+      
+      
+      }
+      
+      .carousel-caption h5{
+      
+      font-size: 45px;
+      
+      text-transform: uppercase;
+      
+      letter-spacing: 2px;
+      
+      margin-top: 25px;
+      
+      
+      }
+      
+      .carousel-caption p{
+      
+      width: 60%;
+      
+      margin: auto;
+      
+      font-size: 18px;
+      
+      line-height: 1.9;
+      
+      }
+      
+      .carousel-inner::before{
+      
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: rgba(0, 0, 0 ,0.7);
+      z-index: 1;
+      
+      }
+
+
+      .Publicidades{
+
+        width: 100%;
+    
+        margin-top: 4em;
+    
+        display: flex;
+    
+        flex-direction: row;
+    
+        justify-content: center;
+    
+        align-items: center;
+    
+        
+    
+    
+    }
+    
+    
+    .imgpubli2{
+    
+    max-width: 150px;
+    
+    }
+    
+    
+    .publicidad2{
+    
+    
+        display: flex;
+        
+        flex-direction: column;
+        
+        width: 40%;
+        
+        height: 15em;
+    
+        margin-left: 2em;
+        
+        margin-top: 3em;
+        
+        justify-content: center;
+        position: relative; /* Agregar posición relativa */
+        align-items: center;
+        
+        border: 4px solid #3F51B5;
+        
+        border-radius: 10px;
+        
+        
+        }
+        
+        .publicidad2::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(../img/publi1.jpg);
+            background-size: cover;
+            z-index: -1;
+            opacity: 2; /* Opacidad de la imagen de fondo */
+            background-color: rgba(0, 0, 0, 0.5); /* Color de fondo oscuro con opacidad */
+            border-radius: 10px; /* Mismo radio de borde que .SilverPackage */
+        }
+        
+    
+    .Parrafopubli2{
+    
+        color: #000;
+    
+        text-align: center;
+    
+        line-height: 1.5;
+    
+        margin-top: 1em;
+    
+        font-size: 18px;
+    
+    }    
+    .containerPublicidad1{
+
+
+        display: flex;
+        
+        flex-direction: row;
+        
+        width: 40%;
+        
+        height: 15em;
+        
+        
+        margin-top: 3em;
+        
+        justify-content: center;
+        position: relative; /* Agregar posición relativa */
+        align-items: center;
+        
+        border: 4px solid #3F51B5;
+        
+        border-radius: 10px;
+        
+        
+        }
+        
+        .containerPublicidad1::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(../img/publi2.avif);
+            background-size: cover;
+            z-index: -1;
+            opacity: 2; /* Opacidad de la imagen de fondo */
+            background-color: rgba(0, 0, 0, 0.5); /* Color de fondo oscuro con opacidad */
+            border-radius: 10px; /* Mismo radio de borde que .SilverPackage */
+        }    
+
+
+        
+.publi1en1{
+
+
+    margin-left: 1em;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+
+.parrafoPubli1{
+
+    font-size: 17px;
+  
+    line-height: 1.5;
+  
+    color: #000;
+  
+  
+  
+  }
+
+
+  .flechaPubli{
+
+    color: aliceblue;
+    
+    font-size: 30px;
+    
+    margin-left: 1em;
+    
+    position: relative;
+    
+    
+    }
+
+
+    .imgLogoCriptos{
+
+        max-width: 100px;
+        
+        max-height: 100px;
+
+        margin-right: 1em;
+        
+        }
+
+        .imgpubli2{
+
+            max-width: 150px;
+            
+            }      
+
+            .negritaPubli{
+
+                color: #0F5BAC;
+            
+            
+            }
+
+
+            .containerPrinMinado{
+
+
+                display: flex;
+            
+                flex-direction: column;
+            
+                margin-top: 5em;
+            
+                justify-content: center;
+            
+                align-items: center;
+            
+            
+            }            
+
+
+            
+.tituloh2minado{
+
+    padding: 20px;
+
+    padding-top: 30px;
+
+}
+
+
+.TituloMinado{
+
+    color: aliceblue;
+
+    font-size: 45px;
+
+}
+
+
+.principalParrafoMinado{
+
+    display: flex;
+
+    flex-direction: row;
+
+    width: 100%;
+
+}
+
+.parrafoMinado1, .parrafoMinado2{
+
+    width: 50%;
+
+    padding: 20px;
+
+    padding-left: 70px;
+
+    padding-right: 70px;
+
+
+}
+
+
+.textoMinado{
+
+    color: aliceblue;
+
+    font-size: 18px;
+
+    text-align: justify;
+
+}
+
+
+.containerPasos{
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    width: 100%;
+
+    margin-top: 7em;
+
+}
+
+
+   .title {
+    color: #000;
+    font-size: 45px;
+    padding: 20px;
+    padding-bottom: 50px;
+  }
+  .step {
+    background-color: #343a40;
+    color: #fff;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto; /* Alinea el número al centro */
+    margin-bottom: 20px; /* Espaciado inferior */
+  }
+  .step p {
+    text-align: center; /* Centra el texto */
+  }
+  .row{
+
+    margin-top: 1em;
+
+    width: 90%;
+
+
+    justify-content: center;
+
+    align-items: center;
+
+  }
+
+  .parradopaso{
+
+    color: #000;
+
+    font-size: 19px;
+
+    text-align: center;
+
+
+  }
+
+
+  .container-fluid {
+
+    margin-top: 7em;
+ 
+  }

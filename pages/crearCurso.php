@@ -16,6 +16,10 @@
     <!-- CSS only -->
     <link rel="stylesheet" href="../assests/css/colorPallete.css" />
     <link rel="stylesheet" href="../assests/css/viewUser.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <link rel="stylesheet" href="../assests/css/style (2).css">
+    <link rel="stylesheet" href="../assests/css/crearCurso.css">
+
 </head>
 
 <body class="bg-pastel">
@@ -52,7 +56,7 @@
 
     <!-- Sidebar -->
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary float-start"
-        style="width: 280px; height: 100vh; overflow: auto">
+        style="width: 280px; height: 150vh; overflow: auto">
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
                 <a href="#" class="nav-link link-dark" aria-current="page">
@@ -67,13 +71,13 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link link-dark">
+                <a href="#" class="nav-link active">
                     <i class="fa-solid fa-book me-2" witdh="16" height="16"></i>
                     Cursos
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link active">
+                <a href="#" class="nav-link link-dark ">
                     <i class="fa-solid fa-newspaper me-2" witdh="16" height="16"></i>
                     Evaluaciones
                 </a>
@@ -87,69 +91,104 @@
         </ul>
     </div>
 
-    <!--Contenido Usuario-->
-    <section>
-        <div class="container-fluid bg-blanco mt-3 shadow w-75" style="margin-left: 21rem;">
-            <p class="fs-1"><strong>Calificaciones</strong></p>
-            <div class="dropdown">
-                <a class="btn btn-tertiary bg-blancoOscuro dropdown-toggle mb-2" href="#" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false " style="width: auto;">
-                    #0001 Ingles - N1664
-                </a>
+<section class="crearCurso">
 
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">#0002 Progamacion en PHP - N1664</a></li>
-                    <li><a class="dropdown-item" href="#">#0003 Programacion Web - N1664</a></li>
-                    <li><a class="dropdown-item" href="#">#0004 Frances - N1664</a></li>
-                </ul>
-            </div>
+<div class="container-fluid bg-blanco mt-3 shadow w-75" style="margin-left: 20rem;">
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Ponderacion</th>
-                        <th scope="col">Calificacion</th>
-                        <th scope="col">Rango</th>
-                        <th scope="col">Porcentaje</th>
-                        <th scope="col">Retroalimentacion</th>
-                        <th scope="col">Aporte total del curso</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Examen #1</th>
-                        <td>20%</td>
-                        <td>10</td>
-                        <td>1 - 20</td>
-                        <td>50%</td>
-                        <td>Estudie más para la proxima</td>
-                        <td>20%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Examen #2</th>
-                        <td>20%</td>
-                        <td>15</td>
-                        <td>1 - 20</td>
-                        <td>75%</td>
-                        <td>Mejoro mucho! Siga asi!</td>
-                        <td>40%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Examen Final</th>
-                        <td>60%</td>
-                        <td>20</td>
-                        <td>1 - 20</td>
-                        <td>100%</td>
-                        <td>Excelente!</td>
-                        <td>100%</td>
-                    </tr>
-                </tbody>
-            </table>
+  <div class="TituloCrearCurso">
 
-        </div>
-        </div>
-    </section>
+     <h3 class="TituloCrear"><b>Crear Nuevo Curso Activo</b></h3>
+
+  </div>
+
+  <div class="DivPrinFormulario">
+
+     <div class="div1Crear">
+
+     <label for="">Nombre Completo del Curso</label>
+
+     <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nombre del Curso">
+
+     </div>
+
+
+     
+     <div class="div2Crear">
+
+     <label for="">Visibilidad del Curso</label>
+
+     <select class="seleccion form-select" aria-label="Default select example">
+        <option selected>Visible</option>
+        <option value="1">Invisible</option>
+        </select>
+
+     </div>
+
+
+     <div class="div3Crear">
+
+        <label for="">Fecha de Inicio</label>
+
+        <input type="date" class="fechaInicio">
+
+    </div>
+
+
+        <div class="div4Crear">
+
+            <label for="">Fecha de Culminación</label>
+
+            <input type="date" class="fechaFin">
+
+     </div>
+
+     <div class="div45Crear">
+
+        <label for="">Nombre del periodo</label>
+
+        <input type="text" class="inputperiodo form-control" id="exampleFormControlInput1" placeholder="Nombre del periodo">
+
+</div>
+
+
+     <div class="div5Crear">
+
+        <label for="">Cupos Minimos del Curso</label>
+
+        <input type="number" class="minimos form-control" id="exampleFormControlInput1" placeholder="0">
+
+    </div>
+
+
+    <div class="div6Crear">
+
+        <label for="">Cupos Maximos del Curso</label>
+
+        <input type="number" class="maximos form-control" id="exampleFormControlInput1" placeholder="0">
+
+    </div>
+
+
+  </div>
+
+  
+  <div class="containerButtonCrearCursoFin">
+    
+<button type="button" class="botonRegresar btn btn-primary" onclick="location.href='cursos.php'">Regresar</button>
+
+<button type="button" class="botonCrearCursoFin btn btn-primary">Crear Curso</button>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
