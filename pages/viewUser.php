@@ -73,7 +73,7 @@
       style="width: 280px; height: 100vh; overflow: auto">
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-          <a href="#" class="nav-link active" aria-current="page">
+          <a href="home.php" class="nav-link active" aria-current="page">
             <span class="fa-solid fa-house me-2" witdh="16" height="16"></span>
             Home
           </a>
