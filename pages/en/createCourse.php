@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Perfil de Usuario</title>
+    <title>Create Course</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -14,11 +14,11 @@
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- CSS only -->
-    <link rel="stylesheet" href="../assests/css/colorPallete.css" />
-    <link rel="stylesheet" href="../assests/css/viewUser.css" />
+    <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
+    <link rel="stylesheet" href="../../assests/css/viewUser.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
-    <link rel="stylesheet" href="../assests/css/style (2).css">
-    <link rel="stylesheet" href="../assests/css/crearCurso.css">
+    <link rel="stylesheet" href="../../assests/css/style (2).css">
+    <link rel="stylesheet" href="../../assests/css/crearCurso.css">
 
 </head>
 
@@ -27,8 +27,8 @@
     <header>
         <nav class="navbar bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand ms-3" href="../index.html">
-                    <img src="../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
+                <a class="navbar-brand ms-3" href="../../index.html">
+                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
                 <div class="d-flex justify-content-end">
                     <div class="vr me-2"></div>
@@ -73,19 +73,19 @@
             <li>
                 <a href="#" class="nav-link active">
                     <i class="fa-solid fa-book me-2" witdh="16" height="16"></i>
-                    Cursos
+                    Courses
                 </a>
             </li>
             <li>
                 <a href="#" class="nav-link link-dark ">
                     <i class="fa-solid fa-newspaper me-2" witdh="16" height="16"></i>
-                    Evaluaciones
+                    Evaluations
                 </a>
             </li>
             <li>
                 <a href="#" class="nav-link link-dark">
                     <i class="fa-solid fa-gear me-2" witdh="16" height="16"></i>
-                    Configuracion
+                    Configuration
                 </a>
             </li>
         </ul>
@@ -97,7 +97,7 @@
 
   <div class="TituloCrearCurso">
 
-     <h3 class="TituloCrear"><b>Crear Nuevo Curso Activo</b></h3>
+     <h3 class="TituloCrear"><b>Create New Active Course</b></h3>
 
   </div>
 
@@ -174,7 +174,7 @@
   
   <div class="containerButtonCrearCursoFin">
     
-<button type="button" class="botonRegresar btn btn-primary" onclick="location.href='cursos.php'">Regresar</button>
+<button type="button" class="botonRegresar btn btn-primary" onclick="location.href='courses.php'">Regresar</button>
 
 <button type="button" class="botonCrearCursoFin btn btn-primary">Crear Curso</button>
 
