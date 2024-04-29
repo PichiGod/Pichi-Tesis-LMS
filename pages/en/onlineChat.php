@@ -64,7 +64,7 @@
                 </li>
             </ul>
             <div id="input-chat" style="position: fixed; bottom: 0;">
-                <div class="form-inline ">
+                <div class="form-inline">
                     <div class="d-flex">
                         <span class="form-group">
                             <input type="text" class="form-control" size="150">

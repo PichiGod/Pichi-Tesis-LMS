@@ -20,7 +20,7 @@ var data = {
 
 $.ajax({
 
-  url: '../assests/php/LoginBD.php',
+  url: '../../assests/php/LoginBD.php',
 
   type: 'post',
 

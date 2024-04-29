@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Perfil de Usuario</title>
+    <title>Crear Curso</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -14,10 +14,11 @@
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- CSS only -->
-    <link rel="stylesheet" href="../assests/css/colorPallete.css" />
-    <link rel="stylesheet" href="../assests/css/viewUser.css" />
+    <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
+    <link rel="stylesheet" href="../../assests/css/viewUser.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
-    <link rel="stylesheet" href="../assests/css/style (2).css">
+    <link rel="stylesheet" href="../../assests/css/style (2).css">
+    <link rel="stylesheet" href="../../assests/css/crearCurso.css">
 
 </head>
 
@@ -26,10 +27,23 @@
     <header>
         <nav class="navbar bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand ms-3" href="../index.html">
-                    <img src="../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
+                <a class="navbar-brand ms-3" href="../../index.html">
+                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
                 <div class="d-flex justify-content-end">
+                <div class="vr me-2"></div>
+                    <div class="nav-item dropdown">
+                        <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                            <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
+                                href="#">Español (Latino America)</a>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item">
+                                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
+                                    href="../en/createCourse.php">Inglés</a>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="vr me-2"></div>
                     <div class="dropdown me-4 pe-2">
                         <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
@@ -41,7 +55,7 @@
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                             <li><a class="dropdown-item" href="#">New project...</a></li>
                             <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><a class="dropdown-item" href="viewUser.php">Profile</a></li>
+                            <li><a class="dropdown-item" href="verUser.php">Profile</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
@@ -55,12 +69,12 @@
 
     <!-- Sidebar -->
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary float-start"
-        style="width: 280px; height: 100vh; overflow: auto">
+        style="width: 280px; height: 150vh; overflow: auto">
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="home.php" class="nav-link link-dark" aria-current="page">
+                <a href="Inicio.php" class="nav-link link-dark" aria-current="page">
                     <span class="fa-solid fa-house me-2" witdh="16" height="16"></span>
-                    Home
+                    Inicio
                 </a>
             </li>
             <li>
@@ -70,13 +84,13 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link active">
+                <a href="cursos.php" class="nav-link active">
                     <i class="fa-solid fa-book me-2" witdh="16" height="16"></i>
                     Cursos
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link link-dark ">
+                <a href="verCalif.php" class="nav-link link-dark ">
                     <i class="fa-solid fa-newspaper me-2" witdh="16" height="16"></i>
                     Evaluaciones
                 </a>
@@ -90,76 +104,98 @@
         </ul>
     </div>
 
-<section class="Cursos">
+<section class="crearCurso">
 
 <div class="container-fluid bg-blanco mt-3 shadow w-75" style="margin-left: 20rem;">
 
-<h1 class="heading"><b>Cursos Activos Actualmente</b></h1>
+  <div class="TituloCrearCurso">
 
-<div class="container-historial">
-
-   <div class="cubo">
-
-     <h3 class="estatus-pago">Estatus del curso: Activo</h3>
-
-     <h3 class="fecha-pago">Fecha de Creación: </h3>
-
-     <h3 class="Referencia-pago">12/12/2023</h3>
-
-     <h3 class="monto-pago"><b>Ingles I</b></h3>
-
-     <button style="cursor: pointer;" type="submit" class="boton-detalles">Ver Curso</button>
-      
-   </div>
-
-
-
-   <div class="cubo">
-
-      <h3 class="estatus-pago">Estatus del curso: Activo</h3>
-
-      <h3 class="fecha-pago">Fecha de Creación:</h3>
-
-      <h3 class="Referencia-pago">12/12/2023</h3>
-
-      <h3 class="monto-pago"><b>Programación I</b></h3>
-
-      <button style="cursor: pointer;" type="submit" class="boton-detalles">Ver Curso</button>
-       
-   </div>
-   <div class="cubo">
-
-      <h3 class="estatus-pago">Estatus del curso: Activo</h3>
-
-      <h3 class="fecha-pago">Fecha de Creación:</h3>
-
-      <h3 class="Referencia-pago">12/12/2023</h3>
-
-      <h3 class="monto-pago"><b>Portugues Avanzado</b></h3>
-
-      <button style="cursor: pointer;" type="submit" class="boton-detalles">Ver Curso</button>
-       
-   </div>
-   <div class="cubo">
-
-      <h3 class="estatus-pago">Estatus del curso: Activo</h3>
-
-      <h3 class="fecha-pago">Fecha de Creación:</h3>
-
-      <h3 class="Referencia-pago">12/12/2023</h3>
-
-      <h3 class="monto-pago"><b>Italiano Intermedio</b></h3>
-
-      <button style="cursor: pointer;" type="submit" class="boton-detalles">Ver Curso</button>
-       
-   </div>
-   </div>
-
-   <div class="containerButtonCrearCurso">
-
-   <button type="button" class="botonCrearCurso btn btn-primary" onclick="location.href='crearCurso.php'">Crear Nuevo Curso</button>
+     <h3 class="TituloCrear"><b>Crear Nuevo Curso Activo</b></h3>
 
   </div>
+
+  <div class="DivPrinFormulario">
+
+     <div class="div1Crear">
+
+     <label for="">Nombre Completo del Curso</label>
+
+     <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nombre del Curso">
+
+     </div>
+
+
+     
+     <div class="div2Crear">
+
+     <label for="">Visibilidad del Curso</label>
+
+     <select class="seleccion form-select" aria-label="Default select example">
+        <option selected>Visible</option>
+        <option value="1">Invisible</option>
+        </select>
+
+     </div>
+
+
+     <div class="div3Crear">
+
+        <label for="">Fecha de Inicio</label>
+
+        <input type="date" class="fechaInicio">
+
+    </div>
+
+
+        <div class="div4Crear">
+
+            <label for="">Fecha de Culminación</label>
+
+            <input type="date" class="fechaFin">
+
+     </div>
+
+     <div class="div45Crear">
+
+        <label for="">Nombre del periodo</label>
+
+        <input type="text" class="inputperiodo form-control" id="exampleFormControlInput1" placeholder="Nombre del periodo">
+
+</div>
+
+
+     <div class="div5Crear">
+
+        <label for="">Cupos Minimos del Curso</label>
+
+        <input type="number" class="minimos form-control" id="exampleFormControlInput1" placeholder="0">
+
+    </div>
+
+
+    <div class="div6Crear">
+
+        <label for="">Cupos Maximos del Curso</label>
+
+        <input type="number" class="maximos form-control" id="exampleFormControlInput1" placeholder="0">
+
+    </div>
+
+
+  </div>
+
+  
+  <div class="containerButtonCrearCursoFin">
+    
+<button type="button" class="botonRegresar btn btn-primary" onclick="location.href='cursos.php'">Regresar</button>
+
+<button type="button" class="botonCrearCursoFin btn btn-primary">Crear Curso</button>
+
+
+</div>
+
+
+</div>
 
 </section>
 

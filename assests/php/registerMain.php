@@ -36,7 +36,7 @@ var data = {
 
 $.ajax({
 
-  url: '../assests/php/registerBD.php',
+  url: '../../assests/php/registerBD.php',
 
   type: 'post',
 
