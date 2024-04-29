@@ -1,3 +1,25 @@
+<?php
+
+require "../assests/php/LoginBD.php";
+
+if(isset($_SESSION['id_user'])){
+
+  if($_SESSION['Login']==true){
+
+  header("location: home.php ");
+
+  }elseif($_SESSION['Login']==false){
+
+    header("location: home.php ");
+
+  }
+
+
+
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -41,7 +63,7 @@
               class="btn btn-primary me-4 d-flex shadow"
               href="#"
               role="button"
-              >Iniciar seccion</a
+              >Iniciar sesión</a
             >
           </div>
         </div>
@@ -49,47 +71,40 @@
     </header>
 
     <section name="formulario">
-      <!-- Formulario de registro -->
+     <form action="" method="post">
+      <input type="hidden" name="" id="action" value="Login" class="action">
       <div name="formulario" class="bg-pastel">
         <div class="formulario pt-2 px-3 bg-blanco shadow rounded">
           <div>
-            <p class="fs-1 text-center">Inicio de seccion</p>
+            <p class="fs-1 text-center">Inicio de sesión</p>
           </div>
 
           <hr class="mx-5" />
 
             <div>
               <div class="form-floating mb-3 w-auto align-self-center">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="formId1"
-                  id="formId1"
-                  placeholder="" />
-                <label for="formId1">Nombre de Usuario</label>
+              <input type="number" class="cedulaLogin form-control" name="cedulaLogin" id="cedulaLogin" placeholder="" />
+                <label for="formId1">Identificación del Usuario</label>
               </div>
             </div>
 
             <div>
               <div class="form-floating mb-4">
-                <input
-                  type="text"
-                  class="form-control form"
-                  name="formId2"
-                  id="formId2"
-                  placeholder="" />
+              <input type="text" class="contrasenaLogin form-control" name="contrasenaLogin" id="contrasenaLogin" placeholder="" />
                 <label for="formId1">Contraseña</label>
               </div>
             </div>
 
             <div class="text-center">
-              <button type="submit" class="btn btn-primary mb-4">
-                Iniciar Seccion
+              <button type="button" class="btn btn-primary mb-4" onclick="submitData();">
+                Iniciar Sesión
               </button>
             </div>
           
         </div>
       </div>
+      </form>
     </section>
+    <?php require "../assests/php/LoginMain.php"; ?>
   </body>
 </html>

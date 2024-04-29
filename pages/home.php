@@ -1,3 +1,42 @@
+<?php
+
+require "../assests/php/LoginBD.php";
+
+if(isset($_SESSION['id_user'])){
+
+$usuarios1= $_SESSION['id_user'];
+
+$conexion1= mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+
+if (mysqli_num_rows($conexion1)>0){
+
+    $datos= mysqli_fetch_assoc($conexion1);
+
+    $empresaUsuario= $datos['Empresa_id_empresa'];
+
+    $nombreUsuario= $datos['nombre_user'];
+
+    $apellidoUsuario = $datos['apellido_user'];
+
+    $conexion2= mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
+
+    if (mysqli_num_rows($conexion2)>0){
+
+        $datos2= mysqli_fetch_assoc($conexion2);
+
+        $nombreEmpresa= $datos2['nombre_empresa'];
+
+    }
+
+}
+
+}
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +75,7 @@
                             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://github.com/PichiGod.png" alt="" width="32" height="32"
                                 class="rounded-circle me-2" />
-                            <strong>User</strong>
+                            <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                             <li><a class="dropdown-item" href="#">New project...</a></li>
@@ -58,7 +97,7 @@
         style="width: 280px; height: 100vh; overflow: auto">
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="home.php" class="nav-link link-dark" aria-current="page">
+                <a href="#" class="nav-link active" aria-current="page">
                     <span class="fa-solid fa-house me-2" witdh="16" height="16"></span>
                     Home
                 </a>
@@ -70,7 +109,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link active">
+                <a href="cursos.php" class="nav-link link-dark">
                     <i class="fa-solid fa-book me-2" witdh="16" height="16"></i>
                     Cursos
                 </a>
@@ -90,76 +129,20 @@
         </ul>
     </div>
 
-<section class="Cursos">
+<section class="home">
 
 <div class="container-fluid bg-blanco mt-3 shadow w-75" style="margin-left: 20rem;">
 
-<h1 class="heading"><b>Cursos Activos Actualmente</b></h1>
+    <div class="container-home">
 
-<div class="container-historial">
+          <h2 class="h2-home">Bienvenido al portal EAD <?php echo $nombreEmpresa; ?></h2>
 
-   <div class="cubo">
 
-     <h3 class="estatus-pago">Estatus del curso: Activo</h3>
-
-     <h3 class="fecha-pago">Fecha de Creación: </h3>
-
-     <h3 class="Referencia-pago">12/12/2023</h3>
-
-     <h3 class="monto-pago"><b>Ingles I</b></h3>
-
-     <button style="cursor: pointer;" type="submit" class="boton-detalles">Ver Curso</button>
-      
-   </div>
+    </div>
 
 
 
-   <div class="cubo">
-
-      <h3 class="estatus-pago">Estatus del curso: Activo</h3>
-
-      <h3 class="fecha-pago">Fecha de Creación:</h3>
-
-      <h3 class="Referencia-pago">12/12/2023</h3>
-
-      <h3 class="monto-pago"><b>Programación I</b></h3>
-
-      <button style="cursor: pointer;" type="submit" class="boton-detalles">Ver Curso</button>
-       
-   </div>
-   <div class="cubo">
-
-      <h3 class="estatus-pago">Estatus del curso: Activo</h3>
-
-      <h3 class="fecha-pago">Fecha de Creación:</h3>
-
-      <h3 class="Referencia-pago">12/12/2023</h3>
-
-      <h3 class="monto-pago"><b>Portugues Avanzado</b></h3>
-
-      <button style="cursor: pointer;" type="submit" class="boton-detalles">Ver Curso</button>
-       
-   </div>
-   <div class="cubo">
-
-      <h3 class="estatus-pago">Estatus del curso: Activo</h3>
-
-      <h3 class="fecha-pago">Fecha de Creación:</h3>
-
-      <h3 class="Referencia-pago">12/12/2023</h3>
-
-      <h3 class="monto-pago"><b>Italiano Intermedio</b></h3>
-
-      <button style="cursor: pointer;" type="submit" class="boton-detalles">Ver Curso</button>
-       
-   </div>
-   </div>
-
-   <div class="containerButtonCrearCurso">
-
-   <button type="button" class="botonCrearCurso btn btn-primary" onclick="location.href='crearCurso.php'">Crear Nuevo Curso</button>
-
-  </div>
+</div>
 
 </section>
 

@@ -1,0 +1,102 @@
+.ql-toolbar {
+    max-height: 40px; /* ajusta la altura máxima como desees */
+  }
+
+ #editor {
+    height: 200px; /* ajusta la altura como desees */
+  }  
+
+
+  .crearActividad {
+    padding: 20px;
+  }
+  
+  .container-fluid {
+    background-color: #ffffff; /* Fondo blanco */
+    margin-top: 20px; /* Margen superior */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+  }
+  
+  .TituloCrearActividad {
+    text-align: center; /* Centrar texto */
+    margin-bottom: 20px; /* Margen inferior */
+    
+  }
+  
+  .TituloCrear {
+    font-weight: bold; /* Negrita */
+    padding: 25px;
+  }
+  
+  .tituloActividad,
+  .Instrucciones,
+  .contenidoActividad,
+  .contenidoActividadAdicional,
+  .fechainicioContenedor,
+  .fechaculminacionContenedor,
+  .fechacierreContenedor,
+  .fechanotificacionContenedor,
+  .numeroArchivosContenedor,
+  .pesoArchivosContenedor,
+  .notaMaximaContenedor,
+  .notaMinimaContenedor,
+  .div2Crear,
+  .div3Crear,
+  .porcentajeContenedor {
+    margin-bottom: 20px; /* Margen inferior */
+  }
+  
+  .custom-file-label {
+    overflow: hidden; /* Ocultar texto que desborda */
+  }
+  
+  .juntar {
+    display: flex; /* Mostrar en línea */
+    align-items: center; /* Alinear verticalmente */
+  }
+  
+  .juntar input {
+    flex: 1; /* Expandir */
+    margin-right: 10px; /* Margen derecho */
+  }
+  
+  .div2Crear,
+  .div3Crear {
+    margin-top: 20px; /* Margen superior */
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  .containerButtonCrearActividadFin{
+
+    display: flex;
+
+    width: 100%;
+
+    justify-content: center;
+
+    align-items: center;
+
+    margin-top: 2em;
+
+    margin-bottom: 1em;
+
+}
+
+.botonCrearCursoFin{
+
+    margin-bottom: 1em;
+
+    margin: 10px;
+
+}
+
+.botonRegresar{
+
+    margin-bottom: 1em;
+
+    margin: 10px;
+
+}

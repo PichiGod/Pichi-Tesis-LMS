@@ -1,3 +1,22 @@
+<?php
+
+require "../assests/php/conexion.php";
+
+// Realizar la consulta a la tabla empresa
+$query = "SELECT nombre_empresa FROM empresa";
+$result = mysqli_query($mysqli, $query);
+
+// Arreglo para almacenar los nombres de las empresas
+$empresas = array();
+
+// Iterar sobre los resultados y almacenar los nombres de las empresas
+while ($row = mysqli_fetch_assoc($result)) {
+    $empresas[] = $row['nombre_empresa'];
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -41,7 +60,7 @@
               class="btn btn-primary me-4 d-flex shadow"
               href="login.php"
               role="button"
-              >Iniciar seccion</a
+              >Iniciar sesión</a
             >
           </div>
         </div>
@@ -49,9 +68,10 @@
     </header>
 
     <section name="formulario">
-      <!-- Formulario de registro -->
+      <form action="" method="post">
+        <input type="hidden" name="" id="action" value="Register">
       <div name="formulario" class="bg-pastel">
-        <div class="pt-2 px-3 bg-blanco shadow rounded formulario">
+        <div class="containerRegistro pt-2 px-3 bg-blanco shadow rounded formulario">
           <div>
             <p class="fs-1 text-center">Registro</p>
           </div>
@@ -62,9 +82,9 @@
             <div class="form-floating mb-3">
               <input
                 type="text"
-                class="form-control form"
+                class="nombreUsuario form-control form"
                 name="formId1"
-                id="formId1"
+                id="nombreUsuario"
                 placeholder="" />
               <label for="formId1">Nombre de usuario</label>
             </div>
@@ -74,21 +94,34 @@
             <div class="form-floating mb-3">
               <input
                 type="text"
-                class="form-control form"
+                class="apellidoUsuario form-control form"
                 name="formId1"
-                id="formId1"
+                id="apellidoUsuario"
                 placeholder="" />
-              <label for="formId1">Correo Electronico</label>
+              <label for="formId1">Apellido de usuario</label>
+            </div>
+          </div>
+
+
+          <div>
+            <div class="form-floating mb-3">
+              <input
+                type="email"
+                class="correoUsuario form-control form"
+                name="formId1"
+                id="correoUsuario"
+                placeholder="" />
+              <label for="">Correo Electronico</label>
             </div>
           </div>
 
           <div>
             <div class="form-floating mb-3">
               <input
-                type="text"
-                class="form-control form"
+                type="number"
+                class="rifUsuario form-control form"
                 name="formId2"
-                id="formId2"
+                id="rifUsuario"
                 placeholder="" />
               <label for="formId1">R.I.F.</label>
             </div>
@@ -97,35 +130,82 @@
           <div>
             <div class="form-floating mb-3">
               <input
-                type="text"
-                class="form-control form"
+                type="password"
+                class="contrasenaUsuario form-control form"
                 name="formId3"
-                id="formId3"
+                id="contrasenaUsuario"
                 placeholder="" />
               <label for="formId1">Contraseña</label>
             </div>
           </div>
 
+
           <div>
-            <div class="form-floating mb-4">
+            <div class="form-floating mb-3">
               <input
                 type="text"
-                class="form-control form"
-                name="formId4"
-                id="formId4"
+                class="direccionUsuario form-control form"
+                name="formId3"
+                id="direccionUsuario"
                 placeholder="" />
-              <label for="formId1">Comprobar contraseña</label>
+              <label for="formId1">Dirección</label>
             </div>
           </div>
 
+          <div>
+            <div class="form-floating mb-4">
+            <select class="GeneroUsuario form-select" aria-label="Default select example" id="GeneroUsuario">
+        <option selected>Masculino</option>
+        <option value="1">Femenino</option>
+        </select>
+              <label for="formId1">Genero</label>
+            </div>
+          </div>
+
+          <div>
+                        <div class="form-floating mb-4">
+                            <select class="Empresa form-select" aria-label="Default select example" id="Empresa" name="Empresa">
+                                <option selected disabled>Seleccione una empresa</option>
+                                <?php foreach ($empresas as $empresa) : ?>
+                                    <option value="<?php echo $empresa; ?>"><?php echo $empresa; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <label for="Empresa">Empresa</label>
+                        </div>
+                    </div>
+
+          <div>
+            <div class="form-floating mb-3">
+              <input type="date" class="fechaNacimiento form-control" id="fechaNacimiento" name="fecha">
+              <label for="formId1">Fecha de Nacimineto</label>
+            </div>
+          </div>
+          
+          <div>
+          <div class="form-floating mb-3 w-auto align-self-center">
+                <input
+                  type="number"
+                  class="telefonoUsuario form-control"
+                  name="formId1"
+                  id="telefonoUsuario"
+                  placeholder="" />
+                <label for="formId1">Telefono</label>
+              </div>
+            </div>
+
           <div class="text-center">
-            <button type="submit" class="btn btn-primary mb-4">
-              Iniciar Seccion
+            <button type="button" class="btn btn-primary mb-4" onclick="submitData();">
+              Registrarse
             </button>
           </div>
 
         </div>
       </div>
+      </form>
     </section>
+
+    
+    <?php require "../assests/php/registerMain.php"; ?>
+
   </body>
 </html>
