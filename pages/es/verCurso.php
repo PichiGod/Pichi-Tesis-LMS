@@ -41,7 +41,7 @@ if (isset($_SESSION['id_user'])) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cursos</title>
+    <title>Ver Curso</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -54,7 +54,6 @@ if (isset($_SESSION['id_user'])) {
     <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
     <link rel="stylesheet" href="../../assests/css/viewUser.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
-    <link rel="stylesheet" href="../../assests/css/style (2).css">
 
 </head>
 
@@ -130,103 +129,85 @@ if (isset($_SESSION['id_user'])) {
     <section class="Cursos">
 
         <div class="container-fluid bg-blanco mt-3 shadow w-75" style="margin-left: 20rem">
-            <h1 class="heading"><b>Cursos Activos Actualmente</b></h1>
+            <!--Titulo-->
+            <div class="container pt-4 pb-3">
 
-            <div class="container">
-                <div class="container overflow-hidden text-center">
-                    <div class="row gy-3 mb-4">
-                        <div class="col">
-                            <div class="card" style="width: 18rem">
-                                <div class="card-body">
-                                    <span class="card-text text-bg-success rounded p-1 fs-6">Estatus del curso:
-                                        Activo</span>
+                <div class="p-2 mb-2 rounded shadow w-75">
+                    <h2><strong>Nombre del curso - Seccion (Opcional)</strong></h2>
+                </div>
+                
+                <p>Nombre de la Empresa</p>
 
-                                    <p class="mt-2 card-text text-end">Fecha de Creación:</p>
-                                    <p class="card-text text-end">12/12/2023</p>
-                                    <h4 class="card-title text-start">Ingles I</h4>
+                <div class="p-2 my-4 rounded shadow w-75">
+                    <h4>Esenciales (Para las cosas que siempre va a tener un curso. Osea el Foro y el chat)</h4>
+                </div>
 
-                                    <a class="btn btn-primary mt-2" href="verCurso.php">Ver Curso</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card" style="width: 18rem">
-                                <div class="card-body">
-                                    <span class="card-text text-end text-bg-success rounded p-1 fs-6">Estatus del curso:
-                                        Activo</span>
+                <div class="item-recurso container bg-secondary-subtle text-secondary-emphasis mt-3 p-3">
+                    <div>
 
-                                    <p class="mt-2 card-text text-end">Fecha de Creación:</p>
-                                    <p class="card-text text-end">12/12/2023</p>
-                                    <h4 class="card-title text-start">Portugues Avanzado</h4>
+                        <div>
+                        <i class="fa-solid fa-user-tie me-2 p-3 rounded bg-warning-subtle"></i>
 
-                                    <a class="btn btn-primary mt-2" href="verCurso.php">Ver Curso</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card" style="width: 18rem">
-                                <div class="card-body">
-                                    <span class="card-text text-end text-bg-success rounded p-1 fs-6">Estatus del curso:
-                                        Activo</span>
-
-                                    <p class="mt-2 card-text text-end">Fecha de Creación:</p>
-                                    <p class="card-text text-end">12/12/2023</p>
-                                    <h4 class="card-title text-start">Italiano Intermedio</h4>
-
-                                    <a class="btn btn-primary mt-2" href="verCurso.php">Ver Curso</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card" style="width: 18rem">
-                                <div class="card-body">
-                                    <span class="card-text text-end text-bg-success rounded p-1 fs-6">Estatus del curso:
-                                        Activo</span>
-
-                                    <p class="mt-2 card-text text-end">Fecha de Creación:</p>
-                                    <p class="card-text text-end">12/12/2023</p>
-                                    <h4 class="card-title text-start">Ingles I</h4>
-
-                                    <a class="btn btn-primary mt-2" href="verCurso.php">Ver Curso</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card" style="width: 18rem">
-                                <div class="card-body">
-                                    <span class="card-text text-end text-bg-success rounded p-1 fs-6">Estatus del curso:
-                                        Activo</span>
-
-                                    <p class="mt-2 card-text text-end">Fecha de Creación:</p>
-                                    <p class="card-text text-end">12/12/2023</p>
-                                    <h4 class="card-title text-start">Portugues Avanzado</h4>
-
-                                    <a class="btn btn-primary mt-2" href="verCurso.php">Ver Curso</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card" style="width: 18rem">
-                                <div class="card-body">
-                                    <span class="card-text text-end text-bg-success rounded p-1 fs-6">Estatus del curso:
-                                        Activo</span>
-
-                                    <p class="mt-2 card-text text-end">Fecha de Creación:</p>
-                                    <p class="card-text text-end">12/12/2023</p>
-                                    <h4 class="card-title text-start">Italiano Intermedio</h4>
-
-                                    <a class="btn btn-primary mt-2" href="verCurso.php">Ver Curso</a>
-                                </div>
-                            </div>
+                            <span>Foro</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="containerButtonCrearCurso">
-                <button type="button" class="botonCrearCurso btn btn-primary" onclick="location.href='crearCurso.php'">
-                    Crear Nuevo Curso
-                </button>
+                <div class="item-recurso container bg-secondary-subtle text-secondary-emphasis mt-3 p-3">
+                    <div>
+
+                        <div>
+                            <i class="fa-solid fa-bullhorn me-2 p-3 rounded bg-warning-subtle"></i>
+
+                            <span>Chat en Linea</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-2 my-4 rounded shadow w-75">
+                    <h4>Contenido de materia (Para recursos de tipo texto, archivo [word, powerpoint, img, etc.])</h4>
+                </div>
+
+                <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis p-3">
+                    <div class="">
+
+                        <div class="">
+                            <i class="fa-solid fa-note-sticky me-2 p-3 rounded bg-warning-subtle" witdh="35"
+                                height="35"></i>
+                            <span>Recurso o Documento</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="p-2 my-4 rounded shadow w-75">
+                    <h4>Actividades (Estrictamente para actividades de la materia como tareas/entregas)</h4>
+                </div>
+
+                <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis p-3">
+                    <div class="">
+
+                        <div class="">
+                            <i class="fa-solid fa-note-sticky me-2 p-3 rounded bg-warning-subtle" witdh="35"
+                                height="35"></i>
+                            <span>Recurso o Actividad</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis mt-3 p-3">
+                    <div class="">
+
+                        <div class="">
+                            <i class="fa-solid fa-note-sticky me-2 p-3 rounded bg-warning-subtle" witdh="35"
+                                height="35"></i>
+                            <span>Recurso o Actividad #2</span>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
 
