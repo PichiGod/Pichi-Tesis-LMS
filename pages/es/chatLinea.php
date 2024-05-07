@@ -20,7 +20,7 @@
 
 <body class="bg-pastel container-fluid">
     <h3>Chat en Linea</h3>
-
+    <!--Lista de Usuarios-->
     <div class="row flex-nowrap">
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-white">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
@@ -28,6 +28,8 @@
                     <li class="nav-item" id="listaUsuarios">
                         <table>
                             <tbody>
+
+                                <!--Este bloque es para el listado de cada usuario-->
                                 <tr class="border">
                                     <td id="fotoDePerfil" class="py-2">
                                         <img src="https://github.com/PichiGod.png" witdh="38" height="38" alt="...">
@@ -36,6 +38,16 @@
                                         <span><strong>Jose Duarte</strong></span>
                                     </td>
                                 </tr>
+
+                                <tr class="border">
+                                    <td id="fotoDePerfil" class="py-2">
+                                        <img src="https://github.com/PichiGod.png" witdh="38" height="38" alt="...">
+                                    </td>
+                                    <td class="py-2 pe-2">
+                                        <span><strong>Jose Duarte</strong></span>
+                                    </td>
+                                </tr>
+
                             </tbody>
                         </table>
                     </li>
@@ -76,8 +88,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 
 
