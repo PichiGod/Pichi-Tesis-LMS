@@ -69,6 +69,7 @@ if (mysqli_num_rows($conexion1)>0){
     <!-- CSS only -->
     <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
     <link rel="stylesheet" href="../../assests/css/viewUser.css" />
+    <link rel="stylesheet" href="../../assests/css/sidebar.css" />
     <!--Sidebar.js-->
     <script src="../../assests/js/sidebar.js"></script>
 </head>

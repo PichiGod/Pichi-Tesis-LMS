@@ -57,6 +57,7 @@ if (isset($_SESSION['id_user'])) {
     <link rel="stylesheet" href="../../assests/css/viewUser.css" />
     <link rel="stylesheet" href="../../assests/css/style (2).css">
     <link rel="stylesheet" href="../../assests/css/crearCurso.css">
+    <link rel="stylesheet" href="../../assests/css/sidebar.css" />
     <!--Sidebar.js-->
     <script src="../../assests/js/sidebar.js"></script>
 </head>

@@ -57,6 +57,7 @@ if (isset($_SESSION['id_user'])) {
     <!-- CSS only -->
     <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
     <link rel="stylesheet" href="../../assests/css/viewUser.css" />
+    <link rel="stylesheet" href="../../assests/css/sidebar.css" />
 
     <!--Sidebar.js-->
     <script src="../../assests/js/sidebar.js"></script>
@@ -217,10 +218,6 @@ if (isset($_SESSION['id_user'])) {
         </div>
 
     </section>
-
-
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

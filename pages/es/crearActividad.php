@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="../assests/css/viewUser.css" />
     <link rel="stylesheet" href="../assests/css/style (2).css">
     <link rel="stylesheet" href="../assests/css/crearActividad.css">
+    <link rel="stylesheet" href="../../assests/css/sidebar.css" />
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <!--Sidebar.js-->
     <script src="../../assests/js/sidebar.js"></script>
