@@ -14,7 +14,7 @@
 
 }
 
-.div1Crear, .div2Crear, .div3Crear, .div4Crear, .div5Crear, .div6Crear, .div45Crear{
+.div1Crear, .div2Crear, .div3Crear, .div4Crear, .div5Crear, .div6Crear, .div45Crear, .divIDCrear{
 
     display: flex;
 
@@ -29,6 +29,12 @@
 .seleccion{
 
     margin-left: 3em;
+
+}
+
+.IDcurso{
+
+    margin-left: 7.3em;
 
 }
 

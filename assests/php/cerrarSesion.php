@@ -2,13 +2,25 @@
 
 require "conexion.php";
 
-$_SESSION= [];
+require "LoginBD.php";
 
-session_unset();
+if(isset($_SESSION['id_user'])){
 
-session_destroy();
+    $usuario= $_SESSION['id_user'];
 
-header("location: ../../index.html");
+    $destruirSesion= mysqli_query($mysqli, "UPDATE usuario SET Active_online = '0' WHERE id_user = '$usuario'");
+
+    $_SESSION= [];
+
+    session_unset();
+
+    session_destroy();
+
+    header("location: ../../index.html");
+
+
+}
+
 
 
 ?>

@@ -1,3 +1,41 @@
+<?php
+
+require "../../assests/php/LoginBD.php";
+
+if(isset($_SESSION['id_user'])){
+
+$usuarios1= $_SESSION['id_user'];
+
+$conexion1= mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+
+if (mysqli_num_rows($conexion1)>0){
+
+    $datos= mysqli_fetch_assoc($conexion1);
+
+    $empresaUsuario= $datos['Empresa_id_empresa'];
+
+    $nombreUsuario= $datos['nombre_user'];
+
+    $apellidoUsuario = $datos['apellido_user'];
+
+    $conexion2= mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
+
+    if (mysqli_num_rows($conexion2)>0){
+
+        $datos2= mysqli_fetch_assoc($conexion2);
+
+        $nombreEmpresa= $datos2['nombre_empresa'];
+
+    }
+
+}
+
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,7 +88,7 @@
                             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://github.com/PichiGod.png" alt="" width="32" height="32"
                                 class="rounded-circle me-2" />
-                            <strong>User</strong>
+                                <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                             <li><a class="dropdown-item" href="#">New project...</a></li>
@@ -106,6 +144,12 @@
 
 <section class="crearCurso">
 
+<form action="" method="post">
+
+<input type="hidden" name="action" id="action" value="NuevoCurso">
+
+<input type="hidden" name="action2" id="action2" value="<?php echo $nombreEmpresa?>">
+
 <div class="container-fluid bg-blanco mt-3 shadow w-75" style="margin-left: 20rem;">
 
   <div class="TituloCrearCurso">
@@ -115,12 +159,44 @@
   </div>
 
   <div class="DivPrinFormulario">
+  <div class="divIDCrear">
+                    <label for="id_cur">ID Curso</label>
+                    <?php
+                    
+
+
+                    // Consultar el último ID de curso utilizado
+                    $consulta_ultimo_id = mysqli_query($mysqli, "SELECT MAX(id_cur) AS ultimo_id FROM cursos");
+                    
+                    if ($consulta_ultimo_id) {
+                        $datos_ultimo_id = mysqli_fetch_assoc($consulta_ultimo_id);
+                        $ultimo_id = $datos_ultimo_id['ultimo_id'];
+
+                        if ($ultimo_id) {
+                            // Extraer los dos últimos dígitos numéricos del ID
+                            $ultimo_numero = intval(substr($ultimo_id, strrpos($ultimo_id, '_') + 1));
+                            $siguiente_numero = $ultimo_numero + 1;
+
+                            // Generar el nuevo ID con el número siguiente
+                            $nuevo_id_cur = 'Cur_'. $nombreEmpresa. '_' . sprintf('%02d', $siguiente_numero);
+                        } else {
+                            // Si no hay ningún ID anterior, comenzar desde 01
+                            $nuevo_id_cur = 'Cur_01';
+                        }
+                    } else {
+                        // Manejar el caso en que no se puede obtener el último ID
+                        $nuevo_id_cur = 'Cur_01';
+                    }
+                    ?>
+                    <input type="text" class="id_cur form-control" id="id_cur" name="id_cur" value="<?php echo htmlspecialchars($nuevo_id_cur); ?>" readonly>
+                </div>
+
 
      <div class="div1Crear">
 
      <label for="">Nombre Completo del Curso</label>
 
-     <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nombre del Curso">
+     <input type="text" class="nombreCurso form-control" id="nombreCurso" name="nombreCurso" placeholder="Nombre del Curso">
 
      </div>
 
@@ -130,7 +206,7 @@
 
      <label for="">Visibilidad del Curso</label>
 
-     <select class="seleccion form-select" aria-label="Default select example">
+     <select class="visibilidadCurso seleccion form-select" id="visibilidadCurso" name="visibilidadCurso" aria-label="Default select example">
         <option selected>Visible</option>
         <option value="1">Invisible</option>
         </select>
@@ -142,7 +218,7 @@
 
         <label for="">Fecha de Inicio</label>
 
-        <input type="date" class="fechaInicio">
+        <input type="date" class="fechaInicio form-control" id="fechaInicio" name="fechaInicio">
 
     </div>
 
@@ -151,7 +227,7 @@
 
             <label for="">Fecha de Culminación</label>
 
-            <input type="date" class="fechaFin">
+            <input type="date" class="fechaFin form-control" id="fechaFin" name="fechaFin">
 
      </div>
 
@@ -159,7 +235,7 @@
 
         <label for="">Nombre del periodo</label>
 
-        <input type="text" class="inputperiodo form-control" id="exampleFormControlInput1" placeholder="Nombre del periodo">
+        <input type="text" class="inputperiodo form-control" id="inputperiodo" name="inputperiodo" placeholder="Nombre del periodo">
 
 </div>
 
@@ -168,7 +244,7 @@
 
         <label for="">Cupos Minimos del Curso</label>
 
-        <input type="number" class="minimos form-control" id="exampleFormControlInput1" placeholder="0">
+        <input type="number" class="minimos form-control" id="minimos" name="minimos" placeholder="0">
 
     </div>
 
@@ -177,7 +253,7 @@
 
         <label for="">Cupos Maximos del Curso</label>
 
-        <input type="number" class="maximos form-control" id="exampleFormControlInput1" placeholder="0">
+        <input type="number" class="maximos form-control" id="maximos" name="maximos" placeholder="0">
 
     </div>
 
@@ -189,13 +265,15 @@
     
 <button type="button" class="botonRegresar btn btn-primary" onclick="location.href='cursos.php'">Regresar</button>
 
-<button type="button" class="botonCrearCursoFin btn btn-primary">Crear Curso</button>
+<button type="button" class="botonCrearCursoFin btn btn-primary" onclick="submitData();">Crear Curso</button>
 
 
 </div>
 
 
 </div>
+
+</form>
 
 </section>
 
@@ -209,6 +287,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
+
+
+        <?php require "../../assests/php/crearCursoMain.php"; ?>
+
 </body>
 
 </html>
