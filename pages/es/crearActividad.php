@@ -15,11 +15,11 @@
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- CSS only -->
-    <link rel="stylesheet" href="../assests/css/colorPallete.css" />
-    <link rel="stylesheet" href="../assests/css/viewUser.css" />
-    <link rel="stylesheet" href="../assests/css/style (2).css">
-    <link rel="stylesheet" href="../assests/css/crearActividad.css">
+    <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
+    <link rel="stylesheet" href="../../assests/css/viewUser.css" />
+    <link rel="stylesheet" href="../../assests/css/style (2).css">
     <link rel="stylesheet" href="../../assests/css/sidebar.css" />
+    <link rel="stylesheet" href="../../assests/css/crearActividad.css">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <!--Sidebar.js-->
     <script src="../../assests/js/sidebar.js"></script>
@@ -34,7 +34,7 @@
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
                 <a class="navbar-brand" href="../index.html">
-                    <img src="../Pichi-Tesis-LMS/assests/img/text-1710023184778.png" alt="Bootstrap" width="70"
+                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70"
                         height="24" />
                 </a>
 
