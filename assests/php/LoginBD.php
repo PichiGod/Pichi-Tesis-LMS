@@ -30,7 +30,7 @@ if(empty($cedulaLogin) || empty($contrasenaLogin)){
     exit;
 }
 
-$usuarios= mysqli_query($mysqli, "SELECT id_user, nombre_user, apellido_user, contrasena_user,  rol, identificacion_user 
+$usuarios= mysqli_query($mysqli, "SELECT id_user, nombre_user, apellido_user, contrasena_user,  rol, identificacion_user, Empresa_id_empresa 
 FROM usuario 
 WHERE identificacion_user = '$cedulaLogin'
 AND contrasena_user= '$contrasenaLogin'");
@@ -40,6 +40,24 @@ if (mysqli_num_rows($usuarios)>0){
     $datos= mysqli_fetch_assoc($usuarios);
 
     $rol= $datos['rol'];
+
+    $Empresa= $datos['Empresa_id_empresa'];
+
+    $usuariosOnline= $datos['id_user'];
+
+    $CambiarEstatus=  mysqli_query($mysqli, "UPDATE usuario SET Active_online = '1' WHERE id_user = '$usuariosOnline'");
+
+    $usuariosActivos= mysqli_query($mysqli, "SELECT Active_online FROM usuario WHERE Empresa_id_empresa = '$Empresa' AND Active_online = '1'");
+
+    if (mysqli_num_rows($usuariosActivos)>0){
+
+
+         $_SESSION['usuariosActive'] = mysqli_num_rows($usuariosActivos);
+
+
+    }
+
+
 
     if($rol==1){
 

@@ -2,6 +2,8 @@
 
 require "../../assests/php/LoginBD.php";
 
+$cursos = [];
+
 if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
@@ -26,6 +28,18 @@ if (isset($_SESSION['id_user'])) {
 
             $nombreEmpresa = $datos2['nombre_empresa'];
 
+            $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
+
+            if (mysqli_num_rows($conexion3) > 0) {
+                while ($datos3 = mysqli_fetch_assoc($conexion3)) {
+                    $cursos[] = $datos3;
+
+                }
+
+            }
+
+
+
         }
 
     }
@@ -45,7 +59,8 @@ if (isset($_SESSION['id_user'])) {
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-
+    <!-- Boxicons icons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <!-- Font Awesome  icons (free version)-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
@@ -53,22 +68,28 @@ if (isset($_SESSION['id_user'])) {
     <!-- CSS only -->
     <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
     <link rel="stylesheet" href="../../assests/css/viewUser.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
     <link rel="stylesheet" href="../../assests/css/style (2).css">
-
+    <link rel="stylesheet" href="../../assests/css/sidebar.css" />
+    <!--Sidebar.js-->
+    <script src="../../assests/js/sidebar.js"></script>
 </head>
 
-<body class="bg-pastel">
+<body class="bg-pastel" id="body-pd">
     <!--- Navbar -->
-    <header>
+    <header id="header">
         <nav class="navbar bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand ms-3" href="../index.html">
-                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
+                <div class="header_toggle">
+                    <i class="bx bx-menu" id="header-toggle"></i>
+                </div>
+                <a class="navbar-brand" href="../index.html">
+                    <img src="../Pichi-Tesis-LMS/assests/img/text-1710023184778.png" alt="Bootstrap" width="70"
+                        height="24" />
                 </a>
+
                 <div class="d-flex justify-content-end">
-                    <div class="vr me-2"></div>
-                    <div class="dropdown me-4 pe-2">
+                    <div class="vr me-3"></div>
+                    <div class=" btn-group dropstart me-4 pe-2">
                         <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
                             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://github.com/PichiGod.png" alt="" width="32" height="32"
@@ -78,11 +99,15 @@ if (isset($_SESSION['id_user'])) {
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                             <li><a class="dropdown-item" href="#">New project...</a></li>
                             <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><a class="dropdown-item" href="viewUser.php">Profile</a></li>
+                            <li>
+                                <a class="dropdown-item" href="viewUser.php">Profile</a>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item" href="../../assests/php/cerrarSesion.php">Sign out</a></li>
+                            <li>
+                                <a class="dropdown-item" href="../../assests/php/cerrarSesion.php">Sign out</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -91,135 +116,58 @@ if (isset($_SESSION['id_user'])) {
     </header>
 
     <!-- Sidebar -->
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary float-start"
-        style="width: 280px; height: 100vh; overflow: auto">
-        <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-                <a href="inicio.php" class="nav-link link-dark" aria-current="page">
-                    <span class="fa-solid fa-house me-2" witdh="16" height="16"></span>
-                    Home
+    <div class="l-navbar bg-body-tertiary" id="nav-bar">
+        <nav class="nav">
+            <div class="nav_list">
+                <a href="#" class="nav_link link-dark">
+                    <i class="bx bx-grid-alt nav_icon"></i>
+                    <span class="nav_name">Inicio</span>
                 </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    <i class="fa-solid fa-table-columns me-2" witdh="16" height="16"></i>
-                    Dashboard
+                <a href="#" class="nav_link link-dark">
+                    <i class="bx bx-user nav_icon"></i>
+                    <span class="nav_name">Dashboard</span>
                 </a>
-            </li>
-            <li>
-                <a href="cursos.php" class="nav-link active">
-                    <i class="fa-solid fa-book me-2" witdh="16" height="16"></i>
-                    Cursos
+                <a href="#" class="nav_link active">
+                    <i class="bx bxs-book nav_icon"></i>
+                    <span class="nav_name">Cursos</span>
                 </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark ">
-                    <i class="fa-solid fa-newspaper me-2" witdh="16" height="16"></i>
-                    Evaluaciones
+                <a href="#" class="nav_link link-dark">
+                    <i class="bx bx-news nav_icon"></i>
+                    <span class="nav_name">Evaluaciones</span>
                 </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    <i class="fa-solid fa-gear me-2" witdh="16" height="16"></i>
-                    Configuracion
+                <a href="#" class="nav_link link-dark">
+                    <i class="bx bx-cog nav_icon"></i>
+                    <span class="nav_name">Configuración</span>
                 </a>
-            </li>
-        </ul>
+            </div>
+        </nav>
     </div>
 
     <section class="Cursos">
-
-        <div class="container-fluid bg-blanco mt-3 shadow w-75" style="margin-left: 20rem">
+        <div class="container-fluid bg-blanco mt-3 shadow">
             <h1 class="heading"><b>Cursos Activos Actualmente</b></h1>
 
             <div class="container">
-                <div class="container overflow-hidden text-center">
-                    <div class="row gy-3 mb-4">
+                <div class="row gy-3 mb-4">
+                    <?php foreach ($cursos as $curso) { ?>
                         <div class="col">
                             <div class="card" style="width: 18rem">
                                 <div class="card-body">
-                                    <span class="card-text text-bg-success rounded p-1 fs-6">Estatus del curso:
-                                        Activo</span>
-
+                                    <?php
+                                    // Determinar la clase de fondo según la visibilidad del curso
+                                    $bgClass = ($curso['visibilidad_curso'] == 'Invisible') ? 'bg-danger' : 'bg-success';
+                                    ?>
+                                    <span class="card-text text-bg-success rounded p-1 fs-6 <?php echo $bgClass; ?>">Estatus
+                                        del curso: <?php echo $curso['visibilidad_curso']; ?></span>
                                     <p class="mt-2 card-text text-end">Fecha de Creación:</p>
-                                    <p class="card-text text-end">12/12/2023</p>
-                                    <h4 class="card-title text-start">Ingles I</h4>
-
-                                    <a class="btn btn-primary mt-2" href="verCurso.php">Ver Curso</a>
+                                    <p class="card-text text-end"><?php echo $curso['fecha_inicio']; ?></p>
+                                    <h4 class="card-title text-start"><?php echo $curso['nombre_cur']; ?></h4>
+                                    <a class="btn btn-primary mt-2"
+                                        href="verCurso.php?id=<?php echo $curso['id_cur']; ?>">Ver Curso</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="card" style="width: 18rem">
-                                <div class="card-body">
-                                    <span class="card-text text-end text-bg-success rounded p-1 fs-6">Estatus del curso:
-                                        Activo</span>
-
-                                    <p class="mt-2 card-text text-end">Fecha de Creación:</p>
-                                    <p class="card-text text-end">12/12/2023</p>
-                                    <h4 class="card-title text-start">Portugues Avanzado</h4>
-
-                                    <a class="btn btn-primary mt-2" href="verCurso.php">Ver Curso</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card" style="width: 18rem">
-                                <div class="card-body">
-                                    <span class="card-text text-end text-bg-success rounded p-1 fs-6">Estatus del curso:
-                                        Activo</span>
-
-                                    <p class="mt-2 card-text text-end">Fecha de Creación:</p>
-                                    <p class="card-text text-end">12/12/2023</p>
-                                    <h4 class="card-title text-start">Italiano Intermedio</h4>
-
-                                    <a class="btn btn-primary mt-2" href="verCurso.php">Ver Curso</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card" style="width: 18rem">
-                                <div class="card-body">
-                                    <span class="card-text text-end text-bg-success rounded p-1 fs-6">Estatus del curso:
-                                        Activo</span>
-
-                                    <p class="mt-2 card-text text-end">Fecha de Creación:</p>
-                                    <p class="card-text text-end">12/12/2023</p>
-                                    <h4 class="card-title text-start">Ingles I</h4>
-
-                                    <a class="btn btn-primary mt-2" href="verCurso.php">Ver Curso</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card" style="width: 18rem">
-                                <div class="card-body">
-                                    <span class="card-text text-end text-bg-success rounded p-1 fs-6">Estatus del curso:
-                                        Activo</span>
-
-                                    <p class="mt-2 card-text text-end">Fecha de Creación:</p>
-                                    <p class="card-text text-end">12/12/2023</p>
-                                    <h4 class="card-title text-start">Portugues Avanzado</h4>
-
-                                    <a class="btn btn-primary mt-2" href="verCurso.php">Ver Curso</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card" style="width: 18rem">
-                                <div class="card-body">
-                                    <span class="card-text text-end text-bg-success rounded p-1 fs-6">Estatus del curso:
-                                        Activo</span>
-
-                                    <p class="mt-2 card-text text-end">Fecha de Creación:</p>
-                                    <p class="card-text text-end">12/12/2023</p>
-                                    <h4 class="card-title text-start">Italiano Intermedio</h4>
-
-                                    <a class="btn btn-primary mt-2" href="verCurso.php">Ver Curso</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php } ?>
                 </div>
             </div>
 
@@ -229,12 +177,7 @@ if (isset($_SESSION['id_user'])) {
                 </button>
             </div>
         </div>
-
     </section>
-
-
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

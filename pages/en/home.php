@@ -2,9 +2,11 @@
 
 require "../../assests/php/LoginBD.php";
 
-if(isset($_SESSION['id_user'])){
+if(isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive']) ) {
 
 $usuarios1= $_SESSION['id_user'];
+
+$usuariosActivos = $_SESSION['usuariosActive'];
 
 $conexion1= mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
@@ -25,6 +27,18 @@ if (mysqli_num_rows($conexion1)>0){
         $datos2= mysqli_fetch_assoc($conexion2);
 
         $nombreEmpresa= $datos2['nombre_empresa'];
+
+    }
+
+    $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
+
+    if(mysqli_num_rows($conexion3)>0){
+
+        $cursosCantidad= mysqli_num_rows($conexion3);
+
+    }else{
+
+        $cursosCantidad= 0;
 
     }
 
@@ -163,14 +177,14 @@ if (mysqli_num_rows($conexion1)>0){
                     <div class="col-sm ">
                         <div class="text-center border border-1 rounded border-secondary bg-grisSuave">
                             <p>Usuarios Activos</p>
-                            <p class="mt-3 "><strong>120 Usuarios</strong></p>
+                            <p class="mt-3 "><strong><?php echo $usuariosActivos;  ?></strong></p>
                         </div>
 
                     </div>
                     <div class="col-sm">
                         <div class="text-center border border-1 rounded border-secondary bg-grisSuave">
                             <p>Cantidad de cursos</p>
-                            <p class="mt-3 "><strong>20</strong></p>
+                            <p class="mt-3 "><strong><?php echo $cursosCantidad; ?></strong></p>
                         </div>
 
                     </div>
