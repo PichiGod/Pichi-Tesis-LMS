@@ -68,7 +68,7 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
                 <a class="navbar-brand" href="../index.html">
-                    <img src="../Pichi-Tesis-LMS/assests/img/text-1710023184778.png" alt="Bootstrap" width="70"
+                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70"
                         height="24" />
                 </a>
 

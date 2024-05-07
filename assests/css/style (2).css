@@ -187,7 +187,7 @@ border-radius: 5px;
       padding-left: 0;
    }
 
-   .side-bar{
+   /* .side-bar{
       left: -30rem;
       transition: .2s linear;
    }
@@ -200,7 +200,7 @@ border-radius: 5px;
       left: 0;
       box-shadow: 0 0 0 100vw rgba(0,0,0,.8);
       border-right: 0;
-   }
+   } */
 
 }
 
@@ -218,7 +218,7 @@ border-radius: 5px;
       display: inline-block;
    }
 
-   .header .flex .search-form{
+   /* .header .flex .search-form{
       position: absolute;
       top: 99%; left: 0; right: 0;
       border-top: var(--border);
@@ -229,7 +229,7 @@ border-radius: 5px;
       padding: 2rem;
       clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
       transition: .2s linear;
-   }
+   } */
 
    .header .flex .search-form.active{
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);

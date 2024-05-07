@@ -31,7 +31,7 @@
           <i class="bx bx-menu" id="header-toggle"></i>
         </div>
         <a class="navbar-brand" href="../index.html">
-          <img src="../Pichi-Tesis-LMS/assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
+          <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
         </a>
 
         <div class="d-flex justify-content-end">
