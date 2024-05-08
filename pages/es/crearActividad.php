@@ -222,15 +222,6 @@ if (isset($_SESSION['id_user'])) {
 
             </div>
 
-            <div class="fechaculminacionContenedor">
-
-                <label for="">fecha de Culminación</label>
-
-                <input type="date" class="form-control" id="fecha" name="fecha">
-
-
-            </div>
-
 
             <div class="fechacierreContenedor">
 
