@@ -6,12 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Perfil de Usuario</title>
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
 
   <!-- Boxicons icons -->
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
   <!-- Font Awesome  icons (free version)-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- CSS only -->
   <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
@@ -35,23 +38,38 @@
         </a>
 
         <div class="d-flex justify-content-end">
+          <!--Cambio de Idioma ver.Español-->
+          <div class="vr me-2"></div>
+          <div class="nav-item dropdown">
+            <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+              <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
+                href="../es/registro.php">Español (Latino America)</a>
+            </button>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item">
+                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary" href="#">Inglés</a>
+              </li>
+            </ul>
+          </div>
+          <!--Opciones de Usuario ver.Español-->
           <div class="vr me-3"></div>
-          <div class=" btn-group dropstart me-4 pe-2">
-            <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+          <div class="btn-group dropstart me-4 pe-2">
+            <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
+              id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
               <img src="https://github.com/PichiGod.png" alt="" width="32" height="32" class="rounded-circle me-2" />
               <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-              <li><a class="dropdown-item" href="#">New project...</a></li>
-              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><a class="dropdown-item" href="#">New project...(?)</a></li>
+              <li><a class="dropdown-item" href="#">Settings(?)</a></li>
               <li>
-                <a class="dropdown-item" href="viewUser.php">Profile</a>
+                <a class="dropdown-item" href="viewUser.php">Perfil</a>
               </li>
               <li>
                 <hr class="dropdown-divider" />
               </li>
               <li>
-                <a class="dropdown-item" href="../../assests/php/cerrarSesion.php">Sign out</a>
+                <a class="dropdown-item" href="../../assests/php/cerrarSesion.php">Cerrar Sección</a>
               </li>
             </ul>
           </div>
@@ -114,8 +132,12 @@
     </div>
   </section>
 
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

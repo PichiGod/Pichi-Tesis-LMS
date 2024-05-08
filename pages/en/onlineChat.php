@@ -19,7 +19,7 @@
 </head>
 
 <body class="bg-pastel container-fluid">
-    <h3>Chat en Linea</h3>
+    <h3>Online Chat</h3>
 
     <div class="row flex-nowrap">
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-white">
@@ -28,6 +28,8 @@
                     <li class="nav-item" id="listaUsuarios">
                         <table>
                             <tbody>
+
+                                <!--Este bloque es para el listado de cada usuario-->
                                 <tr class="border">
                                     <td id="fotoDePerfil" class="py-2">
                                         <img src="https://github.com/PichiGod.png" witdh="38" height="38" alt="...">
@@ -36,6 +38,16 @@
                                         <span><strong>Jose Duarte</strong></span>
                                     </td>
                                 </tr>
+
+                                <tr class="border">
+                                    <td id="fotoDePerfil" class="py-2">
+                                        <img src="https://github.com/PichiGod.png" witdh="38" height="38" alt="...">
+                                    </td>
+                                    <td class="py-2 pe-2">
+                                        <span><strong>Jose Duarte</strong></span>
+                                    </td>
+                                </tr>
+
                             </tbody>
                         </table>
                     </li>
@@ -43,12 +55,12 @@
                 <hr>
             </div>
         </div>
-        <!--Contenido ChatRoom-->
 
+        <!--Contenido ChatRoom-->
         <div class="col py-3">
             <ul class="list-group-flush">
                 <li class="list-group-item bg-white p-2 rounded">
-                    <div>22:15 - <u>Jose Duarte</u> entro al chat</div>
+                    <div>22:15 - <u>Jose Duarte</u> joined the chat</div>
                 </li>
                 <hr>
                 <li class="list-group-item bg-white p-2 rounded">
@@ -59,7 +71,7 @@
 
                     </div>
                     <div id="mensaje" class="ms-3">
-                        Hola, soy Jose Duarte
+                        Hi, I'm José Duarte
                     </div>
                 </li>
             </ul>
@@ -70,7 +82,7 @@
                             <input type="text" class="form-control" size="150">
                         </span>
                         <span>
-                            <button type="submit" class="btn btn-primary mx-1">Enviar</button>
+                            <button type="submit" class="btn btn-primary mx-1">Send</button>
                         </span>
                     </div>
                 </div>

@@ -41,20 +41,24 @@ if (isset($_SESSION['id_user'])) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ver Chat en Linea</title>
+    <title>Ver Curso</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+
     <!-- Boxicons icons -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
     <!-- Font Awesome  icons (free version)-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- CSS only -->
     <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
     <link rel="stylesheet" href="../../assests/css/viewUser.css" />
     <link rel="stylesheet" href="../../assests/css/sidebar.css" />
+
     <!--Sidebar.js-->
     <script src="../../assests/js/sidebar.js"></script>
 </head>
@@ -72,21 +76,21 @@ if (isset($_SESSION['id_user'])) {
                 </a>
 
                 <div class="d-flex justify-content-end">
-                    <!--Cambio de Idioma ver.Español-->
+                    <!--Cambio de Idioma ver.Ingles-->
                     <div class="vr me-2"></div>
                     <div class="nav-item dropdown">
                         <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">
-                            <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                href="../es/registro.php">Español (Latino America)</a>
+                            <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
+                                href="#">English</a>
                         </button>
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
-                                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                                    href="#">Inglés</a>
+                                <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
+                                    href="../es/registro.php">Spanish (Latin America)</a>
                             </li>
                         </ul>
                     </div>
-                    <!--Opciones de Usuario ver.Español-->
+                    <!--Opciones de Usuario ver.Ingles-->
                     <div class="vr me-3"></div>
                     <div class="btn-group dropstart me-4 pe-2">
                         <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
@@ -96,16 +100,16 @@ if (isset($_SESSION['id_user'])) {
                             <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                            <li><a class="dropdown-item" href="#">New project...(?)</a></li>
+                            <li><a class="dropdown-item" href="#">New project... (?)</a></li>
                             <li><a class="dropdown-item" href="#">Settings(?)</a></li>
                             <li>
-                                <a class="dropdown-item" href="viewUser.php">Perfil</a>
+                                <a class="dropdown-item" href="viewUser.php">Profile</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
                             <li>
-                                <a class="dropdown-item" href="../../assests/php/cerrarSesion.php">Cerrar Sección</a>
+                                <a class="dropdown-item" href="../../assests/php/cerrarSesion.php">Sign out</a>
                             </li>
                         </ul>
                     </div>
@@ -120,7 +124,7 @@ if (isset($_SESSION['id_user'])) {
             <div class="nav_list">
                 <a href="#" class="nav_link link-dark">
                     <i class="bx bx-grid-alt nav_icon"></i>
-                    <span class="nav_name">Inicio</span>
+                    <span class="nav_name">Home</span>
                 </a>
                 <a href="#" class="nav_link link-dark">
                     <i class="bx bx-user nav_icon"></i>
@@ -128,132 +132,105 @@ if (isset($_SESSION['id_user'])) {
                 </a>
                 <a href="#" class="nav_link active">
                     <i class="bx bxs-book nav_icon"></i>
-                    <span class="nav_name">Cursos</span>
+                    <span class="nav_name">Courses</span>
                 </a>
                 <a href="#" class="nav_link link-dark">
                     <i class="bx bx-news nav_icon"></i>
-                    <span class="nav_name">Evaluaciones</span>
+                    <span class="nav_name">Evaluations</span>
                 </a>
                 <a href="#" class="nav_link link-dark">
                     <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Configuración</span>
+                    <span class="nav_name">Configuration</span>
                 </a>
             </div>
         </nav>
     </div>
 
     <section class="Cursos">
-
+        <!--Aqui no hay cambio porque depende del contenido de la base de datos, 
+        solo lo esencial cambia de idioma-->
         <div class="container-fluid bg-blanco mt-3 shadow">
-
+            <!--Titulo-->
             <div class="container pt-4 pb-3">
-                <!--Titulo-->
-                <div class="p-2 mb-2 rounded shadow">
+
+                <div class="p-2 mb-2 rounded shadow ">
                     <h2><strong>Nombre del curso - Seccion (Opcional)</strong></h2>
                 </div>
 
-                <p>Descripcion general de chat en Linea</p>
+                <p>Nombre de la Empresa</p>
 
-                <span class="p-2 my-4 rounded ">
-                    <button class="btn btn-primary ">Entrar al Chat</button>
-                </span>
-                <span class="p-2 my-4 rounded ">
-                    <button class="btn btn-secondary ">Historial del Chat</button>
-                </span>
-
-                <hr>
-
-                <div class="p-2 mb-2 rounded shadow">
-                    <h2><strong>Usuarios</strong></h2>
+                <div class="p-2 my-4 rounded shadow ">
+                    <h4>Esenciales (Para las cosas que siempre va a tener un curso. Osea el Foro y el chat)</h4>
                 </div>
-                <!--Caja de Usuarios-->
+
                 <div class="item-recurso container bg-secondary-subtle text-secondary-emphasis mt-3 p-3">
                     <div>
-                        <div class="row gy-2">
-                            <!--Este es el bloque donde de muestra la informacion de cada usuario-->
-                            <div class="col-6 col-sm-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div>
-                                            <img src="https://github.com/PichiGod.png" alt="..." width="60px"
-                                                height="auto" />
-                                            <span class="card-text fs-5">Pichi</span>
-                                        </div>
 
-                                    </div>
-                                </div>
-                            </div>
+                        <div>
+                            <i class="fa-solid fa-user-tie me-2 p-3 rounded bg-warning-subtle"></i>
 
-                            <div class="col-6 col-sm-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div>
-                                            <img src="https://github.com/PichiGod.png" alt="..." width="60px"
-                                                height="auto" />
-                                            <span class="card-text fs-5">Pichi</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-6 col-sm-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div>
-                                            <img src="https://github.com/PichiGod.png" alt="..." width="60px"
-                                                height="auto" />
-                                            <span class="card-text fs-5">Pichi</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-6 col-sm-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div>
-                                            <img src="https://github.com/PichiGod.png" alt="..." width="60px"
-                                                height="auto" />
-                                            <span class="card-text fs-5">Pichi</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-6 col-sm-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div>
-                                            <img src="https://github.com/PichiGod.png" alt="..." width="60px"
-                                                height="auto" />
-                                            <span class="card-text fs-5">Pichi</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-6 col-sm-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div>
-                                            <img src="https://github.com/PichiGod.png" alt="..." width="60px"
-                                                height="auto" />
-                                            <span class="card-text fs-5">Pichi</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
+                            <span>Forum</span>
                         </div>
                     </div>
-
                 </div>
+
+                <div class="item-recurso container bg-secondary-subtle text-secondary-emphasis mt-3 p-3">
+                    <div>
+
+                        <div>
+                            <i class="fa-solid fa-bullhorn me-2 p-3 rounded bg-warning-subtle"></i>
+
+                            <span>Online Chat</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-2 my-4 rounded shadow ">
+                    <h4>Contenido de materia (Para recursos de tipo texto, archivo [word, powerpoint, img, etc.])</h4>
+                </div>
+
+                <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis p-3">
+                    <div class="">
+
+                        <div class="">
+                            <i class="fa-solid fa-note-sticky me-2 p-3 rounded bg-warning-subtle" witdh="35"
+                                height="35"></i>
+                            <span>Recurso o Documento</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="p-2 my-4 rounded shadow ">
+                    <h4>Actividades (Estrictamente para actividades de la materia como tareas/entregas)</h4>
+                </div>
+
+                <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis p-3">
+                    <div class="">
+
+                        <div class="">
+                            <i class="fa-solid fa-note-sticky me-2 p-3 rounded bg-warning-subtle" witdh="35"
+                                height="35"></i>
+                            <span>Recurso o Actividad</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis mt-3 p-3">
+                    <div class="">
+
+                        <div class="">
+                            <i class="fa-solid fa-note-sticky me-2 p-3 rounded bg-warning-subtle" witdh="35"
+                                height="35"></i>
+                            <span>Recurso o Actividad #2</span>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
+        </div>
 
     </section>
 

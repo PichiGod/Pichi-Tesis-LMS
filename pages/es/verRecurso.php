@@ -73,8 +73,23 @@ if (isset($_SESSION['id_user'])) {
                 </a>
 
                 <div class="d-flex justify-content-end">
+                    <!--Cambio de Idioma ver.Español-->
+                    <div class="vr me-2"></div>
+                    <div class="nav-item dropdown">
+                        <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                            <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
+                                href="../es/registro.php">Español (Latino America)</a>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item">
+                                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
+                                    href="#">Inglés</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--Opciones de Usuario ver.Español-->
                     <div class="vr me-3"></div>
-                    <div class=" btn-group dropstart me-4 pe-2">
+                    <div class="btn-group dropstart me-4 pe-2">
                         <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
                             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://github.com/PichiGod.png" alt="" width="32" height="32"
@@ -82,16 +97,16 @@ if (isset($_SESSION['id_user'])) {
                             <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                            <li><a class="dropdown-item" href="#">New project...</a></li>
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><a class="dropdown-item" href="#">New project...(?)</a></li>
+                            <li><a class="dropdown-item" href="#">Settings(?)</a></li>
                             <li>
-                                <a class="dropdown-item" href="viewUser.php">Profile</a>
+                                <a class="dropdown-item" href="viewUser.php">Perfil</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
                             <li>
-                                <a class="dropdown-item" href="../../assests/php/cerrarSesion.php">Sign out</a>
+                                <a class="dropdown-item" href="../../assests/php/cerrarSesion.php">Cerrar Sección</a>
                             </li>
                         </ul>
                     </div>

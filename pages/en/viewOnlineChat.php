@@ -72,21 +72,21 @@ if (isset($_SESSION['id_user'])) {
                 </a>
 
                 <div class="d-flex justify-content-end">
-                    <!--Cambio de Idioma ver.Español-->
+                    <!--Cambio de Idioma ver.Ingles-->
                     <div class="vr me-2"></div>
                     <div class="nav-item dropdown">
                         <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">
-                            <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                href="../es/registro.php">Español (Latino America)</a>
+                            <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
+                                href="#">English</a>
                         </button>
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
-                                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                                    href="#">Inglés</a>
+                                <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
+                                    href="../es/registro.php">Spanish (Latin America)</a>
                             </li>
                         </ul>
                     </div>
-                    <!--Opciones de Usuario ver.Español-->
+                    <!--Opciones de Usuario ver.Ingles-->
                     <div class="vr me-3"></div>
                     <div class="btn-group dropstart me-4 pe-2">
                         <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
@@ -96,16 +96,16 @@ if (isset($_SESSION['id_user'])) {
                             <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                            <li><a class="dropdown-item" href="#">New project...(?)</a></li>
+                            <li><a class="dropdown-item" href="#">New project... (?)</a></li>
                             <li><a class="dropdown-item" href="#">Settings(?)</a></li>
                             <li>
-                                <a class="dropdown-item" href="viewUser.php">Perfil</a>
+                                <a class="dropdown-item" href="viewUser.php">Profile</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
                             <li>
-                                <a class="dropdown-item" href="../../assests/php/cerrarSesion.php">Cerrar Sección</a>
+                                <a class="dropdown-item" href="../../assests/php/cerrarSesion.php">Sign out</a>
                             </li>
                         </ul>
                     </div>
@@ -120,7 +120,7 @@ if (isset($_SESSION['id_user'])) {
             <div class="nav_list">
                 <a href="#" class="nav_link link-dark">
                     <i class="bx bx-grid-alt nav_icon"></i>
-                    <span class="nav_name">Inicio</span>
+                    <span class="nav_name">Home</span>
                 </a>
                 <a href="#" class="nav_link link-dark">
                     <i class="bx bx-user nav_icon"></i>
@@ -128,15 +128,15 @@ if (isset($_SESSION['id_user'])) {
                 </a>
                 <a href="#" class="nav_link active">
                     <i class="bx bxs-book nav_icon"></i>
-                    <span class="nav_name">Cursos</span>
+                    <span class="nav_name">Courses</span>
                 </a>
                 <a href="#" class="nav_link link-dark">
                     <i class="bx bx-news nav_icon"></i>
-                    <span class="nav_name">Evaluaciones</span>
+                    <span class="nav_name">Evaluations</span>
                 </a>
                 <a href="#" class="nav_link link-dark">
                     <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Configuración</span>
+                    <span class="nav_name">Configuration</span>
                 </a>
             </div>
         </nav>
@@ -152,19 +152,19 @@ if (isset($_SESSION['id_user'])) {
                     <h2><strong>Nombre del curso - Seccion (Opcional)</strong></h2>
                 </div>
 
-                <p>Descripcion general de chat en Linea</p>
+                <p>Descripcion general de chat en Linea</p><!--Deberia cambiar esto por solo chat en Linea? Como un subtitulo?-->
 
                 <span class="p-2 my-4 rounded ">
-                    <button class="btn btn-primary ">Entrar al Chat</button>
+                    <button class="btn btn-primary ">Enter the chat</button>
                 </span>
                 <span class="p-2 my-4 rounded ">
-                    <button class="btn btn-secondary ">Historial del Chat</button>
+                    <button class="btn btn-secondary ">Chat history</button>
                 </span>
 
                 <hr>
 
                 <div class="p-2 mb-2 rounded shadow">
-                    <h2><strong>Usuarios</strong></h2>
+                    <h2><strong>Users</strong></h2>
                 </div>
                 <!--Caja de Usuarios-->
                 <div class="item-recurso container bg-secondary-subtle text-secondary-emphasis mt-3 p-3">

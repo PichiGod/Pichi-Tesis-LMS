@@ -35,14 +35,13 @@ if (isset($_SESSION['id_user'])) {
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear Curso</title>
+    <title>Crear Actividad</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -56,8 +55,9 @@ if (isset($_SESSION['id_user'])) {
     <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
     <link rel="stylesheet" href="../../assests/css/viewUser.css" />
     <link rel="stylesheet" href="../../assests/css/style (2).css">
-    <link rel="stylesheet" href="../../assests/css/crearCurso.css">
     <link rel="stylesheet" href="../../assests/css/sidebar.css" />
+    <link rel="stylesheet" href="../../assests/css/crearActividad.css">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <!--Sidebar.js-->
     <script src="../../assests/js/sidebar.js"></script>
 </head>
@@ -145,147 +145,214 @@ if (isset($_SESSION['id_user'])) {
         </nav>
     </div>
 
-    <section class="crearCurso">
+    <section class="crearActividad">
 
-        <form action="" method="post">
+        <div class="container-fluid bg-blanco mt-3 shadow">
 
-            <input type="hidden" name="action" id="action" value="NuevoCurso">
+            <div class="TituloCrearActividad">
 
-            <input type="hidden" name="action2" id="action2" value="<?php echo $nombreEmpresa ?>">
+                <h3 class="TituloCrear"><b>Create New Activity </b></h3>
 
-            <div class="container-fluid bg-blanco mt-3 shadow">
+            </div>
 
-                <div class="TituloCrearCurso">
+            <div class="tituloActividad">
 
-                    <h3 class="TituloCrear"><b>Create New Active Course</b></h3>
+                <label for="tituloActividad">Title of Activity</label>
 
-                </div>
+                <input type="text" class="form-control" id="tituloActividad" placeholder="Title">
 
-                <div class="DivPrinFormulario">
-                    <div class="divIDCrear">
-                        <label for="id_cur">Course ID</label>
-                        <?php
+            </div>
 
+            <div class="Instrucciones">
 
+                <label for="texto_actividad">Instructions for Activity</label>
 
-                        // Consultar el último ID de curso utilizado
-                        $consulta_ultimo_id = mysqli_query($mysqli, "SELECT MAX(id_cur) AS ultimo_id FROM cursos");
+            </div>
 
-                        if ($consulta_ultimo_id) {
-                            $datos_ultimo_id = mysqli_fetch_assoc($consulta_ultimo_id);
-                            $ultimo_id = $datos_ultimo_id['ultimo_id'];
-
-                            if ($ultimo_id) {
-                                // Extraer los dos últimos dígitos numéricos del ID
-                                $ultimo_numero = intval(substr($ultimo_id, strrpos($ultimo_id, '_') + 1));
-                                $siguiente_numero = $ultimo_numero + 1;
-
-                                // Generar el nuevo ID con el número siguiente
-                                $nuevo_id_cur = 'Cur_' . $nombreEmpresa . '_' . sprintf('%02d', $siguiente_numero);
-                            } else {
-                                // Si no hay ningún ID anterior, comenzar desde 01
-                                $nuevo_id_cur = 'Cur_01';
-                            }
-                        } else {
-                            // Manejar el caso en que no se puede obtener el último ID
-                            $nuevo_id_cur = 'Cur_01';
-                        }
-                        ?>
-                        <input type="text" class="id_cur form-control" id="id_cur" name="id_cur"
-                            value="<?php echo htmlspecialchars($nuevo_id_cur); ?>" readonly>
-                    </div>
+            <div id="editor">
+            </div>
+            <input type="hidden" id="texto_actividad" name="texto_actividad">
+            <div>
 
 
-                    <div class="div1Crear">
-
-                        <label for="nombreCurso">Full Course Name</label>
-
-                        <input type="text" class="nombreCurso form-control" id="nombreCurso" name="nombreCurso"
-                            placeholder="Course Name">
-
-                    </div>
+            </div>
 
 
+            <div class="contenidoActividad">
 
-                    <div class="div2Crear">
+                <label for="">Content to Upload</label>
 
-                        <label for="visibilidadCurso">Course Visibility</label>
-
-                        <select class="visibilidadCurso seleccion form-select" id="visibilidadCurso"
-                            name="visibilidadCurso" aria-label="Default select example">
-                            <option selected>Visible</option>
-                            <option value="1">Invisible</option>
-                        </select>
-
-                    </div>
-
-
-                    <div class="div3Crear">
-
-                        <label for="fechaInicio">Starting Date</label>
-
-                        <input type="date" class="fechaInicio form-control" id="fechaInicio" name="fechaInicio">
-
-                    </div>
-
-
-                    <div class="div4Crear">
-
-                        <label for="fechaFin">Ending Date</label>
-
-                        <input type="date" class="fechaFin form-control" id="fechaFin" name="fechaFin">
-
-                    </div>
-
-                    <div class="div45Crear">
-
-                        <label for="inputperiodo">Name of the period</label>
-
-                        <input type="text" class="inputperiodo form-control" id="inputperiodo" name="inputperiodo"
-                            placeholder="Name of the period">
-
-                    </div>
-
-
-                    <div class="div5Crear">
-
-                        <label for="minimos">Minimum Course Quotas</label>
-
-                        <input type="number" class="minimos form-control" id="minimos" name="minimos" placeholder="0">
-
-                    </div>
-
-
-                    <div class="div6Crear">
-
-                        <label for="maximos">Maximum Course Quotas</label>
-
-                        <input type="number" class="maximos form-control" id="maximos" name="maximos" placeholder="0">
-
-                    </div>
-
-
-                </div>
-
-
-                <div class="containerButtonCrearCursoFin">
-
-                    <button type="button" class="botonRegresar btn btn-primary"
-                        onclick="location.href='courses.php'">Return</button>
-
-                    <button type="button" class="botonCrearCursoFin btn btn-primary" onclick="submitData();">
-                        Create Course
-                    </button>
-
-
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="archivo" name="archivo">
+                    <label class="custom-file-label" for="archivo">Select a file</label>
                 </div>
 
 
             </div>
 
-        </form>
+
+
+            <div class="contenidoActividadAdicional">
+
+                <label for="">Aditional File</label>
+
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="archivo" name="archivo">
+                    <label class="custom-file-label" for="archivo">Select a file</label>
+                </div>
+
+
+            </div>
+
+            <div class="fechainicioContenedor">
+
+                <label for="fecha">Start Date</label>
+
+                <input type="date" class="form-control" id="fecha" name="fecha">
+
+
+            </div>
+
+            <div class="fechaculminacionContenedor">
+
+                <label for="">Culmination Date</label>
+
+                <input type="date" class="form-control" id="fecha" name="fecha">
+
+
+            </div>
+
+            <div class="fechaculminacionContenedor">
+
+                <label for="">fecha de Culminación</label>
+
+                <input type="date" class="form-control" id="fecha" name="fecha">
+
+
+            </div>
+
+
+            <div class="fechacierreContenedor">
+
+                <label for="">Closing Date</label>
+
+                <input type="date" class="form-control" id="fecha" name="fecha">
+
+
+            </div>
+
+
+            <div class="fechanotificacionContenedor">
+
+                <label for="">Date of Notification</label>
+
+                <input type="date" class="form-control" id="fecha" name="fecha">
+
+
+            </div>
+
+            <div class="numeroArchivosContenedor">
+
+                <label for="">Number of Files to Skip</label>
+
+                <input type="number" class="minimos form-control" id="exampleFormControlInput1" placeholder="0">
+
+
+            </div>
+
+            <div class="pesoArchivosContenedor">
+
+                <label for="">Maximum File Size</label>
+
+                <div class="juntar">
+
+                    <input type="number" class="minimos form-control" id="exampleFormControlInput1"
+                        placeholder="0"><label for="">MB</label>
+
+                </div>
+
+            </div>
+
+
+            <div class="pesoArchivosContenedor">
+
+                <label for="">File type</label>
+
+                <select class="seleccion form-select" aria-label="Default select example">
+                    <option selected>Visible</option>
+                    <option value="1">Invisible</option>
+                </select>
+
+            </div>
+
+
+            <div class="notaMaximaContenedor">
+
+                <label for="">Maximum Grade</label>
+
+                <input type="number" class="minimos form-control" id="exampleFormControlInput1" placeholder="0">
+
+
+            </div>
+
+            <div class="notaMinimaContenedor">
+
+                <label for="">Minimun Grade</label>
+
+                <input type="number" class="minimos form-control" id="exampleFormControlInput1" placeholder="0">
+
+
+            </div>
+
+            <div class="div2Crear">
+
+                <label for="">Visibility of Activity</label>
+
+                <select class="seleccion form-select" aria-label="Default select example">
+                    <option selected>Visible</option>
+                    <option value="1">Invisible</option>
+                </select>
+
+            </div>
+
+            <div class="div3Crear">
+                <label for="">Enable Percentage</label>
+                <select id="selectActivarPorcentaje" class="seleccion form-select" aria-label="Default select example">
+                    <option selected>Activated</option>
+                    <option value="1">Deactivated</option>
+                </select>
+            </div>
+
+
+            <div id="porcentajeContenedor" class="porcentajeContenedor">
+                <label for="">Percentage of Activity</label>
+                <input type="number" class="minimos form-control" id="porcentajeActividad" placeholder="0">
+            </div>
+
+            <div class="containerButtonCrearActividadFin">
+
+                <button type="button" class="botonRegresar btn btn-primary" onclick="location.href=''">Return</button>
+
+                <button type="button" class="botonCrearCursoFin btn btn-primary">Create Activity</button>
+
+
+            </div>
+
+        </div>
 
     </section>
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+        var form = document.querySelector('form');
+        form.onsubmit = function () {
+            var editorContent = document.querySelector('.ql-editor').innerHTML;
+            document.getElementById('texto_actividad').value = editorContent;
+        };
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -294,7 +361,26 @@ if (isset($_SESSION['id_user'])) {
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
 
-    <?php require "../../assests/php/crearCursoMain.php"; ?>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var selectActivarPorcentaje = document.getElementById("selectActivarPorcentaje");
+            var porcentajeContenedor = document.getElementById("porcentajeContenedor");
+
+            // Ocultar por defecto al cargar la página si está desactivado
+            if (selectActivarPorcentaje.value === "Desactivado") {
+                porcentajeContenedor.style.display = "none";
+            }
+
+            // Escuchar cambios en el select
+            selectActivarPorcentaje.addEventListener("change", function () {
+                if (selectActivarPorcentaje.value === "Activado") {
+                    porcentajeContenedor.style.display = "block"; // Mostrar si está activado
+                } else {
+                    porcentajeContenedor.style.display = "none"; // Ocultar si está desactivado
+                }
+            });
+        });
+    </script>
 
 </body>
 

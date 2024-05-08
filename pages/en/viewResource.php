@@ -1,10 +1,47 @@
+<?php
+
+require "../../assests/php/LoginBD.php";
+
+if (isset($_SESSION['id_user'])) {
+
+    $usuarios1 = $_SESSION['id_user'];
+
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+
+    if (mysqli_num_rows($conexion1) > 0) {
+
+        $datos = mysqli_fetch_assoc($conexion1);
+
+        $empresaUsuario = $datos['Empresa_id_empresa'];
+
+        $nombreUsuario = $datos['nombre_user'];
+
+        $apellidoUsuario = $datos['apellido_user'];
+
+        $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
+
+        if (mysqli_num_rows($conexion2) > 0) {
+
+            $datos2 = mysqli_fetch_assoc($conexion2);
+
+            $nombreEmpresa = $datos2['nombre_empresa'];
+
+        }
+
+    }
+
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Evaluaciones</title>
+    <title>Ver Recurso</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -15,9 +52,10 @@
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- CSS only -->
-    <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
-    <link rel="stylesheet" href="../../assests/css/viewUser.css" />
+    <link rel="stylesheet" href="/Pichi-Tesis-LMS/assests/css/colorPallete.css" />
+    <link rel="stylesheet" href="/Pichi-Tesis-LMS/assests/css/viewUser.css" />
     <link rel="stylesheet" href="../../assests/css/sidebar.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
     <!--Sidebar.js-->
     <script src="../../assests/js/sidebar.js"></script>
 </head>
@@ -35,21 +73,21 @@
                 </a>
 
                 <div class="d-flex justify-content-end">
-                    <!--Cambio de Idioma ver.Español-->
+                    <!--Cambio de Idioma ver.Ingles-->
                     <div class="vr me-2"></div>
                     <div class="nav-item dropdown">
                         <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">
-                            <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                href="../es/registro.php">Español (Latino America)</a>
+                            <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
+                                href="#">English</a>
                         </button>
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
-                                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                                    href="#">Inglés</a>
+                                <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
+                                    href="../es/registro.php">Spanish (Latin America)</a>
                             </li>
                         </ul>
                     </div>
-                    <!--Opciones de Usuario ver.Español-->
+                    <!--Opciones de Usuario ver.Ingles-->
                     <div class="vr me-3"></div>
                     <div class="btn-group dropstart me-4 pe-2">
                         <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
@@ -59,16 +97,16 @@
                             <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                            <li><a class="dropdown-item" href="#">New project...(?)</a></li>
+                            <li><a class="dropdown-item" href="#">New project... (?)</a></li>
                             <li><a class="dropdown-item" href="#">Settings(?)</a></li>
                             <li>
-                                <a class="dropdown-item" href="viewUser.php">Perfil</a>
+                                <a class="dropdown-item" href="viewUser.php">Profile</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
                             <li>
-                                <a class="dropdown-item" href="../../assests/php/cerrarSesion.php">Cerrar Sección</a>
+                                <a class="dropdown-item" href="../../assests/php/cerrarSesion.php">Sign out</a>
                             </li>
                         </ul>
                     </div>
@@ -83,7 +121,7 @@
             <div class="nav_list">
                 <a href="#" class="nav_link link-dark">
                     <i class="bx bx-grid-alt nav_icon"></i>
-                    <span class="nav_name">Inicio</span>
+                    <span class="nav_name">Home</span>
                 </a>
                 <a href="#" class="nav_link link-dark">
                     <i class="bx bx-user nav_icon"></i>
@@ -91,82 +129,47 @@
                 </a>
                 <a href="#" class="nav_link active">
                     <i class="bx bxs-book nav_icon"></i>
-                    <span class="nav_name">Cursos</span>
+                    <span class="nav_name">Courses</span>
                 </a>
                 <a href="#" class="nav_link link-dark">
                     <i class="bx bx-news nav_icon"></i>
-                    <span class="nav_name">Evaluaciones</span>
+                    <span class="nav_name">Evaluations</span>
                 </a>
                 <a href="#" class="nav_link link-dark">
                     <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Configuración</span>
+                    <span class="nav_name">Configuration</span>
                 </a>
             </div>
         </nav>
     </div>
 
-    <!--Contenido Usuario-->
-    <section>
+    <section class="Cursos">
+
         <div class="container-fluid bg-blanco mt-3 shadow">
-            <p class="fs-1"><strong>Calificaciones</strong></p>
-            <div class="dropdown">
-                <a class="btn btn-tertiary bg-blancoOscuro dropdown-toggle mb-2" href="#" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false " style="width: auto;">
-                    #0001 Ingles - N1664
-                </a>
+            <!--Titulo-->
+            <div class="container pt-4 pb-3">
 
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">#0002 Progamacion en PHP - N1664</a></li>
-                    <li><a class="dropdown-item" href="#">#0003 Programacion Web - N1664</a></li>
-                    <li><a class="dropdown-item" href="#">#0004 Frances - N1664</a></li>
+                <div class="p-2 mb-2 rounded shadow ">
+                    <h2><strong>Nombre del Recurso - Seccion (Opcional)</strong></h2>
+                </div>
+
+                <p>Descripcion e Instrucciones del recurso</p>
+
+                <hr>
+
+                <div class="p-2 my-4 rounded shadow ">
+                    <h4>Archivos del Recurso (El archivo[s] del recurso)</h4>
+                </div>
+
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <i class="fa-solid fa-file"></i> <a class="ms-2" href="#">Archivo</a>
+                    </li>
                 </ul>
+
             </div>
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Ponderacion</th>
-                        <th scope="col">Calificacion</th>
-                        <th scope="col">Rango</th>
-                        <th scope="col">Porcentaje</th>
-                        <th scope="col">Retroalimentacion</th>
-                        <th scope="col">Aporte total del curso</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Examen #1</th>
-                        <td>20%</td>
-                        <td>10</td>
-                        <td>1 - 20</td>
-                        <td>50%</td>
-                        <td>Estudie más para la proxima</td>
-                        <td>20%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Examen #2</th>
-                        <td>20%</td>
-                        <td>15</td>
-                        <td>1 - 20</td>
-                        <td>75%</td>
-                        <td>Mejoro mucho! Siga asi!</td>
-                        <td>40%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Examen Final</th>
-                        <td>60%</td>
-                        <td>20</td>
-                        <td>1 - 20</td>
-                        <td>100%</td>
-                        <td>Excelente!</td>
-                        <td>100%</td>
-                    </tr>
-                </tbody>
-            </table>
-
         </div>
-        </div>
+
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
