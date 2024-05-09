@@ -90,7 +90,7 @@
           <i class="bx bx-user nav_icon"></i>
           <span class="nav_name">Dashboard</span>
         </a>
-        <a href="#" class="nav_link active">
+        <a href="#" class="nav_link link-dark">
           <i class="bx bxs-book nav_icon"></i>
           <span class="nav_name">Cursos</span>
         </a>

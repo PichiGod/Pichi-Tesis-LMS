@@ -30,3 +30,11 @@
 .bg-blancoOscuro{
     background-color: #eaeaea;
 }
+.log-out{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.log-out-modal{
+    font-size: 1.7rem;
+}
