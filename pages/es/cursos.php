@@ -177,7 +177,8 @@ if (isset($_SESSION['id_user'])) {
                                     <p class="card-text text-end"><?php echo $curso['fecha_inicio']; ?></p>
                                     <h4 class="card-title text-start"><?php echo $curso['nombre_cur']; ?></h4>
                                     <a class="btn btn-primary mt-2"
-                                        href="verCurso.php?id=<?php echo $curso['id_cur']; ?>">Ver Curso</a>
+                                        href="verCurso.php?id_cur=<?php echo $curso['id_cur']; ?>">Ver Curso</a>
+    
                                 </div>
                             </div>
                         </div>

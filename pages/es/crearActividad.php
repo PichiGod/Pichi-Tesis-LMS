@@ -32,6 +32,9 @@ if (isset($_SESSION['id_user'])) {
 
 }
 
+if (isset($_GET['id_cur'])) {
+    $id_curso_seleccionado = $_GET['id_cur'];
+} 
 
 ?>
 
@@ -147,11 +150,17 @@ if (isset($_SESSION['id_user'])) {
 
     <section class="crearActividad">
 
+    <form action="" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" name="" id="action" value="CrearActividad">
+
         <div class="container-fluid bg-blanco mt-3 shadow">
 
             <div class="TituloCrearActividad">
 
                 <h3 class="TituloCrear"><b>Crear Nueva Actividad</b></h3>
+
+                <input type="hidden" name="actionID_CUR" id="actionID_CUR" class="actionID_CUR" value="<?php echo $id_curso_seleccionado ?>">
 
             </div>
 
@@ -159,7 +168,7 @@ if (isset($_SESSION['id_user'])) {
 
                 <label for="">Titulo de la Actividad</label>
 
-                <input type="text" class="form-control" id="tituloActividad" placeholder="Titulo">
+                <input type="text" class="tituloActividad form-control" id="tituloActividad" placeholder="Titulo">
 
             </div>
 
@@ -171,7 +180,7 @@ if (isset($_SESSION['id_user'])) {
 
             <div id="editor">
             </div>
-            <input type="hidden" id="texto_actividad" name="texto_actividad">
+            <input type="hidden" id="texto_actividad" class="texto_actividad" name="texto_actividad">
             <div>
 
 
@@ -183,7 +192,7 @@ if (isset($_SESSION['id_user'])) {
                 <label for="">Contenido a Subir</label>
 
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="archivo" name="archivo">
+                    <input type="file" class="archivo form-control" id="archivo" name="archivo">
                     <label class="custom-file-label" for="archivo">Selecciona un archivo</label>
                 </div>
 
@@ -197,7 +206,7 @@ if (isset($_SESSION['id_user'])) {
                 <label for="">Archivo adicional</label>
 
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="archivo" name="archivo">
+                    <input type="file" class="archivo1 form-control" id="archivo1" name="archivo1">
                     <label class="custom-file-label" for="archivo">Selecciona un archivo</label>
                 </div>
 
@@ -208,7 +217,7 @@ if (isset($_SESSION['id_user'])) {
 
                 <label for="">Fecha de Inicio</label>
 
-                <input type="date" class="form-control" id="fecha" name="fecha">
+                <input type="date" class="fechaInicio form-control" id="fechaInicio" name="fecha">
 
 
             </div>
@@ -217,17 +226,7 @@ if (isset($_SESSION['id_user'])) {
 
                 <label for="">fecha de Culminación</label>
 
-                <input type="date" class="form-control" id="fecha" name="fecha">
-
-
-            </div>
-
-
-            <div class="fechacierreContenedor">
-
-                <label for="">fecha de Cierre</label>
-
-                <input type="date" class="form-control" id="fecha" name="fecha">
+                <input type="date" class="fechaFin form-control" id="fechaFin" name="fecha">
 
 
             </div>
@@ -237,16 +236,7 @@ if (isset($_SESSION['id_user'])) {
 
                 <label for="">fecha de Notificacion</label>
 
-                <input type="date" class="form-control" id="fecha" name="fecha">
-
-
-            </div>
-
-            <div class="numeroArchivosContenedor">
-
-                <label for="">Numero de Archivos a Omitir</label>
-
-                <input type="number" class="minimos form-control" id="exampleFormControlInput1" placeholder="0">
+                <input type="date" class="fechaNoti form-control" id="fechaNoti" name="fecha">
 
 
             </div>
@@ -257,22 +247,10 @@ if (isset($_SESSION['id_user'])) {
 
                 <div class="juntar">
 
-                    <input type="number" class="minimos form-control" id="exampleFormControlInput1"
+                    <input type="number" class="maximo form-control" id="maximo"
                         placeholder="0"><label for="">MB</label>
 
                 </div>
-
-            </div>
-
-
-            <div class="pesoArchivosContenedor">
-
-                <label for="">Tipo de archivos</label>
-
-                <select class="seleccion form-select" aria-label="Default select example">
-                    <option selected>Visible</option>
-                    <option value="1">Invisible</option>
-                </select>
 
             </div>
 
@@ -281,7 +259,7 @@ if (isset($_SESSION['id_user'])) {
 
                 <label for="">Nota Maxima</label>
 
-                <input type="number" class="minimos form-control" id="exampleFormControlInput1" placeholder="0">
+                <input type="number" class="notaMaxima form-control" id="notaMaxima" placeholder="0">
 
 
             </div>
@@ -290,7 +268,7 @@ if (isset($_SESSION['id_user'])) {
 
                 <label for="">Nota Minima</label>
 
-                <input type="number" class="minimos form-control" id="exampleFormControlInput1" placeholder="0">
+                <input type="number" class="notaMinima form-control" id="notaMinima" placeholder="0">
 
 
             </div>
@@ -299,7 +277,7 @@ if (isset($_SESSION['id_user'])) {
 
                 <label for="">Visibilidad de la Actividad</label>
 
-                <select class="seleccion form-select" aria-label="Default select example">
+                <select class="visibilidadActividad seleccion form-select" id="visibilidadActividad" aria-label="Default select example">
                     <option selected>Visible</option>
                     <option value="1">Invisible</option>
                 </select>
@@ -308,7 +286,7 @@ if (isset($_SESSION['id_user'])) {
 
             <div class="div3Crear">
                 <label for="">Activar Porcentaje</label>
-                <select id="selectActivarPorcentaje" class="seleccion form-select" aria-label="Default select example">
+                <select id="selectActivarPorcentaje" class="selectActivarPorcentaje form-select" aria-label="Default select example">
                     <option selected>Activado</option>
                     <option value="1">Desactivado</option>
                 </select>
@@ -317,20 +295,21 @@ if (isset($_SESSION['id_user'])) {
 
             <div id="porcentajeContenedor" class="porcentajeContenedor">
                 <label for="">Porcentaje Actividad</label>
-                <input type="number" class="minimos form-control" id="porcentajeActividad" placeholder="0">
+                <input type="number" class="porcentajeActividad form-control" id="porcentajeActividad" placeholder="0">
             </div>
 
             <div class="containerButtonCrearActividadFin">
 
                 <button type="button" class="botonRegresar btn btn-primary" onclick="location.href=''">Regresar</button>
 
-                <button type="button" class="botonCrearCursoFin btn btn-primary">Crear Actividad</button>
+                <button type="button" class="botonCrearCursoFin btn btn-primary" onclick="submitData();" >Crear Actividad</button>
 
 
             </div>
 
         </div>
 
+        </form>
     </section>
 
     <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
@@ -372,6 +351,8 @@ if (isset($_SESSION['id_user'])) {
             });
         });
     </script>
+
+<?php require "../../assests/php/crearActividadMain.php"; ?>
 
 </body>
 
