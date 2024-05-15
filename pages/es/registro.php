@@ -67,6 +67,7 @@ while ($row = mysqli_fetch_assoc($result)) {
       </div>
     </nav>
   </header>
+  
   <section name="formulario">
       <form action="" method="post">
         <input type="hidden" name="" id="action" value="Register">
