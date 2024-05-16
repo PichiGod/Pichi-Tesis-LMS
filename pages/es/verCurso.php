@@ -2,6 +2,7 @@
 
 require "../../assests/php/LoginBD.php";
 
+
 if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
@@ -32,7 +33,9 @@ if (isset($_SESSION['id_user'])) {
 
 }
 
-
+if (isset($_GET['id_cur'])) {
+    $id_curso_seleccionado = $_GET['id_cur'];
+} 
 ?>
 
 <!DOCTYPE html>
@@ -224,6 +227,18 @@ if (isset($_SESSION['id_user'])) {
                     </div>
                 </div>
 
+                <div class="containerButtonCrearActividadFin">
+
+                    <button type="button" class="botonRegresar btn btn-primary" onclick="location.href=''">Regresar</button>
+
+                    <button type="button" class="botonCrearCursoFin btn btn-primary"
+                            onclick="location.href='crearActividad.php?id_cur=<?php echo $id_curso_seleccionado; ?>'">
+                        Crear Actividad
+                    </button>
+
+
+                </div>
+
             </div>
         </div>
 
@@ -236,5 +251,10 @@ if (isset($_SESSION['id_user'])) {
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
 </body>
+
+<?php
+
+
+?>
 
 </html>

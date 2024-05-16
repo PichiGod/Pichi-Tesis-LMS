@@ -139,7 +139,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <i class="bx bx-user nav_icon"></i>
                     <span class="nav_name">Dashboard</span>
                 </a>
-                <a href="#" class="nav_link link-dark">
+                <a href="cursos.php" class="nav_link link-dark">
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
