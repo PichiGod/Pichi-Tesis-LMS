@@ -187,7 +187,7 @@
     </div>
 
     <!--Contenido Usuario-->
-    <section >
+    <section>
       <div class="container-fluid bg-blanco mt-3 shadow">
         <div class="row">
           <div class="col-lg-4 ">
@@ -200,7 +200,7 @@
                   style="width: 150px"
                 />
                 <h5 class="my-3">José</h5>
-                <button class="btn btn-primary">Modificar Perfil</button>
+                <button onclick="location.href='modifPerfil.php'" class="btn btn-primary">Modificar Perfil</button>
               </div>
             </div>
           </div>
