@@ -100,8 +100,6 @@ if (isset($_SESSION['id_user'])) {
                             <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                            <li><a class="dropdown-item" href="#">New project...(?)</a></li>
-                            <li><a class="dropdown-item" href="#">Settings(?)</a></li>
                             <li>
                                 <a class="dropdown-item" href="viewUser.php">Perfil</a>
                             </li>
@@ -153,10 +151,8 @@ if (isset($_SESSION['id_user'])) {
             <div class="container pt-4 pb-3">
 
                 <div class="p-2 mb-2 rounded shadow ">
-                    <h2><strong>Nombre del curso - Seccion (Opcional)</strong></h2>
+                    <h2><strong>Nombre del curso - Empresa</strong></h2>
                 </div>
-
-                <p>Nombre de la Empresa</p>
 
                 <div class="p-2 my-4 rounded shadow ">
                     <h4>Esenciales (Para las cosas que siempre va a tener un curso. Osea el Foro y el chat)</h4>

@@ -100,8 +100,6 @@ if (isset($_SESSION['id_user'])) {
                             <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                            <li><a class="dropdown-item" href="#">New project...(?)</a></li>
-                            <li><a class="dropdown-item" href="#">Settings(?)</a></li>
                             <li>
                                 <a class="dropdown-item" href="viewUser.php">Perfil</a>
                             </li>
@@ -153,7 +151,7 @@ if (isset($_SESSION['id_user'])) {
             <div class="container pt-4 pb-3">
 
                 <div class="p-2 mb-2 rounded shadow ">
-                    <h2><strong>Nombre de la actividad - Seccion (Opcional)</strong></h2>
+                    <h2><strong>Nombre de la actividad - Empresa</strong></h2>
                 </div>
 
                 <p>Descripcion e Instrucciones del actividad</p>
@@ -175,7 +173,7 @@ if (isset($_SESSION['id_user'])) {
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Entrega de actividad</h4>
-                        <p class="card-text">Maxima # de archivo: X</p>
+                        <p class="card-text">Maxima # de archivos: X</p>
                         <p class="card-text">Maxima peso de archivo: X MB</p>
                         <div class="mb-3">
                             <label for="formFileMultiple" class="form-label">Seleccionar archivos...</label>

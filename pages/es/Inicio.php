@@ -111,8 +111,6 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                             <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                            <li><a class="dropdown-item" href="#">New project...(?)</a></li>
-                            <li><a class="dropdown-item" href="#">Settings(?)</a></li>
                             <li>
                                 <a class="dropdown-item" href="viewUser.php">Perfil</a>
                             </li>
@@ -146,10 +144,6 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <span class="nav_name">Cursos</span>
                 </a>
                 <a href="#" class="nav_link link-dark">
-                    <i class="bx bx-news nav_icon"></i>
-                    <span class="nav_name">Evaluaciones</span>
-                </a>
-                <a href="#" class="nav_link link-dark">
                     <i class="bx bx-cog nav_icon"></i>
                     <span class="nav_name">Configuración</span>
                 </a>
@@ -160,7 +154,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
     <!--Contenido Calificaciones-->
     <section>
         <div class="container-fluid bg-blanco mt-3 rounded shadow ">
-            <span class="fs-1"><strong>Bienvenido, Admin! al portal EAD <?php echo $nombreEmpresa; ?> </strong></span>
+            <span class="fs-1"><strong>Bienvenido, Admin! al portal EAD</strong></span>
         </div>
         <div class="container bg-blanco mt-3 pt-3 pb-3 rounded shadow ">
 

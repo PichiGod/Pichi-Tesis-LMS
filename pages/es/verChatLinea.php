@@ -96,8 +96,6 @@ if (isset($_SESSION['id_user'])) {
                             <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                            <li><a class="dropdown-item" href="#">New project...(?)</a></li>
-                            <li><a class="dropdown-item" href="#">Settings(?)</a></li>
                             <li>
                                 <a class="dropdown-item" href="viewUser.php">Perfil</a>
                             </li>
@@ -149,10 +147,9 @@ if (isset($_SESSION['id_user'])) {
             <div class="container pt-4 pb-3">
                 <!--Titulo-->
                 <div class="p-2 mb-2 rounded shadow">
-                    <h2><strong>Nombre del curso - Seccion (Opcional)</strong></h2>
+                    <h2><strong>Nombre del curso - Empresa </strong></h2>
                 </div>
 
-                <p>Descripcion general de chat en Linea</p>
 
                 <span class="p-2 my-4 rounded ">
                     <button class="btn btn-primary ">Entrar al Chat</button>

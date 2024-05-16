@@ -99,8 +99,6 @@ if (isset($_SESSION['id_user'])) {
                             <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                            <li><a class="dropdown-item" href="#">New project...(?)</a></li>
-                            <li><a class="dropdown-item" href="#">Settings(?)</a></li>
                             <li>
                                 <a class="dropdown-item" href="viewUser.php">Perfil</a>
                             </li>
@@ -132,10 +130,6 @@ if (isset($_SESSION['id_user'])) {
                 <a href="#" class="nav_link active">
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
-                </a>
-                <a href="#" class="nav_link link-dark">
-                    <i class="bx bx-news nav_icon"></i>
-                    <span class="nav_name">Evaluaciones</span>
                 </a>
                 <a href="#" class="nav_link link-dark">
                     <i class="bx bx-cog nav_icon"></i>

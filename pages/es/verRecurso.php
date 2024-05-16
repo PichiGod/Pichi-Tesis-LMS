@@ -52,8 +52,8 @@ if (isset($_SESSION['id_user'])) {
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- CSS only -->
-    <link rel="stylesheet" href="/Pichi-Tesis-LMS/assests/css/colorPallete.css" />
-    <link rel="stylesheet" href="/Pichi-Tesis-LMS/assests/css/viewUser.css" />
+    <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
+    <link rel="stylesheet" href="../../assests/css/viewUser.css" />
     <link rel="stylesheet" href="../../assests/css/sidebar.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
     <!--Sidebar.js-->
@@ -97,8 +97,6 @@ if (isset($_SESSION['id_user'])) {
                             <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                            <li><a class="dropdown-item" href="#">New project...(?)</a></li>
-                            <li><a class="dropdown-item" href="#">Settings(?)</a></li>
                             <li>
                                 <a class="dropdown-item" href="viewUser.php">Perfil</a>
                             </li>
@@ -150,7 +148,7 @@ if (isset($_SESSION['id_user'])) {
             <div class="container pt-4 pb-3">
 
                 <div class="p-2 mb-2 rounded shadow ">
-                    <h2><strong>Nombre del Recurso - Seccion (Opcional)</strong></h2>
+                    <h2><strong>Nombre del Recurso - Empresa</strong></h2>
                 </div>
 
                 <p>Descripcion e Instrucciones del recurso</p>
