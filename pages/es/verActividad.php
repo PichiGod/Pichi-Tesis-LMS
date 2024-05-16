@@ -81,12 +81,12 @@ if (isset($_SESSION['id_user'])) {
                     <div class="nav-item dropdown">
                         <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">
                             <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                href="../es/registro.php">Español (Latino America)</a>
+                                href="#">Español (Latino America)</a>
                         </button>
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                                    href="#">Inglés</a>
+                                    href="../en/viewActivity.php">Inglés</a>
                             </li>
                         </ul>
                     </div>
@@ -107,7 +107,11 @@ if (isset($_SESSION['id_user'])) {
                                 <hr class="dropdown-divider" />
                             </li>
                             <li>
-                                <a class="dropdown-item" href="../../assests/php/cerrarSesion.php">Cerrar Sección</a>
+                                <a class="btn dropdown-item log-out" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal" href="">
+                                    <i class="bx bx-log-out log-out-modal"></i>
+                                    <span class="ms-2">Cerrar Sesión</span>
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -120,28 +124,50 @@ if (isset($_SESSION['id_user'])) {
     <div class="l-navbar bg-body-tertiary" id="nav-bar">
         <nav class="nav">
             <div class="nav_list">
-                <a href="#" class="nav_link link-dark">
+                <a href="Inicio.php" class="nav_link link-dark">
                     <i class="bx bx-grid-alt nav_icon"></i>
                     <span class="nav_name">Inicio</span>
                 </a>
                 <a href="#" class="nav_link link-dark">
                     <i class="bx bx-user nav_icon"></i>
-                    <span class="nav_name">Dashboard</span>
+                    <span class="nav_name">Tutorial</span>
                 </a>
-                <a href="#" class="nav_link active">
+                <a href="cursos.php" class="nav_link active">
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="#" class="nav_link link-dark">
+                <a href="verCalif.php" class="nav_link link-dark">
                     <i class="bx bx-news nav_icon"></i>
                     <span class="nav_name">Evaluaciones</span>
                 </a>
-                <a href="#" class="nav_link link-dark">
+                <a href="MenuAdmin.php" class="nav_link link-dark">
                     <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Configuración</span>
+                    <span class="nav_name">Administrar</span>
                 </a>
             </div>
         </nav>
+    </div>
+
+    <!-- Modal LogOut ver.Español -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                        Cerrar Sesión
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Esta seguro que quiere cerrar sesión?</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Regresar
+                    </button>
+                    <button type="button" onclick="location.href='../../assests/php/cerrarSesion.php'"
+                        class="btn btn-primary">Cerrar Sesión</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <section class="Cursos">

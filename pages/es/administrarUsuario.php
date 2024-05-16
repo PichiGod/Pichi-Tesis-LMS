@@ -61,14 +61,12 @@
                             <img src="https://github.com/PichiGod.png" alt="..." width="32" height="32"
                                 class="rounded-circle me-2" />
                             <strong>
-                                <!-- <?php echo $nombreUsuario . " " . $apellidoUsuario; ?> -->
+                                <?php echo $nombreUsuario . " " . $apellidoUsuario; ?>
                             </strong>
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                            <li><a class="dropdown-item" href="#">New project...(?)</a></li>
-                            <li><a class="dropdown-item" href="#">Settings(?)</a></li>
                             <li>
-                                <a class="dropdown-item" href="viewUser.php">Perfil</a>
+                                <a class="dropdown-item" href="verUser.php">Perfil</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider" />
@@ -137,7 +135,7 @@
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
             <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
-            <h1 class="text-center">Administrar Usuario</h1>
+            <h1 class="text-center pt-2">Administrar Usuario</h1>
 
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -167,7 +165,7 @@
                             <td>dsjoseale@gmail.com</td>
                             <td>Hombre</td>
                             <td>Estudiante</td>
-                            <td><button class="btn btn-primary me-1">Editar</button><button class="btn btn-primary">Borrar</button></td>
+                            <td><button class="btn btn-primary me-1">Modificar</button><button class="btn btn-primary">Eliminar</button></td>
                         </tr>
                     </tbody>
                 </table>

@@ -44,7 +44,7 @@
                     <div class="nav-item dropdown">
                         <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">
                             <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                href="../es/registro.php">Español (Latino America)</a>
+                                href="#">Español (Latino America)</a>
                         </button>
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
@@ -61,12 +61,10 @@
                             <img src="https://github.com/PichiGod.png" alt="..." width="32" height="32"
                                 class="rounded-circle me-2" />
                             <strong>
-                                <!-- <?php echo $nombreUsuario . " " . $apellidoUsuario; ?> -->
+                                <?php echo $nombreUsuario . " " . $apellidoUsuario; ?>
                             </strong>
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                            <li><a class="dropdown-item" href="#">New project...(?)</a></li>
-                            <li><a class="dropdown-item" href="#">Settings(?)</a></li>
                             <li>
                                 <a class="dropdown-item" href="viewUser.php">Perfil</a>
                             </li>
@@ -91,21 +89,21 @@
     <div class="l-navbar bg-body-tertiary" id="nav-bar">
         <nav class="nav">
             <div class="nav_list">
-                <a href="#" class="nav_link link-dark">
+                <a href="Inicio.php" class="nav_link link-dark">
                     <i class="bx bx-grid-alt nav_icon"></i>
                     <span class="nav_name">Inicio</span>
                 </a>
                 <a href="#" class="nav_link link-dark">
                     <i class="bx bx-user nav_icon"></i>
-                    <span class="nav_name">Dashboard</span>
+                    <span class="nav_name">Tutorial</span>
                 </a>
-                <a href="#" class="nav_link link-dark">
+                <a href="cursos.php" class="nav_link link-dark">
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="#" class="nav_link active ">
+                <a href="MenuAdmin.php" class="nav_link active ">
                     <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Configuración</span>
+                    <span class="nav_name">Administrar</span>
                 </a>
             </div>
         </nav>
@@ -126,7 +124,8 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Regresar
                     </button>
-                    <button type="button" class="btn btn-primary">Cerrar Sesión</button>
+                    <button type="button" onclick="location.href='../../assests/php/cerrarSesion.php'"
+                        class="btn btn-primary">Cerrar Sesión</button>
                 </div>
             </div>
         </div>

@@ -59,7 +59,9 @@
                             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://github.com/PichiGod.png" alt="" width="32" height="32"
                                 class="rounded-circle me-2" />
-                            <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
+                            <strong>
+                                <?php echo $nombreUsuario . " " . $apellidoUsuario; ?>
+                            </strong>
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                             <li>
@@ -121,7 +123,8 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Regresar
                     </button>
-                    <button type="button" class="btn btn-primary">Cerrar Sesión</button>
+                    <button type="button" onclick="location.href='../../assests/php/cerrarSesion.php'"
+                        class="btn btn-primary">Cerrar Sesión</button>
                 </div>
             </div>
         </div>
@@ -129,11 +132,11 @@
 
     <!--Contenido Usuario-->
     <section>
-        <div class="container-fluid bg-blanco mt-3 shadow">
+        <div class="container-fluid bg-blanco my-3 shadow">
             <a href="verUser.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
-            <h3 class="text-center">Modificar Perfil</h3>
-            <div class="row d-flex  align-items-center">
+            <h3 class="text-center pt-2">Modificar Perfil</h3>
+            <div class="row d-flex align-items-center">
                 <div class="col-lg-4 ">
                     <div class="card mb-2">
                         <div class="card-body text-center">
@@ -147,24 +150,25 @@
                     </div>
                 </div>
                 <div class="col-lg-8 ">
-                    <div class="card ">
+                    <div class="card mb-3 ">
                         <div class="card-body">
                             <form action="">
                                 <div class="row">
                                     <div class="col-sm-3 w-75">
-                                        <p class="mb-0">Nombre Completo</p>
+                                        <p class="mb-0">Nueva Contraseña</p>
                                     </div>
                                     <div class="col-sm-9">
-                                        <input placeholder="José Duarte" class="form-control text-muted mb-0"></input>
+                                        <input type="password" placeholder="Contraseña"
+                                            class="form-control text-muted mb-0"></input>
                                     </div>
                                 </div>
                                 <hr />
                                 <div class="row">
                                     <div class="col-sm-3 w-75">
-                                        <p class="mb-0">Correo Electronico</p>
+                                        <p class="mb-0">Confirmar Contraseña</p>
                                     </div>
                                     <div class="col-sm-9">
-                                        <input placeholder="example@example.com"
+                                        <input placeholder="Confirmar Contraseña" type="password"
                                             class="form-control text-muted mb-0"></input>
                                     </div>
                                 </div>
@@ -172,7 +176,6 @@
                                 <div class="row">
                                     <div class="col-sm-3 w-75">
                                         <button class="btn btn-success">Aplicar Cambios</button>
-                                        <button type="reset" class="btn btn-secondary">Revertir</button>
                                     </div>
                                 </div>
                             </form>
