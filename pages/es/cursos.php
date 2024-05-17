@@ -112,7 +112,7 @@ if (isset($_SESSION['id_user'])) {
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                             <li>
-                                <a class="dropdown-item" href="viewUser.php">Perfil</a>
+                                <a class="dropdown-item" href="verUser.php">Perfil</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider" />
