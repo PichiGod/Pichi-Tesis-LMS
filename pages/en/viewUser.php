@@ -2,27 +2,27 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Perfil de Usuario</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil de Usuario</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
 
-  <!-- Boxicons icons -->
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-  <!-- Font Awesome  icons (free version)-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Boxicons icons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <!-- Font Awesome  icons (free version)-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!-- CSS only -->
-  <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
-  <link rel="stylesheet" href="../../assests/css/viewUser.css" />
-  <link rel="stylesheet" href="../../assests/css/sidebar.css" />
+    <!-- CSS only -->
+    <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
+    <link rel="stylesheet" href="../../assests/css/viewUser.css" />
+    <link rel="stylesheet" href="../../assests/css/sidebar.css" />
 
-  <!--Sidebar.js-->
-  <script src="../../assests/js/sidebar.js"></script>
+    <!--Sidebar.js-->
+    <script src="../../assests/js/sidebar.js"></script>
 </head>
 
 <body class="bg-pastel" id="body-pd">
@@ -48,7 +48,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                    href="../es/registro.php">Spanish (Latin America)</a>
+                                    href="../es/verUser.php">Spanish (Latin America)</a>
                             </li>
                         </ul>
                     </div>
@@ -63,13 +63,17 @@
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                             <li>
-                                <a class="dropdown-item" href="viewUser.php">Profile</a>
+                                <a class="dropdown-item" href="#">Profile</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
                             <li>
-                                <a class="dropdown-item" href="../../assests/php/cerrarSesion.php">Sign out</a>
+                                <a class="btn dropdown-item log-out" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal" href="">
+                                    <i class="bx bx-log-out log-out-modal"></i>
+                                    <span class="ms-2">Log Out</span>
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -78,66 +82,139 @@
         </nav>
     </header>
 
-    <!-- Sidebar -->
+    <!-- Sidebar ver.Ingles-->
     <div class="l-navbar bg-body-tertiary" id="nav-bar">
         <nav class="nav">
             <div class="nav_list">
-                <a href="#" class="nav_link link-dark">
+                <a href="home.php" class="nav_link link-dark">
                     <i class="bx bx-grid-alt nav_icon"></i>
                     <span class="nav_name">Home</span>
                 </a>
                 <a href="#" class="nav_link link-dark">
                     <i class="bx bx-user nav_icon"></i>
-                    <span class="nav_name">Dashboard</span>
+                    <span class="nav_name">Tutorial</span>
                 </a>
-                <a href="#" class="nav_link link-dark">
+                <a href="courses.php" class="nav_link link-dark">
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Courses</span>
                 </a>
                 <a href="#" class="nav_link link-dark">
-                    <i class="bx bx-news nav_icon"></i>
-                    <span class="nav_name">Evaluations</span>
-                </a>
-                <a href="#" class="nav_link link-dark">
                     <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Configuration</span>
+                    <span class="nav_name">Manage</span>
                 </a>
             </div>
         </nav>
     </div>
 
-  <!--Contenido Usuario-->
-  <section>
-    <div class="container-fluid bg-blanco mt-3 shadow">
-      <div class="row ms-2">
-        <div class="col">
-          <img src="https://github.com/PichiGod.png" width="135" height="135" class="my-2 text-center" alt="..." />
-          <p class="fs-4">Username</p>
-          <hr class="w-50">
-          <p class="fs-5">Lorem, ipsum</p>
-          <p class="fs-4">ID number</p>
-          <hr class="w-50">
-          <p class="fs-5">xx.xxx.xxx</p>
-          <p></p>
+    <!-- Modal ver.Ingles-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                        Log Out
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Are you sure you want to Log out?</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Return
+                    </button>
+                    <button type="button" onclick="location.href='../../assests/php/cerrarSesion.php'"
+                        class="btn btn-primary">Log Out</button>
+                </div>
+            </div>
         </div>
-        <div class="col">
-          <p class="fs-4">Sex</p>
-          <hr class="w-50">
-          <p class="fs-5">Male</p>
-          <p class="fs-4">Date of birth</p>
-          <hr class="w-50">
-          <p class="fs-5">12 / 07 / 2002</p>
+    </div>
+
+    <!--Contenido Usuario-->
+    <section>
+    <div class="container-fluid bg-blanco mt-3 shadow">
+        <div class="row">
+          <div class="col-lg-4 ">
+            <div class="card mt-5">
+              <div class="card-body text-center">
+                <img
+                  src="https://github.com/PichiGod.png"
+                  alt="avatar"
+                  class="rounded-circle img-fluid"
+                  style="width: 150px"
+                />
+                <h5 class="my-3">José</h5>
+                <button onclick="location.href='modifPerfil.php'" class="btn btn-primary">Edit Profile</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="card my-2">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Full Name</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">José Duarte</p>
+                  </div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Email</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">example@example.com</p>
+                  </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Date of birth</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">12 / 07 / 2002</p>
+                    </div>
+                  </div>
+                  <hr />
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Phone number</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">(097) 234-5678</p>
+                  </div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Sex</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">Masculino</p>
+                  </div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Address</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">Manolo Cabeza de Huevo</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
