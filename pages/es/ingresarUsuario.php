@@ -17,12 +17,12 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- CSS only -->
-    <link rel="stylesheet" href="/Pichi-Tesis-LMS/assests/css/colorPallete.css" />
-    <link rel="stylesheet" href="/Pichi-Tesis-LMS/assests/css/viewUser.css" />
-    <link rel="stylesheet" href="/Pichi-Tesis-LMS/assests/css/sidebar.css" />
+    <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
+    <link rel="stylesheet" href="../../assests/css/viewUser.css" />
+    <link rel="stylesheet" href="../../assests/css/sidebar.css" />
 
     <!--Sidebar.js-->
-    <script src="/Pichi-Tesis-LMS/assests/js/sidebar.js"></script>
+    <script src="../../assests/js/sidebar.js"></script>
 </head>
 
 <body class="bg-pastel" id="body-pd">
@@ -34,7 +34,7 @@
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
                 <a class="navbar-brand" href="../index.html">
-                    <img src="/Pichi-Tesis-LMS/assests/img/text-1710023184778.png" alt="Bootstrap" width="70"
+                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70"
                         height="24" />
                 </a>
 
