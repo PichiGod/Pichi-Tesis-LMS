@@ -33,7 +33,7 @@
                 <div class="header_toggle">
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
-                <a class="navbar-brand" href="../index.html">
+                <a class="navbar-brand" href="../../index.html">
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
@@ -57,7 +57,7 @@
                     <div class="btn-group dropstart me-4 pe-2">
                         <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
                             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/PichiGod.png" alt="" width="32" height="32"
+                            <img src="https://github.com/PichiGod.png" alt="..." width="32" height="32"
                                 class="rounded-circle me-2" />
                             <strong>
                                 <?php echo $nombreUsuario . " " . $apellidoUsuario; ?>
@@ -140,8 +140,8 @@
                 <div class="col-lg-4 ">
                     <div class="card mb-2">
                         <div class="card-body text-center">
-                            <img src="https://github.com/PichiGod.png" alt="avatar" class="rounded-circle img-fluid"
-                                style="width: 150px" />
+                            <img src="https://github.com/PichiGod.png" alt="avatar" id="cambio" class="rounded-circle img-fluid"
+                                style="height:200px; max-width:150px;max-height:150px;" />
                             <h5 class="my-3">José</h5>
                             <label for="imagen" class="btn btn-primary">Cambiar Imagen</label>
                             <input type="file" accept="image/png, image/jpeg" class="btn btn-primary" id="imagen"
@@ -221,6 +221,14 @@
             </div>
         </div>
     </section>
+
+    <script>
+        document.getElementById('imagen').addEventListener('change', function (event) {
+            const archivo = event.target.files[0];
+            const urlImagen = URL.createObjectURL(archivo);
+            document.getElementById('cambio').src = urlImagen;
+        });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

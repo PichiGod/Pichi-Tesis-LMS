@@ -14,8 +14,8 @@
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- CSS only -->
-    <link rel="stylesheet" href="../assests/css/colorPallete.css" />
-    <link rel="stylesheet" href="../assests/css/viewUser.css" />
+    <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
+    <link rel="stylesheet" href="../../assests/css/viewUser.css" />
 </head>
 
 <body class="bg-pastel container-fluid">

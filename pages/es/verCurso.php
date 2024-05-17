@@ -74,7 +74,7 @@ if (isset($_GET['id_cur'])) {
                 <div class="header_toggle">
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
-                <a class="navbar-brand" href="../index.html">
+                <a class="navbar-brand" href="../../index.html">
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 

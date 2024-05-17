@@ -46,7 +46,7 @@
           <div class="header_toggle">
             <i class="bx bx-menu" id="header-toggle"></i>
           </div>
-          <a class="navbar-brand" href="../index.html">
+          <a class="navbar-brand" href="../../index.html">
             <img
               src="/Pichi-Tesis-LMS/assests/img/text-1710023184778.png"
               alt="Bootstrap"

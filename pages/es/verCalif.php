@@ -30,7 +30,7 @@
                 <div class="header_toggle">
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
-                <a class="navbar-brand" href="../index.html">
+                <a class="navbar-brand" href="../../index.html">
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
@@ -91,9 +91,13 @@
                     <i class="bx bx-user nav_icon"></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
-                <a href="cursos.php" class="nav_link active">
+                <a href="cursos.php" class="nav_link link-dark">
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
+                </a>
+                <a href="verCalif.php" class="nav_link active">
+                    <i class="bx bx-news nav_icon"></i>
+                    <span class="nav_name">Evaluaciones</span>
                 </a>
                 <a href="MenuAdmin.php" class="nav_link link-dark">
                     <i class="bx bx-cog nav_icon"></i>
