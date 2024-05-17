@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Perfil de Usuario</title>
+    <title>Administrar</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -48,7 +48,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                    href="../es/verCalif.php">Spanish (Latin America)</a>
+                                    href="../es/MenuAdmin.php">Spanish (Latin America)</a>
                             </li>
                         </ul>
                     </div>
@@ -98,11 +98,7 @@
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Courses</span>
                 </a>
-                <a href="viewCalif.php" class="nav_link active">
-                    <i class="bx bx-news nav_icon"></i>
-                    <span class="nav_name">Evaluations</span>
-                </a>
-                <a href="adminMenu.php" class="nav_link link-dark">
+                <a href="#" class="nav_link active">
                     <i class="bx bx-cog nav_icon"></i>
                     <span class="nav_name">Manage</span>
                 </a>
@@ -132,67 +128,50 @@
         </div>
     </div>
 
-    <!--Contenido Usuario-->
+    <!--Contenido-->
     <section>
-        <div class="container-fluid bg-blanco mt-3 shadow ">
-            <p class="fs-1"><strong>Evaluations</strong></p>
-            <div class="dropdown">
-                <a class="btn btn-tertiary bg-blancoOscuro dropdown-toggle mb-2" href="#" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false " style="width: auto;">
-                    #0001 Ingles - N1664
-                </a>
+        <div class="container-fluid bg-blanco my-3 pb-2 shadow">
+            <h1 class="text-center">Manage</h1>
+            <h3 class="text-center">(Empresa)</h3>
 
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">#0002 Progamacion en PHP - N1664</a></li>
-                    <li><a class="dropdown-item" href="#">#0003 Programacion Web - N1664</a></li>
-                    <li><a class="dropdown-item" href="#">#0004 Frances - N1664</a></li>
-                </ul>
+            <br>
+            <div class="row justify-content-center align-items-center g-1 mb-3">
+                <label for="usuario">Manage Users</label>
+                <hr>
+                <div id="usuario" class="col">
+                    <button onclick="location.href='insertUser.php'" class="btn btn-secondary">
+                        Register User
+                    </button>
+                    <button onclick="location.href='enrollUser.php'" class="btn btn-secondary">
+                        Enroll course
+                    </button>
+                    <button onclick="location.href='manageUser.php'" class="btn btn-secondary">
+                        Manage Users
+                    </button>
+                    <button class="btn btn-secondary">Review academic performance</button>
+                </div>
             </div>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Type</th>
-                        <th scope="col">Weighting</th>
-                        <th scope="col">Rating</th>
-                        <th scope="col">Range</th>
-                        <th scope="col">Percentage</th>
-                        <th scope="col">Feedback</th>
-                        <th scope="col">Total course contribution</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Examen #1</th>
-                        <td>20%</td>
-                        <td>10</td>
-                        <td>1 - 20</td>
-                        <td>50%</td>
-                        <td>Estudie más para la proxima</td>
-                        <td>20%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Examen #2</th>
-                        <td>20%</td>
-                        <td>15</td>
-                        <td>1 - 20</td>
-                        <td>75%</td>
-                        <td>Mejoro mucho! Siga asi!</td>
-                        <td>40%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Examen Final</th>
-                        <td>60%</td>
-                        <td>20</td>
-                        <td>1 - 20</td>
-                        <td>100%</td>
-                        <td>Excelente!</td>
-                        <td>100%</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="row justify-content-center align-items-center g-1 mb-3">
+                <label for="cursos">Manage Courses</label>
+                <hr>
+                <div id="cursos" class="col">
+                    <button class="btn btn-secondary">Create Course</button>
+                    <button class="btn btn-secondary">Edit Course</button>
+                    <button class="btn btn-secondary">Visibility/availability de Curso</button>
+                </div>
+            </div>
 
-        </div>
+            <div class="row justify-content-center align-items-center g-1 mb-3">
+                <label for="cursos">Academic Period</label>
+                <hr>
+                <div id="cursos" class="col">
+                    <button class="btn btn-secondary">Create new academic periods</button>
+                    <button class="btn btn-secondary">Edit academic periods</button>
+                    <button class="btn btn-secondary">View academic periods</button>
+                </div>
+            </div>
+
         </div>
     </section>
 

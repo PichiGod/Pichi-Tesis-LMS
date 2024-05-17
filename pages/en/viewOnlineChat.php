@@ -136,7 +136,7 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bx-news nav_icon"></i>
                     <span class="nav_name">Evaluations</span>
                 </a>
-                <a href="#" class="nav_link link-dark">
+                <a href="adminMenu.php" class="nav_link link-dark">
                     <i class="bx bx-cog nav_icon"></i>
                     <span class="nav_name">Manage</span>
                 </a>

@@ -173,7 +173,7 @@
                         <div class="form-floating mb-3">
                             <input type="number" class="rifUsuario form-control form" name="formId2" id="rifUsuario"
                                 placeholder="" />
-                            <label for="formId1">R.I.F.</label>
+                            <label for="formId1">Cedula</label>
                         </div>
                     </div>
 
@@ -235,7 +235,7 @@
 
                     <div class="text-center">
                         <button type="button" class="btn btn-primary mb-4" onclick="submitData();">
-                            Registrarse
+                            Ingresar Usuario
                         </button>
                     </div>
 

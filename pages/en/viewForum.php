@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Perfil de Usuario</title>
+    <title>Foro</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -17,12 +17,12 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- CSS only -->
-    <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
-    <link rel="stylesheet" href="../../assests/css/viewUser.css" />
-    <link rel="stylesheet" href="../../assests/css/sidebar.css" />
+    <link rel="stylesheet" href="/Pichi-Tesis-LMS/assests/css/colorPallete.css" />
+    <link rel="stylesheet" href="/Pichi-Tesis-LMS/assests/css/viewUser.css" />
+    <link rel="stylesheet" href="/Pichi-Tesis-LMS/assests/css/sidebar.css" />
 
     <!--Sidebar.js-->
-    <script src="../../assests/js/sidebar.js"></script>
+    <script src="/Pichi-Tesis-LMS/assests/js/sidebar.js"></script>
 </head>
 
 <body class="bg-pastel" id="body-pd">
@@ -48,7 +48,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                    href="../es/verCalif.php">Spanish (Latin America)</a>
+                                    href="../es/verForo.php">Spanish (Latin America)</a>
                             </li>
                         </ul>
                     </div>
@@ -94,11 +94,11 @@
                     <i class="bx bx-user nav_icon"></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
-                <a href="courses.php" class="nav_link link-dark">
+                <a href="courses.php" class="nav_link active">
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Courses</span>
                 </a>
-                <a href="viewCalif.php" class="nav_link active">
+                <a href="viewCalif.php" class="nav_link link-dark">
                     <i class="bx bx-news nav_icon"></i>
                     <span class="nav_name">Evaluations</span>
                 </a>
@@ -134,65 +134,55 @@
 
     <!--Contenido Usuario-->
     <section>
-        <div class="container-fluid bg-blanco mt-3 shadow ">
-            <p class="fs-1"><strong>Evaluations</strong></p>
-            <div class="dropdown">
-                <a class="btn btn-tertiary bg-blancoOscuro dropdown-toggle mb-2" href="#" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false " style="width: auto;">
-                    #0001 Ingles - N1664
-                </a>
-
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">#0002 Progamacion en PHP - N1664</a></li>
-                    <li><a class="dropdown-item" href="#">#0003 Programacion Web - N1664</a></li>
-                    <li><a class="dropdown-item" href="#">#0004 Frances - N1664</a></li>
-                </ul>
+        <div class="container-fluid bg-blanco my-3 pb-2 shadow">
+            <!--Titulo-->
+            <div class="p-2 mb-2 rounded shadow">
+                <h2><strong>Foro - Nombre del curso - Empresa</strong></h2>
             </div>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Type</th>
-                        <th scope="col">Weighting</th>
-                        <th scope="col">Rating</th>
-                        <th scope="col">Range</th>
-                        <th scope="col">Percentage</th>
-                        <th scope="col">Feedback</th>
-                        <th scope="col">Total course contribution</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Examen #1</th>
-                        <td>20%</td>
-                        <td>10</td>
-                        <td>1 - 20</td>
-                        <td>50%</td>
-                        <td>Estudie más para la proxima</td>
-                        <td>20%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Examen #2</th>
-                        <td>20%</td>
-                        <td>15</td>
-                        <td>1 - 20</td>
-                        <td>75%</td>
-                        <td>Mejoro mucho! Siga asi!</td>
-                        <td>40%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Examen Final</th>
-                        <td>60%</td>
-                        <td>20</td>
-                        <td>1 - 20</td>
-                        <td>100%</td>
-                        <td>Excelente!</td>
-                        <td>100%</td>
-                    </tr>
-                </tbody>
-            </table>
+            <!--Input de tema. (Sujeto a Cambios)-->
+            <div class="rounded ">
+                <div class="">
+                    <br />
+                    <label for="descripcionDiscusion" class="form-label">Message content</label>
+                    <textarea class="form-control" id="descripcionDiscusion" rows="3"></textarea>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-primary mt-2" id="enviarTema">
+                            Send
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-        </div>
+            <hr />
+
+            <div>
+                <div class="p-2 rounded shadow">
+                    <h3>Comments</h3>
+                </div>
+
+                <div class="container my-3 bg-secondary-subtle rounded text-secondary-emphasis">
+                    <div class="d-flex flex-row align-items-center justify-content-center">
+                        <div class="pt-2 px-2 flex-fill me-4">
+                            <figure class="figure">
+                                <img src="https://github.com/PichiGod.png" class="figure-img img-fluid rounded-circle"
+                                    style="width: 6rem; height: auto" alt="..." />
+                                <figcaption class="figure-caption text-body text-center fs-6">
+                                    Pichi
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="p-2 fs-5 text-body text-break">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam et
+                            alias dolorem ipsam earum vel incidunt? Culpa mollitia
+                            cupiditate numquam commodi, explicabo quas ducimus delectus
+                            consectetur, nulla repellendus doloribus eum?
+                        </div>
+                        <div class="p-2 text-body fs-5 ms-auto">13/05/2024 12:00</div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 

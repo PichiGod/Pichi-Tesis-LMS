@@ -98,7 +98,7 @@
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Courses</span>
                 </a>
-                <a href="#" class="nav_link link-dark">
+                <a href="adminMenu.php" class="nav_link link-dark">
                     <i class="bx bx-cog nav_icon"></i>
                     <span class="nav_name">Manage</span>
                 </a>
@@ -142,7 +142,7 @@
                   style="width: 150px"
                 />
                 <h5 class="my-3">José</h5>
-                <button onclick="location.href='modifPerfil.php'" class="btn btn-primary">Edit Profile</button>
+                <button onclick="location.href='modifProfile.php'" class="btn btn-primary">Edit Profile</button>
               </div>
             </div>
           </div>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Perfil de Usuario</title>
+    <title>Inscribir</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -48,7 +48,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                    href="../es/verCalif.php">Spanish (Latin America)</a>
+                                    href="../es/inscribirUsuario.php">Spanish (Latin America)</a>
                             </li>
                         </ul>
                     </div>
@@ -98,11 +98,7 @@
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Courses</span>
                 </a>
-                <a href="viewCalif.php" class="nav_link active">
-                    <i class="bx bx-news nav_icon"></i>
-                    <span class="nav_name">Evaluations</span>
-                </a>
-                <a href="adminMenu.php" class="nav_link link-dark">
+                <a href="adminMenu.php" class="nav_link active">
                     <i class="bx bx-cog nav_icon"></i>
                     <span class="nav_name">Manage</span>
                 </a>
@@ -132,67 +128,91 @@
         </div>
     </div>
 
-    <!--Contenido Usuario-->
+    <!--Contenido-->
     <section>
-        <div class="container-fluid bg-blanco mt-3 shadow ">
-            <p class="fs-1"><strong>Evaluations</strong></p>
-            <div class="dropdown">
-                <a class="btn btn-tertiary bg-blancoOscuro dropdown-toggle mb-2" href="#" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false " style="width: auto;">
-                    #0001 Ingles - N1664
-                </a>
+        <div class="container-fluid bg-blanco my-3 pb-2 shadow">
+            <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+                    style="font-size:2rem;color:black;"></i></a>
+            <h1 class="text-center">Enroll User</h1>
 
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">#0002 Progamacion en PHP - N1664</a></li>
-                    <li><a class="dropdown-item" href="#">#0003 Programacion Web - N1664</a></li>
-                    <li><a class="dropdown-item" href="#">#0004 Frances - N1664</a></li>
-                </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Filter</button>
+            </form>
+
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="col">
+                    <div class="card my-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://github.com/PichiGod.png" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Full Name</h5>
+                                    <p class="card-text">
+                                        ID number
+                                    </p>
+                                    <p class="card-text">
+                                        Email
+                                    </p>
+                                    <p class="card-text">
+                                        Role
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card my-3" style="max-width: 540px;">
+
+                        <div class="card-body overflow-auto " style="height:20rem;">
+                            <ul class="list-group overflow-auto">
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
+                                    <label class="form-check-label" for="firstCheckbox">Matematica</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
+                                    <label class="form-check-label" for="secondCheckbox">Brawl</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                                    <label class="form-check-label" for="thirdCheckbox">Ser pro</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                                    <label class="form-check-label" for="thirdCheckbox">Programacion</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                                    <label class="form-check-label" for="thirdCheckbox">El puteo</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                                    <label class="form-check-label" for="thirdCheckbox">Gocheria</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                                    <label class="form-check-label" for="thirdCheckbox">Bobolongo</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                                    <label class="form-check-label" for="thirdCheckbox">Santiago es gay</label>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="card-footer">
+                            <button class="btn btn-primary">Enroll</button>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Type</th>
-                        <th scope="col">Weighting</th>
-                        <th scope="col">Rating</th>
-                        <th scope="col">Range</th>
-                        <th scope="col">Percentage</th>
-                        <th scope="col">Feedback</th>
-                        <th scope="col">Total course contribution</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Examen #1</th>
-                        <td>20%</td>
-                        <td>10</td>
-                        <td>1 - 20</td>
-                        <td>50%</td>
-                        <td>Estudie más para la proxima</td>
-                        <td>20%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Examen #2</th>
-                        <td>20%</td>
-                        <td>15</td>
-                        <td>1 - 20</td>
-                        <td>75%</td>
-                        <td>Mejoro mucho! Siga asi!</td>
-                        <td>40%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Examen Final</th>
-                        <td>60%</td>
-                        <td>20</td>
-                        <td>1 - 20</td>
-                        <td>100%</td>
-                        <td>Excelente!</td>
-                        <td>100%</td>
-                    </tr>
-                </tbody>
-            </table>
-
         </div>
+
         </div>
     </section>
 

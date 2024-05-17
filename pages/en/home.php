@@ -147,7 +147,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Courses</span>
                 </a>
-                <a href="#" class="nav_link link-dark">
+                <a href="adminMenu.php" class="nav_link link-dark">
                     <i class="bx bx-cog nav_icon"></i>
                     <span class="nav_name">Manage</span>
                 </a>
