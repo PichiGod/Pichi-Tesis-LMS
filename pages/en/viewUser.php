@@ -1,3 +1,66 @@
+<?php
+
+require "../../assests/php/LoginBD.php";
+
+$cursos = [];
+
+if (isset($_SESSION['id_user'])) {
+
+    $usuarios1 = $_SESSION['id_user'];
+
+    $conexion1 = mysqli_query($mysqli, "SELECT * FROM usuario WHERE id_user = '$usuarios1'");
+
+    if (mysqli_num_rows($conexion1) > 0) {
+
+        $datos = mysqli_fetch_assoc($conexion1);
+
+        $empresaUsuario = $datos['Empresa_id_empresa'];
+
+        $nombreUsuario = $datos['nombre_user'];
+
+        $apellidoUsuario = $datos['apellido_user'];
+
+        $correoElectronico = $datos['correo_user'];
+
+        $fechaNacimiento = $datos['fecha_nacimiento_user'];
+
+        $TelefonoUsuario = $datos['numero_user'];
+
+        $sexoUsuario = $datos['sexo_user'];
+
+        $direccionUsuario = $datos['direccion_user'];
+
+        $fechaNacimientoFormateada = date('d-m-Y', strtotime(str_replace('/', '-', $fechaNacimiento)));
+
+        $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
+
+        if (mysqli_num_rows($conexion2) > 0) {
+
+            $datos2 = mysqli_fetch_assoc($conexion2);
+
+            $nombreEmpresa = $datos2['nombre_empresa'];
+
+            $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
+
+            if (mysqli_num_rows($conexion3) > 0) {
+                while ($datos3 = mysqli_fetch_assoc($conexion3)) {
+                    $cursos[] = $datos3;
+
+                }
+
+            }
+
+
+
+        }
+
+    }
+
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -141,7 +204,7 @@
                   class="rounded-circle img-fluid"
                   style="width: 150px"
                 />
-                <h5 class="my-3">José</h5>
+                <h5 class="my-3"><?php echo $nombreUsuario ?></h5>
                 <button onclick="location.href='modifProfile.php'" class="btn btn-primary">Edit Profile</button>
               </div>
             </div>
@@ -154,7 +217,7 @@
                     <p class="mb-0">Full Name</p>
                   </div>
                   <div class="col-sm-9">
-                    <p class="text-muted mb-0">José Duarte</p>
+                    <p class="text-muted mb-0"><?php echo $nombreUsuario . " " . $apellidoUsuario ?></p>
                   </div>
                 </div>
                 <hr />
@@ -163,7 +226,7 @@
                     <p class="mb-0">Email</p>
                   </div>
                   <div class="col-sm-9">
-                    <p class="text-muted mb-0">example@example.com</p>
+                    <p class="text-muted mb-0"><?php echo $correoElectronico ?></p>
                   </div>
                 </div>
                 <hr />
@@ -172,7 +235,7 @@
                       <p class="mb-0">Date of birth</p>
                     </div>
                     <div class="col-sm-9">
-                      <p class="text-muted mb-0">12 / 07 / 2002</p>
+                      <p class="text-muted mb-0"><?php echo $fechaNacimientoFormateada?></p>
                     </div>
                   </div>
                   <hr />
@@ -181,7 +244,7 @@
                     <p class="mb-0">Phone number</p>
                   </div>
                   <div class="col-sm-9">
-                    <p class="text-muted mb-0">(097) 234-5678</p>
+                    <p class="text-muted mb-0"><?php echo $TelefonoUsuario?></p>
                   </div>
                 </div>
                 <hr />
@@ -190,7 +253,7 @@
                     <p class="mb-0">Sex</p>
                   </div>
                   <div class="col-sm-9">
-                    <p class="text-muted mb-0">Masculino</p>
+                    <p class="text-muted mb-0"><?php echo $sexoUsuario ?></p>
                   </div>
                 </div>
                 <hr />
@@ -199,7 +262,7 @@
                     <p class="mb-0">Address</p>
                   </div>
                   <div class="col-sm-9">
-                    <p class="text-muted mb-0">Manolo Cabeza de Huevo</p>
+                    <p class="text-muted mb-0"><?php echo $direccionUsuario?></p>
                   </div>
                 </div>
               </div>

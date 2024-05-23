@@ -325,7 +325,7 @@ if (isset($_GET['id_cur'])) {
                 <div class="containerButtonCrearActividadFin">
 
                     <button type="button" class="botonRegresar btn btn-primary"
-                        onclick="location.href=''">Regresar</button>
+                        onclick="location.href='verCurso.php?id_cur=<?php echo $id_curso_seleccionado ?>'">Regresar</button>
 
                     <button type="button" class="botonCrearCursoFin btn btn-primary" onclick="submitData();">Crear
                         Actividad</button>

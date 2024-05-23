@@ -2,6 +2,8 @@
 
 require "../../assests/php/LoginBD.php";
 
+$cursos = [];
+
 if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
@@ -25,6 +27,18 @@ if (isset($_SESSION['id_user'])) {
             $datos2 = mysqli_fetch_assoc($conexion2);
 
             $nombreEmpresa = $datos2['nombre_empresa'];
+
+            $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
+
+            if (mysqli_num_rows($conexion3) > 0) {
+                while ($datos3 = mysqli_fetch_assoc($conexion3)) {
+                    $cursos[] = $datos3;
+
+                }
+
+            }
+
+
 
         }
 
@@ -176,65 +190,29 @@ if (isset($_SESSION['id_user'])) {
 
             <h1 class="heading"><b>Currently Active Courses</b></h1>
 
-            <div class="container-historial">
-
-                <div class="cubo">
-
-                    <h3 class="estatus-pago">Course Status: Active</h3>
-
-                    <h3 class="fecha-pago">Date of Creation: </h3>
-
-                    <h3 class="Referencia-pago">12/12/2023</h3>
-
-                    <h3 class="monto-pago"><b>Ingles I</b></h3>
-
-                    <button style="cursor: pointer;" type="submit" class="boton-detalles">View Course</button>
-
-                </div>
-
-
-
-                <div class="cubo">
-
-                    <h3 class="estatus-pago">Course Status: Active</h3>
-
-                    <h3 class="fecha-pago">Date of Creation:</h3>
-
-                    <h3 class="Referencia-pago">12/12/2023</h3>
-
-                    <h3 class="monto-pago"><b>Programación I</b></h3>
-
-                    <button style="cursor: pointer;" type="submit" class="boton-detalles">View Course</button>
-
-                </div>
-                <div class="cubo">
-
-                    <h3 class="estatus-pago">Course Status: Active</h3>
-
-                    <h3 class="fecha-pago">Date of Creation:</h3>
-
-                    <h3 class="Referencia-pago">12/12/2023</h3>
-
-                    <h3 class="monto-pago"><b>Portugues Avanzado</b></h3>
-
-                    <button style="cursor: pointer;" type="submit" class="boton-detalles">View Course</button>
-
-                </div>
-                <div class="cubo">
-
-                    <h3 class="estatus-pago">Course Status: Active</h3>
-
-                    <h3 class="fecha-pago">Date of Creation:</h3>
-
-                    <h3 class="Referencia-pago">12/12/2023</h3>
-
-                    <h3 class="monto-pago"><b>Italiano Intermedio</b></h3>
-
-                    <button style="cursor: pointer;" type="submit" class="boton-detalles">View Course</button>
-
+            <div class="container">
+                <div class="row gy-3 mb-4">
+                    <?php foreach ($cursos as $curso) { ?>
+                        <div class="col">
+                            <div class="card" style="width: 18rem">
+                                <div class="card-body">
+                                    <?php
+                                    // Determinar la clase de fondo según la visibilidad del curso
+                                    $bgClass = ($curso['visibilidad_curso'] == 'Invisible') ? 'bg-danger' : 'bg-success';
+                                    ?>
+                                    <span class="card-text text-bg-success rounded p-1 fs-6 <?php echo $bgClass; ?>">Course status: <?php echo $curso['visibilidad_curso']; ?></span>
+                                    <p class="mt-2 card-text text-end">Fecha de Creación:</p>
+                                    <p class="card-text text-end"><?php echo $curso['fecha_inicio']; ?></p>
+                                    <h4 class="card-title text-start"><?php echo $curso['nombre_cur']; ?></h4>
+                                    <a class="btn btn-primary mt-2"
+                                        href="verCurso.php?id_cur=<?php echo $curso['id_cur']; ?>">View Course</a>
+    
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
-
             <div class="containerButtonCrearCurso">
 
                 <button type="button" class="botonCrearCurso btn btn-primary"

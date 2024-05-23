@@ -1,3 +1,95 @@
+<?php
+
+require "../../assests/php/LoginBD.php";
+
+// Inicializar variables
+$nombreCompleto = "";
+$identificacion = "";
+$correo = "";
+$rol = "";
+$cursos = [];
+// Verificar si hay una sesión activa
+if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
+
+    // Obtener ID de usuario activo
+    $usuarios1 = $_SESSION['id_user'];
+
+    // Obtener usuarios activos
+    $usuariosActivos = $_SESSION['usuariosActive'];
+
+    // Consulta para obtener datos del usuario actual
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+
+    // Verificar si se encontró el usuario actual
+    if (mysqli_num_rows($conexion1) > 0) {
+
+        // Extraer datos del usuario actual
+        $datos = mysqli_fetch_assoc($conexion1);
+        $empresaUsuario = $datos['Empresa_id_empresa'];
+        $nombreUsuario = $datos['nombre_user'];
+        $apellidoUsuario = $datos['apellido_user'];
+
+        // Consulta para obtener el nombre de la empresa del usuario actual
+        $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
+
+        // Verificar si se encontró el nombre de la empresa
+        if (mysqli_num_rows($conexion2) > 0) {
+            $datos2 = mysqli_fetch_assoc($conexion2);
+            $nombreEmpresa = $datos2['nombre_empresa'];
+        }
+
+        // Consulta para obtener la cantidad de cursos del usuario actual
+        $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
+        $cursosCantidad = mysqli_num_rows($conexion3) > 0 ? mysqli_num_rows($conexion3) : 0;
+
+        // Verificar si se envió el formulario de búsqueda
+        if (isset($_GET['identificacion'])) {
+            // Obtener la identificación del formulario
+            $identificacion = $_GET['identificacion'];
+
+            // Consulta para obtener datos del usuario por identificación
+            $consulta_usuario = mysqli_query($mysqli, "SELECT nombre_user, apellido_user, identificacion_user, correo_user, rol FROM usuario WHERE identificacion_user = '$identificacion'");
+
+            // Verificar si se encontraron resultados
+            if (mysqli_num_rows($consulta_usuario) > 0) {
+                // Extraer datos del usuario
+                $datos_usuario = mysqli_fetch_assoc($consulta_usuario);
+
+                // Asignar los datos a variables
+                $nombreCompleto = $datos_usuario['nombre_user'] . ' ' . $datos_usuario['apellido_user'];
+                $identificacion = $datos_usuario['identificacion_user'];
+                $correo = $datos_usuario['correo_user'];
+                $rol = $datos_usuario['rol'];
+
+                if($rol == 0){
+
+                    $rol = "Administrador";
+
+                }elseif($rol == 1){
+
+                    $rol = "Docente";
+                }else{
+
+                    $rol = "Alumno";
+                }
+    
+                }
+
+            }
+
+            $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
+
+            if (mysqli_num_rows($conexion3) > 0) {
+                while ($datos3 = mysqli_fetch_assoc($conexion3)) {
+                    $cursos[] = $datos3;
+
+                }
+        }
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -134,13 +226,13 @@
     <!--Contenido-->
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-            <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
-                    style="font-size:2rem;color:black;"></i></a>
-            <h1 class="text-center">Inscribir Usuario</h1>
+            <!-- Formulario de búsqueda -->
 
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Filtrar</button>
+            <!-- Información del usuario -->
+            <h1 class="text-center">Inscribir Usuario</h1>
+            <form class="d-flex" role="search" method="GET" action="">
+                <input class="form-control me-2" type="search" placeholder="Ingrese Identificación" aria-label="Search" name="identificacion" value="<?php echo $identificacion; ?>">
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
             </form>
 
             <div class="row row-cols-1 row-cols-md-2 g-4">
@@ -150,18 +242,14 @@
                             <div class="col-md-4">
                                 <img src="https://github.com/PichiGod.png" class="img-fluid rounded-start" alt="...">
                             </div>
+
+                            
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">Nombre Completo</h5>
-                                    <p class="card-text">
-                                        Cedula
-                                    </p>
-                                    <p class="card-text">
-                                        Correo
-                                    </p>
-                                    <p class="card-text">
-                                        Rol
-                                    </p>
+                                    <h5 class="card-title"><?php echo $nombreCompleto; ?></h5>
+                                    <p class="card-text"><b>Identificación:</b> <?php echo $identificacion; ?></p>
+                                    <p class="card-text"><b>Correo Electronico:</b> <?php echo $correo; ?></p>
+                                    <p class="card-text"><b>Rol: </b><?php echo $rol; ?></p>
                                 </div>
                             </div>
                         </div>
@@ -172,38 +260,18 @@
 
                         <div class="card-body overflow-auto " style="height:20rem;">
                             <ul class="list-group overflow-auto">
+                                <?php 
+                                if(mysqli_num_rows($conexion3) > 0){
+                                foreach($cursos as $curso){ ?>
                                 <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
-                                    <label class="form-check-label" for="firstCheckbox">Matematica</label>
+                                    <input class="form-check-input me-1" type="checkbox" value="<?php echo $curso['id_cur'] ?>" id="firstCheckbox">
+                                    <label class="form-check-label" for="firstCheckbox"><?php echo $curso['nombre_cur'] ?></label>
                                 </li>
-                                <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
-                                    <label class="form-check-label" for="secondCheckbox">Brawl</label>
-                                </li>
-                                <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                                    <label class="form-check-label" for="thirdCheckbox">Ser pro</label>
-                                </li>
-                                <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                                    <label class="form-check-label" for="thirdCheckbox">Programacion</label>
-                                </li>
-                                <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                                    <label class="form-check-label" for="thirdCheckbox">El puteo</label>
-                                </li>
-                                <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                                    <label class="form-check-label" for="thirdCheckbox">Gocheria</label>
-                                </li>
-                                <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                                    <label class="form-check-label" for="thirdCheckbox">Bobolongo</label>
-                                </li>
-                                <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                                    <label class="form-check-label" for="thirdCheckbox">Santiago es gay</label>
-                                </li>
+                                <?php }}else{ ?>
+
+                                    <h3>No hay cursos disponibles en tu Empresa</h3>
+
+                                <?php } ?>
                             </ul>
                         </div>
 
