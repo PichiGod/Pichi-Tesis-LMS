@@ -1,3 +1,56 @@
+<?php
+
+require "../../assests/php/LoginBD.php";
+
+if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
+
+    $usuarios1 = $_SESSION['id_user'];
+
+    $usuariosActivos = $_SESSION['usuariosActive'];
+
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+
+    if (mysqli_num_rows($conexion1) > 0) {
+
+        $datos = mysqli_fetch_assoc($conexion1);
+
+        $empresaUsuario = $datos['Empresa_id_empresa'];
+
+        $nombreUsuario = $datos['nombre_user'];
+
+        $apellidoUsuario = $datos['apellido_user'];
+
+        $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
+
+        if (mysqli_num_rows($conexion2) > 0) {
+
+            $datos2 = mysqli_fetch_assoc($conexion2);
+
+            $nombreEmpresa = $datos2['nombre_empresa'];
+
+        }
+
+        $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
+
+        if (mysqli_num_rows($conexion3) > 0) {
+
+            $cursosCantidad = mysqli_num_rows($conexion3);
+
+        } else {
+
+            $cursosCantidad = 0;
+
+        }
+
+    }
+
+}
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -131,11 +184,11 @@
   <section>
     <div class="container-fluid bg-blanco my-3 pb-2 shadow">
       <h1 class="text-center">Administrar</h1>
-      <h3 class="text-center">(Empresa)</h3>
+      <h3 class="text-center">(<?php echo $nombreEmpresa ?>)</h3>
 
       <br>
       <div class="row justify-content-center align-items-center g-1 mb-3">
-        <label for="usuario">Adminstrar Usuarios</label>
+        <label for="usuario">Administrar Usuarios</label>
         <hr>
         <div id="usuario" class="col">
           <button onclick="location.href='ingresarUsuario.php'" class="btn btn-secondary">Ingresar Usuarios</button>
@@ -147,7 +200,7 @@
       </div>
 
       <div class="row justify-content-center align-items-center g-1 mb-3">
-        <label for="cursos">Adminstrar Cursos</label>
+        <label for="cursos">Administrar Cursos</label>
         <hr>
         <div id="cursos" class="col">
           <button class="btn btn-secondary">Crear Curso</button>

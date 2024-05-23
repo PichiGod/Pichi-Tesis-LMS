@@ -27,6 +27,8 @@ if (isset($_SESSION['id_user'])) {
 
             $nombreEmpresa = $datos2['nombre_empresa'];
 
+
+
         }
 
     }
@@ -35,6 +37,17 @@ if (isset($_SESSION['id_user'])) {
 
 if (isset($_GET['id_cur'])) {
     $id_curso_seleccionado = $_GET['id_cur'];
+
+    $consultaActividades = mysqli_query($mysqli, "SELECT * FROM actividades WHERE idCurso_id_cur = '$id_curso_seleccionado'");
+
+    if (mysqli_num_rows($consultaActividades) > 0) {
+        while ($datosActividad = mysqli_fetch_assoc($consultaActividades)) {
+            $Actividades[] = $datosActividad;
+
+        }
+
+    }
+
 }
 ?>
 
@@ -229,34 +242,38 @@ if (isset($_GET['id_cur'])) {
                     <h4>Actividades (Estrictamente para actividades de la materia como tareas/entregas)</h4>
                 </div>
 
-                <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis p-3">
-                    <div class="">
+                 
+                <?php 
+                
+                if (mysqli_num_rows($consultaActividades) > 0) {
 
-                        <div class="">
-                            <i class="fa-solid fa-note-sticky me-2 p-3 rounded bg-warning-subtle" witdh="35"
-                                height="35"></i>
-                            <span>Recurso o Actividad</span>
+                foreach($Actividades as $actividad): ?>
+                <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis p-3" style="padding: 10px;">
+                    <div>
+                        <div>
+                            <i class="fa-solid fa-note-sticky me-2 p-3 rounded bg-warning-subtle" witdh="35" height="35"></i>
+                            <span><a href=""><?php echo $actividad['Titulo'] ?></a></span>
                         </div>
-
                     </div>
                 </div>
+                <?php endforeach;
+                }else{?>
 
-                <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis mt-3 p-3">
-                    <div class="">
-
-                        <div class="">
-                            <i class="fa-solid fa-note-sticky me-2 p-3 rounded bg-warning-subtle" witdh="35"
-                                height="35"></i>
-                            <span>Recurso o Actividad #2</span>
+                <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis p-3" style="padding: 10px;">
+                    <div>
+                        <div>    
+                        <span>No hay Actividades disponibles en este momento</span>
                         </div>
-
                     </div>
                 </div>
+                    
+
+                <?php } ?>
 
                 <div class="containerButtonCrearActividadFin">
 
                     <button type="button" class="botonRegresar btn btn-primary"
-                        onclick="location.href=''">Regresar</button>
+                        onclick="location.href='cursos.php'">Regresar</button>
 
                     <button type="button" class="botonCrearCursoFin btn btn-primary"
                         onclick="location.href='crearActividad.php?id_cur=<?php echo $id_curso_seleccionado; ?>'">

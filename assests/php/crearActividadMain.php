@@ -3,16 +3,13 @@
 
 function submitData() {
     $(document).ready(function() {
-        // Obtener el archivo seleccionado
-        var archivoSeleccionado = $('#archivo')[0].files[0];
+        // Obtener el contenido del editor Quill
+        var editorContent = quill.root.innerHTML;
 
-        // Crear un objeto FormData para enviar datos del archivo
+        // Crear un objeto FormData para enviar datos
         var formData = new FormData();
-        formData.append('archivo', archivoSeleccionado); // Agregar el archivo al FormData
-
-        // Agregar otros datos del formulario al FormData
         formData.append('tituloActividad', $('#tituloActividad').val());
-        formData.append('texto_actividad', $('#texto_actividad').val());
+        formData.append('texto_actividad', editorContent);
         formData.append('fechaInicio', $('#fechaInicio').val());
         formData.append('fechaFin', $('#fechaFin').val());
         formData.append('fechaNoti', $('#fechaNoti').val());
@@ -25,13 +22,19 @@ function submitData() {
         formData.append('action', $('#action').val());
         formData.append('actionID_CUR', $('#actionID_CUR').val());
 
-        // Realizar la solicitud AJAX usando FormData para enviar datos del archivo
+        // Obtener el archivo seleccionado y agregarlo al FormData
+        var archivoSeleccionado = $('#archivo')[0].files[0];
+        var archivoSeleccionado2 = $('#archivo1')[0].files[0];
+        formData.append('archivo', archivoSeleccionado);
+        formData.append('archivo1', archivoSeleccionado2);
+
+        // Realizar la solicitud AJAX usando FormData para enviar datos
         $.ajax({
             url: '../../assests/php/crearActividadBD.php',
             type: 'post',
             data: formData,
-            processData: false, // No procesar los datos (FormData)
-            contentType: false, // No establecer el tipo de contenido
+            processData: false,
+            contentType: false,
             success: function(response) {
                 alert(response);
                 if (response === 'Nueva Actividad Creada Exitosamente') {
@@ -44,4 +47,5 @@ function submitData() {
         });
     });
 }
+
 </script>
