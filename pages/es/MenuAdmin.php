@@ -42,8 +42,8 @@
           <div class="vr me-2"></div>
           <div class="nav-item dropdown">
             <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">
-              <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                href="#">Español (Latino America)</a>
+              <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary" href="#">Español
+                (Latino America)</a>
             </button>
             <ul class="dropdown-menu">
               <li class="dropdown-item">
@@ -138,7 +138,7 @@
         <label for="usuario">Adminstrar Usuarios</label>
         <hr>
         <div id="usuario" class="col">
-          <button onclick="location.href='ingresarUsuario.php'" class="btn btn-secondary">Ingresar Usuarios</button>
+          <button onclick="location.href='ingresarUsuario.php'" class="btn btn-secondary">Ingresar Usuario</button>
           <button onclick="location.href='inscribirUsuario.php'" class="btn btn-secondary">Inscribir cursos</button>
           <button onclick="location.href='administrarUsuario.php'" class="btn btn-secondary">Administrar
             Usuarios</button>
@@ -150,9 +150,10 @@
         <label for="cursos">Adminstrar Cursos</label>
         <hr>
         <div id="cursos" class="col">
-          <button class="btn btn-secondary">Crear Curso</button>
-          <button class="btn btn-secondary">Editar Curso</button>
-          <button class="btn btn-secondary">Visibilidad/disponibilidad de Curso</button>
+          <button onclick="location.href='crearCurso.php'" class="btn btn-secondary">Crear Curso</button>
+          <button onclick="location.href='administrarCurso.php'" class="btn btn-secondary">Administrar Cursos</button>
+          <button onclick="location.href='estadoCurso.php'" class="btn btn-secondary">Visibilidad/disponibilidad de Curso</button>
+          <button onclick="location.href='asignarDocente.php'" class="btn btn-secondary">Asignar docente</button>
         </div>
       </div>
 

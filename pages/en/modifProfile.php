@@ -131,7 +131,7 @@
     <!--Contenido Usuario-->
     <section>
         <div class="container-fluid bg-blanco my-3 shadow">
-            <a href="verUser.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+            <a href="viewUser.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
             <h3 class="text-center pt-2">Edit Profile</h3>
             <div class="row d-flex align-items-center">

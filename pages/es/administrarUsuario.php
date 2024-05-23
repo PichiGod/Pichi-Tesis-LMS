@@ -34,8 +34,7 @@
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
                 <a class="navbar-brand" href="../../index.html">
-                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70"
-                        height="24" />
+                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
                 <div class="d-flex justify-content-end">
@@ -137,6 +136,28 @@
                     style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2">Administrar Usuario</h1>
 
+            <!-- <div class="d-flex container rounded bg-danger-subtle text-secondary-emphasis my-2 p-3">
+                <div class="">
+
+                    <div class="">
+                        <p>Seguro que quiere eliminar al usuario?</p>
+                        <button class="btn btn-danger">Si</button>
+                        <button class="btn btn-secondary">No</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="d-flex container rounded bg-warning-subtle text-secondary-emphasis my-2 p-3">
+                <div class="">
+
+                    <div class="">
+                        <p>Usuario eliminado</p>
+                    </div>
+
+                </div>
+            </div> -->
+
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Filtrar</button>
@@ -147,8 +168,8 @@
                     <thead>
                         <tr>
                             <th scope="col">Cedula</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Apellido</th>
+                            <th scope="col">Nombre(s)</th>
+                            <th scope="col">Apellido(s)</th>
                             <th scope="col">Dirección</th>
                             <th scope="col">Correo</th>
                             <th scope="col">Sexo</th>
@@ -165,7 +186,14 @@
                             <td>dsjoseale@gmail.com</td>
                             <td>Hombre</td>
                             <td>Estudiante</td>
-                            <td><button class="btn btn-primary me-1">Modificar</button><button class="btn btn-primary">Eliminar</button></td>
+                            <td>
+                                <button onclick="location.href='modifUsuario.php'" class="btn btn-primary me-1">
+                                    Modificar
+                                </button>
+                                <button onclick="eliminarUser();" class="btn btn-primary">
+                                    Eliminar
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -173,6 +201,23 @@
 
         </div>
     </section>
+
+    <script>
+        function eliminarUser() {
+            confimar = confirm('Seguro que quiere eliminar al usuario?');
+            if (confimar == true) {
+                // e.preventDefault();
+                //Accion para borrar usuario
+                alert('El usuario ha sido eliminado')
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        // function topFunction() {
+        //     document.body.scrollTop = 0; // For Safari
+        //     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+        // }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

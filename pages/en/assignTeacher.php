@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Administrar</title>
+    <title>Assign Teacher</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -48,7 +48,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                    href="../es/inscribirUsuario.php">Spanish (Latin America)</a>
+                                    href="../es/MenuAdmin.php">Spanish (Latin America)</a>
                             </li>
                         </ul>
                     </div>
@@ -133,134 +133,87 @@
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
             <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
-            <h1 class="text-center">Insert User</h1>
+            <h1 class="text-center">Assign Teacher</h1>
 
-            <form action="" method="post">
-                <input type="hidden" name="" id="action" value="Register">
-                <div name="formulario">
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search by ID..." aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
 
-                    <hr class="mx-5" />
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="nombreUsuario form-control form" name="formId1" id="nombreUsuario"
-                                placeholder="" />
-                            <label for="formId1">User's First Name</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="apellidoUsuario form-control form" name="formId1"
-                                id="apellidoUsuario" placeholder="" />
-                            <label for="formId1">User's Last Name</label>
-                        </div>
-                    </div>
-
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="email" class="correoUsuario form-control form" name="formId1"
-                                id="correoUsuario" placeholder="" />
-                            <label for="">Email</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="number" class="rifUsuario form-control form" name="formId2" id="rifUsuario"
-                                placeholder="" />
-                            <label for="formId1">Id number</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="contrasenaUsuario form-control form" name="formId3"
-                                id="contrasenaUsuario" placeholder="" />
-                            <label for="formId1">Password</label>
-                        </div>
-                    </div>
-
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="direccionUsuario form-control form" name="formId3"
-                                id="direccionUsuario" placeholder="" />
-                            <label for="formId1">Address</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-4">
-                            <select class="GeneroUsuario form-select" aria-label="Default select example"
-                                id="GeneroUsuario">
-                                <option selected>Male</option>
-                                <option value="1">Female</option>
-                            </select>
-                            <label for="formId1">Gender</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-4">
-                            <select class="Empresa form-select" aria-label="Default select example" id="Empresa"
-                                name="Empresa">
-                                <option selected disabled>Aqui quiero que la unica opcion sea la empresa del admin</option>
-                                <?php foreach ($empresas as $empresa): ?>
-                                    <option value="<?php echo $empresa; ?>"><?php echo $empresa; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <label for="Empresa">Company</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="date" class="fechaNacimiento form-control" id="fechaNacimiento" name="fecha">
-                            <label for="formId1">Date of birth</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3 w-auto align-self-center">
-                            <input type="number" class="telefonoUsuario form-control" name="formId1"
-                                id="telefonoUsuario" placeholder="" />
-                            <label for="formId1">Phone number</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3 w-auto">
-                            <p class="text-center">Insert as:</p>
-                            <div class="form-floating mb-3 d-flex justify-content-evenly">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1" checked>
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Student
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault2">
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Teacher
-                                    </label>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="col">
+                    <div class="card my-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://github.com/PichiGod.png" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Full Name</h5>
+                                    <p class="card-text">
+                                        ID Number
+                                    </p>
+                                    <p class="card-text">
+                                        Email
+                                    </p>
+                                    <p class="card-text">
+                                        Role
+                                    </p>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
-                    <div class="text-center">
-                        <button type="button" class="btn btn-primary mb-4" onclick="submitData();">
-                            Insert User
-                        </button>
-                    </div>
-
                 </div>
-            </form>
+                <div class="col">
+                    <div class="card my-3" style="max-width: 540px;">
+                    <p>Aqui se muestran los cursos creados, los que tienen marca significa que ya esta asignado a esa materia</p>
+
+                        <div class="card-body overflow-auto " style="height:20rem;">
+                            <ul class="list-group overflow-auto">
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" checked>
+                                    <label class="form-check-label" for="firstCheckbox">Matematica</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
+                                    <label class="form-check-label" for="secondCheckbox">Brawl</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                                    <label class="form-check-label" for="thirdCheckbox">Ser pro</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                                    <label class="form-check-label" for="thirdCheckbox">Programacion</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                                    <label class="form-check-label" for="thirdCheckbox">El puteo</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                                    <label class="form-check-label" for="thirdCheckbox">Gocheria</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                                    <label class="form-check-label" for="thirdCheckbox">Bobolongo</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                                    <label class="form-check-label" for="thirdCheckbox">Santiago es gay</label>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="card-footer">
+                            <button class="btn btn-primary">Asignar</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
         </div>
     </section>
 

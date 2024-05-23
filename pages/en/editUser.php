@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Administrar</title>
+    <title>Edit User</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -48,7 +48,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                    href="../es/inscribirUsuario.php">Spanish (Latin America)</a>
+                                    href="../es/MenuAdmin.php">Spanish (Latin America)</a>
                             </li>
                         </ul>
                     </div>
@@ -128,12 +128,16 @@
         </div>
     </div>
 
-    <!--Contenido-->
+    <<!--Contenido-->
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-            <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+            <a href="administrarUsuario.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
-            <h1 class="text-center">Insert User</h1>
+            <h1 class="text-center">Edit User</h1>
+
+            <h5>Aqui, quiero que agarres la informacion del usuario que se selecciono 
+                y reflejar la informacion en los inputs para modificar.
+            </h5>
 
             <form action="" method="post">
                 <input type="hidden" name="" id="action" value="Register">
@@ -206,7 +210,8 @@
                         <div class="form-floating mb-4">
                             <select class="Empresa form-select" aria-label="Default select example" id="Empresa"
                                 name="Empresa">
-                                <option selected disabled>Aqui quiero que la unica opcion sea la empresa del admin</option>
+                                <option selected disabled>Aqui quiero que la unica opcion sea la empresa del admin
+                                </option>
                                 <?php foreach ($empresas as $empresa): ?>
                                     <option value="<?php echo $empresa; ?>"><?php echo $empresa; ?></option>
                                 <?php endforeach; ?>
@@ -232,7 +237,7 @@
 
                     <div>
                         <div class="form-floating mb-3 w-auto">
-                            <p class="text-center">Insert as:</p>
+                            <p class="text-center">Ingresar como:</p>
                             <div class="form-floating mb-3 d-flex justify-content-evenly">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault"
@@ -255,7 +260,10 @@
 
                     <div class="text-center">
                         <button type="button" class="btn btn-primary mb-4" onclick="submitData();">
-                            Insert User
+                            Edit User
+                        </button>
+                        <button type="reset" class="btn btn-secondary mb-4" onclick="submitData();">
+                            Reset Changes
                         </button>
                     </div>
 

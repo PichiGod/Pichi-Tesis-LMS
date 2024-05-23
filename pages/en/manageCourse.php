@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Administrar</title>
+    <title>Manage Courses</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -48,7 +48,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                    href="../es/inscribirUsuario.php">Spanish (Latin America)</a>
+                                    href="../es/MenuAdmin.php">Spanish (Latin America)</a>
                             </li>
                         </ul>
                     </div>
@@ -133,136 +133,88 @@
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
             <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
-            <h1 class="text-center">Insert User</h1>
+            <h1 class="text-center pt-2">Administrar Cursos</h1>
 
-            <form action="" method="post">
-                <input type="hidden" name="" id="action" value="Register">
-                <div name="formulario">
+            <!-- <div class="d-flex container rounded bg-danger-subtle text-secondary-emphasis my-2 p-3">
+                <div class="">
 
-                    <hr class="mx-5" />
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="nombreUsuario form-control form" name="formId1" id="nombreUsuario"
-                                placeholder="" />
-                            <label for="formId1">User's First Name</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="apellidoUsuario form-control form" name="formId1"
-                                id="apellidoUsuario" placeholder="" />
-                            <label for="formId1">User's Last Name</label>
-                        </div>
-                    </div>
-
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="email" class="correoUsuario form-control form" name="formId1"
-                                id="correoUsuario" placeholder="" />
-                            <label for="">Email</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="number" class="rifUsuario form-control form" name="formId2" id="rifUsuario"
-                                placeholder="" />
-                            <label for="formId1">Id number</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="contrasenaUsuario form-control form" name="formId3"
-                                id="contrasenaUsuario" placeholder="" />
-                            <label for="formId1">Password</label>
-                        </div>
-                    </div>
-
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="direccionUsuario form-control form" name="formId3"
-                                id="direccionUsuario" placeholder="" />
-                            <label for="formId1">Address</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-4">
-                            <select class="GeneroUsuario form-select" aria-label="Default select example"
-                                id="GeneroUsuario">
-                                <option selected>Male</option>
-                                <option value="1">Female</option>
-                            </select>
-                            <label for="formId1">Gender</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-4">
-                            <select class="Empresa form-select" aria-label="Default select example" id="Empresa"
-                                name="Empresa">
-                                <option selected disabled>Aqui quiero que la unica opcion sea la empresa del admin</option>
-                                <?php foreach ($empresas as $empresa): ?>
-                                    <option value="<?php echo $empresa; ?>"><?php echo $empresa; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <label for="Empresa">Company</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="date" class="fechaNacimiento form-control" id="fechaNacimiento" name="fecha">
-                            <label for="formId1">Date of birth</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3 w-auto align-self-center">
-                            <input type="number" class="telefonoUsuario form-control" name="formId1"
-                                id="telefonoUsuario" placeholder="" />
-                            <label for="formId1">Phone number</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3 w-auto">
-                            <p class="text-center">Insert as:</p>
-                            <div class="form-floating mb-3 d-flex justify-content-evenly">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1" checked>
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Student
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault2">
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Teacher
-                                    </label>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="text-center">
-                        <button type="button" class="btn btn-primary mb-4" onclick="submitData();">
-                            Insert User
-                        </button>
+                    <div class="">
+                        <p>Seguro que quiere eliminar al usuario?</p>
+                        <button class="btn btn-danger">Si</button>
+                        <button class="btn btn-secondary">No</button>
                     </div>
 
                 </div>
+            </div>
+
+            <div class="d-flex container rounded bg-warning-subtle text-secondary-emphasis my-2 p-3">
+                <div class="">
+
+                    <div class="">
+                        <p>Usuario eliminado</p>
+                    </div>
+
+                </div>
+            </div> -->
+
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Filter</button>
             </form>
+
+            <div class="table-responsive">
+                <table class="table mt-2">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Course</th>
+                            <th scope="col">Hour</th>
+                            <th scope="col">Minimum quota</th>
+                            <th scope="col">Maximum quota</th>
+                            <th scope="col">Teacher</th>
+                            <th scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">ID_CUR_EMP</th>
+                            <td>Comer Queso I</td>
+                            <td>no me acuerdo como funciona hora</td>
+                            <td>10</td>
+                            <td>20</td>
+                            <td>Santigay Vilogay</td>
+                            <td>
+                                <button onclick="location.href='modifCurso.php'" class="btn btn-primary me-1">
+                                    Edit
+                                </button>
+                                <button onclick="eliminarCurso();" class="btn btn-primary">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </section>
+
+    <script>
+        function eliminarCurso() {
+            confimar = confirm('Seguro que quiere eliminar el curso?');
+            if (confimar == true) {
+                // e.preventDefault();
+                //Accion para borrar usuario
+                alert('The course has been deleted.')
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        // function topFunction() {
+        //     document.body.scrollTop = 0; // For Safari
+        //     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+        // }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

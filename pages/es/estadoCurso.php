@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ingresar Usuario</title>
+    <title>Inscribir</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -20,6 +20,26 @@
     <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
     <link rel="stylesheet" href="../../assests/css/viewUser.css" />
     <link rel="stylesheet" href="../../assests/css/sidebar.css" />
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        .table {
+            width: 100%;
+            display: block;
+            white-space: nowrap;
+        }
+
+        #tableBody>tr {
+            display: table-row;
+        }
+
+        #tableBody>tr>td {
+            display: table-cell;
+            white-space: nowrap;
+        }
+    </style>
 
     <!--Sidebar.js-->
     <script src="../../assests/js/sidebar.js"></script>
@@ -133,139 +153,98 @@
     <!--Contenido-->
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
+
             <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
-            <h1 class="text-center">Ingresar Usuario</h1>
+            <h1 class="text-center">Visibilidad Curso</h1>
+            <h4 class="text-center fw-light">Haga click en un curso para seleccionar</h4>
 
-            <form action="" method="post">
-                <input type="hidden" name="" id="action" value="Register">
-                <div name="formulario">
 
-                    <hr class="mx-5" />
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" id="searchInput" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Filtrar</button>
+            </form>
 
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="nombreUsuario form-control form" name="formId1" id="nombreUsuario"
-                                placeholder="" />
-                            <label for="formId1">Nombre de usuario</label>
+            <div class="row mt-2 d-flex  ">
+                <div class="col">
+                    <table style="height: 260px; width: 520px;"
+                        class="table table-bordered overflow-auto border-secondary ms-3">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id curso</th>
+                                <th scope="col">Nombre curso</th>
+                                <th scope="col">Docente</th>
+                                <th scope="col">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr onclick="selectRow(this);">
+                                <td scope="row">01_CUR_EMP</td>
+                                <td>Matematica</td>
+                                <td>Pichongo</td>
+                                <td><span class="badge text-bg-success">Activo</span></td>
+                            </tr>
+                            <tr onclick="selectRow(this);">
+                                <td scope="row">02_CUR_EMP</td>
+                                <td>Bitcoin</td>
+                                <td>Lenin</td>
+                                <td><span class="badge text-bg-danger">Inactivo</span></td>
+                            </tr>
+                            <tr onclick="selectRow(this);">
+                                <td scope="row">03_CUR_EMP</td>
+                                <td>Fisica</td>
+                                <td>Santiago Viloria</td>
+                                <td><span class="badge text-bg-danger">Inactivo</span></td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Curso seleccionado</h4>
+                            <p class="card-text">Nombre curso</p>
+                            <p class="card-text">Docente: Mi mami</span></p>
+                            <p class="card-text">Status: <span class="badge text-bg-success">Activo</span></p>
                         </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="apellidoUsuario form-control form" name="formId1"
-                                id="apellidoUsuario" placeholder="" />
-                            <label for="formId1">Apellido de usuario</label>
+                        <div class="card-footer">
+                            <!-- Botón para activar/desactivar -->
+                            <button id="activar" type="button" class="btn btn-outline-primary disabled">
+                                Activar/Desactivar Curso
+                            </button>
                         </div>
-                    </div>
-
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="email" class="correoUsuario form-control form" name="formId1"
-                                id="correoUsuario" placeholder="" />
-                            <label for="">Correo Electronico</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="number" class="rifUsuario form-control form" name="formId2" id="rifUsuario"
-                                placeholder="" />
-                            <label for="formId1">Cedula</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="contrasenaUsuario form-control form" name="formId3"
-                                id="contrasenaUsuario" placeholder="" />
-                            <label for="formId1">Contraseña</label>
-                        </div>
-                    </div>
-
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="direccionUsuario form-control form" name="formId3"
-                                id="direccionUsuario" placeholder="" />
-                            <label for="formId1">Dirección</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-4">
-                            <select class="GeneroUsuario form-select" aria-label="Default select example"
-                                id="GeneroUsuario">
-                                <option selected>Masculino</option>
-                                <option value="1">Femenino</option>
-                            </select>
-                            <label for="formId1">Genero</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-4">
-                            <select class="Empresa form-select" aria-label="Default select example" id="Empresa"
-                                name="Empresa">
-                                <option selected disabled>Aqui quiero que la unica opcion sea la empresa del admin
-                                </option>
-                                <?php foreach ($empresas as $empresa): ?>
-                                    <option value="<?php echo $empresa; ?>"><?php echo $empresa; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <label for="Empresa">Empresa</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="date" class="fechaNacimiento form-control" id="fechaNacimiento" name="fecha">
-                            <label for="formId1">Fecha de Nacimineto</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3 w-auto align-self-center">
-                            <input type="number" class="telefonoUsuario form-control" name="formId1"
-                                id="telefonoUsuario" placeholder="" />
-                            <label for="formId1">Telefono</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3 w-auto">
-                            <p class="text-center">Ingresar como:</p>
-                            <div class="form-floating mb-3 d-flex justify-content-evenly">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1" checked>
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Estudiante
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault2">
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Profesor
-                                    </label>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="text-center">
-                        <button type="button" class="btn btn-primary mb-4" onclick="submitData();">
-                            Ingresar Usuario
-                        </button>
                     </div>
 
                 </div>
-            </form>
+
+            </div>
+
         </div>
     </section>
+
+    <script>
+        $(document).ready(function () {
+            $("#searchInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#tableBody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+
+        function selectRow(row) {
+            const selectedRow = document.querySelector(".table tbody tr.table-active");
+            const buttonActivar = document.getElementById("activar");
+
+            if (selectedRow) {
+                selectedRow.classList.remove("table-active");
+            }
+            row.classList.add("table-active");
+            buttonActivar.classList.remove("disabled");
+        }
+
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

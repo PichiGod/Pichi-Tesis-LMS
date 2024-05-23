@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Administrar</title>
+    <title>Manage Courses</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -48,7 +48,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                    href="../es/inscribirUsuario.php">Spanish (Latin America)</a>
+                                    href="../es/MenuAdmin.php">Spanish (Latin America)</a>
                             </li>
                         </ul>
                     </div>
@@ -129,139 +129,146 @@
     </div>
 
     <!--Contenido-->
-    <section>
-        <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-            <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
-                    style="font-size:2rem;color:black;"></i></a>
-            <h1 class="text-center">Insert User</h1>
+    <section class="crearCurso">
 
-            <form action="" method="post">
-                <input type="hidden" name="" id="action" value="Register">
-                <div name="formulario">
+        <form action="" method="post">
 
-                    <hr class="mx-5" />
+            <input type="hidden" name="action" id="action" value="NuevoCurso">
 
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="nombreUsuario form-control form" name="formId1" id="nombreUsuario"
-                                placeholder="" />
-                            <label for="formId1">User's First Name</label>
-                        </div>
-                    </div>
+            <input type="hidden" name="action2" id="action2" value="<?php echo $nombreEmpresa ?>">
 
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="apellidoUsuario form-control form" name="formId1"
-                                id="apellidoUsuario" placeholder="" />
-                            <label for="formId1">User's Last Name</label>
-                        </div>
-                    </div>
+            <div class="container-fluid bg-blanco mt-3 shadow">
 
+                <div class="TituloCrearCurso">
 
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="email" class="correoUsuario form-control form" name="formId1"
-                                id="correoUsuario" placeholder="" />
-                            <label for="">Email</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="number" class="rifUsuario form-control form" name="formId2" id="rifUsuario"
-                                placeholder="" />
-                            <label for="formId1">Id number</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="contrasenaUsuario form-control form" name="formId3"
-                                id="contrasenaUsuario" placeholder="" />
-                            <label for="formId1">Password</label>
-                        </div>
-                    </div>
-
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="direccionUsuario form-control form" name="formId3"
-                                id="direccionUsuario" placeholder="" />
-                            <label for="formId1">Address</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-4">
-                            <select class="GeneroUsuario form-select" aria-label="Default select example"
-                                id="GeneroUsuario">
-                                <option selected>Male</option>
-                                <option value="1">Female</option>
-                            </select>
-                            <label for="formId1">Gender</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-4">
-                            <select class="Empresa form-select" aria-label="Default select example" id="Empresa"
-                                name="Empresa">
-                                <option selected disabled>Aqui quiero que la unica opcion sea la empresa del admin</option>
-                                <?php foreach ($empresas as $empresa): ?>
-                                    <option value="<?php echo $empresa; ?>"><?php echo $empresa; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <label for="Empresa">Company</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="date" class="fechaNacimiento form-control" id="fechaNacimiento" name="fecha">
-                            <label for="formId1">Date of birth</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3 w-auto align-self-center">
-                            <input type="number" class="telefonoUsuario form-control" name="formId1"
-                                id="telefonoUsuario" placeholder="" />
-                            <label for="formId1">Phone number</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3 w-auto">
-                            <p class="text-center">Insert as:</p>
-                            <div class="form-floating mb-3 d-flex justify-content-evenly">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1" checked>
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Student
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault2">
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Teacher
-                                    </label>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="text-center">
-                        <button type="button" class="btn btn-primary mb-4" onclick="submitData();">
-                            Insert User
-                        </button>
-                    </div>
+                    <h3 class="TituloCrear"><b>Edit course</b></h3>
+                    <p>Aqui solo se muestra la informacion del curso seleccionado para editar</p>
 
                 </div>
-            </form>
-        </div>
+
+                <div class="DivPrinFormulario">
+                    <div class="divIDCrear">
+                        <label for="id_cur">Course ID</label>
+                        <?php
+
+
+
+                        // Consultar el último ID de curso utilizado
+                        $consulta_ultimo_id = mysqli_query($mysqli, "SELECT MAX(id_cur) AS ultimo_id FROM cursos");
+
+                        if ($consulta_ultimo_id) {
+                            $datos_ultimo_id = mysqli_fetch_assoc($consulta_ultimo_id);
+                            $ultimo_id = $datos_ultimo_id['ultimo_id'];
+
+                            if ($ultimo_id) {
+                                // Extraer los dos últimos dígitos numéricos del ID
+                                $ultimo_numero = intval(substr($ultimo_id, strrpos($ultimo_id, '_') + 1));
+                                $siguiente_numero = $ultimo_numero + 1;
+
+                                // Generar el nuevo ID con el número siguiente
+                                $nuevo_id_cur = 'Cur_' . $nombreEmpresa . '_' . sprintf('%02d', $siguiente_numero);
+                            } else {
+                                // Si no hay ningún ID anterior, comenzar desde 01
+                                $nuevo_id_cur = 'Cur_01';
+                            }
+                        } else {
+                            // Manejar el caso en que no se puede obtener el último ID
+                            $nuevo_id_cur = 'Cur_01';
+                        }
+                        ?>
+                        <input type="text" class="id_cur form-control" id="id_cur" name="id_cur"
+                            value="<?php echo htmlspecialchars($nuevo_id_cur); ?>" readonly>
+                    </div>
+
+
+                    <div class="div1Crear">
+
+                        <label for="nombreCurso">Full Course Name</label>
+
+                        <input type="text" class="nombreCurso form-control" id="nombreCurso" name="nombreCurso"
+                            placeholder="Nombre del Curso">
+
+                    </div>
+
+
+
+                    <div class="div2Crear">
+
+                        <label for="visibilidadCurso">Course Visibility</label>
+
+                        <select class="visibilidadCurso seleccion form-select" id="visibilidadCurso"
+                            name="visibilidadCurso" aria-label="Default select example">
+                            <option selected>Visible</option>
+                            <option value="1">Invisible</option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="div3Crear">
+
+                        <label for="fechaInicio">Starting Date</label>
+
+                        <input type="date" class="fechaInicio form-control" id="fechaInicio" name="fechaInicio">
+
+                    </div>
+
+
+                    <div class="div4Crear">
+
+                        <label for="fechaFin">Ending Date</label>
+
+                        <input type="date" class="fechaFin form-control" id="fechaFin" name="fechaFin">
+
+                    </div>
+
+                    <div class="div45Crear">
+
+                        <label for="inputperiodo">Name of the period</label>
+
+                        <input type="text" class="inputperiodo form-control" id="inputperiodo" name="inputperiodo"
+                            placeholder="Nombre del periodo">
+
+                    </div>
+
+
+                    <div class="div5Crear">
+
+                        <label for="minimos">Minimum Course Quotas</label>
+
+                        <input type="number" class="minimos form-control" id="minimos" name="minimos" placeholder="0">
+
+                    </div>
+
+
+                    <div class="div6Crear">
+
+                        <label for="maximos">Maximum Course Quotas</label>
+
+                        <input type="number" class="maximos form-control" id="maximos" name="maximos" placeholder="0">
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="containerButtonCrearCursoFin">
+
+                    <button type="button" class="botonRegresar btn btn-primary"
+                        onclick="location.href='MenuAdmin.php'">Return</button>
+
+                    <button type="button" class="botonCrearCursoFin btn btn-primary" onclick="submitData();">Edit
+                        Course</button>
+
+
+                </div>
+
+
+            </div>
+
+        </form>
+
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

@@ -4,23 +4,22 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Administrar</title>
+    <title>Administrar Cursos</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-
     <!-- Boxicons icons -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <!-- Font Awesome  icons (free version)-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <!-- CSS only -->
     <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
     <link rel="stylesheet" href="../../assests/css/viewUser.css" />
+    <link rel="stylesheet" href="../../assests/css/style (2).css">
+    <link rel="stylesheet" href="../../assests/css/crearCurso.css">
     <link rel="stylesheet" href="../../assests/css/sidebar.css" />
-
     <!--Sidebar.js-->
     <script src="../../assests/js/sidebar.js"></script>
 </head>
@@ -38,21 +37,21 @@
                 </a>
 
                 <div class="d-flex justify-content-end">
-                    <!--Cambio de Idioma ver.Ingles-->
+                    <!--Cambio de Idioma ver.Español-->
                     <div class="vr me-2"></div>
                     <div class="nav-item dropdown">
                         <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">
-                            <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                                href="#">English</a>
+                            <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
+                                href="#">Español (Latino America)</a>
                         </button>
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
-                                <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                    href="../es/MenuAdmin.php">Spanish (Latin America)</a>
+                                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
+                                    href="../en/createCourse.php">Inglés</a>
                             </li>
                         </ul>
                     </div>
-                    <!--Opciones de Usuario ver.Ingles-->
+                    <!--Opciones de Usuario ver.Español-->
                     <div class="vr me-3"></div>
                     <div class="btn-group dropstart me-4 pe-2">
                         <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
@@ -63,7 +62,7 @@
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                             <li>
-                                <a class="dropdown-item" href="viewUser.php">Profile</a>
+                                <a class="dropdown-item" href="verUser.php">Perfil</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider" />
@@ -72,7 +71,7 @@
                                 <a class="btn dropdown-item log-out" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal" href="">
                                     <i class="bx bx-log-out log-out-modal"></i>
-                                    <span class="ms-2">Log Out</span>
+                                    <span class="ms-2">Cerrar Sesión</span>
                                 </a>
                             </li>
                         </ul>
@@ -82,47 +81,47 @@
         </nav>
     </header>
 
-    <!-- Sidebar ver.Ingles-->
+    <!-- Sidebar -->
     <div class="l-navbar bg-body-tertiary" id="nav-bar">
         <nav class="nav">
             <div class="nav_list">
-                <a href="home.php" class="nav_link link-dark">
+                <a href="Inicio.php" class="nav_link link-dark">
                     <i class="bx bx-grid-alt nav_icon"></i>
-                    <span class="nav_name">Home</span>
+                    <span class="nav_name">Inicio</span>
                 </a>
                 <a href="#" class="nav_link link-dark">
                     <i class="bx bx-user nav_icon"></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
-                <a href="courses.php" class="nav_link link-dark">
+                <a href="cursos.php" class="nav_link active">
                     <i class="bx bxs-book nav_icon"></i>
-                    <span class="nav_name">Courses</span>
+                    <span class="nav_name">Cursos</span>
                 </a>
-                <a href="#" class="nav_link active">
+                <a href="MenuAdmin.php" class="nav_link link-dark">
                     <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Manage</span>
+                    <span class="nav_name">Administrar</span>
                 </a>
             </div>
         </nav>
     </div>
 
-    <!-- Modal ver.Ingles-->
+    <!-- Modal LogOut ver.Español -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">
-                        Log Out
+                        Cerrar Sesión
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">Are you sure you want to Log out?</div>
+                <div class="modal-body">Esta seguro que quiere cerrar sesión?</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Return
+                        Regresar
                     </button>
                     <button type="button" onclick="location.href='../../assests/php/cerrarSesion.php'"
-                        class="btn btn-primary">Log Out</button>
+                        class="btn btn-primary">Cerrar Sesión</button>
                 </div>
             </div>
         </div>
@@ -131,53 +130,90 @@
     <!--Contenido-->
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-            <h1 class="text-center">Manage</h1>
-            <h3 class="text-center">(Empresa)</h3>
+            <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+                    style="font-size:2rem;color:black;"></i></a>
+            <h1 class="text-center pt-2">Administrar Cursos</h1>
 
-            <br>
-            <div class="row justify-content-center align-items-center g-1 mb-3">
-                <label for="usuario">Manage Users</label>
-                <hr>
-                <div id="usuario" class="col">
-                    <button onclick="location.href='insertUser.php'" class="btn btn-secondary">
-                        Register User
-                    </button>
-                    <button onclick="location.href='enrollUser.php'" class="btn btn-secondary">
-                        Enroll Course
-                    </button>
-                    <button onclick="location.href='manageUser.php'" class="btn btn-secondary">
-                        Manage Users
-                    </button>
-                    <button class="btn btn-secondary">Review Academic Performance</button>
+            <!-- <div class="d-flex container rounded bg-danger-subtle text-secondary-emphasis my-2 p-3">
+                <div class="">
+
+                    <div class="">
+                        <p>Seguro que quiere eliminar al usuario?</p>
+                        <button class="btn btn-danger">Si</button>
+                        <button class="btn btn-secondary">No</button>
+                    </div>
+
                 </div>
             </div>
 
-            <div class="row justify-content-center align-items-center g-1 mb-3">
-                <label for="cursos">Manage Courses</label>
-                <hr>
-                <div id="cursos" class="col">
-                    <button onclick="location.href='createCourse.php'" class="btn btn-secondary">Create Course</button>
-                    <button onclick="location.href='manageCourse.php'" class="btn btn-secondary">Manage
-                        Courses</button>
-                    <button onclick="location.href='courseStatus.php'"
-                        class="btn btn-secondary">Course visibility/availability</button>
-                    <button onclick="location.href='assignTeacher.php'" class="btn btn-secondary">Assign
-                        Teacher</button>
-                </div>
-            </div>
+            <div class="d-flex container rounded bg-warning-subtle text-secondary-emphasis my-2 p-3">
+                <div class="">
 
-            <div class="row justify-content-center align-items-center g-1 mb-3">
-                <label for="cursos">Academic Period</label>
-                <hr>
-                <div id="cursos" class="col">
-                    <button class="btn btn-secondary">Create new academic periods</button>
-                    <button class="btn btn-secondary">Edit academic periods</button>
-                    <button class="btn btn-secondary">View academic periods</button>
+                    <div class="">
+                        <p>Usuario eliminado</p>
+                    </div>
+
                 </div>
+            </div> -->
+
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Filtar</button>
+            </form>
+
+            <div class="table-responsive">
+                <table class="table mt-2">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Curso</th>
+                            <th scope="col">Hora</th>
+                            <th scope="col">Cupo mínimo</th>
+                            <th scope="col">Cupo máximo</th>
+                            <th scope="col">Docente</th>
+                            <th scope="col">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">ID_CUR_EMP</th>
+                            <td>Comer Queso I</td>
+                            <td>no me acuerdo como funciona hora</td>
+                            <td>10</td>
+                            <td>20</td>
+                            <td>Santigay Vilogay</td>
+                            <td>
+                                <button onclick="location.href='modifCurso.php'" class="btn btn-primary me-1">
+                                    Modificar
+                                </button>
+                                <button onclick="eliminarCurso();" class="btn btn-primary">
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
         </div>
     </section>
+
+    <script>
+        function eliminarCurso() {
+            confimar = confirm('Seguro que quiere eliminar el curso?');
+            if (confimar == true) {
+                // e.preventDefault();
+                //Accion para borrar usuario
+                alert('El usuario ha sido eliminado')
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        // function topFunction() {
+        //     document.body.scrollTop = 0; // For Safari
+        //     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+        // }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
