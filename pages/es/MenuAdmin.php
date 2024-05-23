@@ -4,45 +4,45 @@ require "../../assests/php/LoginBD.php";
 
 if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
-    $usuarios1 = $_SESSION['id_user'];
+  $usuarios1 = $_SESSION['id_user'];
 
-    $usuariosActivos = $_SESSION['usuariosActive'];
+  $usuariosActivos = $_SESSION['usuariosActive'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+  $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
-    if (mysqli_num_rows($conexion1) > 0) {
+  if (mysqli_num_rows($conexion1) > 0) {
 
-        $datos = mysqli_fetch_assoc($conexion1);
+    $datos = mysqli_fetch_assoc($conexion1);
 
-        $empresaUsuario = $datos['Empresa_id_empresa'];
+    $empresaUsuario = $datos['Empresa_id_empresa'];
 
-        $nombreUsuario = $datos['nombre_user'];
+    $nombreUsuario = $datos['nombre_user'];
 
-        $apellidoUsuario = $datos['apellido_user'];
+    $apellidoUsuario = $datos['apellido_user'];
 
-        $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
+    $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
 
-        if (mysqli_num_rows($conexion2) > 0) {
+    if (mysqli_num_rows($conexion2) > 0) {
 
-            $datos2 = mysqli_fetch_assoc($conexion2);
+      $datos2 = mysqli_fetch_assoc($conexion2);
 
-            $nombreEmpresa = $datos2['nombre_empresa'];
-
-        }
-
-        $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
-
-        if (mysqli_num_rows($conexion3) > 0) {
-
-            $cursosCantidad = mysqli_num_rows($conexion3);
-
-        } else {
-
-            $cursosCantidad = 0;
-
-        }
+      $nombreEmpresa = $datos2['nombre_empresa'];
 
     }
+
+    $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
+
+    if (mysqli_num_rows($conexion3) > 0) {
+
+      $cursosCantidad = mysqli_num_rows($conexion3);
+
+    } else {
+
+      $cursosCantidad = 0;
+
+    }
+
+  }
 
 }
 
@@ -100,7 +100,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
             </button>
             <ul class="dropdown-menu">
               <li class="dropdown-item">
-                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary" href="#">Inglés</a>
+                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary" href="../en/adminMenu.php">Inglés</a>
               </li>
             </ul>
           </div>
@@ -205,7 +205,8 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
         <div id="cursos" class="col">
           <button onclick="location.href='crearCurso.php'" class="btn btn-secondary">Crear Curso</button>
           <button onclick="location.href='administrarCurso.php'" class="btn btn-secondary">Administrar Cursos</button>
-          <button onclick="location.href='estadoCurso.php'" class="btn btn-secondary">Visibilidad/disponibilidad de Curso</button>
+          <button onclick="location.href='estadoCurso.php'" class="btn btn-secondary">Visibilidad/disponibilidad de
+            Curso</button>
           <button onclick="location.href='asignarDocente.php'" class="btn btn-secondary">Asignar docente</button>
         </div>
       </div>

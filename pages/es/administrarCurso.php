@@ -47,7 +47,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                                    href="../en/createCourse.php">Inglés</a>
+                                    href="../en/manageCourse.php">Inglés</a>
                             </li>
                         </ul>
                     </div>

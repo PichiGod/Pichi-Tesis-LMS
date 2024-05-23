@@ -48,7 +48,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                    href="../es/MenuAdmin.php">Spanish (Latin America)</a>
+                                    href="../es/administrarUsuario.php">Spanish (Latin America)</a>
                             </li>
                         </ul>
                     </div>

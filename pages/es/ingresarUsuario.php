@@ -91,7 +91,7 @@ if (isset($_SESSION['id_user'])) {
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                                    href="#">Inglés</a>
+                                    href="../en/insertUser.php">Inglés</a>
                             </li>
                         </ul>
                     </div>

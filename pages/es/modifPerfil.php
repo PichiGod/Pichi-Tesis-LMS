@@ -95,12 +95,12 @@ if (isset($_SESSION['id_user'])) {
                     <div class="nav-item dropdown">
                         <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">
                             <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                href="../es/registro.php">Español (Latino America)</a>
+                                href="#">Español (Latino America)</a>
                         </button>
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                                    href="#">Inglés</a>
+                                    href="../en/modifProfile.php">Inglés</a>
                             </li>
                         </ul>
                     </div>
