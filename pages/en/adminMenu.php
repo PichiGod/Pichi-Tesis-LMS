@@ -90,7 +90,7 @@
                     <i class="bx bx-grid-alt nav_icon"></i>
                     <span class="nav_name">Home</span>
                 </a>
-                <a href="#" class="nav_link link-dark">
+                <a href="tutoIngles.php" class="nav_link link-dark">
                     <i class="bx bx-user nav_icon"></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
@@ -170,8 +170,8 @@
                 <label for="cursos">Academic Period</label>
                 <hr>
                 <div id="cursos" class="col">
-                    <button class="btn btn-secondary">Create new academic periods</button>
-                    <button class="btn btn-secondary">Edit academic periods</button>
+                    <button class="btn btn-secondary">Create new academic period</button>
+                    <button class="btn btn-secondary">Edit academic period</button>
                     <button class="btn btn-secondary">View academic periods</button>
                 </div>
             </div>

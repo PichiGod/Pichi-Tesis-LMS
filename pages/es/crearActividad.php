@@ -130,7 +130,7 @@ if (isset($_GET['id_cur'])) {
                     <i class="bx bx-grid-alt nav_icon"></i>
                     <span class="nav_name">Inicio</span>
                 </a>
-                <a href="#" class="nav_link link-dark">
+                <a href="tutorial.php" class="nav_link link-dark">
                     <i class="bx bx-user nav_icon"></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
