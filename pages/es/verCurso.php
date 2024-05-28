@@ -217,7 +217,7 @@ if (isset($_GET['id_cur'])) {
                         <div>
                             <i class="fa-solid fa-bullhorn me-2 p-3 rounded bg-warning-subtle"></i>
 
-                            <span>Chat en Linea</span>
+                            <span><a href="verChatLinea.php?id_cur=<?php echo $id_curso_seleccionado; ?>">Chat en Linea</a></span>
                         </div>
                     </div>
                 </div>
