@@ -242,7 +242,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                 <button onclick="location.href='modifUsuario.php'" class="btn btn-primary me-1">
                                     Modificar
                                 </button>
-                                <button onclick="eliminarUser();" class="btn btn-primary">
+                                <button onclick="eliminarUser();" class="btn mt-1 btn-outline-danger">
                                     Eliminar
                                 </button>
                             </td>

@@ -215,9 +215,17 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
         <label for="cursos">Periodo Academico</label>
         <hr>
         <div id="cursos" class="col">
-          <button class="btn btn-secondary">Crear Nuevo Periodo Academico</button>
-          <button class="btn btn-secondary">Editar Periodo Academico</button>
-          <button class="btn btn-secondary">Visualizar periodos académicos</button>
+          <button onclick="location.href='crearPeriodo.php'" class="btn btn-secondary">Crear Nuevo Periodo Academico</button>
+          <button onclick="location.href='verPeriodo.php'" class="btn btn-secondary">Visualizar Periodos Académicos</button>
+        </div>
+      </div>
+
+      <div class="row justify-content-center align-items-center g-1 mb-3">
+        <label for="cursos">Reporte y Respaldo</label>
+        <hr>
+        <div id="cursos" class="col">
+          <button class="btn btn-secondary">Generar Reporte</button>
+          <button class="btn btn-secondary">Generar Respaldo</button>
         </div>
       </div>
 

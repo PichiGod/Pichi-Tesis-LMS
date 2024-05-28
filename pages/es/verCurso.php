@@ -206,7 +206,7 @@ if (isset($_GET['id_cur'])) {
                         <div>
                             <i class="fa-solid fa-user-tie me-2 p-3 rounded bg-warning-subtle"></i>
 
-                            <span>Foro</span>
+                            <a href="verForo.php"><span>Foro</span></a>
                         </div>
                     </div>
                 </div>
