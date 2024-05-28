@@ -198,7 +198,11 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                         <p class="card-text">Fecha de Cierre: 28/05/2024</p>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-primary">Ver</button>
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-primary">
+                                Ver
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -208,13 +212,14 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                         <p class="card-text">Fecha de Cierre: 28/05/2024</p>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-primary">Ver</button>
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-primary">
+                                Ver
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-
-
-
 
         </div>
     </section>
