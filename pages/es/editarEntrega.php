@@ -1,28 +1,66 @@
+<?php
+
+require "../../assests/php/LoginBD.php";
+
+if (isset($_SESSION['id_user'])) {
+
+    $usuarios1 = $_SESSION['id_user'];
+
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+
+    if (mysqli_num_rows($conexion1) > 0) {
+
+        $datos = mysqli_fetch_assoc($conexion1);
+
+        $empresaUsuario = $datos['Empresa_id_empresa'];
+
+        $nombreUsuario = $datos['nombre_user'];
+
+        $apellidoUsuario = $datos['apellido_user'];
+
+        $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
+
+        if (mysqli_num_rows($conexion2) > 0) {
+
+            $datos2 = mysqli_fetch_assoc($conexion2);
+
+            $nombreEmpresa = $datos2['nombre_empresa'];
+
+        }
+
+    }
+
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Visibilidad Curso</title>
+    <title>Editar Entrega</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-
     <!-- Boxicons icons -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <!-- Font Awesome  icons (free version)-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <!-- CSS only -->
     <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
     <link rel="stylesheet" href="../../assests/css/viewUser.css" />
     <link rel="stylesheet" href="../../assests/css/sidebar.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!--JQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!--Sidebar.js-->
+    <script src="../../assests/js/sidebar.js"></script>
 
     <style>
         .table {
@@ -39,10 +77,12 @@
             display: table-cell;
             white-space: nowrap;
         }
-    </style>
 
-    <!--Sidebar.js-->
-    <script src="../../assests/js/sidebar.js"></script>
+        .disable {
+            pointer-events: none;
+            background-color: lightgrey;
+        }
+    </style>
 </head>
 
 <body class="bg-pastel" id="body-pd">
@@ -68,7 +108,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                                    href="../en/courseStatus.php">Inglés</a>
+                                    href="../en/viewActivity.php">Inglés</a>
                             </li>
                         </ul>
                     </div>
@@ -79,9 +119,7 @@
                             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://github.com/PichiGod.png" alt="..." width="32" height="32"
                                 class="rounded-circle me-2" />
-                            <strong>
-                                <?php echo $nombreUsuario . " " . $apellidoUsuario; ?>
-                            </strong>
+                            <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                             <li>
@@ -116,11 +154,15 @@
                     <i class="bx bx-user nav_icon"></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
-                <a href="cursos.php" class="nav_link link-dark">
+                <a href="cursos.php" class="nav_link active">
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link active ">
+                <a href="verCalif.php" class="nav_link link-dark">
+                    <i class="bx bx-news nav_icon"></i>
+                    <span class="nav_name">Evaluaciones</span>
+                </a>
+                <a href="MenuAdmin.php" class="nav_link link-dark">
                     <i class="bx bx-cog nav_icon"></i>
                     <span class="nav_name">Administrar</span>
                 </a>
@@ -154,96 +196,55 @@
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
 
-            <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+            <a href="verActividad.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
-            <h1 class="text-center">Visibilidad Curso</h1>
-            <h4 class="text-center fw-light">Haga click en un curso para seleccionar</h4>
+            <h1 class="text-center">Editar Entrega</h1>
 
-
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" id="searchInput" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Filtrar</button>
-            </form>
-
-            <div class="row mt-2 d-flex  ">
-                <div class="col-md col-sm col-lg-6 mb-2">
-                    <table style="height: 280px;"
-                        class="table table-bordered overflow-auto border-secondary ">
-                        <thead>
-                            <tr>
-                                <th scope="col">Id curso</th>
-                                <th scope="col">Nombre curso</th>
-                                <th scope="col">Docente</th>
-                                <th scope="col">Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableBody">
-                            <tr onclick="selectRow(this);">
-                                <td scope="row">01_CUR_EMP</td>
-                                <td>Matematica</td>
-                                <td>Pichongo</td>
-                                <td><span class="badge text-bg-success">Activo</span></td>
-                            </tr>
-                            <tr onclick="selectRow(this);">
-                                <td scope="row">02_CUR_EMP</td>
-                                <td>Bitcoin</td>
-                                <td>Lenin</td>
-                                <td><span class="badge text-bg-danger">Inactivo</span></td>
-                            </tr>
-                            <tr onclick="selectRow(this);">
-                                <td scope="row">03_CUR_EMP</td>
-                                <td>Fisica</td>
-                                <td>Santiago Viloria</td>
-                                <td><span class="badge text-bg-danger">Inactivo</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-lg-6 col-md col-sm ">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Curso seleccionado</h4>
-                            <p class="card-text">Nombre curso</p>
-                            <p class="card-text">Docente: Mi mami</span></p>
-                            <p class="card-text">Status: <span class="badge text-bg-success">Activo</span></p>
-                        </div>
-                        <div class="card-footer">
-                            <!-- Botón para activar/desactivar -->
-                            <button id="activar" type="button" class="btn btn-outline-primary disabled">
-                                Activar/Desactivar Curso
-                            </button>
-                        </div>
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Entrega de actividad</h4>
+                    <p class="card-text">Maxima # de archivos: X</p>
+                    <p class="card-text">Maxima peso de archivo: X MB</p>
+                    <div class="mb-1">
+                        <label for="formFileMultiple" class="form-label">Seleccionar archivos...</label>
+                        <input class="form-control" type="file" id="formFileMultiple" multiple>
                     </div>
-
+                    <p>No dejar que el usuario pueda agregar un archivo si los que ya estan subidos siguen alli. Solo permitir si la cantidad de archivo no exede la cantidad maxima</p>
                 </div>
 
             </div>
 
+            <ul class="list-group mt-2">
+                <li class="list-group-item ">
+                    <i class="fa-solid fa-file"></i> <a class="ms-2 text-break" href="#">Archivo #1</a>
+                    <a class="ms-3" href="#">
+                        <span>Editar</span>
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
+
+                    <a class="ms-2" href="#">
+                        <span>Eliminar</span>
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <i class="fa-solid fa-file"></i> <a class="ms-2 text-break" href="#">Archivo #2</a>
+                    <a class="ms-3" href="#">
+                        <span>Editar</span>
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
+
+                    <a class="ms-2" href="#">
+                        <span>Eliminar</span>
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <button class="btn mt-2 btn-primary">Aceptar cambios</button>
+
         </div>
     </section>
-
-    <script>
-        $(document).ready(function () {
-            $("#searchInput").on("keyup", function () {
-                var value = $(this).val().toLowerCase();
-                $("#tableBody tr").filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                });
-            });
-        });
-
-        function selectRow(row) {
-            const selectedRow = document.querySelector(".table tbody tr.table-active");
-            const buttonActivar = document.getElementById("activar");
-
-            if (selectedRow) {
-                selectedRow.classList.remove("table-active");
-            }
-            row.classList.add("table-active");
-            buttonActivar.classList.remove("disabled");
-        }
-
-    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

@@ -5,10 +5,9 @@ require "../../assests/php/LoginBD.php";
 if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
-    $conexion1 = mysqli_query(
-        $mysqli,
-        "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'"
-    );
+
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+
     if (mysqli_num_rows($conexion1) > 0) {
 
         $datos = mysqli_fetch_assoc($conexion1);
@@ -42,7 +41,7 @@ if (isset($_SESSION['id_user'])) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ver actividad</title>
+    <title>Editar Nota</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -62,6 +61,27 @@ if (isset($_SESSION['id_user'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!--Sidebar.js-->
     <script src="../../assests/js/sidebar.js"></script>
+
+    <style>
+        .table {
+            width: 100%;
+            display: block;
+            white-space: nowrap;
+        }
+
+        #tableBody>tr {
+            display: table-row;
+        }
+
+        #tableBody>tr>td {
+            display: table-cell;
+            white-space: nowrap;
+        }
+        .disable{
+            pointer-events: none;
+            background-color: lightgrey;
+        }
+    </style>
 </head>
 
 <body class="bg-pastel" id="body-pd">
@@ -171,137 +191,48 @@ if (isset($_SESSION['id_user'])) {
         </div>
     </div>
 
-    <section class="Cursos">
+    <!--Contenido-->
+    <section>
+        <div class="container-fluid bg-blanco my-3 pb-2 shadow">
 
-        <div class="container-fluid bg-blanco mt-3 shadow ">
-            <!--Titulo-->
-            <div class="container pt-4 mb-3 pb-3">
+            <a href="verActividad.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+                    style="font-size:2rem;color:black;"></i></a>
+            <h1 class="text-center">Editar Nota</h1>
+            <h4 class="text-center fw-light">Haga click en un estudiante para seleccionar</h4>
 
-                <div class="p-2 mb-2 rounded shadow ">
-                    <h2><strong>Nombre de la actividad - Empresa</strong></h2>
+
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" id="searchInput" type="search" placeholder="Search"
+                    aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Filtrar</button>
+            </form>
+
+            <div class="row mt-2 d-flex">
+                <div class="col-md col-sm col-lg-6 mb-2">
+                    Aqui solo se listan los estudiante que tengan su nota asignada
+                    <table style="height: 400px;" class="table overflow-auto table-bordered border-secondary ">
+                        <thead>
+                            <tr>
+                                <th scope="col">Cedula</th>
+                                <th scope="col">Nombre(s)</th>
+                                <th scope="col">Apellido(s)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr onclick="selectRow(this);">
+                                <td scope="row">28467144</td>
+                                <td>Jose Duarte </td>
+                                <td>Duarte Salcedo</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-
-                Descripcion (Borra esto)
-                <div class="bg-white rounded border py-1 ">
-                    <p class="mb-0 ms-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quae
-                        odio
-                        labore veniam laudantium temporibus, voluptatem ea dolorum vero facere pariatur deserunt
-                        delectus ducimus corporis quis praesentium non aperiam sed!</p>
-                </div>
-
-                <div class="d-inline-flex align-items-center bg-dark-subtle px-2 mt-2 mb-1 rounded">
-                    <p class="mb-0">Fecha de Inicio: 27/05/2024</p>
-                </div>
-
-                <div class="d-inline-flex align-items-center bg-dark-subtle px-2 mt-2 mb-1 rounded">
-                    <p class="mb-0">Fecha de Culminacion: 27/05/2024</p>
-                </div>
-
-                <hr>
-
-                <div class="p-2 my-3 rounded shadow ">
-                    <h4>Archivos del Recurso (El archivo[s] del recurso)(si tiene)</h4>
-                </div>
-
-                <ul class="list-group mb-1">
-                    <li class="list-group-item">
-                        <i class="fa-solid fa-file"></i> <a class="ms-2" href="#">Archivo</a>
-                    </li>
-                </ul>
-
-                <div class="d-inline-flex align-items-center bg-dark-subtle px-2 mt-2 mb-1 rounded fs-4">
-                    <div class="me-3">
-                        <p class="card-text">Estado de entrega</p>
-                    </div>
-                    <div>
-                        <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
-                    </div>
-                    <div class="ms-3 mb-1">
-                        <span class="badge text-bg-danger"><strong>No entregado</strong></span>
-                        <span class="badge text-bg-success"><strong>Entregado</strong></span>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="card">
-                    <div class="card-body">
-                        <div>
-                            Esta parte solo se muestra si no se ha realizado una entrega
-                            <h4 class="card-title">Entrega de actividad</h4>
-                            <p class="card-text">Maxima # de archivos: X</p>
-                            <p class="card-text">Maxima peso de archivo: X MB</p>
-                            <div class="mb-3">
-                                <label for="formFileMultiple" class="form-label">Seleccionar archivos...</label>
-                                <input class="form-control" type="file" id="formFileMultiple" multiple>
-                            </div>
-                            <input type="submit" class="btn btn-primary"></input>
-
-                            <hr>
-                        </div>
-
-                        <div>
-                            Esta parte se muestra si ya se realizo una entrega
-                            <div>
-                                <div class="d-flex align-items-center bg-body-secondary px-2 mb-2 me-2 rounded fs-5">
-                                    <div class="me-3">
-                                        <p class="card-text">Docente</p>
-                                    </div>
-                                    <div>
-                                        <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
-                                    </div>
-                                    <div class="ms-3">
-                                        <span><strong>Jose Alejandro Duarte Salcedo</strong></span>
-                                    </div>
-                                </div>
-
-                                <!-- Force next columns to break to new line at md breakpoint and up -->
-                                <div class="w-100 d-none d-md-block"></div>
-                                <div
-                                    class="d-inline-flex align-items-center bg-body-secondary px-2 mb-2 me-2 rounded fs-5">
-                                    <div class="me-3">
-                                        <p class="card-text">Estado de Calificacion</p>
-                                    </div>
-                                    <div>
-                                        <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
-                                    </div>
-                                    <div class="ms-3 mb-1">
-                                        <span class="badge bg-warning-subtle text-warning-emphasis"><strong>No
-                                                calificado</strong></span>
-                                        <span class="badge text-bg-success"><strong>Calificado</strong></span>
-                                    </div>
-                                </div>
-                                <div class="d-inline-flex align-items-center bg-body-secondary px-2 mb-2 rounded fs-5">
-                                    <div class="me-3">
-                                        <p class=" card-text">Calificacion del profesor</p>
-                                    </div>
-                                    <div>
-                                        <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
-                                    </div>
-                                    <div class="ms-3">
-                                        <span><strong>Nota</strong></span>
-                                    </div>
-                                </div>
-                                <p class="mb-0 fs-5">Retroalimentación</p>
-                                <div class="p-2 mb-2 border rounded">
-                                    <p id="retro" class="mb-0">
-                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora ad
-                                        deleniti eaque dolore necessitatibus minus! Saepe eligendi adipisci est
-                                        atque
-                                        quas, sequi voluptatibus velit similique nisi voluptatem amet, alias minima.
-                                    </p>
-                                </div>
-
-                            </div>
-                            <h4 class="card-title">Editar entrega</h4>
-                            <button onclick="location.href='editarEntrega.php'" class="btn btn-primary">Editar</button>
-                        </div>
-
-                        <hr>
-
-                        <div>Aqui se muestra cuando ya la actividad se entrego para visualizar los archivos enviados
+                <div class="col-lg-6 col-md col-sm ">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Estudiante Seleccionado</h4>
+                            <p class="card-text">Nombre estudiante</p>
                             <h4 class="card-title">Archivos entregados</h4>
-                            <p class="font-monospace mb-0">Ultima modificacion: 28/05/2024</p>
                             <ul class="list-group">
                                 <li class="list-group-item">
                                     <i class="fa-solid fa-file"></i> <a class="ms-2" href="#">Archivo #1</a>
@@ -310,45 +241,44 @@ if (isset($_SESSION['id_user'])) {
                                     <i class="fa-solid fa-file"></i> <a class="ms-2" href="#">Archivo #2</a>
                                 </li>
                             </ul>
+                            <textarea rows="4" class="form-control mt-1" id="retro" placeholder="Retroalimentacion"></textarea>
                         </div>
-
-                    </div>
-                </div>
-
-                <hr>
-
-                <div>
-                    Esta seccion es para el profesor
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Opciones</h4>
-                            <button onclick="location.href='asignarNota.php'" class="btn btn-primary">Asignar
-                                nota</button>
-                            <button onclick="location.href='editarNota.php'" class="btn btn-secondary">Editar nota</button>
-                            <button onclick="location.href='editarActividad.php'" class="btn btn-outline-secondary">Editar Actividad</button>
+                        <div class="card-footer">
+                            <form action="">
+                                <div class="input-group ">
+                                    <input id="calif" tabindex="-1" type="number" class="form-control disable" placeholder="Nota (Nota asignada anteriormente)" aria-label="Nota"
+                                        aria-describedby="basic-addon2">
+                                    <!-- Botón para calificar -->
+                                    <button id="btn-calif" tabindex="-1" type="button" class="btn btn-outline-primary disabled">
+                                        Calificar Activiad
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
+
                 </div>
 
             </div>
-        </div>
 
+        </div>
     </section>
 
     <script>
-        //Funcion JQuery para validar el cantidad MAX de archivos
-        $(function () {
 
-            $("input[type='submit']").click(function () {
+        function selectRow(row) {
+            const selectedRow = document.querySelector(".table tbody tr.table-active");
+            const buttonCalif = document.getElementById("btn-calif");
+            const inputCalif = document.getElementById("calif");
 
-                var $fileUpload = $("input[type='file']");
-                //El 2 de aqui es el limitador de archivos. Solo se tiene que cambiar 
-                //Con el valor de la base de datos que limita los archivoss
-                if (parseInt($fileUpload.get(0).files.length) > 2) {
-                    alert("Solo puedes subir el maximo de 2 archivos");
-                }
-            });
-        });
+            if (selectedRow) {
+                selectedRow.classList.remove("table-active");
+            }
+            row.classList.add("table-active");
+            buttonCalif.classList.remove("disabled");
+            inputCalif.classList.remove("disable");
+        }
+
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
