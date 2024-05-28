@@ -140,7 +140,6 @@
       <!--Input de tema. (Sujeto a Cambios)-->
       <div class="rounded ">
         <div class="">
-          <br />
           <label for="descripcionDiscusion" class="form-label">Contenido de comentario</label>
           <textarea class="form-control" id="descripcionDiscusion" rows="3"></textarea>
           <div class="d-flex justify-content-end">
@@ -158,37 +157,34 @@
           <h3>Comentarios</h3>
         </div>
 
-        <div class="container my-3 fs-6 bg-secondary-subtle rounded text-secondary-emphasis">
-          <div class="d-flex flex-row align-items-center justify-content-center">
-            <div class="pt-2 px-2 flex-fill me-4">
-              <figure class="figure">
-                <img src="https://github.com/PichiGod.png" class="figure-img img-fluid rounded-circle"
-                  style="width: 6rem; height: auto" alt="..." />
-                <figcaption class="figure-caption text-body text-center ">
-                  Pichi
-                </figcaption>
-              </figure>
-            </div>
-            <div class="p-2  text-body text-break">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam et
-              alias dolorem ipsam earum vel incidunt? Culpa mollitia
-              cupiditate numquam commodi, explicabo quas ducimus delectus
-              consectetur, nulla repellendus doloribus eum?
-            </div>
-            <div class="p-2 text-body  ms-auto">
-              <p>13/05/2024 12:00</p>
-              <div class="text-center">
-                <a title="Editar" href="#">
-                  <i class="fa-regular fa-pen-to-square"></i>
-                </a>
-
-                <a onclick="eliminarComentario();" title="Eliminar" class="ms-1" href="#">
-                  <i class="fa-solid fa-trash"></i>
-                </a>
-              </div>
-
-            </div>
+        <div class="row fs-6 mt-3 mx-2 border border-3 rounded bg-secondary-subtle">
+          <div class="col-3 p-0 text-center">
+            <figure class="figure mt-1">
+              <img src="https://github.com/PichiGod.png" class="img-fluid rounded-circle"
+                style="width: 4rem; height: auto" alt="..." />
+              <figcaption class="figure-caption text-body text-center ">
+                Pichi <br> 13/05/2024 - 12:00
+              </figcaption>
+            </figure>
           </div>
+          <div class="col-9 text-wrap">
+            <div class="bg-white rounded border">
+              <p class="mb-0 p-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cum quia praesentium iusto
+                reiciendis vitae. Aliquam quas ex consectetur necessitatibus nisi nostrum similique eum ea laboriosam,
+                at placeat, eligendi atque adipisci.
+              </p>
+            </div>
+
+
+            <button class="btn btn-link m-0 p-0" onclick="location.href='modifComentario.php'" title="Editar">
+                <i class="fa-regular fa-pen-to-square"></i>
+              </button>
+
+              <button onclick="eliminarComentario();" title="Eliminar" class="btn btn-link m-0 p-0 ms-1">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+          </div>
+
         </div>
 
       </div>
@@ -196,15 +192,15 @@
   </section>
 
   <script>
-        function eliminarComentario() {
-            confimar = confirm('Seguro que quiere eliminar el comentario?');
-            if (confimar == true) {
-                // e.preventDefault();
-                //Accion para borrar comentario
-                alert('El comentario ha sido eliminado')
-            }
-        }
-    </script>
+    function eliminarComentario() {
+      confimar = confirm('Seguro que quiere eliminar el comentario?');
+      if (confimar == true) {
+        // e.preventDefault();
+        //Accion para borrar comentario
+        alert('El comentario ha sido eliminado')
+      }
+    }
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
