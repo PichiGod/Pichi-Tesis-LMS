@@ -1,3 +1,65 @@
+<?php
+
+require "../../assests/php/LoginBD.php";
+
+if (isset($_SESSION['id_user'])) {
+
+    $usuarios1 = $_SESSION['id_user'];
+
+    $conexion1 = mysqli_query($mysqli, "SELECT id_user, Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+
+    if (mysqli_num_rows($conexion1) > 0) {
+
+        $datos = mysqli_fetch_assoc($conexion1);
+
+        $empresaUsuario = $datos['Empresa_id_empresa'];
+
+        $nombreUsuario = $datos['nombre_user'];
+
+        $apellidoUsuario = $datos['apellido_user'];
+
+        $idUser = $datos['id_user'];
+
+        $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
+
+        if (mysqli_num_rows($conexion2) > 0) {
+
+            $datos2 = mysqli_fetch_assoc($conexion2);
+
+            $nombreEmpresa = $datos2['nombre_empresa'];
+
+            $conexionObetenerUsuario = mysqli_query($mysqli, "SELECT id_curso FROM usuariosala WHERE id_user = '$idUser'");
+
+            if (mysqli_num_rows($conexionObetenerUsuario) > 0) {
+
+                $datosObtener = mysqli_fetch_assoc($conexionObetenerUsuario);
+
+                $id_curso_seleccionado = $datosObtener['id_curso'];
+            
+                // Modificamos la consulta para hacer un JOIN con la tabla 'usuario'
+                $conexion3 = mysqli_query($mysqli, "
+                    SELECT usuario.id_user, usuario.nombre_user, usuario.apellido_user 
+                    FROM usuariosala 
+                    JOIN usuario ON usuariosala.id_user = usuario.id_user 
+                    WHERE usuariosala.id_curso = '$id_curso_seleccionado'
+                ");
+ 
+                if (mysqli_num_rows($conexion3) > 0) {
+                    while ($datos3 = mysqli_fetch_assoc($conexion3)) {
+                        $usuariosSalaActualmente[] = $datos3;
+                    }
+                }
+
+            }
+
+        }
+
+    }
+
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,15 +109,14 @@
                     <span class="nav_name">Usuarios</span>
                 </a>
 
-                <p href="#" class="nav_link link-dark">
-                    <img src="https://github.com/PichiGod.png" witdh="24" height="24" alt="...">
-                    <span><strong>Jose Duarte</strong></span>
-                </p>
+                <?php foreach ($usuariosSalaActualmente as $usuarioSalaActual) { ?>
 
                 <p href="#" class="nav_link link-dark">
                     <img src="https://github.com/PichiGod.png" witdh="24" height="24" alt="...">
-                    <span><strong>Jose Duarte</strong></span>
+                    <span><strong><?php echo $usuarioSalaActual['nombre_user'] . ' ' . $usuarioSalaActual['apellido_user']; ?></strong></span>
                 </p>
+
+               <?php } ?>
 
             </div>
         </nav>
@@ -140,7 +201,7 @@
 
 
 
-
+    <?php require "../../assests/php/entrarSalaMain.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -148,6 +209,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
+
+        <script>
+window.addEventListener('beforeunload', function(event) {
+    // Envía una solicitud AJAX al servidor para eliminar al usuario de la tabla 'usuariosala'
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '../../assets/php/salirSalaBD.php', true);
+    xhr.send();
+});
+</script>
+
 </body>
 
 </html>
