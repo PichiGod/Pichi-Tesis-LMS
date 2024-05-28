@@ -1,62 +1,26 @@
-<?php
-
-require "../../assests/php/LoginBD.php";
-
-
-if (isset($_SESSION['id_user'])) {
-
-    $usuarios1 = $_SESSION['id_user'];
-
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
-
-    if (mysqli_num_rows($conexion1) > 0) {
-
-        $datos = mysqli_fetch_assoc($conexion1);
-
-        $empresaUsuario = $datos['Empresa_id_empresa'];
-
-        $nombreUsuario = $datos['nombre_user'];
-
-        $apellidoUsuario = $datos['apellido_user'];
-
-        $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
-
-        if (mysqli_num_rows($conexion2) > 0) {
-
-            $datos2 = mysqli_fetch_assoc($conexion2);
-
-            $nombreEmpresa = $datos2['nombre_empresa'];
-
-
-
-        }
-
-    }
-
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Evaluaciones</title>
+    <title>Inscribir</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+
     <!-- Boxicons icons -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <!-- Font Awesome  icons (free version)-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- CSS only -->
     <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
     <link rel="stylesheet" href="../../assests/css/viewUser.css" />
     <link rel="stylesheet" href="../../assests/css/sidebar.css" />
+
     <!--Sidebar.js-->
     <script src="../../assests/js/sidebar.js"></script>
 </head>
@@ -70,7 +34,8 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
                 <a class="navbar-brand" href="../../index.html">
-                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
+                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70"
+                        height="24" />
                 </a>
 
                 <div class="d-flex justify-content-end">
@@ -84,7 +49,7 @@ if (isset($_SESSION['id_user'])) {
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                                    href="../en/viewCalif.php">Inglés</a>
+                                    href="../en/assignTeacher.php">Inglés</a>
                             </li>
                         </ul>
                     </div>
@@ -93,9 +58,11 @@ if (isset($_SESSION['id_user'])) {
                     <div class="btn-group dropstart me-4 pe-2">
                         <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
                             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/PichiGod.png" alt="" width="32" height="32"
+                            <img src="https://github.com/PichiGod.png" alt="..." width="32" height="32"
                                 class="rounded-circle me-2" />
-                            <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
+                            <strong>
+                                <?php echo $nombreUsuario . " " . $apellidoUsuario; ?>
+                            </strong>
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                             <li>
@@ -134,13 +101,9 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="verCalif.php" class="nav_link active">
-                    <i class="bx bx-news nav_icon"></i>
-                    <span class="nav_name">Evaluaciones</span>
-                </a>
-                <a href="MenuAdmin.php" class="nav_link link-dark">
+                <a href="MenuAdmin.php" class="nav_link active ">
                     <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Configuración</span>
+                    <span class="nav_name">Administrar</span>
                 </a>
             </div>
         </nav>
@@ -168,67 +131,92 @@ if (isset($_SESSION['id_user'])) {
         </div>
     </div>
 
-    <!--Contenido Usuario-->
+    <!--Contenido-->
     <section>
-        <div class="container-fluid bg-blanco mt-3 shadow">
-            <p class="fs-1"><strong>Calificaciones</strong></p>
-            <div class="dropdown">
-                <a class="btn btn-tertiary bg-blancoOscuro dropdown-toggle mb-2" href="#" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false " style="width: auto;">
-                    #0001 Ingles - N1664
-                </a>
+        <div class="container-fluid bg-blanco my-3 pb-2 shadow">
+            <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+                    style="font-size:2rem;color:black;"></i></a>
+            <h1 class="text-center">Asignar Docente</h1>
 
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">#0002 Progamacion en PHP - N1664</a></li>
-                    <li><a class="dropdown-item" href="#">#0003 Programacion Web - N1664</a></li>
-                    <li><a class="dropdown-item" href="#">#0004 Frances - N1664</a></li>
-                </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Buscar por cedula..." aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
+
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="col">
+                    <div class="card my-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://github.com/PichiGod.png" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Nombre Completo</h5>
+                                    <p class="card-text">
+                                        Cedula
+                                    </p>
+                                    <p class="card-text">
+                                        Correo
+                                    </p>
+                                    <p class="card-text">
+                                        Rol
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card my-3" style="max-width: 540px;">
+                    <p>Aqui se muestran los cursos creados, los que tienen marca significa que ya esta asignado a esa materia</p>
+
+                        <div class="card-body overflow-auto " style="height:20rem;">
+                            <ul class="list-group overflow-auto">
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" checked>
+                                    <label class="form-check-label" for="firstCheckbox">Matematica</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
+                                    <label class="form-check-label" for="secondCheckbox">Brawl</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                                    <label class="form-check-label" for="thirdCheckbox">Ser pro</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                                    <label class="form-check-label" for="thirdCheckbox">Programacion</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                                    <label class="form-check-label" for="thirdCheckbox">El puteo</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                                    <label class="form-check-label" for="thirdCheckbox">Gocheria</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                                    <label class="form-check-label" for="thirdCheckbox">Bobolongo</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                                    <label class="form-check-label" for="thirdCheckbox">Santiago es gay</label>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="card-footer">
+                            <button class="btn btn-primary">Asignar</button>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Ponderacion</th>
-                        <th scope="col">Calificacion</th>
-                        <th scope="col">Rango</th>
-                        <th scope="col">Porcentaje</th>
-                        <th scope="col">Retroalimentacion</th>
-                        <th scope="col">Aporte total del curso</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Examen #1</th>
-                        <td>20%</td>
-                        <td>10</td>
-                        <td>1 - 20</td>
-                        <td>50%</td>
-                        <td>Estudie más para la proxima</td>
-                        <td>20%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Examen #2</th>
-                        <td>20%</td>
-                        <td>15</td>
-                        <td>1 - 20</td>
-                        <td>75%</td>
-                        <td>Mejoro mucho! Siga asi!</td>
-                        <td>40%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Examen Final</th>
-                        <td>60%</td>
-                        <td>20</td>
-                        <td>1 - 20</td>
-                        <td>100%</td>
-                        <td>Excelente!</td>
-                        <td>100%</td>
-                    </tr>
-                </tbody>
-            </table>
-
         </div>
+
         </div>
     </section>
 

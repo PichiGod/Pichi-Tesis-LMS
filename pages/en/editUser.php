@@ -1,12 +1,10 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edit Profile</title>
+    <title>Edit User</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -50,7 +48,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                    href="../es/modifPerfil.php">Spanish (Latin America)</a>
+                                    href="../es/modifUsuario.php">Spanish (Latin America)</a>
                             </li>
                         </ul>
                     </div>
@@ -100,7 +98,7 @@
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Courses</span>
                 </a>
-                <a href="adminMenu.php" class="nav_link link-dark">
+                <a href="adminMenu.php" class="nav_link active">
                     <i class="bx bx-cog nav_icon"></i>
                     <span class="nav_name">Manage</span>
                 </a>
@@ -130,69 +128,149 @@
         </div>
     </div>
 
-    <!--Contenido Usuario-->
+    <<!--Contenido-->
     <section>
-        <div class="container-fluid bg-blanco my-3 shadow">
-            <a href="viewUser.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+        <div class="container-fluid bg-blanco my-3 pb-2 shadow">
+            <a href="administrarUsuario.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
-            <h3 class="text-center pt-2">Edit Profile</h3>
-            <div class="row d-flex align-items-center">
-                <div class="col-lg-4 ">
-                    <div class="card mb-2">
-                        <div class="card-body text-center">
-                            <img src="https://github.com/PichiGod.png" alt="avatar" id="cambio" class="rounded-circle img-fluid"
-                                style="height:200px; max-width:150px;max-height:150px;" />
-                            <h5 class="my-3">José</h5>
-                            <label for="imagen" class="btn btn-primary">Change Image</label>
-                            <input type="file" accept="image/png, image/jpeg" class="btn btn-primary" id="imagen"
-                                style="display:none;"></input>
+            <h1 class="text-center">Edit User</h1>
+
+            <h5>Aqui, quiero que agarres la informacion del usuario que se selecciono 
+                y reflejar la informacion en los inputs para modificar.
+            </h5>
+
+            <form action="" method="post">
+                <input type="hidden" name="" id="action" value="Register">
+                <div name="formulario">
+
+                    <hr class="mx-5" />
+
+                    <div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="nombreUsuario form-control form" name="formId1" id="nombreUsuario"
+                                placeholder="" />
+                            <label for="formId1">User's First Name</label>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-8 ">
-                    <div class="card mb-3 ">
-                        <div class="card-body">
-                            <form action="">
-                                <div class="row">
-                                    <div class="col-sm-3 w-75">
-                                        <p class="mb-0">New Password</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="password" placeholder="Password"
-                                            class="form-control text-muted mb-0"></input>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="row">
-                                    <div class="col-sm-3 w-75">
-                                        <p class="mb-0">Confirm Password</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input placeholder="Confirm Password" type="password"
-                                            class="form-control text-muted mb-0"></input>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="row">
-                                    <div class="col-sm-3 w-75">
-                                        <button class="btn btn-success">Apply Changes</button>
-                                    </div>
-                                </div>
-                            </form>
+
+                    <div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="apellidoUsuario form-control form" name="formId1"
+                                id="apellidoUsuario" placeholder="" />
+                            <label for="formId1">User's Last Name</label>
                         </div>
                     </div>
+
+
+                    <div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="correoUsuario form-control form" name="formId1"
+                                id="correoUsuario" placeholder="" />
+                            <label for="">Email</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="rifUsuario form-control form" name="formId2" id="rifUsuario"
+                                placeholder="" />
+                            <label for="formId1">Id number</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="contrasenaUsuario form-control form" name="formId3"
+                                id="contrasenaUsuario" placeholder="" />
+                            <label for="formId1">Password</label>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="direccionUsuario form-control form" name="formId3"
+                                id="direccionUsuario" placeholder="" />
+                            <label for="formId1">Address</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-floating mb-4">
+                            <select class="GeneroUsuario form-select" aria-label="Default select example"
+                                id="GeneroUsuario">
+                                <option selected>Male</option>
+                                <option value="1">Female</option>
+                            </select>
+                            <label for="formId1">Gender</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-floating mb-4">
+                            <select class="Empresa form-select" aria-label="Default select example" id="Empresa"
+                                name="Empresa">
+                                <option selected disabled>Aqui quiero que la unica opcion sea la empresa del admin
+                                </option>
+                                <?php foreach ($empresas as $empresa): ?>
+                                    <option value="<?php echo $empresa; ?>"><?php echo $empresa; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <label for="Empresa">Company</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-floating mb-3">
+                            <input type="date" class="fechaNacimiento form-control" id="fechaNacimiento" name="fecha">
+                            <label for="formId1">Date of birth</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-floating mb-3 w-auto align-self-center">
+                            <input type="number" class="telefonoUsuario form-control" name="formId1"
+                                id="telefonoUsuario" placeholder="" />
+                            <label for="formId1">Phone number</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-floating mb-3 w-auto">
+                            <p class="text-center">Ingresar como:</p>
+                            <div class="form-floating mb-3 d-flex justify-content-evenly">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault1" checked>
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Student
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Teacher
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary mb-4" onclick="submitData();">
+                            Edit User
+                        </button>
+                        <button type="reset" class="btn btn-secondary mb-4" onclick="submitData();">
+                            Reset Changes
+                        </button>
+                    </div>
+
                 </div>
-            </div>
+            </form>
         </div>
     </section>
-
-    <script>
-        document.getElementById('imagen').addEventListener('change', function (event) {
-            const archivo = event.target.files[0];
-            const urlImagen = URL.createObjectURL(archivo);
-            document.getElementById('cambio').src = urlImagen;
-        });
-    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

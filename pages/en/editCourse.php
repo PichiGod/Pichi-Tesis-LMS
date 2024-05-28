@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Perfil de Usuario</title>
+    <title>Manage Courses</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -48,7 +48,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                    href="../es/verCalif.php">Spanish (Latin America)</a>
+                                    href="../es/MenuAdmin.php">Spanish (Latin America)</a>
                             </li>
                         </ul>
                     </div>
@@ -98,11 +98,7 @@
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Courses</span>
                 </a>
-                <a href="viewCalif.php" class="nav_link active">
-                    <i class="bx bx-news nav_icon"></i>
-                    <span class="nav_name">Evaluations</span>
-                </a>
-                <a href="adminMenu.php" class="nav_link link-dark">
+                <a href="adminMenu.php" class="nav_link active">
                     <i class="bx bx-cog nav_icon"></i>
                     <span class="nav_name">Manage</span>
                 </a>
@@ -132,68 +128,147 @@
         </div>
     </div>
 
-    <!--Contenido Usuario-->
-    <section>
-        <div class="container-fluid bg-blanco mt-3 shadow ">
-            <p class="fs-1"><strong>Evaluations</strong></p>
-            <div class="dropdown">
-                <a class="btn btn-tertiary bg-blancoOscuro dropdown-toggle mb-2" href="#" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false " style="width: auto;">
-                    #0001 Ingles - N1664
-                </a>
+    <!--Contenido-->
+    <section class="crearCurso">
 
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">#0002 Progamacion en PHP - N1664</a></li>
-                    <li><a class="dropdown-item" href="#">#0003 Programacion Web - N1664</a></li>
-                    <li><a class="dropdown-item" href="#">#0004 Frances - N1664</a></li>
-                </ul>
+        <form action="" method="post">
+
+            <input type="hidden" name="action" id="action" value="NuevoCurso">
+
+            <input type="hidden" name="action2" id="action2" value="<?php echo $nombreEmpresa ?>">
+
+            <div class="container-fluid bg-blanco mt-3 shadow">
+
+                <div class="TituloCrearCurso">
+
+                    <h3 class="TituloCrear"><b>Edit course</b></h3>
+                    <p>Aqui solo se muestra la informacion del curso seleccionado para editar</p>
+
+                </div>
+
+                <div class="DivPrinFormulario">
+                    <div class="divIDCrear">
+                        <label for="id_cur">Course ID</label>
+                        <?php
+
+
+
+                        // Consultar el último ID de curso utilizado
+                        $consulta_ultimo_id = mysqli_query($mysqli, "SELECT MAX(id_cur) AS ultimo_id FROM cursos");
+
+                        if ($consulta_ultimo_id) {
+                            $datos_ultimo_id = mysqli_fetch_assoc($consulta_ultimo_id);
+                            $ultimo_id = $datos_ultimo_id['ultimo_id'];
+
+                            if ($ultimo_id) {
+                                // Extraer los dos últimos dígitos numéricos del ID
+                                $ultimo_numero = intval(substr($ultimo_id, strrpos($ultimo_id, '_') + 1));
+                                $siguiente_numero = $ultimo_numero + 1;
+
+                                // Generar el nuevo ID con el número siguiente
+                                $nuevo_id_cur = 'Cur_' . $nombreEmpresa . '_' . sprintf('%02d', $siguiente_numero);
+                            } else {
+                                // Si no hay ningún ID anterior, comenzar desde 01
+                                $nuevo_id_cur = 'Cur_01';
+                            }
+                        } else {
+                            // Manejar el caso en que no se puede obtener el último ID
+                            $nuevo_id_cur = 'Cur_01';
+                        }
+                        ?>
+                        <input type="text" class="id_cur form-control" id="id_cur" name="id_cur"
+                            value="<?php echo htmlspecialchars($nuevo_id_cur); ?>" readonly>
+                    </div>
+
+
+                    <div class="div1Crear">
+
+                        <label for="nombreCurso">Full Course Name</label>
+
+                        <input type="text" class="nombreCurso form-control" id="nombreCurso" name="nombreCurso"
+                            placeholder="Nombre del Curso">
+
+                    </div>
+
+
+
+                    <div class="div2Crear">
+
+                        <label for="visibilidadCurso">Course Visibility</label>
+
+                        <select class="visibilidadCurso seleccion form-select" id="visibilidadCurso"
+                            name="visibilidadCurso" aria-label="Default select example">
+                            <option selected>Visible</option>
+                            <option value="1">Invisible</option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="div3Crear">
+
+                        <label for="fechaInicio">Starting Date</label>
+
+                        <input type="date" class="fechaInicio form-control" id="fechaInicio" name="fechaInicio">
+
+                    </div>
+
+
+                    <div class="div4Crear">
+
+                        <label for="fechaFin">Ending Date</label>
+
+                        <input type="date" class="fechaFin form-control" id="fechaFin" name="fechaFin">
+
+                    </div>
+
+                    <div class="div45Crear">
+
+                        <label for="inputperiodo">Name of the period</label>
+
+                        <input type="text" class="inputperiodo form-control" id="inputperiodo" name="inputperiodo"
+                            placeholder="Nombre del periodo">
+
+                    </div>
+
+
+                    <div class="div5Crear">
+
+                        <label for="minimos">Minimum Course Quotas</label>
+
+                        <input type="number" class="minimos form-control" id="minimos" name="minimos" placeholder="0">
+
+                    </div>
+
+
+                    <div class="div6Crear">
+
+                        <label for="maximos">Maximum Course Quotas</label>
+
+                        <input type="number" class="maximos form-control" id="maximos" name="maximos" placeholder="0">
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="containerButtonCrearCursoFin">
+
+                    <button type="button" class="botonRegresar btn btn-primary"
+                        onclick="location.href='MenuAdmin.php'">Return</button>
+
+                    <button type="button" class="botonCrearCursoFin btn btn-primary" onclick="submitData();">Edit
+                        Course</button>
+
+
+                </div>
+
+
             </div>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Type</th>
-                        <th scope="col">Weighting</th>
-                        <th scope="col">Rating</th>
-                        <th scope="col">Range</th>
-                        <th scope="col">Percentage</th>
-                        <th scope="col">Feedback</th>
-                        <th scope="col">Total course contribution</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Examen #1</th>
-                        <td>20%</td>
-                        <td>10</td>
-                        <td>1 - 20</td>
-                        <td>50%</td>
-                        <td>Estudie más para la proxima</td>
-                        <td>20%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Examen #2</th>
-                        <td>20%</td>
-                        <td>15</td>
-                        <td>1 - 20</td>
-                        <td>75%</td>
-                        <td>Mejoro mucho! Siga asi!</td>
-                        <td>40%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Examen Final</th>
-                        <td>60%</td>
-                        <td>20</td>
-                        <td>1 - 20</td>
-                        <td>100%</td>
-                        <td>Excelente!</td>
-                        <td>100%</td>
-                    </tr>
-                </tbody>
-            </table>
+        </form>
 
-        </div>
-        </div>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

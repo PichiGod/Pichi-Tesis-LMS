@@ -57,7 +57,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Administrar</title>
+  <title>Ver Periodos</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -100,7 +100,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
             </button>
             <ul class="dropdown-menu">
               <li class="dropdown-item">
-                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary" href="../en/adminMenu.php">Inglés</a>
+                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary" href="../en/viewPeriod.php">Inglés</a>
               </li>
             </ul>
           </div>
@@ -150,7 +150,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           <i class="bx bxs-book nav_icon"></i>
           <span class="nav_name">Cursos</span>
         </a>
-        <a href="#" class="nav_link active ">
+        <a href="MenuAdmin.php" class="nav_link active ">
           <i class="bx bx-cog nav_icon"></i>
           <span class="nav_name">Administrar</span>
         </a>
@@ -183,43 +183,8 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
   <!--Contenido-->
   <section>
     <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-      <h1 class="text-center">Administrar</h1>
-      <h3 class="text-center">(<?php echo $nombreEmpresa ?>)</h3>
-
-      <br>
-      <div class="row justify-content-center align-items-center g-1 mb-3">
-        <label for="usuario">Administrar Usuarios</label>
-        <hr>
-        <div id="usuario" class="col">
-          <button onclick="location.href='ingresarUsuario.php'" class="btn btn-secondary">Ingresar Usuario</button>
-          <button onclick="location.href='inscribirUsuario.php'" class="btn btn-secondary">Inscribir cursos</button>
-          <button onclick="location.href='administrarUsuario.php'" class="btn btn-secondary">Administrar
-            Usuarios</button>
-          <button class="btn btn-secondary">Consultar rendimiento academico</button>
-        </div>
-      </div>
-
-      <div class="row justify-content-center align-items-center g-1 mb-3">
-        <label for="cursos">Administrar Cursos</label>
-        <hr>
-        <div id="cursos" class="col">
-          <button onclick="location.href='crearCurso.php'" class="btn btn-secondary">Crear Curso</button>
-          <button onclick="location.href='administrarCurso.php'" class="btn btn-secondary">Administrar Cursos</button>
-          <button onclick="location.href='estadoCurso.php'" class="btn btn-secondary">Visibilidad/disponibilidad de
-            Curso</button>
-          <button onclick="location.href='asignarDocente.php'" class="btn btn-secondary">Asignar docente</button>
-        </div>
-      </div>
-
-      <div class="row justify-content-center align-items-center g-1 mb-3">
-        <label for="cursos">Periodo Academico</label>
-        <hr>
-        <div id="cursos" class="col">
-          <button class="btn btn-secondary">Crear Nuevo Periodo Academico</button>
-          <button class="btn btn-secondary">Editar Periodo Academico</button>
-          <button class="btn btn-secondary">Visualizar periodos académicos</button>
-        </div>
-      </div>
+      <h1 class="text-center">Visualizar Periodos Academicos</h1>
+      
 
     </div>
   </section>

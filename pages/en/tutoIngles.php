@@ -1,3 +1,55 @@
+<?php
+
+require "../../assests/php/LoginBD.php";
+
+if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
+
+    $usuarios1 = $_SESSION['id_user'];
+
+    $usuariosActivos = $_SESSION['usuariosActive'];
+
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+
+    if (mysqli_num_rows($conexion1) > 0) {
+
+        $datos = mysqli_fetch_assoc($conexion1);
+
+        $empresaUsuario = $datos['Empresa_id_empresa'];
+
+        $nombreUsuario = $datos['nombre_user'];
+
+        $apellidoUsuario = $datos['apellido_user'];
+
+        $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
+
+        if (mysqli_num_rows($conexion2) > 0) {
+
+            $datos2 = mysqli_fetch_assoc($conexion2);
+
+            $nombreEmpresa = $datos2['nombre_empresa'];
+
+        }
+
+        $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
+
+        if (mysqli_num_rows($conexion3) > 0) {
+
+            $cursosCantidad = mysqli_num_rows($conexion3);
+
+        } else {
+
+            $cursosCantidad = 0;
+
+        }
+
+    }
+
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,19 +60,16 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-
     <!-- Boxicons icons -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <!-- Font Awesome  icons (free version)-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <!-- CSS only -->
     <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
     <link rel="stylesheet" href="../../assests/css/viewUser.css" />
     <link rel="stylesheet" href="../../assests/css/sidebar.css" />
-
     <!--Sidebar.js-->
     <script src="../../assests/js/sidebar.js"></script>
 </head>
@@ -48,7 +97,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                    href="../es/verCalif.php">Spanish (Latin America)</a>
+                                    href="../es/tutorial.php">Spanish (Latin America)</a>
                             </li>
                         </ul>
                     </div>
@@ -86,21 +135,17 @@
     <div class="l-navbar bg-body-tertiary" id="nav-bar">
         <nav class="nav">
             <div class="nav_list">
-                <a href="home.php" class="nav_link link-dark">
+                <a href="home.php" class="nav_link active">
                     <i class="bx bx-grid-alt nav_icon"></i>
                     <span class="nav_name">Home</span>
                 </a>
-                <a href="tutoIngles.php" class="nav_link link-dark">
+                <a href="#" class="nav_link link-dark">
                     <i class="bx bx-user nav_icon"></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
                 <a href="courses.php" class="nav_link link-dark">
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Courses</span>
-                </a>
-                <a href="viewCalif.php" class="nav_link active">
-                    <i class="bx bx-news nav_icon"></i>
-                    <span class="nav_name">Evaluations</span>
                 </a>
                 <a href="adminMenu.php" class="nav_link link-dark">
                     <i class="bx bx-cog nav_icon"></i>
@@ -132,67 +177,10 @@
         </div>
     </div>
 
-    <!--Contenido Usuario-->
+    <!--Contenido Home-->
     <section>
-        <div class="container-fluid bg-blanco mt-3 shadow ">
-            <p class="fs-1"><strong>Evaluations</strong></p>
-            <div class="dropdown">
-                <a class="btn btn-tertiary bg-blancoOscuro dropdown-toggle mb-2" href="#" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false " style="width: auto;">
-                    #0001 Ingles - N1664
-                </a>
-
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">#0002 Progamacion en PHP - N1664</a></li>
-                    <li><a class="dropdown-item" href="#">#0003 Programacion Web - N1664</a></li>
-                    <li><a class="dropdown-item" href="#">#0004 Frances - N1664</a></li>
-                </ul>
-            </div>
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Type</th>
-                        <th scope="col">Weighting</th>
-                        <th scope="col">Rating</th>
-                        <th scope="col">Range</th>
-                        <th scope="col">Percentage</th>
-                        <th scope="col">Feedback</th>
-                        <th scope="col">Total course contribution</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Examen #1</th>
-                        <td>20%</td>
-                        <td>10</td>
-                        <td>1 - 20</td>
-                        <td>50%</td>
-                        <td>Estudie más para la proxima</td>
-                        <td>20%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Examen #2</th>
-                        <td>20%</td>
-                        <td>15</td>
-                        <td>1 - 20</td>
-                        <td>75%</td>
-                        <td>Mejoro mucho! Siga asi!</td>
-                        <td>40%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Examen Final</th>
-                        <td>60%</td>
-                        <td>20</td>
-                        <td>1 - 20</td>
-                        <td>100%</td>
-                        <td>Excelente!</td>
-                        <td>100%</td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
+        <div class="container-fluid bg-blanco mt-3 rounded shadow ">
+            <h3>Tutorial</h3>
         </div>
     </section>
 

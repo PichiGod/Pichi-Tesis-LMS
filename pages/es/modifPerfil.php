@@ -95,12 +95,12 @@ if (isset($_SESSION['id_user'])) {
                     <div class="nav-item dropdown">
                         <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">
                             <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                href="../es/registro.php">Español (Latino America)</a>
+                                href="#">Español (Latino America)</a>
                         </button>
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                                    href="#">Inglés</a>
+                                    href="../en/modifProfile.php">Inglés</a>
                             </li>
                         </ul>
                     </div>
@@ -140,21 +140,21 @@ if (isset($_SESSION['id_user'])) {
     <div class="l-navbar bg-body-tertiary" id="nav-bar">
         <nav class="nav">
             <div class="nav_list">
-                <a href="#" class="nav_link link-dark">
+                <a href="Inicio.php" class="nav_link link-dark">
                     <i class="bx bx-grid-alt nav_icon"></i>
                     <span class="nav_name">Inicio</span>
                 </a>
-                <a href="#" class="nav_link link-dark">
+                <a href="tutorial.php" class="nav_link link-dark">
                     <i class="bx bx-user nav_icon"></i>
-                    <span class="nav_name">Dashboard</span>
+                    <span class="nav_name">Tutorial</span>
                 </a>
-                <a href="#" class="nav_link link-dark">
+                <a href="cursos.php" class="nav_link link-dark">
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="#" class="nav_link link-dark">
+                <a href="MenuAdmin.php" class="nav_link link-dark">
                     <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Configuración</span>
+                    <span class="nav_name">Administrar</span>
                 </a>
             </div>
         </nav>

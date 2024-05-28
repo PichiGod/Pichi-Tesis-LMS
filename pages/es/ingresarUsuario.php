@@ -47,7 +47,7 @@ if (isset($_SESSION['id_user'])) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Administrar</title>
+    <title>Ingresar Usuario</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -77,8 +77,7 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
                 <a class="navbar-brand" href="../../index.html">
-                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70"
-                        height="24" />
+                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
                 <div class="d-flex justify-content-end">
@@ -92,7 +91,7 @@ if (isset($_SESSION['id_user'])) {
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                                    href="#">Inglés</a>
+                                    href="../en/insertUser.php">Inglés</a>
                             </li>
                         </ul>
                     </div>
@@ -136,7 +135,7 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bx-grid-alt nav_icon"></i>
                     <span class="nav_name">Inicio</span>
                 </a>
-                <a href="#" class="nav_link link-dark">
+                <a href="tutorial.php" class="nav_link link-dark">
                     <i class="bx bx-user nav_icon"></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
@@ -252,7 +251,8 @@ if (isset($_SESSION['id_user'])) {
                         <div class="form-floating mb-4">
                             <select class="Empresa form-select" aria-label="Default select example" id="Empresa"
                                 name="Empresa">
-                                <option selected disabled>Seleccione una empresa</option>
+                                <option selected disabled>Aqui quiero que la unica opcion sea la empresa del admin
+                                </option>
                                 <?php foreach ($empresas as $empresa): ?>
                                     <option value="<?php echo $empresa; ?>"><?php echo $empresa; ?></option>
                                 <?php endforeach; ?>
@@ -273,6 +273,29 @@ if (isset($_SESSION['id_user'])) {
                             <input type="number" class="telefonoUsuario form-control" name="formId1"
                                 id="telefonoUsuario" placeholder="" />
                             <label for="formId1">Telefono</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-floating mb-3 w-auto">
+                            <p class="text-center">Ingresar como:</p>
+                            <div class="form-floating mb-3 d-flex justify-content-evenly">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault1" checked>
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Estudiante
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Profesor
+                                    </label>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 

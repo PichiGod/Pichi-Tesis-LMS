@@ -48,7 +48,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                    href="../es/inscribirUsuario.php">Spanish (Latin America)</a>
+                                    href="../es/ingresarUsuario.php">Spanish (Latin America)</a>
                             </li>
                         </ul>
                     </div>
@@ -90,7 +90,7 @@
                     <i class="bx bx-grid-alt nav_icon"></i>
                     <span class="nav_name">Home</span>
                 </a>
-                <a href="#" class="nav_link link-dark">
+                <a href="tutoIngles.php" class="nav_link link-dark">
                     <i class="bx bx-user nav_icon"></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
@@ -206,7 +206,7 @@
                         <div class="form-floating mb-4">
                             <select class="Empresa form-select" aria-label="Default select example" id="Empresa"
                                 name="Empresa">
-                                <option selected disabled>Select Company</option>
+                                <option selected disabled>Aqui quiero que la unica opcion sea la empresa del admin</option>
                                 <?php foreach ($empresas as $empresa): ?>
                                     <option value="<?php echo $empresa; ?>"><?php echo $empresa; ?></option>
                                 <?php endforeach; ?>
@@ -227,6 +227,29 @@
                             <input type="number" class="telefonoUsuario form-control" name="formId1"
                                 id="telefonoUsuario" placeholder="" />
                             <label for="formId1">Phone number</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-floating mb-3 w-auto">
+                            <p class="text-center">Insert as:</p>
+                            <div class="form-floating mb-3 d-flex justify-content-evenly">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault1" checked>
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Student
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Teacher
+                                    </label>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 

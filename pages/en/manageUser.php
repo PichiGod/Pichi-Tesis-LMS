@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Administrar</title>
+    <title>Manage Users</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -48,7 +48,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                    href="../es/MenuAdmin.php">Spanish (Latin America)</a>
+                                    href="../es/administrarUsuario.php">Spanish (Latin America)</a>
                             </li>
                         </ul>
                     </div>
@@ -90,7 +90,7 @@
                     <i class="bx bx-grid-alt nav_icon"></i>
                     <span class="nav_name">Home</span>
                 </a>
-                <a href="#" class="nav_link link-dark">
+                <a href="tutoIngles.php" class="nav_link link-dark">
                     <i class="bx bx-user nav_icon"></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
@@ -145,8 +145,8 @@
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">First Name</th>
-                            <th scope="col">Last Name</th>
+                            <th scope="col">First Name(s)</th>
+                            <th scope="col">Last Name(s)</th>
                             <th scope="col">Address</th>
                             <th scope="col">Email</th>
                             <th scope="col">Gender</th>
@@ -163,7 +163,11 @@
                             <td>dsjoseale@gmail.com</td>
                             <td>Hombre</td>
                             <td>Estudiante</td>
-                            <td><button class="btn btn-primary me-1">Edit</button><button class="btn btn-primary">Delete</button></td>
+                            <td>
+                                <button onclick="location.href='editUser.php'"
+                                    class="btn btn-primary me-1">Edit</button>
+                                <button onclick="eliminarUser();" class="btn btn-primary">Delete</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -171,6 +175,17 @@
 
         </div>
     </section>
+
+    <script>
+        function eliminarUser() {
+            confimar = confirm('Seguro que quiere eliminar al usuario?');
+            if (confimar == true) {
+                // e.preventDefault();
+                //Accion para borrar usuario
+                alert('The user has been deleted')
+            }
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

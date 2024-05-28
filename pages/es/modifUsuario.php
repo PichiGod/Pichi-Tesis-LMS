@@ -1,102 +1,10 @@
-<?php
-
-require "../../assests/php/LoginBD.php";
-
-// Inicializar variables
-$nombreCompleto = "";
-$identificacion = "";
-$correo = "";
-$rol = "";
-$cursos = [];
-// Verificar si hay una sesión activa
-if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
-
-    // Obtener ID de usuario activo
-    $usuarios1 = $_SESSION['id_user'];
-
-    // Obtener usuarios activos
-    $usuariosActivos = $_SESSION['usuariosActive'];
-
-    // Consulta para obtener datos del usuario actual
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
-
-    // Verificar si se encontró el usuario actual
-    if (mysqli_num_rows($conexion1) > 0) {
-
-        // Extraer datos del usuario actual
-        $datos = mysqli_fetch_assoc($conexion1);
-        $empresaUsuario = $datos['Empresa_id_empresa'];
-        $nombreUsuario = $datos['nombre_user'];
-        $apellidoUsuario = $datos['apellido_user'];
-
-        // Consulta para obtener el nombre de la empresa del usuario actual
-        $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
-
-        // Verificar si se encontró el nombre de la empresa
-        if (mysqli_num_rows($conexion2) > 0) {
-            $datos2 = mysqli_fetch_assoc($conexion2);
-            $nombreEmpresa = $datos2['nombre_empresa'];
-        }
-
-        // Consulta para obtener la cantidad de cursos del usuario actual
-        $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
-        $cursosCantidad = mysqli_num_rows($conexion3) > 0 ? mysqli_num_rows($conexion3) : 0;
-
-        // Verificar si se envió el formulario de búsqueda
-        if (isset($_GET['identificacion'])) {
-            // Obtener la identificación del formulario
-            $identificacion = $_GET['identificacion'];
-
-            // Consulta para obtener datos del usuario por identificación
-            $consulta_usuario = mysqli_query($mysqli, "SELECT nombre_user, apellido_user, identificacion_user, correo_user, rol FROM usuario WHERE identificacion_user = '$identificacion'");
-
-            // Verificar si se encontraron resultados
-            if (mysqli_num_rows($consulta_usuario) > 0) {
-                // Extraer datos del usuario
-                $datos_usuario = mysqli_fetch_assoc($consulta_usuario);
-
-                // Asignar los datos a variables
-                $nombreCompleto = $datos_usuario['nombre_user'] . ' ' . $datos_usuario['apellido_user'];
-                $identificacion = $datos_usuario['identificacion_user'];
-                $correo = $datos_usuario['correo_user'];
-                $rol = $datos_usuario['rol'];
-
-                if($rol == 0){
-
-                    $rol = "Administrador";
-
-                }elseif($rol == 1){
-
-                    $rol = "Docente";
-                }else{
-
-                    $rol = "Alumno";
-                }
-    
-                }
-
-            }
-
-            $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
-
-            if (mysqli_num_rows($conexion3) > 0) {
-                while ($datos3 = mysqli_fetch_assoc($conexion3)) {
-                    $cursos[] = $datos3;
-
-                }
-        }
-    }
-}
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inscribir Usuario</title>
+    <title>Modificar Usuario</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -126,8 +34,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
                 <a class="navbar-brand" href="../../index.html">
-                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70"
-                        height="24" />
+                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
                 <div class="d-flex justify-content-end">
@@ -141,7 +48,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                                    href="../en/enrollUser.php">Inglés</a>
+                                    href="../en/editUser.php">Inglés</a>
                             </li>
                         </ul>
                     </div>
@@ -226,64 +133,144 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
     <!--Contenido-->
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-            <!-- Formulario de búsqueda -->
+            <a href="administrarUsuario.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+                    style="font-size:2rem;color:black;"></i></a>
+            <h1 class="text-center">Modificar Usuario</h1>
 
-            <!-- Información del usuario -->
-            <h1 class="text-center">Inscribir Usuario</h1>
-            <form class="d-flex" role="search" method="GET" action="">
-                <input class="form-control me-2" type="search" placeholder="Ingrese Identificación" aria-label="Search" name="identificacion" value="<?php echo $identificacion; ?>">
-                <button class="btn btn-outline-success" type="submit">Buscar</button>
-            </form>
+            <h5>Aqui, quiero que agarres la informacion del usuario que se selecciono 
+                y reflejar la informacion en los inputs para modificar.
+            </h5>
 
-            <div class="row row-cols-1 row-cols-md-2 g-4">
-                <div class="col">
-                    <div class="card my-3" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="https://github.com/PichiGod.png" class="img-fluid rounded-start" alt="...">
-                            </div>
+            <form action="" method="post">
+                <input type="hidden" name="" id="action" value="Register">
+                <div name="formulario">
 
-                            
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title"><?php echo $nombreCompleto; ?></h5>
-                                    <p class="card-text"><b>Identificación:</b> <?php echo $identificacion; ?></p>
-                                    <p class="card-text"><b>Correo Electronico:</b> <?php echo $correo; ?></p>
-                                    <p class="card-text"><b>Rol: </b><?php echo $rol; ?></p>
+                    <hr class="mx-5" />
+
+                    <div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="nombreUsuario form-control form" name="formId1" id="nombreUsuario"
+                                placeholder="" />
+                            <label for="formId1">Nombre de usuario</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="apellidoUsuario form-control form" name="formId1"
+                                id="apellidoUsuario" placeholder="" />
+                            <label for="formId1">Apellido de usuario</label>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="correoUsuario form-control form" name="formId1"
+                                id="correoUsuario" placeholder="" />
+                            <label for="">Correo Electronico</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="rifUsuario form-control form" name="formId2" id="rifUsuario"
+                                placeholder="" />
+                            <label for="formId1">Cedula</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="contrasenaUsuario form-control form" name="formId3"
+                                id="contrasenaUsuario" placeholder="" />
+                            <label for="formId1">Contraseña</label>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="direccionUsuario form-control form" name="formId3"
+                                id="direccionUsuario" placeholder="" />
+                            <label for="formId1">Dirección</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-floating mb-4">
+                            <select class="GeneroUsuario form-select" aria-label="Default select example"
+                                id="GeneroUsuario">
+                                <option selected>Masculino</option>
+                                <option value="1">Femenino</option>
+                            </select>
+                            <label for="formId1">Genero</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-floating mb-4">
+                            <select class="Empresa form-select" aria-label="Default select example" id="Empresa"
+                                name="Empresa">
+                                <option selected disabled>Aqui quiero que la unica opcion sea la empresa del admin
+                                </option>
+                                <?php foreach ($empresas as $empresa): ?>
+                                    <option value="<?php echo $empresa; ?>"><?php echo $empresa; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <label for="Empresa">Empresa</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-floating mb-3">
+                            <input type="date" class="fechaNacimiento form-control" id="fechaNacimiento" name="fecha">
+                            <label for="formId1">Fecha de Nacimineto</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-floating mb-3 w-auto align-self-center">
+                            <input type="number" class="telefonoUsuario form-control" name="formId1"
+                                id="telefonoUsuario" placeholder="" />
+                            <label for="formId1">Telefono</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-floating mb-3 w-auto">
+                            <p class="text-center">Ingresar como:</p>
+                            <div class="form-floating mb-3 d-flex justify-content-evenly">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault1" checked>
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Estudiante
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Profesor
+                                    </label>
                                 </div>
                             </div>
+
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card my-3" style="max-width: 540px;">
 
-                        <div class="card-body overflow-auto " style="height:20rem;">
-                            <ul class="list-group overflow-auto">
-                                <?php 
-                                if(mysqli_num_rows($conexion3) > 0){
-                                foreach($cursos as $curso){ ?>
-                                <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="<?php echo $curso['id_cur'] ?>" id="firstCheckbox">
-                                    <label class="form-check-label" for="firstCheckbox"><?php echo $curso['nombre_cur'] ?></label>
-                                </li>
-                                <?php }}else{ ?>
-
-                                    <h3>No hay cursos disponibles en tu Empresa</h3>
-
-                                <?php } ?>
-                            </ul>
-                        </div>
-
-                        <div class="card-footer">
-                            <button class="btn btn-primary">Inscribir</button>
-                        </div>
-
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary mb-4" onclick="submitData();">
+                            Modificar Usuario
+                        </button>
+                        <button type="reset" class="btn btn-secondary mb-4" onclick="submitData();">
+                            Cancelar Cambios
+                        </button>
                     </div>
-                </div>
-            </div>
-        </div>
 
+                </div>
+            </form>
         </div>
     </section>
 

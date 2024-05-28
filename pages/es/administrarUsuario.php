@@ -86,8 +86,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
                 <a class="navbar-brand" href="../../index.html">
-                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70"
-                        height="24" />
+                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
                 <div class="d-flex justify-content-end">
@@ -96,12 +95,12 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <div class="nav-item dropdown">
                         <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">
                             <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                href="../es/registro.php">Español (Latino America)</a>
+                                href="#">Español (Latino America)</a>
                         </button>
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                                    href="#">Inglés</a>
+                                    href="../en/manageUser.php">Inglés</a>
                             </li>
                         </ul>
                     </div>
@@ -141,21 +140,21 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
     <div class="l-navbar bg-body-tertiary" id="nav-bar">
         <nav class="nav">
             <div class="nav_list">
-                <a href="#" class="nav_link link-dark">
+                <a href="Inicio.php" class="nav_link link-dark">
                     <i class="bx bx-grid-alt nav_icon"></i>
                     <span class="nav_name">Inicio</span>
                 </a>
-                <a href="#" class="nav_link link-dark">
+                <a href="tutorial.php" class="nav_link link-dark">
                     <i class="bx bx-user nav_icon"></i>
-                    <span class="nav_name">Dashboard</span>
+                    <span class="nav_name">Tutorial</span>
                 </a>
-                <a href="#" class="nav_link link-dark">
+                <a href="cursos.php" class="nav_link link-dark">
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="#" class="nav_link active ">
+                <a href="MenuAdmin.php" class="nav_link active ">
                     <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Configuración</span>
+                    <span class="nav_name">Administrar</span>
                 </a>
             </div>
         </nav>
@@ -189,6 +188,28 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2">Administrar Usuario</h1>
 
+            <!-- <div class="d-flex container rounded bg-danger-subtle text-secondary-emphasis my-2 p-3">
+                <div class="">
+
+                    <div class="">
+                        <p>Seguro que quiere eliminar al usuario?</p>
+                        <button class="btn btn-danger">Si</button>
+                        <button class="btn btn-secondary">No</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="d-flex container rounded bg-warning-subtle text-secondary-emphasis my-2 p-3">
+                <div class="">
+
+                    <div class="">
+                        <p>Usuario eliminado</p>
+                    </div>
+
+                </div>
+            </div> -->
+
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Filtrar</button>
@@ -199,8 +220,8 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <thead>
                         <tr>
                             <th scope="col">Cedula</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Apellido</th>
+                            <th scope="col">Nombre(s)</th>
+                            <th scope="col">Apellido(s)</th>
                             <th scope="col">Dirección</th>
                             <th scope="col">Correo</th>
                             <th scope="col">Sexo</th>
@@ -217,7 +238,14 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                             <td>dsjoseale@gmail.com</td>
                             <td>Hombre</td>
                             <td>Estudiante</td>
-                            <td><button class="btn btn-primary me-1">Modificar</button><button class="btn btn-primary">Eliminar</button></td>
+                            <td>
+                                <button onclick="location.href='modifUsuario.php'" class="btn btn-primary me-1">
+                                    Modificar
+                                </button>
+                                <button onclick="eliminarUser();" class="btn btn-primary">
+                                    Eliminar
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -225,6 +253,23 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
         </div>
     </section>
+
+    <script>
+        function eliminarUser() {
+            confimar = confirm('Seguro que quiere eliminar al usuario?');
+            if (confimar == true) {
+                // e.preventDefault();
+                //Accion para borrar usuario
+                alert('El usuario ha sido eliminado')
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        // function topFunction() {
+        //     document.body.scrollTop = 0; // For Safari
+        //     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+        // }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
