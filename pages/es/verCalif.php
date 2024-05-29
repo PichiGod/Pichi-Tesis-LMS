@@ -170,7 +170,7 @@ if (isset($_SESSION['id_user'])) {
 
     <!--Contenido Usuario-->
     <section>
-        <div class="container-fluid bg-blanco mt-3 shadow">
+        <div class="container-fluid bg-blanco my-3 pb-3 shadow">
             <p class="fs-1"><strong>Calificaciones</strong></p>
             <div class="dropdown">
                 <a class="btn btn-tertiary bg-blancoOscuro dropdown-toggle mb-2" href="#" role="button"
@@ -185,48 +185,52 @@ if (isset($_SESSION['id_user'])) {
                 </ul>
             </div>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Ponderacion</th>
-                        <th scope="col">Calificacion</th>
-                        <th scope="col">Rango</th>
-                        <th scope="col">Porcentaje</th>
-                        <th scope="col">Retroalimentacion</th>
-                        <th scope="col">Aporte total del curso</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Examen #1</th>
-                        <td>20%</td>
-                        <td>10</td>
-                        <td>1 - 20</td>
-                        <td>50%</td>
-                        <td>Estudie más para la proxima</td>
-                        <td>20%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Examen #2</th>
-                        <td>20%</td>
-                        <td>15</td>
-                        <td>1 - 20</td>
-                        <td>75%</td>
-                        <td>Mejoro mucho! Siga asi!</td>
-                        <td>40%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Examen Final</th>
-                        <td>60%</td>
-                        <td>20</td>
-                        <td>1 - 20</td>
-                        <td>100%</td>
-                        <td>Excelente!</td>
-                        <td>100%</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Ponderacion</th>
+                            <th scope="col">Calificacion</th>
+                            <th scope="col">Rango</th>
+                            <th scope="col">Porcentaje</th>
+                            <th scope="col">Retroalimentacion</th>
+                            <th scope="col">Aporte total del curso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Examen #1</th>
+                            <td>20%</td>
+                            <td>10</td>
+                            <td>1 - 20</td>
+                            <td>50%</td>
+                            <td>Estudie más para la proxima</td>
+                            <td>20%</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Examen #2</th>
+                            <td>20%</td>
+                            <td>15</td>
+                            <td>1 - 20</td>
+                            <td>75%</td>
+                            <td>Mejoro mucho! Siga asi!</td>
+                            <td>40%</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Examen Final</th>
+                            <td>60%</td>
+                            <td>20</td>
+                            <td>1 - 20</td>
+                            <td>100%</td>
+                            <td>Excelente!</td>
+                            <td>100%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
 
         </div>
         </div>
