@@ -206,7 +206,7 @@ if (isset($_GET['id_cur'])) {
                         <div>
                             <i class="fa-solid fa-user-tie me-2 p-3 rounded bg-warning-subtle"></i>
 
-                            <span>Foro</span>
+                            <a href="verForo.php"><span>Foro</span></a>
                         </div>
                     </div>
                 </div>
@@ -217,7 +217,7 @@ if (isset($_GET['id_cur'])) {
                         <div>
                             <i class="fa-solid fa-bullhorn me-2 p-3 rounded bg-warning-subtle"></i>
 
-                            <span>Chat en Linea</span>
+                            <span><a href="verChatLinea.php?id_cur=<?php echo $id_curso_seleccionado; ?>">Chat en Linea</a></span>
                         </div>
                     </div>
                 </div>
@@ -238,35 +238,45 @@ if (isset($_GET['id_cur'])) {
                     </div>
                 </div>
 
+                <div>
+                    <hr>
+                    Solo para admins y profesores
+                    <div>
+                        <button onclick="location.href='crearRecurso.php'" class="btn btn-primary">Crear Recurso</button>
+                    </div>
+                </div>
+
                 <div class="p-2 my-4 rounded shadow ">
                     <h4>Actividades (Estrictamente para actividades de la materia como tareas/entregas)</h4>
                 </div>
 
-                 
-                <?php 
-                
+                <?php
+
                 if (mysqli_num_rows($consultaActividades) > 0) {
 
-                foreach($Actividades as $actividad): ?>
-                <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis p-3" style="padding: 10px;">
-                    <div>
-                        <div>
-                            <i class="fa-solid fa-note-sticky me-2 p-3 rounded bg-warning-subtle" witdh="35" height="35"></i>
-                            <span><a href=""><?php echo $actividad['Titulo'] ?></a></span>
+                    foreach ($Actividades as $actividad): ?>
+                        <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis p-3"
+                            style="padding: 10px;">
+                            <div>
+                                <div>
+                                    <i class="fa-solid fa-note-sticky me-2 p-3 rounded bg-warning-subtle" witdh="35"
+                                        height="35"></i>
+                                    <span><a href=""><?php echo $actividad['Titulo'] ?></a></span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <?php endforeach;
-                }else{?>
+                    <?php endforeach;
+                } else { ?>
 
-                <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis p-3" style="padding: 10px;">
-                    <div>
-                        <div>    
-                        <span>No hay Actividades disponibles en este momento</span>
+                    <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis p-3"
+                        style="padding: 10px;">
+                        <div>
+                            <div>
+                                <span>No hay Actividades disponibles en este momento</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                    
+
 
                 <?php } ?>
 
@@ -279,7 +289,6 @@ if (isset($_GET['id_cur'])) {
                         onclick="location.href='crearActividad.php?id_cur=<?php echo $id_curso_seleccionado; ?>'">
                         Crear Actividad
                     </button>
-
 
                 </div>
 

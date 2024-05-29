@@ -100,7 +100,8 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
             </button>
             <ul class="dropdown-menu">
               <li class="dropdown-item">
-                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary" href="../en/modifPeriod.php">Inglés</a>
+                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
+                  href="../en/modifPeriod.php">Inglés</a>
               </li>
             </ul>
           </div>
@@ -183,8 +184,26 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
   <!--Contenido-->
   <section>
     <div class="container-fluid bg-blanco my-3 pb-2 shadow">
+      <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+          style="font-size:2rem;color:black;"></i></a>
       <h1 class="text-center">Modificar Periodo Academico</h1>
-      
+
+      <form action="">
+
+        <label class="mt-2" for="periodo">Periodo </label>
+        <input type="text" name="periodo" id="periodo" placeholder="Nombre del periodo seleccionado" disabled>
+
+        <div>
+          <label class="mt-2" for="fecIni">Fecha de Inicio</label>
+          <input class=" form-control" type="date" name="idPer" id="idPer" />
+
+          <label class="mt-2" for="fecFin">Fecha de Culminacion</label>
+          <input class=" form-control" type="date" name="idPer" id="idPer" />
+        </div>
+
+
+        <button class="btn btn-primary mt-2">Modificar Periodo</button>
+      </form>
 
     </div>
   </section>

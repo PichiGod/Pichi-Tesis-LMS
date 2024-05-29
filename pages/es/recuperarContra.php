@@ -23,7 +23,7 @@ if(isset($_SESSION['id_user'])){
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inicio de Seccion</title>
+  <title>Recuperar Contraseña</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -74,7 +74,7 @@ if(isset($_SESSION['id_user'])){
       <div name="formulario" class="bg-pastel">
         <div class="formulario pt-2 px-3 bg-blanco shadow rounded">
           <div>
-            <p class="fs-1 text-center">Inicio de sesión</p>
+            <p class="fs-1 text-center">Recuperar Contraseña</p>
           </div>
 
           <hr class="mx-5" />
@@ -86,18 +86,11 @@ if(isset($_SESSION['id_user'])){
               </div>
             </div>
 
-            <div>
-              <div class="form-floating mb-4">
-              <input type="text" class="contrasenaLogin form-control" name="contrasenaLogin" id="contrasenaLogin" placeholder="" />
-                <label for="formId1">Contraseña</label>
-              </div>
-            </div>
-
             <div class="text-center">
-              <button type="button" class="btn btn-primary mb-4" onclick="submitData();">
-                Iniciar Sesión
+              <button type="button" class="btn btn-primary mb-4" onclick="location.href='recuperarEmail.php'">
+                Recuperar
               </button>
-              <a href="recuperarContra.php" class="btn btn-link mb-4">Olvido su contraseña?</a>
+              <a onclick="location.href='SeccionInicio.php'" class="btn btn-secondary mb-4">Regresar</a>
             </div>
           
         </div>

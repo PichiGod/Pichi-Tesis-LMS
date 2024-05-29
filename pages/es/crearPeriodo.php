@@ -57,7 +57,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modificar Periodo</title>
+  <title>Crear Periodo</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -100,7 +100,8 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
             </button>
             <ul class="dropdown-menu">
               <li class="dropdown-item">
-                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary" href="../en/createPeriod.php">Inglés</a>
+                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
+                  href="../en/createPeriod.php">Inglés</a>
               </li>
             </ul>
           </div>
@@ -183,8 +184,25 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
   <!--Contenido-->
   <section>
     <div class="container-fluid bg-blanco my-3 pb-2 shadow">
+      <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+          style="font-size:2rem;color:black;"></i></a>
       <h1 class="text-center">Crear Periodo Academico</h1>
-      
+
+      <form action="">
+        <label class="mt-2" for="idPer">Id del Periodo (Esto es si vas a hacer algo con el)</label>
+        <input class="form-control" type="text" placeholder="ID_PER_EMP" name="idPer" id="idPer" />
+
+        <label class="mt-2" for="nomPer">Nombre del periodo</label>
+        <input class="form-control" type="text" name="idPer" id="idPer" />
+
+        <label class="mt-2" for="fecIni">Fecha de Inicio</label>
+        <input class=" form-control" type="date" name="idPer" id="idPer" />
+
+        <label class="mt-2" for="fecFin">Fecha de Culminacion</label>
+        <input class=" form-control" type="date" name="idPer" id="idPer" />
+
+        <button class="btn btn-primary mt-2">Crear Periodo</button>
+      </form>
 
     </div>
   </section>

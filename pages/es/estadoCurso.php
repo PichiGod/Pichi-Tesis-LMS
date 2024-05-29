@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inscribir</title>
+    <title>Visibilidad Curso</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -166,9 +166,9 @@
             </form>
 
             <div class="row mt-2 d-flex  ">
-                <div class="col">
-                    <table style="height: 260px; width: 520px;"
-                        class="table table-bordered overflow-auto border-secondary ms-3">
+                <div class="col-md col-sm col-lg-6 mb-2">
+                    <table style="height: 280px;"
+                        class="table table-bordered overflow-auto border-secondary ">
                         <thead>
                             <tr>
                                 <th scope="col">Id curso</th>
@@ -196,11 +196,10 @@
                                 <td>Santiago Viloria</td>
                                 <td><span class="badge text-bg-danger">Inactivo</span></td>
                             </tr>
-                            
                         </tbody>
                     </table>
                 </div>
-                <div class="col">
+                <div class="col-lg-6 col-md col-sm ">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Curso seleccionado</h4>

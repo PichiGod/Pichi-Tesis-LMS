@@ -167,10 +167,12 @@
                         <tr>
                             <th scope="col">Id</th>
                             <th scope="col">Curso</th>
-                            <th scope="col">Hora</th>
+                            <th scope="col">Fecha Inicio</th>
+                            <th scope="col">Fecha Culminación</th>
                             <th scope="col">Cupo mínimo</th>
                             <th scope="col">Cupo máximo</th>
                             <th scope="col">Docente</th>
+                            <th scope="col">Periodo Actual</th>
                             <th scope="col">Opciones</th>
                         </tr>
                     </thead>
@@ -178,15 +180,17 @@
                         <tr>
                             <th scope="row">ID_CUR_EMP</th>
                             <td>Comer Queso I</td>
-                            <td>no me acuerdo como funciona hora</td>
+                            <td>28/05/2024</td>
+                            <td>28/05/2024</td>
                             <td>10</td>
                             <td>20</td>
                             <td>Santigay Vilogay</td>
+                            <td>Abril - Julio 2024</td>
                             <td>
                                 <button onclick="location.href='modifCurso.php'" class="btn btn-primary me-1">
                                     Modificar
                                 </button>
-                                <button onclick="eliminarCurso();" class="btn btn-primary">
+                                <button onclick="eliminarCurso();" class="btn mt-1 btn-outline-danger">
                                     Eliminar
                                 </button>
                             </td>

@@ -169,15 +169,19 @@ if (isset($_SESSION['id_user'])) {
 
     <section class="Cursos">
 
-        <div class="container-fluid bg-blanco mt-3 shadow">
+        <div class="container-fluid bg-blanco my-3 p-3 rounded shadow">
             <!--Titulo-->
-            <div class="container pt-4 pb-3">
+            <div class="container">
 
                 <div class="p-2 mb-2 rounded shadow ">
                     <h2><strong>Nombre del Recurso - Empresa</strong></h2>
                 </div>
 
-                <p>Descripcion e Instrucciones del recurso</p>
+                <div class="p-2 mb-2 border bg-white rounded">
+                    <p class="mb-0">
+                        Descripcion e Instrucciones del recurso
+                    </p>
+                </div>
 
                 <hr>
 
@@ -191,10 +195,29 @@ if (isset($_SESSION['id_user'])) {
                     </li>
                 </ul>
 
+                <button class="btn btn-primary mt-2" onclick="location.href='verCurso.php'">Regresar</button>
+
+                <div>Esta parte eso solo para el profesor y admin
+                    <hr>
+                    <button onclick="location.href='editarRecurso.php'" class="btn btn-primary">Editar Recurso</button>
+                    <button onclick="confirmarElim();" class="btn btn-outline-danger">Eliminar Recurso</button>
+                </div>
+
             </div>
         </div>
 
     </section>
+
+    <script>
+        function confirmarElim(){
+            confirmar = confirm("Esta seguro que quiere eliminar el recurso?");
+            if (confirmar == true){
+                //Codigo para eliminar el recurso
+                alert('Se ha eliminado el recurso correctamente');
+                window.location.href="verCurso.php";
+            }
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

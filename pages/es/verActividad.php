@@ -5,9 +5,10 @@ require "../../assests/php/LoginBD.php";
 if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
-
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
-
+    $conexion1 = mysqli_query(
+        $mysqli,
+        "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'"
+    );
     if (mysqli_num_rows($conexion1) > 0) {
 
         $datos = mysqli_fetch_assoc($conexion1);
@@ -174,43 +175,133 @@ if (isset($_SESSION['id_user'])) {
 
         <div class="container-fluid bg-blanco mt-3 shadow ">
             <!--Titulo-->
-            <div class="container pt-4 pb-3">
+            <div class="container pt-4 mb-3 pb-3">
 
                 <div class="p-2 mb-2 rounded shadow ">
                     <h2><strong>Nombre de la actividad - Empresa</strong></h2>
                 </div>
 
-                <p>Descripcion e Instrucciones del actividad</p>
+                Descripcion (Borra esto)
+                <div class="bg-white rounded border py-1 ">
+                    <p class="mb-0 ms-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quae
+                        odio
+                        labore veniam laudantium temporibus, voluptatem ea dolorum vero facere pariatur deserunt
+                        delectus ducimus corporis quis praesentium non aperiam sed!</p>
+                </div>
+
+                <div class="d-inline-flex align-items-center bg-dark-subtle px-2 mt-2 mb-1 rounded">
+                    <p class="mb-0">Fecha de Inicio: 27/05/2024</p>
+                </div>
+
+                <div class="d-inline-flex align-items-center bg-dark-subtle px-2 mt-2 mb-1 rounded">
+                    <p class="mb-0">Fecha de Culminacion: 27/05/2024</p>
+                </div>
 
                 <hr>
 
-                <div class="p-2 my-4 rounded shadow ">
+                <div class="p-2 my-3 rounded shadow ">
                     <h4>Archivos del Recurso (El archivo[s] del recurso)(si tiene)</h4>
                 </div>
 
-                <ul class="list-group">
+                <ul class="list-group mb-1">
                     <li class="list-group-item">
                         <i class="fa-solid fa-file"></i> <a class="ms-2" href="#">Archivo</a>
                     </li>
                 </ul>
 
+                <div class="d-inline-flex align-items-center bg-dark-subtle px-2 mt-2 mb-1 rounded fs-4">
+                    <div class="me-3">
+                        <p class="card-text">Estado de entrega</p>
+                    </div>
+                    <div>
+                        <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
+                    </div>
+                    <div class="ms-3 mb-1">
+                        <span class="badge text-bg-danger"><strong>No entregado</strong></span>
+                        <span class="badge text-bg-success"><strong>Entregado</strong></span>
+                    </div>
+                </div>
+
                 <hr>
 
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Entrega de actividad</h4>
-                        <p class="card-text">Maxima # de archivos: X</p>
-                        <p class="card-text">Maxima peso de archivo: X MB</p>
-                        <div class="mb-3">
-                            <label for="formFileMultiple" class="form-label">Seleccionar archivos...</label>
-                            <input class="form-control" type="file" id="formFileMultiple" multiple>
+                        <div>
+                            Esta parte solo se muestra si no se ha realizado una entrega
+                            <h4 class="card-title">Entrega de actividad</h4>
+                            <p class="card-text">Maxima # de archivos: X</p>
+                            <p class="card-text">Maxima peso de archivo: X MB</p>
+                            <div class="mb-3">
+                                <label for="formFileMultiple" class="form-label">Seleccionar archivos...</label>
+                                <input class="form-control" type="file" id="formFileMultiple" multiple>
+                            </div>
+                            <input type="submit" class="btn btn-primary"></input>
+
+                            <hr>
                         </div>
-                        <input type="submit" class="btn btn-primary"></input>
+
+                        <div>
+                            Esta parte se muestra si ya se realizo una entrega
+                            <div>
+                                <div class="d-flex align-items-center bg-body-secondary px-2 mb-2 me-2 rounded fs-5">
+                                    <div class="me-3">
+                                        <p class="card-text">Docente</p>
+                                    </div>
+                                    <div>
+                                        <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
+                                    </div>
+                                    <div class="ms-3">
+                                        <span><strong>Jose Alejandro Duarte Salcedo</strong></span>
+                                    </div>
+                                </div>
+
+                                <!-- Force next columns to break to new line at md breakpoint and up -->
+                                <div class="w-100 d-none d-md-block"></div>
+                                <div
+                                    class="d-inline-flex align-items-center bg-body-secondary px-2 mb-2 me-2 rounded fs-5">
+                                    <div class="me-3">
+                                        <p class="card-text">Estado de Calificacion</p>
+                                    </div>
+                                    <div>
+                                        <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
+                                    </div>
+                                    <div class="ms-3 mb-1">
+                                        <span class="badge bg-warning-subtle text-warning-emphasis"><strong>No
+                                                calificado</strong></span>
+                                        <span class="badge text-bg-success"><strong>Calificado</strong></span>
+                                    </div>
+                                </div>
+                                <div class="d-inline-flex align-items-center bg-body-secondary px-2 mb-2 rounded fs-5">
+                                    <div class="me-3">
+                                        <p class=" card-text">Calificacion del profesor</p>
+                                    </div>
+                                    <div>
+                                        <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
+                                    </div>
+                                    <div class="ms-3">
+                                        <span><strong>Nota</strong></span>
+                                    </div>
+                                </div>
+                                <p class="mb-0 fs-5">Retroalimentación</p>
+                                <div class="p-2 mb-2 border rounded">
+                                    <p id="retro" class="mb-0">
+                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora ad
+                                        deleniti eaque dolore necessitatibus minus! Saepe eligendi adipisci est
+                                        atque
+                                        quas, sequi voluptatibus velit similique nisi voluptatem amet, alias minima.
+                                    </p>
+                                </div>
+
+                            </div>
+                            <h4 class="card-title">Editar entrega</h4>
+                            <button onclick="location.href='editarEntrega.php'" class="btn btn-primary">Editar</button>
+                        </div>
 
                         <hr>
 
-                        <div>
+                        <div>Aqui se muestra cuando ya la actividad se entrego para visualizar los archivos enviados
                             <h4 class="card-title">Archivos entregados</h4>
+                            <p class="font-monospace mb-0">Ultima modificacion: 28/05/2024</p>
                             <ul class="list-group">
                                 <li class="list-group-item">
                                     <i class="fa-solid fa-file"></i> <a class="ms-2" href="#">Archivo #1</a>
@@ -219,9 +310,23 @@ if (isset($_SESSION['id_user'])) {
                                     <i class="fa-solid fa-file"></i> <a class="ms-2" href="#">Archivo #2</a>
                                 </li>
                             </ul>
-
                         </div>
 
+                    </div>
+                </div>
+
+                <hr>
+
+                <div>
+                    Esta seccion es para el profesor
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Opciones</h4>
+                            <button onclick="location.href='asignarNota.php'" class="btn btn-primary">Asignar
+                                nota</button>
+                            <button onclick="location.href='editarNota.php'" class="btn btn-secondary">Editar nota</button>
+                            <button onclick="location.href='editarActividad.php'" class="btn btn-outline-secondary">Editar Actividad</button>
+                        </div>
                     </div>
                 </div>
 

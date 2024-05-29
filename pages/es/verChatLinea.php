@@ -6,7 +6,7 @@ if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT id_user, Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
@@ -18,6 +18,8 @@ if (isset($_SESSION['id_user'])) {
 
         $apellidoUsuario = $datos['apellido_user'];
 
+        $idUser = $datos['id_user'];
+
         $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
 
         if (mysqli_num_rows($conexion2) > 0) {
@@ -26,15 +28,31 @@ if (isset($_SESSION['id_user'])) {
 
             $nombreEmpresa = $datos2['nombre_empresa'];
 
+            if (isset($_GET['id_cur'])) {
+                $id_curso_seleccionado = $_GET['id_cur'];
+            
+                // Modificamos la consulta para hacer un JOIN con la tabla 'usuario'
+                $conexion3 = mysqli_query($mysqli, "
+                    SELECT usuario.id_user, usuario.nombre_user, usuario.apellido_user 
+                    FROM usuariosala 
+                    JOIN usuario ON usuariosala.id_user = usuario.id_user 
+                    WHERE usuariosala.id_curso = '$id_curso_seleccionado'
+                ");
+ 
+                if (mysqli_num_rows($conexion3) > 0) {
+                    while ($datos3 = mysqli_fetch_assoc($conexion3)) {
+                        $usuariosSala[] = $datos3;
+                    }
+                }
+
+            }
+
         }
 
     }
 
 }
-
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -175,15 +193,18 @@ if (isset($_SESSION['id_user'])) {
                 <div class="p-2 mb-2 rounded shadow">
                     <h2><strong>Nombre del curso - Empresa </strong></h2>
                 </div>
+                <form action="" method="post">
 
+                <input type="hidden" name="idUser" class="idUser" id="idUser" value="<?php echo $idUser ?>">
+                <input type="hidden" name="idCurso" class="idCurso" id="idCurso" value="<?php echo $id_curso_seleccionado?>">
 
                 <span class="p-2 my-4 rounded ">
-                    <button class="btn btn-primary ">Entrar al Chat</button>
+                    <button class="btn btn-primary" onclick="submitData();">Entrar al Chat</button>
                 </span>
                 <span class="p-2 my-4 rounded ">
                     <button class="btn btn-secondary ">Historial del Chat</button>
                 </span>
-
+                </form>
                 <hr>
 
                 <div class="p-2 mb-2 rounded shadow">
@@ -192,6 +213,10 @@ if (isset($_SESSION['id_user'])) {
                 <!--Caja de Usuarios-->
                 <div class="item-recurso container bg-secondary-subtle text-secondary-emphasis mt-3 p-3">
                     <div>
+                        <?php 
+                        if(mysqli_num_rows($conexion3) > 0){
+
+                        foreach ($usuariosSala as $usuarioSala) { ?>
                         <div class="row gy-2">
                             <!--Este es el bloque donde de muestra la informacion de cada usuario-->
                             <div class="col-6 col-sm-3">
@@ -200,79 +225,29 @@ if (isset($_SESSION['id_user'])) {
                                         <div>
                                             <img src="https://github.com/PichiGod.png" alt="..." width="60px"
                                                 height="auto" />
-                                            <span class="card-text fs-5">Pichi</span>
+                                            <span class="card-text fs-5"><?php echo $usuarioSala['nombre_user'] . ' ' . $usuarioSala['apellido_user']; ?></span>
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-6 col-sm-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div>
-                                            <img src="https://github.com/PichiGod.png" alt="..." width="60px"
-                                                height="auto" />
-                                            <span class="card-text fs-5">Pichi</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-6 col-sm-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div>
-                                            <img src="https://github.com/PichiGod.png" alt="..." width="60px"
-                                                height="auto" />
-                                            <span class="card-text fs-5">Pichi</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-6 col-sm-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div>
-                                            <img src="https://github.com/PichiGod.png" alt="..." width="60px"
-                                                height="auto" />
-                                            <span class="card-text fs-5">Pichi</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-6 col-sm-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div>
-                                            <img src="https://github.com/PichiGod.png" alt="..." width="60px"
-                                                height="auto" />
-                                            <span class="card-text fs-5">Pichi</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-6 col-sm-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div>
-                                            <img src="https://github.com/PichiGod.png" alt="..." width="60px"
-                                                height="auto" />
-                                            <span class="card-text fs-5">Pichi</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
+                       <?php } }else{?>
+                                    <div>
+                                    <div class="row gy-2">
+                                        <!--Este es el bloque donde de muestra la informacion de cada usuario-->
+                                        <div class="col-6 col-sm-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div>
+                                                        <span class="card-text fs-5">Actualmente no hay usuarios en la sala</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                       <?php } ?>
+
                     </div>
 
                 </div>
@@ -286,6 +261,9 @@ if (isset($_SESSION['id_user'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
+
+        <?php require "../../assests/php/entrarSalaMain.php"; ?>
+
 </body>
 
 </html>

@@ -134,9 +134,11 @@ a {
   left: 0;
 }
 
+
+
 section {
-  margin-right: 5.5rem;
-  margin-left: 5.5rem;
+  margin-right: 2rem;
+  margin-left: 2rem;
 }
 
 .body-pd {
@@ -171,4 +173,12 @@ section {
   .body-pd {
     padding-left: calc(var(--nav-width) + 156px);
   }
+  
 }
+
+@media (min-width: 576px) { 
+  section {
+    margin-right: 5.5rem;
+    margin-left: 5.5rem;
+  }
+ }

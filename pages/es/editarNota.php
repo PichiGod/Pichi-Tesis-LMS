@@ -2,11 +2,9 @@
 
 require "../../assests/php/LoginBD.php";
 
-if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
+if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
-
-    $usuariosActivos = $_SESSION['usuariosActive'];
 
     $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
@@ -30,18 +28,6 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
         }
 
-        $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
-
-        if (mysqli_num_rows($conexion3) > 0) {
-
-            $cursosCantidad = mysqli_num_rows($conexion3);
-
-        } else {
-
-            $cursosCantidad = 0;
-
-        }
-
     }
 
 }
@@ -49,32 +35,53 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Administrar</title>
+    <title>Editar Nota</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-
     <!-- Boxicons icons -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <!-- Font Awesome  icons (free version)-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <!-- CSS only -->
     <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
     <link rel="stylesheet" href="../../assests/css/viewUser.css" />
     <link rel="stylesheet" href="../../assests/css/sidebar.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 
+    <!--JQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!--Sidebar.js-->
     <script src="../../assests/js/sidebar.js"></script>
+
+    <style>
+        .table {
+            width: 100%;
+            display: block;
+            white-space: nowrap;
+        }
+
+        #tableBody>tr {
+            display: table-row;
+        }
+
+        #tableBody>tr>td {
+            display: table-cell;
+            white-space: nowrap;
+        }
+        .disable{
+            pointer-events: none;
+            background-color: lightgrey;
+        }
+    </style>
 </head>
 
 <body class="bg-pastel" id="body-pd">
@@ -100,7 +107,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                                    href="../en/manageUser.php">Inglés</a>
+                                    href="../en/viewActivity.php">Inglés</a>
                             </li>
                         </ul>
                     </div>
@@ -111,9 +118,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://github.com/PichiGod.png" alt="..." width="32" height="32"
                                 class="rounded-circle me-2" />
-                            <strong>
-                                <?php echo $nombreUsuario . " " . $apellidoUsuario; ?>
-                            </strong>
+                            <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                             <li>
@@ -148,11 +153,15 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <i class="bx bx-user nav_icon"></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
-                <a href="cursos.php" class="nav_link link-dark">
+                <a href="cursos.php" class="nav_link active">
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link active ">
+                <a href="verCalif.php" class="nav_link link-dark">
+                    <i class="bx bx-news nav_icon"></i>
+                    <span class="nav_name">Evaluaciones</span>
+                </a>
+                <a href="MenuAdmin.php" class="nav_link link-dark">
                     <i class="bx bx-cog nav_icon"></i>
                     <span class="nav_name">Administrar</span>
                 </a>
@@ -175,7 +184,8 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Regresar
                     </button>
-                    <button type="button" class="btn btn-primary">Cerrar Sesión</button>
+                    <button type="button" onclick="location.href='../../assests/php/cerrarSesion.php'"
+                        class="btn btn-primary">Cerrar Sesión</button>
                 </div>
             </div>
         </div>
@@ -184,100 +194,91 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
     <!--Contenido-->
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-            <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+
+            <a href="verActividad.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
-            <h1 class="text-center pt-2">Administrar Usuario</h1>
+            <h1 class="text-center">Editar Nota</h1>
+            <h4 class="text-center fw-light">Haga click en un estudiante para seleccionar</h4>
 
-            <!-- <div class="d-flex container rounded bg-danger-subtle text-secondary-emphasis my-2 p-3">
-                <div class="">
-
-                    <div class="">
-                        <p>Seguro que quiere eliminar al usuario?</p>
-                        <button class="btn btn-danger">Si</button>
-                        <button class="btn btn-secondary">No</button>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="d-flex container rounded bg-warning-subtle text-secondary-emphasis my-2 p-3">
-                <div class="">
-
-                    <div class="">
-                        <p>Usuario eliminado</p>
-                    </div>
-
-                </div>
-            </div> -->
 
             <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" id="searchInput" type="search" placeholder="Search"
+                    aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Filtrar</button>
             </form>
 
-            <div class="table-responsive">
-                <table class="table mt-2">
-                    <thead>
-                        <tr>
-                            <th scope="col">Cedula</th>
-                            <th scope="col">Nombre(s)</th>
-                            <th scope="col">Apellido(s)</th>
-                            <th scope="col">Dirección</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">Sexo</th>
-                            <th scope="col">Rol</th>
-                            <th scope="col">Cursos</th>
-                            <th scope="col">Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">28467144</th>
-                            <td>Jose Alejandro</td>
-                            <td>Duarte Salcedo</td>
-                            <td>Av.4 Torre Europa Torre 2</td>
-                            <td>dsjoseale@gmail.com</td>
-                            <td>Hombre</td>
-                            <td>
-                                Estudiante
-                            </td>
-                            <td>
-                                <ul>
-                                    <li>Comer Queso 1</li>
-                                    <li>Ser ladilla -Maestria</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <button onclick="location.href='modifUsuario.php'" class="btn btn-primary me-1">
-                                    Modificar
-                                </button>
-                                <button onclick="eliminarUser();" class="btn mt-1 btn-outline-danger">
-                                    Eliminar
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="row mt-2 d-flex">
+                <div class="col-md col-sm col-lg-6 mb-2">
+                    Aqui solo se listan los estudiante que tengan su nota asignada
+                    <table style="height: 400px;" class="table overflow-auto table-bordered border-secondary ">
+                        <thead>
+                            <tr>
+                                <th scope="col">Cedula</th>
+                                <th scope="col">Nombre(s)</th>
+                                <th scope="col">Apellido(s)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr onclick="selectRow(this);">
+                                <td scope="row">28467144</td>
+                                <td>Jose Duarte </td>
+                                <td>Duarte Salcedo</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-6 col-md col-sm ">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Estudiante Seleccionado</h4>
+                            <p class="card-text">Nombre estudiante</p>
+                            <h4 class="card-title">Archivos entregados</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <i class="fa-solid fa-file"></i> <a class="ms-2" href="#">Archivo #1</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fa-solid fa-file"></i> <a class="ms-2" href="#">Archivo #2</a>
+                                </li>
+                            </ul>
+                            <textarea rows="4" class="form-control mt-1" id="retro" placeholder="Retroalimentacion"></textarea>
+                        </div>
+                        <div class="card-footer">
+                            <form action="">
+                                <div class="input-group ">
+                                    <input id="calif" tabindex="-1" type="number" class="form-control disable" placeholder="Nota (Nota asignada anteriormente)" aria-label="Nota"
+                                        aria-describedby="basic-addon2">
+                                    <!-- Botón para calificar -->
+                                    <button id="btn-calif" tabindex="-1" type="button" class="btn btn-outline-primary disabled">
+                                        Calificar Activiad
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
     </section>
 
     <script>
-        function eliminarUser() {
-            confimar = confirm('Seguro que quiere eliminar al usuario?');
-            if (confimar == true) {
-                // e.preventDefault();
-                //Accion para borrar usuario
-                alert('El usuario ha sido eliminado')
+
+        function selectRow(row) {
+            const selectedRow = document.querySelector(".table tbody tr.table-active");
+            const buttonCalif = document.getElementById("btn-calif");
+            const inputCalif = document.getElementById("calif");
+
+            if (selectedRow) {
+                selectedRow.classList.remove("table-active");
             }
+            row.classList.add("table-active");
+            buttonCalif.classList.remove("disabled");
+            inputCalif.classList.remove("disable");
         }
 
-        // When the user clicks on the button, scroll to the top of the document
-        // function topFunction() {
-        //     document.body.scrollTop = 0; // For Safari
-        //     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-        // }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

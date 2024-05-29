@@ -2,13 +2,13 @@
 
 require "../../assests/php/LoginBD.php";
 
-if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
+$cursos = [];
+
+if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
 
-    $usuariosActivos = $_SESSION['usuariosActive'];
-
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT * FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
@@ -28,17 +28,17 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
             $nombreEmpresa = $datos2['nombre_empresa'];
 
-        }
+            $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
 
-        $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
+            if (mysqli_num_rows($conexion3) > 0) {
+                while ($datos3 = mysqli_fetch_assoc($conexion3)) {
+                    $cursos[] = $datos3;
 
-        if (mysqli_num_rows($conexion3) > 0) {
+                }
 
-            $cursosCantidad = mysqli_num_rows($conexion3);
+            }
 
-        } else {
 
-            $cursosCantidad = 0;
 
         }
 
@@ -56,7 +56,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Administrar</title>
+    <title>Editar Perfil</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -100,7 +100,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                                    href="../en/manageUser.php">Inglés</a>
+                                    href="../en/modifProfile.php">Inglés</a>
                             </li>
                         </ul>
                     </div>
@@ -117,7 +117,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                             <li>
-                                <a class="dropdown-item" href="verUser.php">Perfil</a>
+                                <a class="dropdown-item" href="#">Perfil</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider" />
@@ -152,7 +152,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link active ">
+                <a href="MenuAdmin.php" class="nav_link link-dark">
                     <i class="bx bx-cog nav_icon"></i>
                     <span class="nav_name">Administrar</span>
                 </a>
@@ -160,7 +160,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
         </nav>
     </div>
 
-    <!-- Modal LogOut ver.Español -->
+    <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -175,110 +175,34 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Regresar
                     </button>
-                    <button type="button" class="btn btn-primary">Cerrar Sesión</button>
+                    <button type="button" onclick="location.href='../../assests/php/cerrarSesion.php'"
+                        class="btn btn-primary">Cerrar Sesión</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!--Contenido-->
+    <!--Contenido Usuario-->
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-            <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+            <a href="verForo.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
-            <h1 class="text-center pt-2">Administrar Usuario</h1>
+            <h1 class="text-center">Modificar Comentario</h1>
+            
+            Muestra el Comentario
+            <form action="">
 
-            <!-- <div class="d-flex container rounded bg-danger-subtle text-secondary-emphasis my-2 p-3">
-                <div class="">
-
-                    <div class="">
-                        <p>Seguro que quiere eliminar al usuario?</p>
-                        <button class="btn btn-danger">Si</button>
-                        <button class="btn btn-secondary">No</button>
-                    </div>
-
+                <div class="rounded ">
+                        <label for="descripcionDiscusion" class="form-label">Comentario</label>
+                        <textarea class="form-control" id="descripcionDiscusion" rows="3"></textarea>
                 </div>
-            </div>
 
-            <div class="d-flex container rounded bg-warning-subtle text-secondary-emphasis my-2 p-3">
-                <div class="">
 
-                    <div class="">
-                        <p>Usuario eliminado</p>
-                    </div>
-
-                </div>
-            </div> -->
-
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Filtrar</button>
+                <button class="btn btn-primary mt-2">Modificar Comentario</button>
             </form>
-
-            <div class="table-responsive">
-                <table class="table mt-2">
-                    <thead>
-                        <tr>
-                            <th scope="col">Cedula</th>
-                            <th scope="col">Nombre(s)</th>
-                            <th scope="col">Apellido(s)</th>
-                            <th scope="col">Dirección</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">Sexo</th>
-                            <th scope="col">Rol</th>
-                            <th scope="col">Cursos</th>
-                            <th scope="col">Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">28467144</th>
-                            <td>Jose Alejandro</td>
-                            <td>Duarte Salcedo</td>
-                            <td>Av.4 Torre Europa Torre 2</td>
-                            <td>dsjoseale@gmail.com</td>
-                            <td>Hombre</td>
-                            <td>
-                                Estudiante
-                            </td>
-                            <td>
-                                <ul>
-                                    <li>Comer Queso 1</li>
-                                    <li>Ser ladilla -Maestria</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <button onclick="location.href='modifUsuario.php'" class="btn btn-primary me-1">
-                                    Modificar
-                                </button>
-                                <button onclick="eliminarUser();" class="btn mt-1 btn-outline-danger">
-                                    Eliminar
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
 
         </div>
     </section>
-
-    <script>
-        function eliminarUser() {
-            confimar = confirm('Seguro que quiere eliminar al usuario?');
-            if (confimar == true) {
-                // e.preventDefault();
-                //Accion para borrar usuario
-                alert('El usuario ha sido eliminado')
-            }
-        }
-
-        // When the user clicks on the button, scroll to the top of the document
-        // function topFunction() {
-        //     document.body.scrollTop = 0; // For Safari
-        //     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-        // }
-    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
