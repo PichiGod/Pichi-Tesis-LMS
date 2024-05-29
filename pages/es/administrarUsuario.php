@@ -226,6 +226,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                             <th scope="col">Correo</th>
                             <th scope="col">Sexo</th>
                             <th scope="col">Rol</th>
+                            <th scope="col">Cursos</th>
                             <th scope="col">Opciones</th>
                         </tr>
                     </thead>
@@ -237,7 +238,15 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                             <td>Av.4 Torre Europa Torre 2</td>
                             <td>dsjoseale@gmail.com</td>
                             <td>Hombre</td>
-                            <td>Estudiante</td>
+                            <td>
+                                Estudiante
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>Comer Queso 1</li>
+                                    <li>Ser ladilla -Maestria</li>
+                                </ul>
+                            </td>
                             <td>
                                 <button onclick="location.href='modifUsuario.php'" class="btn btn-primary me-1">
                                     Modificar
