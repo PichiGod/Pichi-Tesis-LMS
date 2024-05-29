@@ -100,7 +100,8 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
             </button>
             <ul class="dropdown-menu">
               <li class="dropdown-item">
-                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary" href="../en/adminMenu.php">Inglés</a>
+                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
+                  href="../en/adminMenu.php">Inglés</a>
               </li>
             </ul>
           </div>
@@ -143,7 +144,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           <span class="nav_name">Inicio</span>
         </a>
         <a href="tutorial.php" class="nav_link link-dark">
-          <i class="bx bx-user nav_icon"></i>
+          <i class='bx bx-bookmark nav_icon'></i>
           <span class="nav_name">Tutorial</span>
         </a>
         <a href="cursos.php" class="nav_link link-dark">
@@ -215,8 +216,10 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
         <label for="cursos">Periodo Academico</label>
         <hr>
         <div id="cursos" class="col">
-          <button onclick="location.href='crearPeriodo.php'" class="btn btn-secondary">Crear Nuevo Periodo Academico</button>
-          <button onclick="location.href='verPeriodo.php'" class="btn btn-secondary">Visualizar Periodos Académicos</button>
+          <button onclick="location.href='crearPeriodo.php'" class="btn btn-secondary">Crear Nuevo Periodo
+            Academico</button>
+          <button onclick="location.href='verPeriodo.php'" class="btn btn-secondary">Visualizar Periodos
+            Académicos</button>
         </div>
       </div>
 

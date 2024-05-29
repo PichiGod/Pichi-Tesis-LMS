@@ -77,7 +77,8 @@ if (isset($_SESSION['id_user'])) {
             display: table-cell;
             white-space: nowrap;
         }
-        .disable{
+
+        .disable {
             pointer-events: none;
             background-color: lightgrey;
         }
@@ -150,7 +151,7 @@ if (isset($_SESSION['id_user'])) {
                     <span class="nav_name">Inicio</span>
                 </a>
                 <a href="tutorial.php" class="nav_link link-dark">
-                    <i class="bx bx-user nav_icon"></i>
+                    <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
                 <a href="cursos.php" class="nav_link active">
@@ -240,15 +241,17 @@ if (isset($_SESSION['id_user'])) {
                                     <i class="fa-solid fa-file"></i> <a class="ms-2" href="#">Archivo #2</a>
                                 </li>
                             </ul>
-                            <textarea rows="4" class="form-control mt-1" id="retro" placeholder="Retroalimentacion"></textarea>
+                            <textarea rows="4" class="form-control mt-1" id="retro"
+                                placeholder="Retroalimentacion"></textarea>
                         </div>
                         <div class="card-footer">
                             <form action="">
                                 <div class="input-group ">
-                                    <input id="calif" tabindex="-1" type="number" class="form-control disable" placeholder="Nota" aria-label="Nota"
-                                        aria-describedby="basic-addon2">
+                                    <input id="calif" tabindex="-1" type="number" class="form-control disable"
+                                        placeholder="Nota" aria-label="Nota" aria-describedby="basic-addon2">
                                     <!-- Botón para calificar -->
-                                    <button id="btn-calif" tabindex="-1" type="button" class="btn btn-outline-primary disabled">
+                                    <button id="btn-calif" tabindex="-1" type="button"
+                                        class="btn btn-outline-primary disabled">
                                         Calificar Activiad
                                     </button>
                                 </div>

@@ -100,7 +100,8 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
             </button>
             <ul class="dropdown-menu">
               <li class="dropdown-item">
-                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary" href="../en/viewPerfomance.php">Inglés</a>
+                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
+                  href="../en/viewPerfomance.php">Inglés</a>
               </li>
             </ul>
           </div>
@@ -143,7 +144,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           <span class="nav_name">Inicio</span>
         </a>
         <a href="tutorial.php" class="nav_link link-dark">
-          <i class="bx bx-user nav_icon"></i>
+          <i class='bx bx-bookmark nav_icon'></i>
           <span class="nav_name">Tutorial</span>
         </a>
         <a href="cursos.php" class="nav_link link-dark">
@@ -184,7 +185,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
   <section>
     <div class="container-fluid bg-blanco my-3 pb-2 shadow">
       <h1 class="text-center">Consultar Rendimiento Academico</h1>
-      
+
 
     </div>
   </section>

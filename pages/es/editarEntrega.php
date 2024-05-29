@@ -151,7 +151,7 @@ if (isset($_SESSION['id_user'])) {
                     <span class="nav_name">Inicio</span>
                 </a>
                 <a href="tutorial.php" class="nav_link link-dark">
-                    <i class="bx bx-user nav_icon"></i>
+                    <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
                 <a href="cursos.php" class="nav_link active">
@@ -209,7 +209,8 @@ if (isset($_SESSION['id_user'])) {
                         <label for="formFileMultiple" class="form-label">Seleccionar archivos...</label>
                         <input class="form-control" type="file" id="formFileMultiple" multiple>
                     </div>
-                    <p>No dejar que el usuario pueda agregar un archivo si los que ya estan subidos siguen alli. Solo permitir si la cantidad de archivo no exede la cantidad maxima</p>
+                    <p>No dejar que el usuario pueda agregar un archivo si los que ya estan subidos siguen alli. Solo
+                        permitir si la cantidad de archivo no exede la cantidad maxima</p>
                 </div>
 
             </div>

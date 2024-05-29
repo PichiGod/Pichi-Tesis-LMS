@@ -90,7 +90,7 @@
                     <span class="nav_name">Inicio</span>
                 </a>
                 <a href="tutorial.php" class="nav_link link-dark">
-                    <i class="bx bx-user nav_icon"></i>
+                    <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
                 <a href="cursos.php" class="nav_link active">
@@ -133,28 +133,6 @@
             <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2">Administrar Cursos</h1>
-
-            <!-- <div class="d-flex container rounded bg-danger-subtle text-secondary-emphasis my-2 p-3">
-                <div class="">
-
-                    <div class="">
-                        <p>Seguro que quiere eliminar al usuario?</p>
-                        <button class="btn btn-danger">Si</button>
-                        <button class="btn btn-secondary">No</button>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="d-flex container rounded bg-warning-subtle text-secondary-emphasis my-2 p-3">
-                <div class="">
-
-                    <div class="">
-                        <p>Usuario eliminado</p>
-                    </div>
-
-                </div>
-            </div> -->
 
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">

@@ -88,7 +88,7 @@
           <span class="nav_name">Inicio</span>
         </a>
         <a href="tutorial.php" class="nav_link link-dark">
-          <i class="bx bx-user nav_icon"></i>
+          <i class='bx bx-bookmark nav_icon'></i>
           <span class="nav_name">Tutorial</span>
         </a>
         <a href="cursos.php" class="nav_link active">
@@ -177,12 +177,12 @@
 
 
             <button class="btn btn-link m-0 p-0" onclick="location.href='modifComentario.php'" title="Editar">
-                <i class="fa-regular fa-pen-to-square"></i>
-              </button>
+              <i class="fa-regular fa-pen-to-square"></i>
+            </button>
 
-              <button onclick="eliminarComentario();" title="Eliminar" class="btn btn-link m-0 p-0 ms-1">
-                <i class="fa-solid fa-trash"></i>
-              </button>
+            <button onclick="eliminarComentario();" title="Eliminar" class="btn btn-link m-0 p-0 ms-1">
+              <i class="fa-solid fa-trash"></i>
+            </button>
           </div>
 
         </div>

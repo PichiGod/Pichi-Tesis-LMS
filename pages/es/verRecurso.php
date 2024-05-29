@@ -148,7 +148,7 @@ if (isset($_SESSION['id_user'])) {
                     <span class="nav_name">Inicio</span>
                 </a>
                 <a href="tutorial.php" class="nav_link link-dark">
-                    <i class="bx bx-user nav_icon"></i>
+                    <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
                 <a href="cursos.php" class="nav_link active">
@@ -209,12 +209,12 @@ if (isset($_SESSION['id_user'])) {
     </section>
 
     <script>
-        function confirmarElim(){
+        function confirmarElim() {
             confirmar = confirm("Esta seguro que quiere eliminar el recurso?");
-            if (confirmar == true){
+            if (confirmar == true) {
                 //Codigo para eliminar el recurso
                 alert('Se ha eliminado el recurso correctamente');
-                window.location.href="verCurso.php";
+                window.location.href = "verCurso.php";
             }
         }
     </script>

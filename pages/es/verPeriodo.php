@@ -100,7 +100,8 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
             </button>
             <ul class="dropdown-menu">
               <li class="dropdown-item">
-                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary" href="../en/viewPeriod.php">Inglés</a>
+                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
+                  href="../en/viewPeriod.php">Inglés</a>
               </li>
             </ul>
           </div>
@@ -143,7 +144,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           <span class="nav_name">Inicio</span>
         </a>
         <a href="tutorial.php" class="nav_link link-dark">
-          <i class="bx bx-user nav_icon"></i>
+          <i class='bx bx-bookmark nav_icon'></i>
           <span class="nav_name">Tutorial</span>
         </a>
         <a href="cursos.php" class="nav_link link-dark">
@@ -182,59 +183,59 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
   <!--Contenido-->
   <section>
-        <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-            <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
-                    style="font-size:2rem;color:black;"></i></a>
-            <h1 class="text-center pt-2">Visualizar Periodos Academicos</h1>
+    <div class="container-fluid bg-blanco my-3 pb-2 shadow">
+      <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+          style="font-size:2rem;color:black;"></i></a>
+      <h1 class="text-center pt-2">Visualizar Periodos Academicos</h1>
 
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Filtrar</button>
-            </form>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Filtrar</button>
+      </form>
 
-            <div class="table-responsive">
-                <table class="table mt-2">
-                    <thead>
-                        <tr>
-                            <th scope="col">Id Perido</th>
-                            <th scope="col">Nombre del perido</th>
-                            <th scope="col">Fecha Inicio</th>
-                            <th scope="col">Fecha Culminación</th>
-                            <th scope="col">Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">ID_PER_EMP</th>
-                            <td>Abril - Julio 2024</td>
-                            <td>28/05/2024</td>
-                            <td>28/05/2024</td>
-                            <td>
-                                <button onclick="location.href='modifPeriodo.php'" class="btn btn-primary me-1">
-                                    Modificar
-                                </button>
-                                <button onclick="eliminarPeri();" class="btn mt-1 btn-outline-danger">
-                                    Eliminar
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+      <div class="table-responsive">
+        <table class="table mt-2">
+          <thead>
+            <tr>
+              <th scope="col">Id Perido</th>
+              <th scope="col">Nombre del perido</th>
+              <th scope="col">Fecha Inicio</th>
+              <th scope="col">Fecha Culminación</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">ID_PER_EMP</th>
+              <td>Abril - Julio 2024</td>
+              <td>28/05/2024</td>
+              <td>28/05/2024</td>
+              <td>
+                <button onclick="location.href='modifPeriodo.php'" class="btn btn-primary me-1">
+                  Modificar
+                </button>
+                <button onclick="eliminarPeri();" class="btn mt-1 btn-outline-danger">
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-        </div>
-    </section>
+    </div>
+  </section>
 
-    <script>
-        function eliminarPeri() {
-            confimar = confirm('Seguro que quiere eliminar al usuario?');
-            if (confimar == true) {
-                // e.preventDefault();
-                //Accion para borrar usuario
-                alert('El usuario ha sido eliminado')
-            }
-        }
-    </script>
+  <script>
+    function eliminarPeri() {
+      confimar = confirm('Seguro que quiere eliminar al usuario?');
+      if (confimar == true) {
+        // e.preventDefault();
+        //Accion para borrar usuario
+        alert('El usuario ha sido eliminado')
+      }
+    }
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

@@ -61,29 +61,29 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                 $correo = $datos_usuario['correo_user'];
                 $rol = $datos_usuario['rol'];
 
-                if($rol == 0){
+                if ($rol == 0) {
 
                     $rol = "Administrador";
 
-                }elseif($rol == 1){
+                } elseif ($rol == 1) {
 
                     $rol = "Docente";
-                }else{
+                } else {
 
                     $rol = "Alumno";
-                }
-    
                 }
 
             }
 
-            $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
+        }
 
-            if (mysqli_num_rows($conexion3) > 0) {
-                while ($datos3 = mysqli_fetch_assoc($conexion3)) {
-                    $cursos[] = $datos3;
+        $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
 
-                }
+        if (mysqli_num_rows($conexion3) > 0) {
+            while ($datos3 = mysqli_fetch_assoc($conexion3)) {
+                $cursos[] = $datos3;
+
+            }
         }
     }
 }
@@ -126,8 +126,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
                 <a class="navbar-brand" href="../../index.html">
-                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70"
-                        height="24" />
+                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
                 <div class="d-flex justify-content-end">
@@ -186,7 +185,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <span class="nav_name">Inicio</span>
                 </a>
                 <a href="tutorial.php" class="nav_link link-dark">
-                    <i class="bx bx-user nav_icon"></i>
+                    <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
                 <a href="cursos.php" class="nav_link link-dark">
@@ -232,7 +231,8 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
             <!-- Información del usuario -->
             <h1 class="text-center">Inscribir Usuario</h1>
             <form class="d-flex" role="search" method="GET" action="">
-                <input class="form-control me-2" type="search" placeholder="Ingrese Identificación" aria-label="Search" name="identificacion" value="<?php echo $identificacion; ?>">
+                <input class="form-control me-2" type="search" placeholder="Ingrese Identificación" aria-label="Search"
+                    name="identificacion" value="<?php echo $identificacion; ?>">
                 <button class="btn btn-outline-success" type="submit">Buscar</button>
             </form>
 
@@ -244,7 +244,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                 <img src="https://github.com/PichiGod.png" class="img-fluid rounded-start" alt="...">
                             </div>
 
-                            
+
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $nombreCompleto; ?></h5>
@@ -261,14 +261,17 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
                         <div class="card-body overflow-auto " style="height:20rem;">
                             <ul class="list-group overflow-auto">
-                                <?php 
-                                if(mysqli_num_rows($conexion3) > 0){
-                                foreach($cursos as $curso){ ?>
-                                <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="<?php echo $curso['id_cur'] ?>" id="firstCheckbox">
-                                    <label class="form-check-label" for="firstCheckbox"><?php echo $curso['nombre_cur'] ?></label>
-                                </li>
-                                <?php }}else{ ?>
+                                <?php
+                                if (mysqli_num_rows($conexion3) > 0) {
+                                    foreach ($cursos as $curso) { ?>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input me-1" type="checkbox"
+                                                value="<?php echo $curso['id_cur'] ?>" id="firstCheckbox">
+                                            <label class="form-check-label"
+                                                for="firstCheckbox"><?php echo $curso['nombre_cur'] ?></label>
+                                        </li>
+                                    <?php }
+                                } else { ?>
 
                                     <h3>No hay cursos disponibles en tu Empresa</h3>
 

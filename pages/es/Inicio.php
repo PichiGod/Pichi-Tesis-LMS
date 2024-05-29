@@ -72,6 +72,28 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
     <link rel="stylesheet" href="../../assests/css/sidebar.css" />
     <!--Sidebar.js-->
     <script src="../../assests/js/sidebar.js"></script>
+
+    <style>
+        /* Oval 1 */
+        .oval {
+            /* position: absolute;
+            top: 54px;
+            left: 105px; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 133px;
+            height: 126px;
+            opacity: 90%;
+            background-color: rgb(255, 255, 255, 0.7);
+            /* white */
+            border-radius: 50%;
+            border-width: 3px;
+            border-color: #15ABFFFF;
+            /* secondary-500 */
+            border-style: solid;
+        }
+    </style>
 </head>
 
 <body class="bg-pastel" id="body-pd">
@@ -179,37 +201,188 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
     <!--Contenido Inicio-->
     <section>
-        <div class="container-fluid bg-blanco mt-3 rounded shadow ">
-            <span class="fs-1"><strong>Bienvenido, Admin! al portal EAD</strong></span>
+        <div class="container-fluid bg-blanco mt-3 rounded shadow">
+            <span class="fs-1"><strong>Bienvenido al portal EAD, <?php echo $nombreUsuario . " " . $apellidoUsuario; ?>!
+                </strong></span>
         </div>
-        <div class="container bg-blanco mt-3 pt-3 pb-3 rounded shadow ">
+        <div class="container-fluid bg-blanco mt-3 pt-3 pb-3 mb-3 rounded shadow">
+            <div class="row gx-3 gy-2">
+                <div class="col-sm col-md-5">
+                    <div
+                        class="text-center border border-1 border-secondary border-opacity-50  shadow bg-secondary-subtle">
+                        <p class="mb-0"><strong>Cursos Inscritos por el Usuario (Un atajo)</strong></p>
+                        <div class="accordion accordion-flush " id="accordionFlushExample">
+                            <!--Copias esto para añadir un curso-->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                        aria-controls="flush-collapseOne">
+                                        Matematica
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                    data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="card w-100 mb-3">
+                                            <div class="row g-0">
+                                                <div class="col-md-4">
+                                                    <img src="https://github.com/PichiGod.png"
+                                                        class="img-fluid rounded-start" alt="...">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">Nombre del docente</h6>
+                                                        <button class="btn btn-primary ">Ir al Curso</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-            <div class="container">
-                <div class="row gx-3">
-                    <div class="col-sm">
-                        <div class="text-center border border-1 rounded border-secondary bg-grisSuave">
-                            <p>Metricas</p>
-                            <p class="mt-3">Alguna metrica, no se que poner</p>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                        aria-controls="flush-collapseTwo">
+                                        Programación I
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                                    data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="card mb-3" style="max-width: 540px;">
+                                            <div class="row g-0">
+                                                <div class="col-md-4">
+                                                    <img src="https://github.com/PichiGod.png"
+                                                        class="img-fluid rounded-start" alt="...">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">Nombre del docente</h6>
+                                                        <button class="btn btn-primary ">Ir al Curso</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                        aria-controls="flush-collapseThree">
+                                        Física I
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseThree" class="accordion-collapse collapse"
+                                    data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="card mb-3" style="max-width: 540px;">
+                                            <div class="row g-0">
+                                                <div class="col-md-4">
+                                                    <img src="https://github.com/PichiGod.png"
+                                                        class="img-fluid rounded-start" alt="...">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">Nombre del docente</h6>
+                                                        <button class="btn btn-primary">Ir al Curso</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-                    </div>
-                    <div class="col-sm ">
-                        <div class="text-center border border-1 rounded border-secondary bg-grisSuave">
-                            <p>Usuarios Activos</p>
-                            <p class="mt-3 "><strong><?php echo $usuariosActivos; ?></strong></p>
-                        </div>
-
-                    </div>
-                    <div class="col-sm">
-                        <div class="text-center border border-1 rounded border-secondary bg-grisSuave">
-                            <p>Cantidad de cursos</p>
-                            <p class="mt-3 "><strong><?php echo $cursosCantidad; ?></strong></p>
-                        </div>
-
                     </div>
                 </div>
-            </div>
+                <div class="col-sm ">
+                    <div
+                        class="text-center border border-1 border-secondary border-opacity-50 pb-3 shadow bg-secondary-subtle">
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            <div>
+                                <p><strong>Usuarios Activos</strong></p>
+                            </div>
+                            <div>
+                                <div class="oval">
+                                    <p class="mt-3 "><strong><?php echo $usuariosActivos; ?> / 20</strong></p>
+                                </div>
+                            </div>
+                        </div>
 
+
+
+                    </div>
+
+                </div>
+                <div class="col-sm">
+                    <div
+                        class="text-center border border-1 border-secondary border-opacity-50 pb-3 shadow bg-secondary-subtle">
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            <div>
+                                <p><strong>Cantidad de cursos</strong></p>
+                            </div>
+                            <div>
+                                <div class="oval">
+                                    <p class="mt-3 "><strong><?php echo $cursosCantidad; ?></strong></p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <hr class="mx-5">
+            <div class="row gx-3 gy-3">
+                <div class="col">
+
+                    <h5>Recursos</h5>
+
+                    <div class="text-center border border-1 border-secondary 
+                        border-opacity-50  shadow bg-secondary-subtle">
+                        <div class="d-flex flex-row ">
+                            <div class="bg-white p-2 pb-0">
+                                <img src="../../assests/img/e4cgx0g6.png" class="img-fluid" width="216" alt="...">
+                            </div>
+                            <div class="vr text-secondary-emphasis"></div>
+                            <div class="ms-auto p-1 pb-0">
+                                <p class="text-center text-body mb-0">Zlibrary - Libreria virtual gratuita</p>
+                                <a class="btn btn-primary my-1" href="https://z-library.es/" target="_blank"
+                                    rel="noopener noreferrer">Ir a libreria</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col">
+
+                    <h5>Notificaciones</h5>
+
+                    <!--Copias esto para hacer una nueva noticifación-->
+                    <div class="border pb-1 border-1 border-secondary 
+                        border-opacity-50  shadow bg-secondary-subtle">
+                        <div class="d-flex flex-column">
+                            <div>
+                                <p class="mb-0 ms-2" >Curso</p>
+                            </div>
+                            <div>
+                                <p class="ms-2 mb-0">Nombre de Actividad</p>
+                            </div>
+                            <div>
+                                <p class="mb-0 ms-2"><strong>Fecha de Culminacion: 29/05/2024</strong></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </section>
 

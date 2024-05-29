@@ -30,7 +30,7 @@ if (isset($_SESSION['id_user'])) {
 
             if (isset($_GET['id_cur'])) {
                 $id_curso_seleccionado = $_GET['id_cur'];
-            
+
                 // Modificamos la consulta para hacer un JOIN con la tabla 'usuario'
                 $conexion3 = mysqli_query($mysqli, "
                     SELECT usuario.id_user, usuario.nombre_user, usuario.apellido_user 
@@ -38,7 +38,7 @@ if (isset($_SESSION['id_user'])) {
                     JOIN usuario ON usuariosala.id_user = usuario.id_user 
                     WHERE usuariosala.id_curso = '$id_curso_seleccionado'
                 ");
- 
+
                 if (mysqli_num_rows($conexion3) > 0) {
                     while ($datos3 = mysqli_fetch_assoc($conexion3)) {
                         $usuariosSala[] = $datos3;
@@ -143,7 +143,7 @@ if (isset($_SESSION['id_user'])) {
                     <span class="nav_name">Inicio</span>
                 </a>
                 <a href="tutorial.php" class="nav_link link-dark">
-                    <i class="bx bx-user nav_icon"></i>
+                    <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
                 <a href="cursos.php" class="nav_link active">
@@ -195,15 +195,16 @@ if (isset($_SESSION['id_user'])) {
                 </div>
                 <form action="" method="post">
 
-                <input type="hidden" name="idUser" class="idUser" id="idUser" value="<?php echo $idUser ?>">
-                <input type="hidden" name="idCurso" class="idCurso" id="idCurso" value="<?php echo $id_curso_seleccionado?>">
+                    <input type="hidden" name="idUser" class="idUser" id="idUser" value="<?php echo $idUser ?>">
+                    <input type="hidden" name="idCurso" class="idCurso" id="idCurso"
+                        value="<?php echo $id_curso_seleccionado ?>">
 
-                <span class="p-2 my-4 rounded ">
-                    <button class="btn btn-primary" onclick="submitData();">Entrar al Chat</button>
-                </span>
-                <span class="p-2 my-4 rounded ">
-                    <button class="btn btn-secondary ">Historial del Chat</button>
-                </span>
+                    <span class="p-2 my-4 rounded ">
+                        <button class="btn btn-primary" onclick="submitData();">Entrar al Chat</button>
+                    </span>
+                    <span class="p-2 my-4 rounded ">
+                        <button class="btn btn-secondary ">Historial del Chat</button>
+                    </span>
                 </form>
                 <hr>
 
@@ -213,45 +214,48 @@ if (isset($_SESSION['id_user'])) {
                 <!--Caja de Usuarios-->
                 <div class="item-recurso container bg-secondary-subtle text-secondary-emphasis mt-3 p-3">
                     <div>
-                        <?php 
-                        if(mysqli_num_rows($conexion3) > 0){
+                        <?php
+                        if (mysqli_num_rows($conexion3) > 0) {
 
-                        foreach ($usuariosSala as $usuarioSala) { ?>
-                        <div class="row gy-2">
-                            <!--Este es el bloque donde de muestra la informacion de cada usuario-->
-                            <div class="col-6 col-sm-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div>
-                                            <img src="https://github.com/PichiGod.png" alt="..." width="60px"
-                                                height="auto" />
-                                            <span class="card-text fs-5"><?php echo $usuarioSala['nombre_user'] . ' ' . $usuarioSala['apellido_user']; ?></span>
+                            foreach ($usuariosSala as $usuarioSala) { ?>
+                                <div class="row gy-2">
+                                    <!--Este es el bloque donde de muestra la informacion de cada usuario-->
+                                    <div class="col-6 col-sm-3">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div>
+                                                    <img src="https://github.com/PichiGod.png" alt="..." width="60px"
+                                                        height="auto" />
+                                                    <span
+                                                        class="card-text fs-5"><?php echo $usuarioSala['nombre_user'] . ' ' . $usuarioSala['apellido_user']; ?></span>
+                                                </div>
+
+                                            </div>
                                         </div>
-
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                       <?php } }else{?>
-                                    <div>
-                                    <div class="row gy-2">
-                                        <!--Este es el bloque donde de muestra la informacion de cada usuario-->
-                                        <div class="col-6 col-sm-3">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div>
-                                                        <span class="card-text fs-5">Actualmente no hay usuarios en la sala</span>
-                                                    </div>
+                            <?php }
+                        } else { ?>
+                            <div>
+                                <div class="row gy-2">
+                                    <!--Este es el bloque donde de muestra la informacion de cada usuario-->
+                                    <div class="col-6 col-sm-3">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div>
+                                                    <span class="card-text fs-5">Actualmente no hay usuarios en la
+                                                        sala</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                       <?php } ?>
+                                </div>
+                            <?php } ?>
+
+                        </div>
 
                     </div>
-
                 </div>
-            </div>
 
     </section>
 
@@ -262,7 +266,7 @@ if (isset($_SESSION['id_user'])) {
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
 
-        <?php require "../../assests/php/entrarSalaMain.php"; ?>
+    <?php require "../../assests/php/entrarSalaMain.php"; ?>
 
 </body>
 

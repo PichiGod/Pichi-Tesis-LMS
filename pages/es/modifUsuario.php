@@ -93,7 +93,7 @@
                     <span class="nav_name">Inicio</span>
                 </a>
                 <a href="tutorial.php" class="nav_link link-dark">
-                    <i class="bx bx-user nav_icon"></i>
+                    <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
                 <a href="cursos.php" class="nav_link link-dark">
@@ -137,7 +137,7 @@
                     style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center">Modificar Usuario</h1>
 
-            <h5>Aqui, quiero que agarres la informacion del usuario que se selecciono 
+            <h5>Aqui, quiero que agarres la informacion del usuario que se selecciono
                 y reflejar la informacion en los inputs para modificar.
             </h5>
 

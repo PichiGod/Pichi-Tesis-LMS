@@ -150,7 +150,7 @@ if (isset($_SESSION['id_user'])) {
                     <span class="nav_name">Inicio</span>
                 </a>
                 <a href="tutorial.php" class="nav_link link-dark">
-                    <i class="bx bx-user nav_icon"></i>
+                    <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
                 <a href="cursos.php" class="nav_link active">
@@ -185,7 +185,8 @@ if (isset($_SESSION['id_user'])) {
 
                 <div>
                     <div class="mb-3">
-                        <label for="formFileMultiple" class="form-label">Seleccionar archivos... (2 archivos máximo)</label>
+                        <label for="formFileMultiple" class="form-label">Seleccionar archivos... (2 archivos
+                            máximo)</label>
                         <input class="form-control" type="file" id="formFileMultiple" multiple>
                     </div>
                     <button type="submit" class="btn btn-primary">Crear Recurso</button>

@@ -135,12 +135,12 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
     <div class="l-navbar bg-body-tertiary" id="nav-bar">
         <nav class="nav">
             <div class="nav_list">
-                <a href="#" class="nav_link link-dark ">
+                <a href="Inicio.php" class="nav_link link-dark ">
                     <i class="bx bx-grid-alt nav_icon"></i>
                     <span class="nav_name">Inicio</span>
                 </a>
                 <a href="tutorial.php" class="nav_link active">
-                    <i class="bx bx-user nav_icon"></i>
+                    <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
                 <a href="cursos.php" class="nav_link link-dark">
@@ -179,8 +179,99 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
     <!--Contenido Inicio-->
     <section>
-        <div class="container-fluid bg-blanco mt-3 rounded shadow ">
-            <h3>Tutorial</h3>
+        <div class="container-fluid bg-blanco my-3 pb-3 rounded shadow ">
+            <h1 class="mb-3">Tutorial</h1>
+
+            <div class="row g-2">
+
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/p33M6ihucuM?si=YRbNd0EI0DltRmKP"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+                <div class="col g-2">
+                    <div class="row g-2">
+                        <div class="col">
+                            <div class="card ">
+                                <div class="card-body">
+                                    <h4 class="card-title">Manual de Uso</h4>
+                                    <button class="btn btn-primary">Ver</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col mb-2">
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Santiago es Gay</h4>
+                                    <p class="card-text">Super gay</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <i class="fa-regular me-2 fa-circle-question"></i><span class="fs-5">Preguntas
+                                        frecuentes</span>
+                                    <div class="accordion" id="accordionExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseOne" aria-expanded="false"
+                                                    aria-controls="collapseOne">
+                                                    Pregunta 1
+                                                </button>
+                                            </h2>
+                                            <div id="collapseOne" class="accordion-collapse collapse "
+                                                data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    Respuesta 1
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                    aria-expanded="false" aria-controls="collapseTwo">
+                                                    Pregunta 2
+                                                </button>
+                                            </h2>
+                                            <div id="collapseTwo" class="accordion-collapse collapse"
+                                                data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    Respuesta 2
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                                    aria-expanded="false" aria-controls="collapseThree">
+                                                    Pregunta 3
+                                                </button>
+                                            </h2>
+                                            <div id="collapseThree" class="accordion-collapse collapse"
+                                                data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    Respuesta 3
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
     </section>

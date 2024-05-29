@@ -140,7 +140,7 @@ if (isset($_SESSION['id_user'])) {
                     <span class="nav_name">Inicio</span>
                 </a>
                 <a href="tutorial.php" class="nav_link link-dark">
-                    <i class="bx bx-user nav_icon"></i>
+                    <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
                 <a href="#" class="nav_link active">
@@ -198,7 +198,7 @@ if (isset($_SESSION['id_user'])) {
                                     <h4 class="card-title text-start"><?php echo $curso['nombre_cur']; ?></h4>
                                     <a class="btn btn-primary mt-2"
                                         href="verCurso.php?id_cur=<?php echo $curso['id_cur']; ?>">Ver Curso</a>
-    
+
                                 </div>
                             </div>
                         </div>

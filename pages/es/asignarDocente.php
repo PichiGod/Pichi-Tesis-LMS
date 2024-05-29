@@ -34,8 +34,7 @@
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
                 <a class="navbar-brand" href="../../index.html">
-                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70"
-                        height="24" />
+                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
                 <div class="d-flex justify-content-end">
@@ -94,7 +93,7 @@
                     <span class="nav_name">Inicio</span>
                 </a>
                 <a href="tutorial.php" class="nav_link link-dark">
-                    <i class="bx bx-user nav_icon"></i>
+                    <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
                 <a href="cursos.php" class="nav_link link-dark">
@@ -169,12 +168,14 @@
                 </div>
                 <div class="col">
                     <div class="card my-3" style="max-width: 540px;">
-                    <p>Aqui se muestran los cursos creados, los que tienen marca significa que ya esta asignado a esa materia</p>
+                        <p>Aqui se muestran los cursos creados, los que tienen marca significa que ya esta asignado a
+                            esa materia</p>
 
                         <div class="card-body overflow-auto " style="height:20rem;">
                             <ul class="list-group overflow-auto">
                                 <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" checked>
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox"
+                                        checked>
                                     <label class="form-check-label" for="firstCheckbox">Matematica</label>
                                 </li>
                                 <li class="list-group-item">

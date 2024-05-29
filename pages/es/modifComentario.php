@@ -145,7 +145,7 @@ if (isset($_SESSION['id_user'])) {
                     <span class="nav_name">Inicio</span>
                 </a>
                 <a href="tutorial.php" class="nav_link link-dark">
-                    <i class="bx bx-user nav_icon"></i>
+                    <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
                 <a href="cursos.php" class="nav_link link-dark">
@@ -188,13 +188,13 @@ if (isset($_SESSION['id_user'])) {
             <a href="verForo.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center">Modificar Comentario</h1>
-            
+
             Muestra el Comentario
             <form action="">
 
                 <div class="rounded ">
-                        <label for="descripcionDiscusion" class="form-label">Comentario</label>
-                        <textarea class="form-control" id="descripcionDiscusion" rows="3"></textarea>
+                    <label for="descripcionDiscusion" class="form-label">Comentario</label>
+                    <textarea class="form-control" id="descripcionDiscusion" rows="3"></textarea>
                 </div>
 
 

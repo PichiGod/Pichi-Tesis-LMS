@@ -145,7 +145,7 @@ if (isset($_SESSION['id_user'])) {
                     <span class="nav_name">Inicio</span>
                 </a>
                 <a href="tutorial.php" class="nav_link link-dark">
-                    <i class="bx bx-user nav_icon"></i>
+                    <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
                 <a href="cursos.php" class="nav_link link-dark">
@@ -192,7 +192,8 @@ if (isset($_SESSION['id_user'])) {
                 <div class="col-lg-4 ">
                     <div class="card mb-2">
                         <div class="card-body text-center">
-                            <img src="https://github.com/PichiGod.png" alt="avatar" id="cambio" class="rounded-circle img-fluid"
+                            <img src="https://github.com/PichiGod.png" alt="avatar" id="cambio"
+                                class="rounded-circle img-fluid"
                                 style="height:200px; max-width:150px;max-height:150px;" />
                             <h5 class="my-3">José</h5>
                             <label for="imagen" class="btn btn-primary">Cambiar Imagen</label>

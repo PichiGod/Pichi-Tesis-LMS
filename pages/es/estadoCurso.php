@@ -113,7 +113,7 @@
                     <span class="nav_name">Inicio</span>
                 </a>
                 <a href="tutorial.php" class="nav_link link-dark">
-                    <i class="bx bx-user nav_icon"></i>
+                    <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
                 <a href="cursos.php" class="nav_link link-dark">
@@ -161,14 +161,14 @@
 
 
             <form class="d-flex" role="search">
-                <input class="form-control me-2" id="searchInput" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" id="searchInput" type="search" placeholder="Search"
+                    aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Filtrar</button>
             </form>
 
             <div class="row mt-2 d-flex  ">
                 <div class="col-md col-sm col-lg-6 mb-2">
-                    <table style="height: 280px;"
-                        class="table table-bordered overflow-auto border-secondary ">
+                    <table style="height: 280px;" class="table table-bordered overflow-auto border-secondary ">
                         <thead>
                             <tr>
                                 <th scope="col">Id curso</th>

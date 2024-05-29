@@ -145,7 +145,7 @@ if (isset($_GET['id_cur'])) {
                     <span class="nav_name">Inicio</span>
                 </a>
                 <a href="tutorial.php" class="nav_link link-dark">
-                    <i class="bx bx-user nav_icon"></i>
+                    <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
                 <a href="verCurso.php" class="nav_link active">
@@ -217,7 +217,8 @@ if (isset($_GET['id_cur'])) {
                         <div>
                             <i class="fa-solid fa-bullhorn me-2 p-3 rounded bg-warning-subtle"></i>
 
-                            <span><a href="verChatLinea.php?id_cur=<?php echo $id_curso_seleccionado; ?>">Chat en Linea</a></span>
+                            <span><a href="verChatLinea.php?id_cur=<?php echo $id_curso_seleccionado; ?>">Chat en
+                                    Linea</a></span>
                         </div>
                     </div>
                 </div>
@@ -242,7 +243,8 @@ if (isset($_GET['id_cur'])) {
                     <hr>
                     Solo para admins y profesores
                     <div>
-                        <button onclick="location.href='crearRecurso.php'" class="btn btn-primary">Crear Recurso</button>
+                        <button onclick="location.href='crearRecurso.php'" class="btn btn-primary">Crear
+                            Recurso</button>
                     </div>
                 </div>
 
