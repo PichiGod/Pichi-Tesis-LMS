@@ -61,7 +61,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                 $correo = $datos_usuario['correo_user'];
                 $rol = $datos_usuario['rol'];
 
-                if ($rol == 0) {
+                if ($rol == 2) {
 
                     $rol = "Administrador";
 
@@ -224,6 +224,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
     <!--Contenido-->
     <section>
+        <form action="" method="post">
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
             <!-- Formulario de búsqueda -->
             <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
@@ -289,6 +290,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
         </div>
 
         </div>
+        </form>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

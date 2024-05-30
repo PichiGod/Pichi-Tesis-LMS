@@ -28,6 +28,16 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
             $nombreEmpresa = $datos2['nombre_empresa'];
 
+            $conexionConsultaBBDD = mysqli_query($mysqli, "SELECT * FROM usuario WHERE Empresa_id_empresa = '$empresaUsuario'");
+
+            if(mysqli_num_rows($conexionConsultaBBDD)> 0 ){
+                   
+                $datos3 = mysqli_fetch_assoc($conexionConsultaBBDD);
+
+                $usuarios[] = $datos3;
+
+            }
+
         }
 
         $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
@@ -204,27 +214,26 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                             <th scope="col">Correo</th>
                             <th scope="col">Sexo</th>
                             <th scope="col">Rol</th>
-                            <th scope="col">Cursos</th>
                             <th scope="col">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php foreach($usuarios as $usuario){ ?>
                         <tr>
-                            <th scope="row">28467144</th>
-                            <td>Jose Alejandro</td>
-                            <td>Duarte Salcedo</td>
-                            <td>Av.4 Torre Europa Torre 2</td>
-                            <td>dsjoseale@gmail.com</td>
-                            <td>Hombre</td>
+                            <th scope="row"><?php echo $usuario['identificacion_user']; ?></th>
+                            <td><?php echo $usuario['nombre_user']; ?></td>
+                            <td><?php echo $usuario['apellido_user']; ?></td>
+                            <td><?php echo $usuario['direccion_user']; ?></td>
+                            <td><?php echo $usuario['correo_user']; ?></td>
+                            <td><?php echo $usuario['sexo_user']; ?></td>
                             <td>
-                                Estudiante
+                            <?php if($usuario['rol']==0){
+
+                                    echo "Estudiante"; 
+                            } ?>
                             </td>
                             <td>
-                                <ul>
-                                    <li>Comer Queso 1</li>
-                                    <li>Ser ladilla -Maestria</li>
-                                </ul>
-                            </td>
+   
                             <td>
                                 <button onclick="location.href='modifUsuario.php'" class="btn btn-primary me-1">
                                     Modificar
@@ -234,6 +243,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                 </button>
                             </td>
                         </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>

@@ -175,6 +175,7 @@ if (isset($_SESSION['id_user'])) {
 
     <!--Contenido-->
     <section>
+        <form action="" method="post">
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
             <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
@@ -276,26 +277,13 @@ if (isset($_SESSION['id_user'])) {
                         </div>
                     </div>
 
-                    <div>
-                        <div class="form-floating mb-3 w-auto">
-                            <p class="text-center">Ingresar como:</p>
-                            <div class="form-floating mb-3 d-flex justify-content-evenly">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1" checked>
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Estudiante
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault2">
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Profesor
-                                    </label>
-                                </div>
-                            </div>
-
+                    <div class="form-floating mb-4">
+                            <select class="rbRol form-select" aria-label="Default select example"
+                                id="rbRol">
+                                <option selected>Estudiante</option>
+                                <option value="1">Profesor</option>
+                            </select>
+                            <label for="formId1">Ingresar como:</label>
                         </div>
                     </div>
 
@@ -308,6 +296,7 @@ if (isset($_SESSION['id_user'])) {
                 </div>
             </form>
         </div>
+        </form>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -316,6 +305,12 @@ if (isset($_SESSION['id_user'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
+
+<?php
+
+require "../../assests/php/ingresarUsuarioAdminMain.php";
+
+?>
 </body>
 
 </html>

@@ -88,7 +88,7 @@ if(isset($_SESSION['id_user'])){
 
             <div>
               <div class="form-floating mb-4">
-              <input type="text" class="contrasenaLogin form-control" name="contrasenaLogin" id="contrasenaLogin" placeholder="" />
+              <input type="password" class="contrasenaLogin form-control" name="contrasenaLogin" id="contrasenaLogin" placeholder="" />
                 <label for="formId1">Contraseña</label>
               </div>
             </div>
