@@ -225,73 +225,87 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
     <!--Contenido-->
     <section>
         <form action="" method="post">
-        <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-            <!-- Formulario de búsqueda -->
-            <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
-                    style="font-size:2rem;color:black;"></i></a>
-            <!-- Información del usuario -->
-            <h1 class="text-center">Inscribir Usuario</h1>
-            <form class="d-flex" role="search" method="GET" action="">
-                <input class="form-control me-2" type="search" placeholder="Ingrese Identificación" aria-label="Search"
-                    name="identificacion" value="<?php echo $identificacion; ?>">
-                <button class="btn btn-outline-success" type="submit">Buscar</button>
-            </form>
+            <div class="container-fluid bg-blanco my-3 pb-2 shadow">
+                <!-- Formulario de búsqueda -->
+                <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
+                        style="font-size:2rem;color:black;"></i></a>
+                <!-- Información del usuario -->
+                <h1 class="text-center pt-2">Inscribir Usuario</h1>
+                <form class="d-flex" role="search" method="GET" action="">
+                    <div class="input-group">
+                        <input class="form-control me-2" type="search" placeholder="Ingrese Identificación"
+                            aria-label="Search" name="identificacion" value="<?php echo $identificacion; ?>">
+                        <button class="btn btn-outline-success" id="mrk" type="submit">Buscar</button>
+                    </div>
+                </form>
 
-            <div class="row row-cols-1 row-cols-md-2 g-4">
-                <div class="col">
-                    <div class="card my-3" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="https://github.com/PichiGod.png" class="img-fluid rounded-start" alt="...">
-                            </div>
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <div class="col">
+                        <div class="card my-3" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="https://github.com/PichiGod.png" class="img-fluid rounded-start"
+                                        alt="...">
+                                </div>
 
 
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title"><?php echo $nombreCompleto; ?></h5>
-                                    <p class="card-text"><b>Identificación:</b> <?php echo $identificacion; ?></p>
-                                    <p class="card-text"><b>Correo Electronico:</b> <?php echo $correo; ?></p>
-                                    <p class="card-text"><b>Rol: </b><?php echo $rol; ?></p>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?php echo $nombreCompleto; ?></h5>
+                                        <p class="card-text"><b>Identificación:</b> <?php echo $identificacion; ?></p>
+                                        <p class="card-text"><b>Correo Electronico:</b> <?php echo $correo; ?></p>
+                                        <p class="card-text"><b>Rol: </b><?php echo $rol; ?></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card my-3" style="max-width: 540px;">
+                    <div class="col">
+                        <div class="card my-3" style="max-width: 540px;">
 
-                        <div class="card-body overflow-auto " style="height:20rem;">
-                            <ul class="list-group overflow-auto">
-                                <?php
-                                if (mysqli_num_rows($conexion3) > 0) {
-                                    foreach ($cursos as $curso) { ?>
-                                        <li class="list-group-item">
-                                            <input class="form-check-input me-1" type="checkbox"
-                                                value="<?php echo $curso['id_cur'] ?>" id="firstCheckbox">
-                                            <label class="form-check-label"
-                                                for="firstCheckbox"><?php echo $curso['nombre_cur'] ?></label>
-                                        </li>
-                                    <?php }
-                                } else { ?>
+                            <div class="card-body overflow-auto " style="height:20rem;">
+                                <ul class="list-group overflow-auto">
+                                    <?php
+                                    if (mysqli_num_rows($conexion3) > 0) {
+                                        foreach ($cursos as $curso) { ?>
+                                            <li class="list-group-item">
+                                                <input class="form-check-input me-1" type="checkbox"
+                                                    value="<?php echo $curso['id_cur'] ?>" id="firstCheckbox">
+                                                <label class="form-check-label"
+                                                    for="firstCheckbox"><?php echo $curso['nombre_cur'] ?></label>
+                                            </li>
+                                        <?php }
+                                    } else { ?>
 
-                                    <h3>No hay cursos disponibles en tu Empresa</h3>
+                                        <h3>No hay cursos disponibles en tu Empresa</h3>
 
-                                <?php } ?>
-                            </ul>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+
+                            <div class="card-footer">
+                                <button class="btn btn-primary">Inscribir</button>
+                            </div>
+
                         </div>
-
-                        <div class="card-footer">
-                            <button class="btn btn-primary">Inscribir</button>
-                        </div>
-
                     </div>
                 </div>
             </div>
-        </div>
 
-        </div>
+            </div>
         </form>
     </section>
+
+    <script>
+        // // Assuming you have an element with an ID of 'myElement'
+        // document.getElementById('mrk').addEventListener('click', function (event) {
+        //     // Prevent the default click action
+        //     event.preventDefault();
+
+        //     // Your code here
+        //     console.log('Default action prevented on click!');
+        // });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

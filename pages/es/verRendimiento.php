@@ -184,8 +184,58 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
   <!--Contenido-->
   <section>
     <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-      <h1 class="text-center">Consultar Rendimiento Academico</h1>
+      <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
+          style="font-size:2rem;color:black;"></i></a>
+      <h1 class="text-center pt-2">Consultar Rendimiento Academico</h1>
 
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Buscar estudiante por cedula..."
+          aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+      </form>
+
+      <div class="card mt-2" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="https://github.com/PichiGod.png" width="auto" height="150" class="rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Nombre Completo</h5>
+              <p class="card-text">
+                Cedula
+              </p>
+              <p class="card-text">
+                Correo
+              </p>
+              <p class="card-text">
+                Rol
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table mt-2" style="white-space: nowrap;">
+          <thead>
+            <tr>
+              <th scope="col">Id Curso</th>
+              <th scope="col">Nombre Curso</th>
+              <th scope="col">Nota </th>
+              <th scope="col">Porcentaje</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">ID_CUR_EMP</th>
+              <td>Tener sueño</td>
+              <td>10</td>
+              <td>10%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
     </div>
   </section>

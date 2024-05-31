@@ -189,6 +189,8 @@ if (isset($_SESSION['id_user'])) {
         <div class="container-fluid bg-blanco mt-3 shadow">
 
             <div class="container pt-4 pb-3">
+                <a href="verCurso.php"><i class="fa-solid mt-2 fa-arrow-left"
+                        style="font-size:2rem;color:black;"></i></a>
                 <!--Titulo-->
                 <div class="p-2 mb-2 rounded shadow">
                     <h2><strong>Nombre del curso - Empresa </strong></h2>
@@ -203,7 +205,7 @@ if (isset($_SESSION['id_user'])) {
                         <button class="btn btn-primary" onclick="submitData();">Entrar al Chat</button>
                     </span>
                     <span class="p-2 my-4 rounded ">
-                        <button class="btn btn-secondary ">Historial del Chat</button>
+                        <a id="mrk" href="verChatHistorial.php" class="btn btn-secondary ">Historial del Chat</a>
                     </span>
                 </form>
                 <hr>

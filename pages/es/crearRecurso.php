@@ -172,9 +172,9 @@ if (isset($_SESSION['id_user'])) {
     <section>
 
         <div class="container-fluid bg-blanco my-3 p-3 shadow rounded">
-            <a href="verCurso.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+            <a href="verCurso.php"><i class="fa-solid mt-2 fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
-            <h1 class="text-center">Crear Recurso</h1>
+            <h1 class="text-center pt-2">Crear Recurso</h1>
 
             <form action="">
                 <label for="titulo">Titulo del recurso</label>

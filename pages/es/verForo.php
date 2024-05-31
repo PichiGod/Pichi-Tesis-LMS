@@ -132,6 +132,8 @@
   <!--Contenido Usuario-->
   <section>
     <div class="container-fluid bg-blanco my-3 py-2 shadow">
+      <a href="verCurso.php"><i class="fa-solid mt-2 fa-arrow-left"
+          style="font-size:2rem;color:black;"></i></a>
       <!--Titulo-->
       <div class="p-2 mb-2 rounded shadow">
         <h2><strong>Foro - Nombre del curso - Empresa</strong></h2>

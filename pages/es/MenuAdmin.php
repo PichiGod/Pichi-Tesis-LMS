@@ -196,7 +196,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           <button onclick="location.href='inscribirUsuario.php'" class="btn btn-secondary">Inscribir cursos</button>
           <button onclick="location.href='administrarUsuario.php'" class="btn btn-secondary">Administrar
             Usuarios</button>
-          <button class="btn btn-secondary">Consultar rendimiento academico</button>
+          <button onclick="location.href='verRendimiento.php'" class="btn btn-secondary">Consultar rendimiento academico</button>
         </div>
       </div>
 

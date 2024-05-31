@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inscribir</title>
+    <title>Asignar Docente</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -133,7 +133,7 @@
     <!--Contenido-->
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-            <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+            <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center">Asignar Docente</h1>
 
@@ -142,83 +142,78 @@
                 <button class="btn btn-outline-success" type="submit">Buscar</button>
             </form>
 
-            <div class="row row-cols-1 row-cols-md-2 g-4">
-                <div class="col">
-                    <div class="card my-3" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="https://github.com/PichiGod.png" class="img-fluid rounded-start" alt="...">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">Nombre Completo</h5>
-                                    <p class="card-text">
-                                        Cedula
-                                    </p>
-                                    <p class="card-text">
-                                        Correo
-                                    </p>
-                                    <p class="card-text">
-                                        Rol
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+            <div class="card my-3" style="max-width: 500px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="https://github.com/PichiGod.png" style="max-width: 150px;" class="pt-2 img-fluid rounded-start" alt="...">
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card my-3" style="max-width: 540px;">
-                        <p>Aqui se muestran los cursos creados, los que tienen marca significa que ya esta asignado a
-                            esa materia</p>
-
-                        <div class="card-body overflow-auto " style="height:20rem;">
-                            <ul class="list-group overflow-auto">
-                                <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox"
-                                        checked>
-                                    <label class="form-check-label" for="firstCheckbox">Matematica</label>
-                                </li>
-                                <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
-                                    <label class="form-check-label" for="secondCheckbox">Brawl</label>
-                                </li>
-                                <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                                    <label class="form-check-label" for="thirdCheckbox">Ser pro</label>
-                                </li>
-                                <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                                    <label class="form-check-label" for="thirdCheckbox">Programacion</label>
-                                </li>
-                                <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                                    <label class="form-check-label" for="thirdCheckbox">El puteo</label>
-                                </li>
-                                <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                                    <label class="form-check-label" for="thirdCheckbox">Gocheria</label>
-                                </li>
-                                <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                                    <label class="form-check-label" for="thirdCheckbox">Bobolongo</label>
-                                </li>
-                                <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                                    <label class="form-check-label" for="thirdCheckbox">Santiago es gay</label>
-                                </li>
-                            </ul>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Nombre Completo</h5>
+                            <p class="card-text">
+                                Cedula
+                            </p>
+                            <p class="card-text">
+                                Correo
+                            </p>
+                            <p class="card-text">
+                                Rol
+                            </p>
                         </div>
-
-                        <div class="card-footer">
-                            <button class="btn btn-primary">Asignar</button>
-                        </div>
-
                     </div>
                 </div>
             </div>
+
+            <div class="card my-3">
+                <p class="mb-0">Aqui se muestran los cursos creados, los que tienen marca significa que ya esta asignado a
+                    esa materia</p>
+
+                <div class="card-body overflow-auto " style="max-height:15rem;">
+                    <ul class="list-group overflow-auto">
+                        <li class="list-group-item">
+                            <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" checked>
+                            <label class="form-check-label" for="firstCheckbox">Matematica</label>
+                        </li>
+                        <li class="list-group-item">
+                            <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
+                            <label class="form-check-label" for="secondCheckbox">Brawl</label>
+                        </li>
+                        <li class="list-group-item">
+                            <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                            <label class="form-check-label" for="thirdCheckbox">Ser pro</label>
+                        </li>
+                        <li class="list-group-item">
+                            <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                            <label class="form-check-label" for="thirdCheckbox">Programacion</label>
+                        </li>
+                        <li class="list-group-item">
+                            <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                            <label class="form-check-label" for="thirdCheckbox">El puteo</label>
+                        </li>
+                        <li class="list-group-item">
+                            <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                            <label class="form-check-label" for="thirdCheckbox">Gocheria</label>
+                        </li>
+                        <li class="list-group-item">
+                            <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                            <label class="form-check-label" for="thirdCheckbox">Bobolongo</label>
+                        </li>
+                        <li class="list-group-item">
+                            <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                            <label class="form-check-label" for="thirdCheckbox">Santiago es gay</label>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card-footer">
+                    <button class="btn btn-primary">Asignar</button>
+                </div>
+
+            </div>
+        </div>
+        </div>
         </div>
 
-        </div>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

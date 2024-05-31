@@ -184,7 +184,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
   <!--Contenido-->
   <section>
     <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-      <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+      <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
           style="font-size:2rem;color:black;"></i></a>
       <h1 class="text-center pt-2">Visualizar Periodos Academicos</h1>
 
@@ -211,7 +211,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
               <td>28/05/2024</td>
               <td>28/05/2024</td>
               <td>
-                <button onclick="location.href='modifPeriodo.php'" class="btn btn-primary me-1">
+                <button onclick="location.href='modifPeriodo.php'" class="btn mt-1 btn-primary me-1">
                   Modificar
                 </button>
                 <button onclick="eliminarPeri();" class="btn mt-1 btn-outline-danger">

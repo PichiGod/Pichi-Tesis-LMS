@@ -351,14 +351,13 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                 <img src="../../assests/img/e4cgx0g6.png" class="img-fluid" width="216" alt="...">
                             </div>
                             <div class="vr text-secondary-emphasis"></div>
-                            <div class="ms-auto p-1 pb-0">
+                            <div class="ms-auto me-auto p-1 pb-0">
                                 <p class="text-center text-body mb-0">Zlibrary - Libreria virtual gratuita</p>
                                 <a class="btn btn-primary my-1" href="https://z-library.es/" target="_blank"
                                     rel="noopener noreferrer">Ir a libreria</a>
                             </div>
                         </div>
                     </div>
-
 
                 </div>
                 <div class="col">

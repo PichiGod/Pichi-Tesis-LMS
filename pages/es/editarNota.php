@@ -196,9 +196,9 @@ if (isset($_SESSION['id_user'])) {
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
 
-            <a href="verActividad.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+            <a href="verActividad.php"><i class="fa-solid mt-2 fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
-            <h1 class="text-center">Editar Nota</h1>
+            <h1 class="text-center pt-2">Editar Nota</h1>
             <h4 class="text-center fw-light">Haga click en un estudiante para seleccionar</h4>
 
 

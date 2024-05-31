@@ -177,9 +177,9 @@ if (isset($_SESSION['id_user'])) {
     <section>
         <form action="" method="post">
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-            <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+            <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
-            <h1 class="text-center">Ingresar Usuario</h1>
+            <h1 class="text-center pt-2">Ingresar Usuario</h1>
 
             <form action="" method="post">
                 <input type="hidden" name="" id="action" value="Register">

@@ -184,14 +184,14 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
   <!--Contenido-->
   <section>
     <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-      <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+      <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
           style="font-size:2rem;color:black;"></i></a>
-      <h1 class="text-center">Modificar Periodo Academico</h1>
+      <h1 class="text-center pt-2">Modificar Periodo Academico</h1>
 
       <form action="">
 
         <label class="mt-2" for="periodo">Periodo </label>
-        <input type="text" name="periodo" id="periodo" placeholder="Nombre del periodo seleccionado" disabled>
+        <input type="text" class="form-control" name="periodo" id="periodo" placeholder="Nombre del periodo seleccionado" disabled>
 
         <div>
           <label class="mt-2" for="fecIni">Fecha de Inicio</label>

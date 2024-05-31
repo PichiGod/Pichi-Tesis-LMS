@@ -176,6 +176,8 @@ if (isset($_SESSION['id_user'])) {
         <div class="container-fluid bg-blanco mt-3 shadow ">
             <!--Titulo-->
             <div class="container pt-4 mb-3 pb-3">
+                <a href="verCurso.php"><i class="fa-solid mt-2 fa-arrow-left"
+                        style="font-size:2rem;color:black;"></i></a>
 
                 <div class="p-2 mb-2 rounded shadow ">
                     <h2><strong>Nombre de la actividad - Empresa</strong></h2>

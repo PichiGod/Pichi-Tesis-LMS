@@ -196,9 +196,9 @@ if (isset($_SESSION['id_user'])) {
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
 
-            <a href="verActividad.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+            <a href="verActividad.php"><i class="fa-solid mt-2  fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
-            <h1 class="text-center">Editar Entrega</h1>
+            <h1 class="text-center pt-2">Editar Entrega</h1>
 
             <div class="card">
                 <div class="card-body">

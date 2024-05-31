@@ -133,9 +133,9 @@
     <!--Contenido-->
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-            <a href="administrarUsuario.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+            <a href="administrarUsuario.php"><i class="fa-solid mt-2 fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
-            <h1 class="text-center">Modificar Usuario</h1>
+            <h1 class="text-center pt-2">Modificar Usuario</h1>
 
             <h5>Aqui, quiero que agarres la informacion del usuario que se selecciono
                 y reflejar la informacion en los inputs para modificar.

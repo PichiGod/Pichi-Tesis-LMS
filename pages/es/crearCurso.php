@@ -174,6 +174,8 @@ if (isset($_SESSION['id_user'])) {
             <input type="hidden" name="action2" id="action2" value="<?php echo $nombreEmpresa ?>">
 
             <div class="container-fluid bg-blanco mt-3 shadow">
+                <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
+                        style="font-size:2rem;color:black;"></i></a>
 
                 <div class="TituloCrearCurso">
 

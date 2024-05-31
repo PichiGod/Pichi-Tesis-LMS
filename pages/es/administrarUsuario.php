@@ -194,7 +194,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
     <!--Contenido-->
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-            <a href="MenuAdmin.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+            <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2">Administrar Usuario</h1>
 
@@ -232,7 +232,6 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                     echo "Estudiante"; 
                             } ?>
                             </td>
-                            <td>
    
                             <td>
                                 <button onclick="location.href='modifUsuario.php'" class="btn btn-primary me-1">

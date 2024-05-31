@@ -185,9 +185,9 @@ if (isset($_SESSION['id_user'])) {
     <!--Contenido Usuario-->
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-            <a href="verForo.php" class="mt-2 position-absolute"><i class="fa-solid fa-arrow-left"
+            <a href="verForo.php"><i class="fa-solid mt-2 fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
-            <h1 class="text-center">Modificar Comentario</h1>
+            <h1 class="text-center pt-2">Modificar Comentario</h1>
 
             Muestra el Comentario
             <form action="">

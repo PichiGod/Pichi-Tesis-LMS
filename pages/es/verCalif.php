@@ -171,19 +171,15 @@ if (isset($_SESSION['id_user'])) {
     <!--Contenido Usuario-->
     <section>
         <div class="container-fluid bg-blanco my-3 pb-3 shadow">
-            <p class="fs-1"><strong>Calificaciones</strong></p>
-            <div class="dropdown">
-                <a class="btn btn-tertiary bg-blancoOscuro dropdown-toggle mb-2" href="#" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false " style="width: auto;">
-                    #0001 Ingles - N1664
-                </a>
+            <a href="verCurso.php"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
+            <p class="fs-1 pt-2"><strong>Calificaciones</strong></p>
 
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">#0002 Progamacion en PHP - N1664</a></li>
-                    <li><a class="dropdown-item" href="#">#0003 Programacion Web - N1664</a></li>
-                    <li><a class="dropdown-item" href="#">#0004 Frances - N1664</a></li>
-                </ul>
-            </div>
+            <select class="form-select mb-2" style="width: auto;" aria-label="Default select example">
+                <option selected>#0001 Ingles - N1664</option>
+                <option value="1">#0002 Progamacion en PHP - N1664</option>
+                <option value="2">#0003 Programacion Web - N1664</option>
+                <option value="3">#0004 Frances - N1664</option>
+            </select>
 
             <div class="table-responsive">
                 <table class="table">
