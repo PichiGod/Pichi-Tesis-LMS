@@ -224,7 +224,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
     <!--Contenido-->
     <section>
-        <form action="" method="post">
+    <form action="" method="post">
             <div class="container-fluid bg-blanco my-3 pb-2 shadow">
                 <!-- Formulario de búsqueda -->
                 <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
@@ -233,9 +233,8 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                 <h1 class="text-center pt-2">Inscribir Usuario</h1>
                 <form class="d-flex" role="search" method="GET" action="">
                     <div class="input-group">
-                        <input class="form-control me-2" type="search" placeholder="Ingrese Identificación"
-                            aria-label="Search" name="identificacion" value="<?php echo $identificacion; ?>">
-                        <button class="btn btn-outline-success" id="mrk" type="submit">Buscar</button>
+                        <input class="form-control me-2" type="search" placeholder="Ingrese Identificación" aria-label="Search" name="identificacion" value="<?php echo $identificacion; ?>">
+                        <button class="btn btn-outline-success" type="submit">Buscar</button>
                     </div>
                 </form>
 

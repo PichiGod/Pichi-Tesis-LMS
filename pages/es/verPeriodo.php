@@ -20,13 +20,15 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
     $apellidoUsuario = $datos['apellido_user'];
 
-    $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
+    $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa, id_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
 
     if (mysqli_num_rows($conexion2) > 0) {
 
       $datos2 = mysqli_fetch_assoc($conexion2);
 
       $nombreEmpresa = $datos2['nombre_empresa'];
+
+      $idEmpresa = $datos2['id_empresa'];
 
     }
 
@@ -35,6 +37,12 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
     if (mysqli_num_rows($conexion3) > 0) {
 
       $cursosCantidad = mysqli_num_rows($conexion3);
+
+      $verPeriodo = mysqli_query($mysqli, "SELECT * FROM periodo WHERE id_empresa = '$idEmpresa'");
+
+      while ($row = mysqli_fetch_assoc($verPeriodo)) {
+        $periodos[] = $row;
+    }
 
     } else {
 
@@ -206,11 +214,13 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           </thead>
           <tbody>
             <tr>
-              <th scope="row">ID_PER_EMP</th>
-              <td>Abril - Julio 2024</td>
-              <td>28/05/2024</td>
-              <td>28/05/2024</td>
+            <?php foreach($periodos as $periodo){ ?>
+              <th scope="row"><?php echo $periodo['id_peri'];?></th>
+              <td><?php echo $periodo['nombre_peri'];?></td>
+              <td><?php echo $periodo['fecha_ini_peri'];?></td>
+              <td><?php echo $periodo['fecha_fin_peri'];?></td>
               <td>
+                <?php }?>
                 <button onclick="location.href='modifPeriodo.php'" class="btn mt-1 btn-primary me-1">
                   Modificar
                 </button>
