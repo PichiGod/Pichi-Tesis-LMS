@@ -2,13 +2,11 @@
 
 require "../../assests/php/LoginBD.php";
 
-$cursos = [];
-
 if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT * FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
@@ -28,25 +26,24 @@ if (isset($_SESSION['id_user'])) {
 
             $nombreEmpresa = $datos2['nombre_empresa'];
 
-            $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
-
-            if (mysqli_num_rows($conexion3) > 0) {
-                while ($datos3 = mysqli_fetch_assoc($conexion3)) {
-                    $cursos[] = $datos3;
-
-                }
-
-            }
-
-
-
         }
 
     }
 
 }
 
+if (isset($_GET['id_cur']) && isset($_GET['idComen'])) {
+    $id_curso_seleccionado = $_GET['id_cur'];
+    $id_comentario_seleccionado = $_GET['idComen'];
 
+    $consultaComentarios = mysqli_query($mysqli, "SELECT * FROM foro_curso WHERE id_foro_cur = '$id_comentario_seleccionado'");
+
+    if (mysqli_num_rows($consultaComentarios) > 0) {
+        while ($datosComentarios = mysqli_fetch_assoc($consultaComentarios)) {
+            $Comentarios[] = $datosComentarios;
+        }
+    }
+}
 ?>
 
 
@@ -56,7 +53,7 @@ if (isset($_SESSION['id_user'])) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Editar Perfil</title>
+    <title>Editar Comentario - Foro</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -148,7 +145,7 @@ if (isset($_SESSION['id_user'])) {
                     <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
-                <a href="cursos.php" class="nav_link link-dark">
+                <a href="cursos.php" class="nav_link active">
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
@@ -185,24 +182,54 @@ if (isset($_SESSION['id_user'])) {
     <!--Contenido Usuario-->
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-            <a href="verForo.php"><i class="fa-solid mt-2 fa-arrow-left"
+            <a href="verForo.php?id_cur=<?php echo $id_curso_seleccionado ?>"><i class="fa-solid mt-2 fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2">Modificar Comentario</h1>
 
-            Muestra el Comentario
-            <form action="">
+            <form action="" method="post" enctype="multipart/form-data">
+                <?php
 
-                <div class="rounded ">
-                    <label for="descripcionDiscusion" class="form-label">Comentario</label>
-                    <textarea class="form-control" id="descripcionDiscusion" rows="3"></textarea>
-                </div>
+                if (mysqli_num_rows($consultaComentarios) > 0) {
+
+                    foreach ($Comentarios as $comentario): ?>
+
+                        <input type="hidden" name="ID_MSJ" id="ID_MSJ" class="ID_MSJ"
+                            value="<?php echo $comentario['id_foro_cur'] ?>">
+                        <input type="hidden" name="ID_CUR" id="ID_CUR" class="ID_CUR" value="<?php echo $comentario['curso_id_curso'] ?>">
+                        <input type="hidden" name="ID_USER" id="ID_USER" class="ID_USER" value="<?php echo $comentario['usuario_id_user'] ?>">
+                        <input type="hidden" name="" id="action" value="EditarComentario">
+
+                        <div class="rounded ">
+                            <label for="mensaje" class="form-label">Comentario</label>
+                            <textarea class="form-control" id="mensaje"
+                                rows="3"><?php echo $comentario['mensaje']; ?></textarea>
+                        </div>
+
+                    <?php endforeach;
+                } else { ?>
+
+                    <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis p-3"
+                        style="padding: 10px;">
+                        <div>
+                            <div>
+                                <span>Hubo un error al editar el mensaje</span>
+                            </div>
+                        </div>
+                    </div>
 
 
-                <button class="btn btn-primary mt-2">Modificar Comentario</button>
+                <?php } ?>
+
+
+
+
+                <button class="btn btn-primary mt-2" onclick="submitData();">Modificar Comentario</button>
             </form>
 
         </div>
     </section>
+
+    <?php require "../../assests/php/editarComentarioMain.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

@@ -1,3 +1,54 @@
+<?php
+
+require "../../assests/php/LoginBD.php";
+
+if (isset($_SESSION['id_user'])) {
+
+  $usuarios1 = $_SESSION['id_user'];
+
+  $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+
+  if (mysqli_num_rows($conexion1) > 0) {
+
+    $datos = mysqli_fetch_assoc($conexion1);
+
+    $empresaUsuario = $datos['Empresa_id_empresa'];
+
+    $nombreUsuario = $datos['nombre_user'];
+
+    $apellidoUsuario = $datos['apellido_user'];
+
+    $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
+
+    if (mysqli_num_rows($conexion2) > 0) {
+
+      $datos2 = mysqli_fetch_assoc($conexion2);
+
+      $nombreEmpresa = $datos2['nombre_empresa'];
+
+    }
+
+  }
+
+}
+
+if (isset($_GET['id_cur'])) {
+  $id_curso_seleccionado = $_GET['id_cur'];
+
+  $consultaComentarios = mysqli_query($mysqli, "SELECT Usuario.nombre_user, Usuario.apellido_user, foro_curso.id_foro_cur, foro_curso.mensaje, foro_curso.modif_fecha, foro_curso.usuario_id_user
+  FROM foro_curso 
+  LEFT JOIN Usuario ON Usuario.id_user = foro_curso.usuario_id_user
+  WHERE curso_id_curso = '$id_curso_seleccionado'
+  ORDER BY modif_fecha DESC");
+
+  if (mysqli_num_rows($consultaComentarios) > 0) {
+    while ($datosComentarios = mysqli_fetch_assoc($consultaComentarios)) {
+      $Comentarios[] = $datosComentarios;
+    }
+  }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -132,25 +183,31 @@
   <!--Contenido Usuario-->
   <section>
     <div class="container-fluid bg-blanco my-3 py-2 shadow">
-      <a href="verCurso.php"><i class="fa-solid mt-2 fa-arrow-left"
-          style="font-size:2rem;color:black;"></i></a>
+      <a href="verCurso.php?id_cur=<?php echo $id_curso_seleccionado ?>"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
       <!--Titulo-->
       <div class="p-2 mb-2 rounded shadow">
         <h2><strong>Foro - Nombre del curso - Empresa</strong></h2>
       </div>
 
-      <!--Input de tema. (Sujeto a Cambios)-->
-      <div class="rounded ">
-        <div class="">
-          <label for="descripcionDiscusion" class="form-label">Contenido de comentario</label>
-          <textarea class="form-control" id="descripcionDiscusion" rows="3"></textarea>
-          <div class="d-flex justify-content-end">
-            <button class="btn btn-primary mt-2" id="enviarTema">
-              Enviar
-            </button>
+      <form action="" method="post" enctype="multipart/form-data">
+        <!--Input de tema. (Sujeto a Cambios)-->
+        <div class="rounded ">
+
+          <input type="hidden" name="ID_CUR" id="ID_CUR" class="ID_CUR" value="<?php echo $id_curso_seleccionado ?>">
+          <input type="hidden" name="ID_USER" id="ID_USER" class="ID_USER" value="<?php echo $usuarios1 ?>">
+          <input type="hidden" name="" id="action" value="EnviarComentario">
+
+          <div class="">
+            <label for="comentario" class="form-label">Contenido de comentario</label>
+            <textarea class="form-control" id="comentario" rows="3"></textarea>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary mt-2" onclick="submitData();" id="enviarTema">
+                Enviar
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
 
       <hr />
 
@@ -159,35 +216,93 @@
           <h3>Comentarios</h3>
         </div>
 
-        <div class="row fs-6 mt-3 mx-2 border border-3 rounded bg-secondary-subtle">
-          <div class="col-3 p-0 text-center">
-            <figure class="figure mt-1">
-              <img src="https://github.com/PichiGod.png" class="img-fluid rounded-circle"
-                style="width: 4rem; height: auto" alt="..." />
-              <figcaption class="figure-caption text-body text-center ">
-                Pichi <br> 13/05/2024 - 12:00
-              </figcaption>
-            </figure>
+
+        <?php
+
+        if (mysqli_num_rows($consultaComentarios) > 0) {
+
+          foreach ($Comentarios as $comentario): ?>
+            <div class="row fs-6 mt-3 mx-2 border border-3 rounded bg-secondary-subtle">
+              <div class="col-3 p-0 text-center">
+                <figure class="figure mt-1">
+                  <img src="https://github.com/PichiGod.png" class="img-fluid rounded-circle"
+                    style="width: 3rem; height: auto" alt="..." />
+                  <figcaption class="figure-caption fs-6 text-body text-center ">
+                    <?php echo $comentario['nombre_user'] . " " . $comentario['apellido_user']; ?> <br> <?php echo $comentario['modif_fecha'] ?>
+                  </figcaption>
+                </figure>
+              </div>
+              <div class="col-9 text-wrap">
+                <div class="bg-white rounded border">
+                  <p class="mb-0 fs-6 p-2">
+                    <?php echo $comentario['mensaje'] ?>
+                  </p>
+                </div>
+                <?php if ($comentario['usuario_id_user'] == $usuarios1){
+                  ?>
+                  <button class="btn btn-link m-0 p-0"
+                onclick="location.href='modifComentario.php?idComen=<?php echo $comentario['id_foro_cur'];?>&id_cur=<?php echo $id_curso_seleccionado;?>'"
+                  title="Editar">
+                  <i class="fa-regular fa-pen-to-square"></i>
+                </button>
+
+                <button onclick="eliminarComentario();" title="Eliminar" class="btn btn-link m-0 p-0 ms-1">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+
+                <?php
+                };
+                ?>
+                
+              </div>
+            </div>
+          <?php endforeach;
+        } else { ?>
+
+          <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis p-3"
+            style="padding: 10px;">
+            <div>
+              <div>
+                <span>No hay Comentarios en el foro</span>
+              </div>
+            </div>
           </div>
-          <div class="col-9 text-wrap">
-            <div class="bg-white rounded border">
-              <p class="mb-0 p-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cum quia praesentium iusto
-                reiciendis vitae. Aliquam quas ex consectetur necessitatibus nisi nostrum similique eum ea laboriosam,
-                at placeat, eligendi atque adipisci.
-              </p>
+
+
+        <?php } ?>
+
+        <!-- <div class="row fs-6 mt-3 mx-2 border border-3 rounded bg-secondary-subtle">
+            <div class="col-3 p-0 text-center">
+              <figure class="figure mt-1">
+                <img src="https://github.com/PichiGod.png" class="img-fluid rounded-circle"
+                  style="width: 4rem; height: auto" alt="..." />
+                <figcaption class="figure-caption text-body text-center ">
+                  Pichi <br> 13/05/2024 - 12:00
+                </figcaption>
+              </figure>
+            </div>
+            <div class="col-9 text-wrap">
+              <div class="bg-white rounded border">
+                <p class="mb-0 p-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cum quia praesentium
+                  iusto
+                  reiciendis vitae. Aliquam quas ex consectetur necessitatibus nisi nostrum similique eum ea
+                  laboriosam,
+                  at placeat, eligendi atque adipisci.
+                </p>
+              </div>
+
+
+              <button class="btn btn-link m-0 p-0" onclick="location.href='modifComentario.php'" title="Editar">
+                <i class="fa-regular fa-pen-to-square"></i>
+              </button>
+
+              <button onclick="eliminarComentario();" title="Eliminar" class="btn btn-link m-0 p-0 ms-1">
+                <i class="fa-solid fa-trash"></i>
+              </button>
             </div>
 
+          </div> -->
 
-            <button class="btn btn-link m-0 p-0" onclick="location.href='modifComentario.php'" title="Editar">
-              <i class="fa-regular fa-pen-to-square"></i>
-            </button>
-
-            <button onclick="eliminarComentario();" title="Eliminar" class="btn btn-link m-0 p-0 ms-1">
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </div>
-
-        </div>
 
       </div>
     </div>
@@ -203,6 +318,8 @@
       }
     }
   </script>
+
+  <?php require "../../assests/php/enviarComentarioMain.php"; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
