@@ -11,11 +11,11 @@
     padding: 20px;
   }
   
-  .container-fluid {
+  /* .container-fluid {
     background-color: #ffffff; /* Fondo blanco */
-    margin-top: 20px; /* Margen superior */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
-  }
+    /* margin-top: 20px; Margen superior */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); Sombra */
+ /* } */
   
   .TituloCrearActividad {
     text-align: center; /* Centrar texto */

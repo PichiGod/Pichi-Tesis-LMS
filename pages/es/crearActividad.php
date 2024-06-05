@@ -174,7 +174,7 @@ if (isset($_GET['id_cur'])) {
 
             <input type="hidden" name="" id="action" value="CrearActividad">
 
-            <div class="container-fluid bg-blanco mt-3 shadow">
+            <div class="container-fluid mt-3 bg-blanco shadow">
                 <a href="verCurso.php?id_cur=<?php echo $id_curso_seleccionado ?>"><i class="fa-solid mt-2 fa-arrow-left"
                         style="font-size:2rem;color:black;"></i></a>
 
@@ -201,7 +201,7 @@ if (isset($_GET['id_cur'])) {
 
                 </div>
 
-                <div id="editor">
+                <div class="bg-white" id="editor">
                 </div>
                 <input type="hidden" id="texto_actividad" class="texto_actividad" name="texto_actividad">
                 <div>

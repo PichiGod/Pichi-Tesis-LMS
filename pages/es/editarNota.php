@@ -233,6 +233,7 @@ if (isset($_SESSION['id_user'])) {
                         <div class="card-body">
                             <h4 class="card-title">Estudiante Seleccionado</h4>
                             <p class="card-text">Nombre estudiante</p>
+                            <textarea class="card-text form-control" rows="3" name="" id="" disabled>Mensaje del estudiante</textarea>
                             <h4 class="card-title">Archivos entregados</h4>
                             <ul class="list-group">
                                 <li class="list-group-item">

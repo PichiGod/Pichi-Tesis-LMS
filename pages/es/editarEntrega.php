@@ -55,6 +55,8 @@ if (isset($_SESSION['id_user'])) {
     <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
     <link rel="stylesheet" href="../../assests/css/viewUser.css" />
     <link rel="stylesheet" href="../../assests/css/sidebar.css" />
+    <link rel="stylesheet" href="../../assests/css/crearActividad.css">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 
     <!--JQuery-->
@@ -63,21 +65,6 @@ if (isset($_SESSION['id_user'])) {
     <script src="../../assests/js/sidebar.js"></script>
 
     <style>
-        .table {
-            width: 100%;
-            display: block;
-            white-space: nowrap;
-        }
-
-        #tableBody>tr {
-            display: table-row;
-        }
-
-        #tableBody>tr>td {
-            display: table-cell;
-            white-space: nowrap;
-        }
-
         .disable {
             pointer-events: none;
             background-color: lightgrey;
@@ -209,6 +196,14 @@ if (isset($_SESSION['id_user'])) {
                         <label for="formFileMultiple" class="form-label">Seleccionar archivos...</label>
                         <input class="form-control" type="file" id="formFileMultiple" multiple>
                     </div>
+                    <p class="mb-0"><strong>Inserta un texto</strong></p>
+                    <div id="editor">
+                    </div>
+                    <input type="hidden" id="texto_actividad" class="texto_actividad" name="texto_actividad">
+                    <div>
+
+
+                    </div>
                     <p>No dejar que el usuario pueda agregar un archivo si los que ya estan subidos siguen alli. Solo
                         permitir si la cantidad de archivo no exede la cantidad maxima</p>
                 </div>
@@ -246,6 +241,18 @@ if (isset($_SESSION['id_user'])) {
 
         </div>
     </section>
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+        var form = document.querySelector('form');
+        form.onsubmit = function () {
+            var editorContent = document.querySelector('.ql-editor').innerHTML;
+            document.getElementById('texto_actividad').value = editorContent;
+        };
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

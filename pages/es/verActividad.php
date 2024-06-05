@@ -56,6 +56,8 @@ if (isset($_SESSION['id_user'])) {
     <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
     <link rel="stylesheet" href="../../assests/css/viewUser.css" />
     <link rel="stylesheet" href="../../assests/css/sidebar.css" />
+    <link rel="stylesheet" href="../../assests/css/crearActividad.css">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 
     <!--JQuery-->
@@ -237,7 +239,16 @@ if (isset($_SESSION['id_user'])) {
                                 <label for="formFileMultiple" class="form-label">Seleccionar archivos...</label>
                                 <input class="form-control" type="file" id="formFileMultiple" multiple>
                             </div>
-                            <input type="submit" class="btn btn-primary"></input>
+                            
+                            <p class="mb-0"><strong>Inserta un texto</strong></p>
+                            <div id="editor">
+                            </div>
+                            <input type="hidden" id="texto_actividad" class="texto_actividad" name="texto_actividad">
+                            <div>
+
+
+                            </div>
+                            <input type="submit" class="btn btn-primary mt-2"></input>
 
                             <hr>
                         </div>
@@ -353,6 +364,18 @@ if (isset($_SESSION['id_user'])) {
                 }
             });
         });
+    </script>
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+        var form = document.querySelector('form');
+        form.onsubmit = function () {
+            var editorContent = document.querySelector('.ql-editor').innerHTML;
+            document.getElementById('texto_actividad').value = editorContent;
+        };
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
