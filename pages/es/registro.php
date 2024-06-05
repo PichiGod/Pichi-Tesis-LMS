@@ -71,7 +71,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   <section name="formulario">
       <form action="" method="post">
         <input type="hidden" name="" id="action" value="Register">
-      <div name="formulario" class="bg-pastel">
+      <div name="formulario" >
         <div class="containerRegistro pt-2 px-3 bg-blanco shadow rounded formulario">
           <div>
             <p class="fs-1 text-center">Registro</p>

@@ -1,19 +1,26 @@
 <?php
-require "../../assests/php/LoginBD.php";
+// Requerir el archivo de conexión a la base de datos
+require "conexion.php";
 
-if (isset($_SESSION['id_user']) && isset($_SESSION['id_cursoSesion'])) {
-    $idUser = $_SESSION['id_user'];
-    $idCurso = $_SESSION['id_cursoSesion'];
+// Verificar si se recibió el ID del usuario
+if (isset($_SESSION['id_user'])) {
+    $id_user = $_SESSION['id_user'];
 
-    $eliminarUsuario = "DELETE FROM usuariosala WHERE id_user = '$idUser' AND id_curso = '$idCurso'";
+    // Eliminar al usuario de la tabla 'usuariosala'
+    $query = "DELETE FROM usuariosala WHERE id_user = '$id_user'";
+    $result = mysqli_query($mysqli, $query);
 
-    if (mysqli_query($mysqli, $eliminarUsuario)) {
-        echo "¡Usuario eliminado correctamente!";
+    if ($result) {
+        // Si la eliminación fue exitosa, devolver un mensaje de éxito
+        echo 'Usuario eliminado de la sala exitosamente.';
     } else {
-        echo "Error al eliminar usuario: " . mysqli_error($mysqli);
+        // Si ocurrió un error durante la eliminación, devolver un mensaje de error
+        echo 'Error al eliminar al usuario de la sala.';
     }
 } else {
-    echo "Usuario no encontrado en la sesión";
+    // Si no se recibió el ID del usuario, devolver un mensaje de error
+    echo 'No se recibió el ID del usuario.';
 }
 ?>
+
 

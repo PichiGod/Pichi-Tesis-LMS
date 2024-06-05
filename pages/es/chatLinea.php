@@ -28,21 +28,23 @@ if (isset($_SESSION['id_user'])) {
 
             $nombreEmpresa = $datos2['nombre_empresa'];
 
-            $conexionObetenerUsuario = mysqli_query($mysqli, "SELECT id_curso FROM usuariosala WHERE id_user = '$idUser'");
+            $conexionObetenerUsuario = mysqli_query($mysqli, "SELECT id_curso, id_sala FROM usuariosala WHERE id_user = '$idUser'");
 
             if (mysqli_num_rows($conexionObetenerUsuario) > 0) {
 
                 $datosObtener = mysqli_fetch_assoc($conexionObetenerUsuario);
 
                 $id_curso_seleccionado = $datosObtener['id_curso'];
+
+                $id_sala = $datosObtener['id_sala'];
             
                 // Modificamos la consulta para hacer un JOIN con la tabla 'usuario'
                 $conexion3 = mysqli_query($mysqli, "
-                    SELECT usuario.id_user, usuario.nombre_user, usuario.apellido_user 
-                    FROM usuariosala 
-                    JOIN usuario ON usuariosala.id_user = usuario.id_user 
-                    WHERE usuariosala.id_curso = '$id_curso_seleccionado'
-                ");
+                SELECT usuario.id_user, usuario.nombre_user, usuario.apellido_user, usuariosala.id_sala
+                FROM usuariosala 
+                JOIN usuario ON usuariosala.id_user = usuario.id_user 
+                WHERE usuariosala.id_curso = '$id_curso_seleccionado'
+            ");
  
                 if (mysqli_num_rows($conexion3) > 0) {
                     while ($datos3 = mysqli_fetch_assoc($conexion3)) {
@@ -122,75 +124,32 @@ if (isset($_SESSION['id_user'])) {
         </nav>
     </div>
 
-    <!--Lista de Usuarios-->
-    <!-- <div class="row flex-nowrap container-fluid">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-white">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
-                <ul class="nav nav-pills mb-sm-auto mb-0 list-group" id="usuarios">
-                    <li class="nav-item" id="listaUsuarios">
-                        <table class="">
-                            <tbody>
-
-                                Este bloque es para el listado de cada usuario
-                                <tr class="border ">
-                                    <td id="fotoDePerfil" class="py-2">
-                                        <img src="https://github.com/PichiGod.png" witdh="38" height="38" alt="...">
-                                    </td>
-                                    <td class="py-2 pe-2">
-                                        <span><strong>Jose Duarte</strong></span>
-                                    </td>
-                                </tr>
-
-                                <tr class="border ">
-                                    <td id="fotoDePerfil" class="py-2">
-                                        <img src="https://github.com/PichiGod.png" witdh="38" height="38" alt="...">
-                                    </td>
-                                    <td class="py-2 pe-2">
-                                        <span><strong>Jose Duarte</strong></span>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </li>
-                </ul>
-                <hr>
-            </div>
-        </div> -->
-
     <!--Contenido ChatRoom-->
     <section>
         <div class="col py-3">
-            <ul class="list-group-flush mb-5">
-                <li class="list-group-item bg-white p-2 rounded text-break">
-                    <div>22:15 - <u>Jose Duarte</u> entro al chat</div>
-                </li>
-                <hr>
+            <ul class="list-group-flush mb-5" id="mensajes">
 
-                <!--Comentario-->
-                <li class="list-group-item bg-white p-2 my-2 rounded">
-                    <div id="userName" style="display: inline-block;" class="ms-1 text-break">
-
-                        <span><strong>Jose Duarte</strong></span>
-                        <span>22:30</span>
 
                     </div>
                     <div id="mensaje" class="ms-3 text-break">
-                        Hola, soy Jose Duarte
+                       
                     </div>
+                    
 
                 </li>
                 
-
+               
             </ul>
+
+           
 
             <div id="input-chat" class="container rounded p-1 bg-secondary-subtle"
                 style="position: fixed; bottom: 0px;">
                 <div class="form-inline">
                     <div class="d-flex">
                         <div class="input-group">
-                            <input type="text" class="form-control ">
-                            <button type="submit" class="btn btn-primary mx-1">Enviar</button>
+                            <input id="mensajeInput" type="text" class="form-control">
+                            <button type="submit" class="btn btn-primary mx-1" onclick="enviarMensaje()">Enviar</button>
                         </div>
                     </div>
                 </div>
@@ -199,23 +158,142 @@ if (isset($_SESSION['id_user'])) {
         </div>
     </section>
 
+<!-- Aquí colocas el script JavaScript -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Obtener el ID de la sala de alguna manera, por ejemplo, desde una variable PHP
+        var id_sala = <?php echo $id_sala; ?>;
+
+        // Realizar una solicitud AJAX GET para obtener los mensajes de la sala específica
+        $.ajax({
+            url: '../../assests/php/obtenerMensajes.php',
+            type: 'GET',
+            data: { id_sala: id_sala }, // Pasar el ID de la sala como parámetro GET
+            success: function(response) {
+                // Actualizar el área de mensajes con los mensajes obtenidos del servidor
+                document.getElementById("mensajes").innerHTML = response;
+            },
+            error: function(xhr, status, error) {
+                // Manejar el error en caso de que ocurra
+                console.error('Error al obtener los mensajes:', error);
+            }
+        });
+    });
+</script>
+
+    <script>
+function enviarMensaje() {
+    // Obtener el mensaje ingresado por el usuario
+    var mensaje = document.getElementById("mensajeInput").value;
+
+    // Formatear el mensaje con el nombre del usuario y la hora actual
+    var fecha = new Date();
+    var hora = fecha.getHours();
+    var minutos = fecha.getMinutes();
+    var horaActual = (hora < 10 ? "0" : "") + hora + ":" + (minutos < 10 ? "0" : "") + minutos;
+    var mensajeFormateado = `
+          <li class="list-group-item bg-white p-1 my-1 rounded">
+            <div id="userName" class="ms-2 text-break">
+                <span><strong><?php echo $nombreUsuario . ' ' . $apellidoUsuario; ?></strong></span>
+                <span>${horaActual}</span>
+            </div>
+            <div id="mensaje" class="ms-2 text-break">
+                ${mensaje}
+            </div>
+        </li>
+    `;
+
+    // Agregar el nuevo mensaje al elemento <ul> con id="mensajes"
+    var mensajesLista = document.getElementById("mensajes");
+    mensajesLista.innerHTML += mensajeFormateado;
+
+    // Crear un objeto con los datos del mensaje
+    var data = {
+        mensaje: mensajeFormateado,
+        id_usuario: <?php echo $idUser; ?>, // Obtener el ID del usuario desde PHP
+        id_sala: <?php echo $id_sala; ?> // Obtener el ID de la sala desde PHP
+    };
+
+    // Realizar la petición AJAX para enviar los datos al servidor
+    $.ajax({
+        url: '../../assests/php/enviarMensaje.php', // Ruta al archivo PHP que maneja la inserción del mensaje
+        type: 'POST',
+        data: data,
+        success: function(response) {
+            // Manejar la respuesta del servidor
+            // Por ejemplo, si el servidor devuelve los mensajes actualizados, podrías reemplazar todo el contenido de #mensajes con la nueva lista
+            mensajesLista.innerHTML = response;
+        },
+        error: function(xhr, status, error) {
+            // Manejar el error en caso de que ocurra
+            console.error('Error al enviar el mensaje:', error);
+        }
+    });
+
+    // Limpiar el campo de entrada de texto
+    document.getElementById("mensajeInput").value = "";
+}
+
+</script>
+
+<script>
+// Variable para almacenar el temporizador
+let inactivityTimer;
+
+// Función para reiniciar el temporizador
+function resetInactivityTimer() {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(function() {
+        // Obtener el ID de usuario desde alguna fuente, por ejemplo, una variable PHP
+        var idUsuario = <?php echo $idUser; ?>;
+        
+        // Realizar una solicitud AJAX para desconectar al usuario
+        $.ajax({
+            url: '../../assests/php/salirSalaBD.php',
+            type: 'POST',
+            data: { id_user: idUsuario }, // Pasar el ID de usuario como dato POST
+            success: function(response) {
+                console.log('Usuario desconectado debido a inactividad.');
+            },
+            error: function(xhr, status, error) {
+                console.error('Error al desconectar al usuario:', error);
+            }
+        });
+    }, 5 * 60 * 1000); // 5 minutos en milisegundos
+}
+
+// Función para manejar la actividad del usuario
+function handleUserActivity() {
+    resetInactivityTimer();
+}
+
+// Eventos para detectar la actividad del usuario
+document.addEventListener('mousemove', handleUserActivity);
+document.addEventListener('keypress', handleUserActivity);
+document.addEventListener('click', handleUserActivity);
+
+// Iniciar el temporizador al cargar la página
+resetInactivityTimer();
+
+</script>
 
 
-    <?php require "../../assests/php/entrarSalaMain.php"; ?>
+<?php require "../../assests/php/entrarSalaMain.php"; ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+crossorigin="anonymous"></script>
 
-        <script>
+<script>
 window.addEventListener('beforeunload', function(event) {
-    // Envía una solicitud AJAX al servidor para eliminar al usuario de la tabla 'usuariosala'
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '../../assets/php/salirSalaBD.php', true);
-    xhr.send();
+// Envía una solicitud AJAX al servidor para eliminar al usuario de la tabla 'usuariosala'
+var xhr = new XMLHttpRequest();
+xhr.open('POST', '../../assets/php/salirSalaBD.php', true);
+xhr.send();
 });
 </script>
 

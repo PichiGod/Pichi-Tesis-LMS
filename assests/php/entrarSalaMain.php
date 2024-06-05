@@ -12,6 +12,10 @@ function submitData() {
         data: data,
         success: function(response) {
             if (response.includes("¡Usuario Insertado Correctamente!")) {
+                var message = response.split("¡Usuario Insertado Correctamente!")[1].trim();
+                window.open('chatLinea.php?message=' + encodeURIComponent(message), '_blank');
+                window.location.reload();
+            } else if (response.includes("Ya estás en el curso")) {
                 window.open('chatLinea.php', '_blank');
             } else {
                 alert(response); // Mostrar mensaje de error

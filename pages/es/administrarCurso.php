@@ -1,3 +1,54 @@
+<?php
+
+require "../../assests/php/LoginBD.php";
+
+$cursos = [];
+
+if (isset($_SESSION['id_user'])) {
+
+    $usuarios1 = $_SESSION['id_user'];
+
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+
+    if (mysqli_num_rows($conexion1) > 0) {
+
+        $datos = mysqli_fetch_assoc($conexion1);
+
+        $empresaUsuario = $datos['Empresa_id_empresa'];
+
+        $nombreUsuario = $datos['nombre_user'];
+
+        $apellidoUsuario = $datos['apellido_user'];
+
+        $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
+
+        if (mysqli_num_rows($conexion2) > 0) {
+
+            $datos2 = mysqli_fetch_assoc($conexion2);
+
+            $nombreEmpresa = $datos2['nombre_empresa'];
+
+            $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
+
+            if (mysqli_num_rows($conexion3) > 0) {
+                while ($datos3 = mysqli_fetch_assoc($conexion3)) {
+                    $cursos[] = $datos3;
+
+                }
+
+            }
+
+
+
+        }
+
+    }
+
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -155,15 +206,16 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php foreach($cursos as $curso){ ?>
                         <tr>
-                            <th scope="row">ID_CUR_EMP</th>
-                            <td>Comer Queso I</td>
-                            <td>28/05/2024</td>
-                            <td>28/05/2024</td>
-                            <td>10</td>
-                            <td>20</td>
-                            <td>Santigay Vilogay</td>
-                            <td>Abril - Julio 2024</td>
+                            <th scope="row"><?php echo $curso['id_cur'];?></th>
+                            <td><?php echo $curso['nombre_cur'];?></td>
+                            <td><?php echo $curso['fecha_inicio'];?></td>
+                            <td><?php echo $curso['fecha_fin'];?></td>
+                            <td><?php echo $curso['cupos_cur_min'];?></td>
+                            <td><?php echo $curso['cupos_cur_max'];?></td>
+                            <td>docente</td>
+                            <td>periodo</td>
                             <td>
                                 <button onclick="location.href='modifCurso.php'" class="btn btn-primary me-1">
                                     Modificar
@@ -173,6 +225,7 @@
                                 </button>
                             </td>
                         </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>

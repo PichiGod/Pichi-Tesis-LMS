@@ -1,3 +1,45 @@
+<?php
+
+require "../../assests/php/LoginBD.php";
+
+$cursos = [];
+
+if (isset($_SESSION['id_user'])) {
+
+    $usuarios1 = $_SESSION['id_user'];
+
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+
+    if (mysqli_num_rows($conexion1) > 0) {
+
+        $datos = mysqli_fetch_assoc($conexion1);
+
+        $empresaUsuario = $datos['Empresa_id_empresa'];
+
+        $nombreUsuario = $datos['nombre_user'];
+
+        $apellidoUsuario = $datos['apellido_user'];
+
+        $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
+
+        if (mysqli_num_rows($conexion2) > 0) {
+
+            $datos2 = mysqli_fetch_assoc($conexion2);
+
+            $nombreEmpresa = $datos2['nombre_empresa'];
+
+            $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
+
+            if (mysqli_num_rows($conexion3) > 0) {
+                while ($datos3 = mysqli_fetch_assoc($conexion3)) {
+                    $cursos[] = $datos3;
+                }
+            }
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -166,9 +208,10 @@
                 <button class="btn btn-outline-success" type="submit">Filtrar</button>
             </form>
 
-            <div class="row mt-2 d-flex  ">
+            <div class="row mt-2 d-flex">
                 <div class="col-md col-sm col-lg-6 mb-2">
-                    <table style="height: 280px;" class="table table-bordered overflow-auto border-secondary ">
+                    <table style="height: 280px;" class="table table-bordered table-hover table-striped"
+                        id="courseTable">
                         <thead>
                             <tr>
                                 <th scope="col">Id curso</th>
@@ -178,34 +221,34 @@
                             </tr>
                         </thead>
                         <tbody id="tableBody">
+                            <?php foreach ($cursos as $curso) { ?>
                             <tr onclick="selectRow(this);">
-                                <td scope="row">01_CUR_EMP</td>
-                                <td>Matematica</td>
+                                <td scope="row">
+                                    <?php echo $curso['id_cur']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $curso['nombre_cur']; ?>
+                                </td>
                                 <td>Pichongo</td>
-                                <td><span class="badge text-bg-success">Activo</span></td>
+                                <td>
+                                    <span
+                                        class="badge <?php echo $curso['visibilidad_curso'] === 'Visible' ? 'text-bg-success' : 'text-bg-danger'; ?>">
+                                        <?php echo $curso['visibilidad_curso']; ?>
+                                    </span>
+                                </td>
                             </tr>
-                            <tr onclick="selectRow(this);">
-                                <td scope="row">02_CUR_EMP</td>
-                                <td>Bitcoin</td>
-                                <td>Lenin</td>
-                                <td><span class="badge text-bg-danger">Inactivo</span></td>
-                            </tr>
-                            <tr onclick="selectRow(this);">
-                                <td scope="row">03_CUR_EMP</td>
-                                <td>Fisica</td>
-                                <td>Santiago Viloria</td>
-                                <td><span class="badge text-bg-danger">Inactivo</span></td>
-                            </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
-                <div class="col-lg-6 col-md col-sm ">
+                <div class="col-lg-6 col-md col-sm">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Curso seleccionado</h4>
-                            <p class="card-text">Nombre curso</p>
-                            <p class="card-text">Docente: Mi mami</span></p>
-                            <p class="card-text">Status: <span class="badge text-bg-success">Activo</span></p>
+                            <h4 class="card-title" id="selectedCourseTitle">Curso seleccionado</h4>
+                            <p class="card-text" id="selectedCourseName"></p>
+                            <p class="card-text">Docente: <span id="selectedCourseTeacher"></span></p>
+                            <p class="card-text">Estado: <span class="badge text-bg-success"
+                                    id="selectedCourseStatus"></span></p>
                         </div>
                         <div class="card-footer">
                             <!-- Botón para activar/desactivar -->
@@ -214,11 +257,8 @@
                             </button>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
         </div>
     </section>
 
@@ -241,16 +281,27 @@
             }
             row.classList.add("table-active");
             buttonActivar.classList.remove("disabled");
-        }
 
+            // Update selected course details
+            const idCurso = row.cells[0].innerText;
+            const nombreCurso = row.cells[1].innerText;
+            const docenteCurso = row.cells[2].innerText;
+            const estadoCurso = row.cells[3].innerText.trim();
+
+            document.getElementById("selectedCourseTitle").innerText = "Curso seleccionado: " + nombreCurso;
+            document.getElementById("selectedCourseName").innerText = "Nombre curso: " + nombreCurso;
+            document.getElementById("selectedCourseTeacher").innerText = docenteCurso;
+            document.getElementById("selectedCourseStatus").innerText = estadoCurso;
+            document.getElementById("selectedCourseStatus").className = "badge " + (estadoCurso === "Visible" ? "text-bg-success" : "text-bg-danger");
+        }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

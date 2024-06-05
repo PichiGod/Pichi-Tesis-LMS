@@ -174,7 +174,7 @@ if (isset($_GET['id_cur'])) {
 
             <input type="hidden" name="" id="action" value="CrearActividad">
 
-            <div class="container-fluid mt-3 bg-blanco shadow">
+            <div class="container-fluid mt-3 bg-white shadow">
                 <a href="verCurso.php?id_cur=<?php echo $id_curso_seleccionado ?>"><i class="fa-solid mt-2 fa-arrow-left"
                         style="font-size:2rem;color:black;"></i></a>
 

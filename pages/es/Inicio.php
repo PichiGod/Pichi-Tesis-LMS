@@ -202,7 +202,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
     <!--Contenido Inicio-->
     <section>
         <div class="container-fluid bg-blanco mt-3 rounded shadow">
-            <span class="fs-1"><strong>Bienvenido al portal EAD, <?php echo $nombreUsuario . " " . $apellidoUsuario; ?>!
+            <span class="fs-1"><strong>Bienvenido al gestor de aprendizaje, <?php echo $nombreUsuario . " " . $apellidoUsuario; ?>!
                 </strong></span>
         </div>
         <div class="container-fluid bg-blanco mt-3 pt-3 pb-3 mb-3 rounded shadow">
@@ -210,7 +210,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                 <div class="col-sm col-md-5">
                     <div
                         class="text-center border border-1 border-secondary border-opacity-50  shadow bg-secondary-subtle">
-                        <p class="mb-0"><strong>Cursos Inscritos por el Usuario (Un atajo)</strong></p>
+                        <p class="mb-0"><strong>Cursos Inscritos</strong></p>
                         <div class="accordion accordion-flush " id="accordionFlushExample">
                             <!--Copias esto para añadir un curso-->
                             <div class="accordion-item">
@@ -218,7 +218,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#flush-collapseOne" aria-expanded="false"
                                         aria-controls="flush-collapseOne">
-                                        Matematica
+                                        Ingles I
                                     </button>
                                 </h2>
                                 <div id="flush-collapseOne" class="accordion-collapse collapse"
@@ -228,11 +228,11 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                             <div class="row g-0">
                                                 <div class="col-md-4">
                                                     <img src="https://github.com/PichiGod.png"
-                                                        class="img-fluid rounded-start" alt="...">
+                                                        class="img-fluid rounded-start" width="150" alt="...">
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
-                                                        <h6 class="card-title">Nombre del docente</h6>
+                                                        <h6 class="card-title">José Oropeza</h6>
                                                         <button class="btn btn-primary ">Ir al Curso</button>
                                                     </div>
                                                 </div>
@@ -275,7 +275,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#flush-collapseThree" aria-expanded="false"
                                         aria-controls="flush-collapseThree">
-                                        Física I
+                                        Portugués II
                                     </button>
                                 </h2>
                                 <div id="flush-collapseThree" class="accordion-collapse collapse"
@@ -352,7 +352,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                             </div>
                             <div class="vr text-secondary-emphasis"></div>
                             <div class="ms-auto me-auto p-1 pb-0">
-                                <p class="text-center text-body mb-0">Zlibrary - Libreria virtual gratuita</p>
+                                <p class="text-center fs-5 text-body mb-0">Zlibrary - Libreria virtual gratuita</p>
                                 <a class="btn btn-primary my-1" href="https://z-library.es/" target="_blank"
                                     rel="noopener noreferrer">Ir a libreria</a>
                             </div>
@@ -369,13 +369,13 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                         border-opacity-50  shadow bg-secondary-subtle">
                         <div class="d-flex flex-column">
                             <div>
-                                <p class="mb-0 ms-2" >Curso</p>
+                                <p class="mb-0 ms-2 fw-bold fs-5" >Ingles</p>
                             </div>
                             <div>
-                                <p class="ms-2 mb-0">Nombre de Actividad</p>
+                                <p class="ms-2 mb-0 fs-5">Verbo To-Be</p>
                             </div>
                             <div>
-                                <p class="mb-0 ms-2"><strong>Fecha de Culminacion: 29/05/2024</strong></p>
+                                <p class="mb-0 ms-2 fs-5"><strong>Fecha de Culminacion: 29/05/2024</strong></p>
                             </div>
                         </div>
                     </div>
