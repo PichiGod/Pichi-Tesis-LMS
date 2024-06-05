@@ -71,7 +71,7 @@ if(isset($_SESSION['id_user'])){
   <section name="formulario">
      <form action="" method="post">
       <input type="hidden" name="" id="action" value="Login" class="action">
-      <div name="formulario" class="bg-pastel">
+      <div name="formulario">
         <div class="formulario pt-2 px-3 bg-blanco shadow rounded">
           <div>
             <p class="fs-1 text-center">Inicio de sesión</p>

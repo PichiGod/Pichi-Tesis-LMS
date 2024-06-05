@@ -184,28 +184,28 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
             <div class="row g-2">
 
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/p33M6ihucuM?si=YRbNd0EI0DltRmKP"
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/X9aZCAqA-Ps?si=_0E4-N2_dcLw7Nqy"
                     title="YouTube video player" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
                 <div class="col g-2">
                     <div class="row g-2">
-                        <div class="col">
+                        <div class="col-4">
                             <div class="card ">
                                 <div class="card-body">
-                                    <h4 class="card-title">Manual de Uso</h4>
-                                    <button class="btn btn-primary">Ver</button>
+                                    <i class="fa-solid fa-circle-info"></i>
+                                    <span class="fs-4 ms-2 card-title">Manual de Uso</span>
+                                    <br>
+                                    <button class="btn mt-2 btn-primary">Ver</button>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col mb-2">
-
-                            <div class="card">
+                            <div class="card mt-2">
                                 <div class="card-body">
-                                    <h4 class="card-title">Santiago es Gay</h4>
-                                    <p class="card-text">Super gay</p>
+                                    <i class="fa-regular fa-lightbulb"></i>
+                                    <span class="fs-4 ms-2 card-title">Clave del éxito</span>
+                                    <p id="consejo" class="card-text mt-2 fs-5">Consejo</p>
                                 </div>
                             </div>
 
@@ -214,7 +214,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                         <div class="col">
                             <div class="card">
                                 <div class="card-body">
-                                    <i class="fa-regular me-2 fa-circle-question"></i><span class="fs-5">Preguntas
+                                    <i class="fa-regular me-2 fa-circle-question"></i><span class="fs-4">Preguntas
                                         frecuentes</span>
                                     <div class="accordion" id="accordionExample">
                                         <div class="accordion-item">
@@ -222,13 +222,17 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                                     data-bs-target="#collapseOne" aria-expanded="false"
                                                     aria-controls="collapseOne">
-                                                    Pregunta 1
+                                                    ¿Cómo accedo al material del curso?
                                                 </button>
                                             </h2>
                                             <div id="collapseOne" class="accordion-collapse collapse "
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
-                                                    Respuesta 1
+                                                    Una vez que estes inscrito en un curso, podrás acceder al material
+                                                    del curso siguiendo estos pasos: Inicia sesión en tu cuenta en la
+                                                    plataforma. En la sección "Mis cursos" haz clic en él curso deseado
+                                                    para acceder al material, que puede incluye lecciones, foro, sala y
+                                                    recursos adicionales.
                                                 </div>
                                             </div>
                                         </div>
@@ -237,13 +241,16 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse" data-bs-target="#collapseTwo"
                                                     aria-expanded="false" aria-controls="collapseTwo">
-                                                    Pregunta 2
+                                                    ¿Cómo editar mi foto de perfil?
                                                 </button>
                                             </h2>
                                             <div id="collapseTwo" class="accordion-collapse collapse"
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
-                                                    Respuesta 2
+                                                    Ya habiendo iniciado sesión deberá acceder a la sección del perfil,
+                                                    donde podrá visualizar sus datos en la plataforma y debajo de la
+                                                    imagen de perfil se encontrará el botón de cambiar imagen que al
+                                                    seleccionarlo permitirá realizar el cambio.
                                                 </div>
                                             </div>
                                         </div>
@@ -252,13 +259,71 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse" data-bs-target="#collapseThree"
                                                     aria-expanded="false" aria-controls="collapseThree">
-                                                    Pregunta 3
+                                                    ¿Cómo ver mis calificaciones?
                                                 </button>
                                             </h2>
                                             <div id="collapseThree" class="accordion-collapse collapse"
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
-                                                    Respuesta 3
+                                                    Dentro de la plataforma tendrá que acceder a la sesión de notas la
+                                                    cual se encuentra ubicada en la barra lateral en la zona izquierda
+                                                    de la pantalla, al seleccionarla podrá visualizar las calificaciones
+                                                    disponibles en ese momento.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                                    aria-expanded="false" aria-controls="collapseThree">
+                                                    ¿Cómo cargar una actividad?
+                                                </button>
+                                            </h2>
+                                            <div id="collapseThree" class="accordion-collapse collapse"
+                                                data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    Dentro del curso deberá de buscar y acceder al recurso donde se
+                                                    encuentra la actividad a entregar, posteriormente, tendrá que
+                                                    seleccionar la opción “Cargar” la cual le mostrará una sección para
+                                                    cargar el archivo respectivo y una sección de caja de texto, ya
+                                                    habiendo cargado el archivo o llenado la caja de texto tendrá que
+                                                    seleccionar la opción de “Entregar”.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                                    aria-expanded="false" aria-controls="collapseThree">
+                                                    ¿Cómo cerrar la sesión en la plataforma?
+                                                </button>
+                                            </h2>
+                                            <div id="collapseThree" class="accordion-collapse collapse"
+                                                data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    Deberá de seleccionar la sección que indica su nombre de usuario,
+                                                    posteriormente, se desplegará una serie de opciones entre las cuales
+                                                    se mostrará la de “cerrar sesión” al seleccionarla tendrá que
+                                                    confirmar la acción y podrá cerrar la sesión en la plataforma.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                                    aria-expanded="false" aria-controls="collapseThree">
+                                                    ¿Dónde puedo visualizar los manuales de usuario?
+                                                </button>
+                                            </h2>
+                                            <div id="collapseThree" class="accordion-collapse collapse"
+                                                data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    Puedes visualizar el manual de usuario en el siguiente enlace (aquí
+                                                    ira el enlace dentro de la plataforma donde se encuentre el manual
+                                                    de usuario).
                                                 </div>
                                             </div>
                                         </div>
@@ -275,6 +340,15 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
         </div>
     </section>
+
+    <script>
+        const consejo = document.getElementById('consejo');
+        const opciones = ['Explora la plataforma y familiarízate con sus funciones.', 'Completa tus actividades a tiempo y según las instrucciones.', 'Participa en foros y salas para interactuar con otros.', 'Aprovecha los recursos que están en los cursos.','Establece un horario de estudio para mantenerte organizado.','Mantén una actitud positiva y no te rindas ante los desafíos.','Busca ayuda si la necesitas, no dudes en pedir apoyo.','Celebra tus logros para mantenerte motivado y seguir adelante.','¡Diviértete aprendiendo! La plataforma te ofrece una experiencia agradable.','¡No te compares con los demás! Cada persona aprende a su propio ritmo, enfócate en tu propio progreso.'];
+        const indiceAleatorio = Math.floor(Math.random() * opciones.length);
+        const opcionAleatoria = opciones[indiceAleatorio];
+        consejo.innerHTML = opcionAleatoria;
+        //console.log(opcionAleatoria); // Imprime una opción aleatoria del arreglo
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

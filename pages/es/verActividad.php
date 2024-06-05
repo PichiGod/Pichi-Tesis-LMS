@@ -173,7 +173,7 @@ if (isset($_SESSION['id_user'])) {
 
     <section class="Cursos">
 
-        <div class="container-fluid bg-blanco mt-3 shadow ">
+        <div class="container-fluid mt-3 shadow ">
             <!--Titulo-->
             <div class="container pt-4 mb-3 pb-3">
                 <a href="verCurso.php"><i class="fa-solid mt-2 fa-arrow-left"
