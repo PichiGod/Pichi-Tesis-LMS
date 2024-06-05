@@ -20,7 +20,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
     $apellidoUsuario = $datos['apellido_user'];
 
-    $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
+    $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa, id_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
 
     if (mysqli_num_rows($conexion2) > 0) {
 
@@ -28,19 +28,16 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
       $nombreEmpresa = $datos2['nombre_empresa'];
 
+      $idEmpresa = $datos2['id_empresa'];
+
     }
 
     $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
 
-    if (mysqli_num_rows($conexion3) > 0) {
+    while ($row = mysqli_fetch_assoc($conexion3)) {
+      $cursosCantidad[] = $row;
+  }
 
-      $cursosCantidad = mysqli_num_rows($conexion3);
-
-    } else {
-
-      $cursosCantidad = 0;
-
-    }
 
   }
 
@@ -188,24 +185,28 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           style="font-size:2rem;color:black;"></i></a>
       <h1 class="text-center pt-2">Crear Periodo Academico</h1>
 
-      <form action="">
-        <label class="mt-2" for="idPer">Id del Periodo (Esto es si vas a hacer algo con el)</label>
-        <input class="form-control" type="text" placeholder="ID_PER_EMP" name="idPer" id="idPer" />
+      <form action="" method="post">
+
+      <input type="hidden" name="" id="action" value="crearPeriodo" class="action">
+
+      <input type="hidden" name="" id="action2" value="<?php echo $idEmpresa;?>" class="action">
 
         <label class="mt-2" for="nomPer">Nombre del periodo</label>
-        <input class="form-control" type="text" name="idPer" id="idPer" />
+        <input class="idPer form-control" type="text" name="idPer" id="idPer" />
 
         <label class="mt-2" for="fecIni">Fecha de Inicio</label>
-        <input class=" form-control" type="date" name="idPer" id="idPer" />
+        <input class="FechaInicioPer form-control" type="date" name="FechaInicioPer" id="FechaInicioPer" />
 
         <label class="mt-2" for="fecFin">Fecha de Culminacion</label>
-        <input class=" form-control" type="date" name="idPer" id="idPer" />
-
-        <button class="btn btn-primary mt-2">Crear Periodo</button>
+        <input class="FechaFinPer form-control" type="date" name="FechaFinPer" id="FechaFinPer" />
+                   
+        <button class="btn btn-primary mt-2" onclick="submitData();">Crear Periodo</button>
       </form>
 
     </div>
   </section>
+
+<?php require "../../assests/php/crearPeriodoMain.php"; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
