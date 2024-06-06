@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 05-06-2024 a las 04:21:10
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 06-06-2024 a las 21:33:55
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -119,14 +119,43 @@ INSERT INTO `empresa` (`id_empresa`, `nombre_empresa`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `entregas`
+--
+
+CREATE TABLE `entregas` (
+  `id_entregas` int(11) NOT NULL,
+  `texto_entrega` text NOT NULL,
+  `archivo` varchar(255) NOT NULL,
+  `archivoAdicional` varchar(255) NOT NULL,
+  `tipo_archivo` varchar(45) NOT NULL,
+  `retroalimentacion` text NOT NULL,
+  `fecha_modificacion` date NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_actividad` int(11) NOT NULL,
+  `id_nota` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `foro_curso`
 --
 
 CREATE TABLE `foro_curso` (
-  `id_foro_cur` varchar(8) NOT NULL,
-  `mensaje` varchar(50) NOT NULL,
-  `id_mensaje` int(11) NOT NULL
+  `id_foro_cur` int(11) NOT NULL,
+  `mensaje` longtext NOT NULL,
+  `modif_fecha` datetime NOT NULL,
+  `usuario_id_user` int(11) NOT NULL,
+  `curso_id_curso` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `foro_curso`
+--
+
+INSERT INTO `foro_curso` (`id_foro_cur`, `mensaje`, `modif_fecha`, `usuario_id_user`, `curso_id_curso`) VALUES
+(1, 'Hola profe', '2024-06-05 13:27:00', 4, 'Cur_URBE_01'),
+(4, 'Hola Lenin', '2024-06-06 10:13:00', 5, 'Cur_URBE_01');
 
 -- --------------------------------------------------------
 
@@ -163,7 +192,8 @@ CREATE TABLE `mensaje` (
 
 INSERT INTO `mensaje` (`id_mensaje`, `contenido`, `fecha_hora`, `id_user`, `id_sala`) VALUES
 (24, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>17:21</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                Hola mi gente de puerto rico\n            </div>\n        </li>\n    ', NULL, 4, 1),
-(25, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>17:22</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                Como esta todo el mundo en esta monda??\n            </div>\n        </li>\n    ', NULL, 4, 1);
+(25, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>17:22</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                Como esta todo el mundo en esta monda??\n            </div>\n        </li>\n    ', NULL, 4, 1),
+(26, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>SantiaGO viloria</strong></span>\n                <span>11:59</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                Todo Bien profe.\n            </div>\n        </li>\n    ', NULL, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -189,15 +219,16 @@ CREATE TABLE `periodo` (
   `nombre_peri` varchar(45) NOT NULL,
   `fecha_ini_peri` date NOT NULL,
   `fecha_fin_peri` date NOT NULL,
-  `id_empresa` int(11) NOT NULL
+  `id_empresa` int(11) NOT NULL,
+  `periodo_id_cur` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `periodo`
 --
 
-INSERT INTO `periodo` (`id_peri`, `nombre_peri`, `fecha_ini_peri`, `fecha_fin_peri`, `id_empresa`) VALUES
-(3, 'Periodo Mayo-Septiembre_2024', '2024-06-12', '2024-06-28', 1);
+INSERT INTO `periodo` (`id_peri`, `nombre_peri`, `fecha_ini_peri`, `fecha_fin_peri`, `id_empresa`, `periodo_id_cur`) VALUES
+(3, 'Periodo Mayo-Septiembre_2024', '2024-06-12', '2024-06-28', 1, '');
 
 -- --------------------------------------------------------
 
@@ -213,10 +244,10 @@ CREATE TABLE `recursos` (
   `descripcion_recurso` varchar(45) NOT NULL,
   `tipo_archivo` varchar(45) NOT NULL,
   `archivo` varchar(45) NOT NULL,
-  `id_cur` varchar(8) NOT NULL,
+  `id_cur` varchar(100) NOT NULL,
   `Actividades_idActividades` int(11) NOT NULL,
-  `Foro_curso_id_foro_cur` varchar(8) NOT NULL,
-  `Sala_id_sala` int(11) NOT NULL
+  `Sala_id_sala` int(11) NOT NULL,
+  `foro_id_foro` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -270,18 +301,19 @@ CREATE TABLE `usuario` (
   `Active_online` tinyint(1) NOT NULL,
   `sexo_user` varchar(15) NOT NULL,
   `Empresa_id_empresa` int(11) DEFAULT NULL,
-  `rol` tinyint(1) NOT NULL
+  `rol` tinyint(1) NOT NULL,
+  `img_perfil` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_user`, `identificacion_user`, `nombre_user`, `apellido_user`, `correo_user`, `contrasena_user`, `direccion_user`, `numero_user`, `fecha_nacimiento_user`, `Active_online`, `sexo_user`, `Empresa_id_empresa`, `rol`) VALUES
-(3, '28009473', 'Pichi', 'Josefina', 'SoyGay@gmail.com', '12345', 'URB. La paz', '04146119988', '2003-09-12 00:00:00', 0, '1', 2, 0),
-(4, '30251284', 'Lenin', 'Martinez', 'martinezlenin@gmail.com', '12345', 'La paz', '04146119988', '2003-09-12 00:00:00', 1, 'Masculino', 1, 0),
-(5, '30423882', 'SantiaGO', 'viloria', 'santi@gmail.com', '12345', 'la paz', '04246027064', '2004-06-23 00:00:00', 0, '1', 2, 0),
-(7, '28009474', 'Arianna', 'Martinez', 'ari.luz.martinez@gmail.com', '12345', 'Urb San Miguel', '04246418343', '1999-05-12 20:13:12', 0, 'Femenino', NULL, 2);
+INSERT INTO `usuario` (`id_user`, `identificacion_user`, `nombre_user`, `apellido_user`, `correo_user`, `contrasena_user`, `direccion_user`, `numero_user`, `fecha_nacimiento_user`, `Active_online`, `sexo_user`, `Empresa_id_empresa`, `rol`, `img_perfil`) VALUES
+(3, '28009473', 'Pichi', 'Josefina', 'SoyGay@gmail.com', '12345', 'URB. La paz', '04146119988', '2003-09-12 00:00:00', 0, '1', 2, 0, ''),
+(4, '30251284', 'Lenin', 'Martinez', 'martinezlenin@gmail.com', '12345', 'La paz', '04146119988', '2003-09-12 00:00:00', 0, 'Masculino', 1, 0, ''),
+(5, '30423882', 'SantiaGO', 'viloria', 'santi@gmail.com', '12345', 'la paz', '04246027064', '2004-06-23 00:00:00', 1, '1', 1, 0, ''),
+(7, '28009474', 'Arianna', 'Martinez', 'ari.luz.martinez@gmail.com', '12345', 'Urb San Miguel', '04246418343', '1999-05-12 20:13:12', 0, 'Femenino', NULL, 2, '');
 
 -- --------------------------------------------------------
 
@@ -300,7 +332,8 @@ CREATE TABLE `usuariosala` (
 --
 
 INSERT INTO `usuariosala` (`id_user`, `id_sala`, `id_curso`) VALUES
-(4, 1, 'Cur_URBE_01');
+(4, 1, 'Cur_URBE_01'),
+(5, 1, 'Cur_URBE_01');
 
 --
 -- Índices para tablas volcadas
@@ -310,7 +343,8 @@ INSERT INTO `usuariosala` (`id_user`, `id_sala`, `id_curso`) VALUES
 -- Indices de la tabla `actividades`
 --
 ALTER TABLE `actividades`
-  ADD PRIMARY KEY (`idActividades`);
+  ADD PRIMARY KEY (`idActividades`),
+  ADD KEY `idCurso_id_cur` (`idCurso_id_cur`);
 
 --
 -- Indices de la tabla `calificaciones`
@@ -336,11 +370,21 @@ ALTER TABLE `empresa`
   ADD PRIMARY KEY (`id_empresa`);
 
 --
+-- Indices de la tabla `entregas`
+--
+ALTER TABLE `entregas`
+  ADD PRIMARY KEY (`id_entregas`),
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_actividad` (`id_actividad`),
+  ADD KEY `id_nota` (`id_nota`);
+
+--
 -- Indices de la tabla `foro_curso`
 --
 ALTER TABLE `foro_curso`
   ADD PRIMARY KEY (`id_foro_cur`),
-  ADD KEY `id_mensaje` (`id_mensaje`);
+  ADD KEY `usuario_id_user` (`usuario_id_user`,`curso_id_curso`),
+  ADD KEY `curso_id_curso` (`curso_id_curso`);
 
 --
 -- Indices de la tabla `inscripcion`
@@ -372,15 +416,15 @@ ALTER TABLE `notas`
 --
 ALTER TABLE `periodo`
   ADD PRIMARY KEY (`id_peri`),
-  ADD KEY `ibk_1_id_empresa` (`id_empresa`);
+  ADD KEY `ibk_1_id_empresa` (`id_empresa`),
+  ADD KEY `periodo_id_cur` (`periodo_id_cur`);
 
 --
 -- Indices de la tabla `recursos`
 --
 ALTER TABLE `recursos`
   ADD PRIMARY KEY (`id_recursos`),
-  ADD KEY `id_cur` (`id_cur`,`Actividades_idActividades`,`Foro_curso_id_foro_cur`,`Sala_id_sala`),
-  ADD KEY `Foro_curso_id_foro_cur` (`Foro_curso_id_foro_cur`),
+  ADD KEY `id_cur` (`id_cur`,`Actividades_idActividades`,`Sala_id_sala`),
   ADD KEY `Actividades_idActividades` (`Actividades_idActividades`),
   ADD KEY `Sala_id_sala` (`Sala_id_sala`);
 
@@ -431,10 +475,16 @@ ALTER TABLE `empresa`
   MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `foro_curso`
+--
+ALTER TABLE `foro_curso`
+  MODIFY `id_foro_cur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de la tabla `mensaje`
 --
 ALTER TABLE `mensaje`
-  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `periodo`
@@ -459,6 +509,12 @@ ALTER TABLE `usuario`
 --
 
 --
+-- Filtros para la tabla `actividades`
+--
+ALTER TABLE `actividades`
+  ADD CONSTRAINT `actividades_ibfk_1` FOREIGN KEY (`idCurso_id_cur`) REFERENCES `cursos` (`id_cur`);
+
+--
 -- Filtros para la tabla `calificaciones`
 --
 ALTER TABLE `calificaciones`
@@ -473,10 +529,19 @@ ALTER TABLE `cursos`
   ADD CONSTRAINT `cursos_ibfk_1` FOREIGN KEY (`Empresa_id_empresa`) REFERENCES `empresa` (`id_empresa`);
 
 --
+-- Filtros para la tabla `entregas`
+--
+ALTER TABLE `entregas`
+  ADD CONSTRAINT `entregas_ibfk_1` FOREIGN KEY (`id_actividad`) REFERENCES `actividades` (`idActividades`),
+  ADD CONSTRAINT `entregas_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_user`),
+  ADD CONSTRAINT `entregas_ibfk_3` FOREIGN KEY (`id_nota`) REFERENCES `notas` (`idNotas`);
+
+--
 -- Filtros para la tabla `foro_curso`
 --
 ALTER TABLE `foro_curso`
-  ADD CONSTRAINT `foro_curso_ibfk_1` FOREIGN KEY (`id_mensaje`) REFERENCES `mensaje` (`id_mensaje`);
+  ADD CONSTRAINT `foro_curso_ibfk_1` FOREIGN KEY (`usuario_id_user`) REFERENCES `usuario` (`id_user`),
+  ADD CONSTRAINT `foro_curso_ibfk_2` FOREIGN KEY (`curso_id_curso`) REFERENCES `cursos` (`id_cur`);
 
 --
 -- Filtros para la tabla `inscripcion`
@@ -510,7 +575,6 @@ ALTER TABLE `periodo`
 -- Filtros para la tabla `recursos`
 --
 ALTER TABLE `recursos`
-  ADD CONSTRAINT `recursos_ibfk_1` FOREIGN KEY (`Foro_curso_id_foro_cur`) REFERENCES `foro_curso` (`id_foro_cur`),
   ADD CONSTRAINT `recursos_ibfk_2` FOREIGN KEY (`Actividades_idActividades`) REFERENCES `actividades` (`idActividades`),
   ADD CONSTRAINT `recursos_ibfk_3` FOREIGN KEY (`Sala_id_sala`) REFERENCES `sala` (`id_sala`);
 
