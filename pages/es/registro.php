@@ -173,7 +173,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                             </select>
                             <label for="Empresa">Empresa</label>
                         </div>
-                    </div>
+                        <!-- <div class="form-floating mb-4">
+                            <input type="text" class="Empresa form-control" aria-label="Default select example" id="Empresa" name="Empresa">
+                            <label for="Empresa">Empresa</label>
+                        </div> -->
+          </div>
 
           <div>
             <div class="form-floating mb-3">

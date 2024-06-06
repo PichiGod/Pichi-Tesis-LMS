@@ -61,7 +61,7 @@ if(isset($_SESSION['id_user'])){
           <div class="vr me-2"></div>
           <a name="regis" id="regis" class="btn btn-secundary d-flex shadow me-3" href="registro.php"
             role="button">Registrarse</a>
-          <a name="login" id="login" class="btn btn-primary me-4 d-flex shadow" href="#" role="button">Iniciar
+          <a name="login" id="login" class="btn btn-primary me-4 d-flex shadow" href="SeccionInicio.php" role="button">Iniciar
             Sesión</a>
         </div>
       </div>
@@ -71,7 +71,7 @@ if(isset($_SESSION['id_user'])){
   <section name="formulario">
      <form action="" method="post">
       <input type="hidden" name="" id="action" value="Login" class="action">
-      <div name="formulario" class="bg-pastel">
+      <div name="formulario">
         <div class="formulario pt-2 px-3 bg-blanco shadow rounded">
           <div>
             <p class="fs-1 text-center">Recuperar Contraseña</p>

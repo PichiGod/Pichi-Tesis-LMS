@@ -214,6 +214,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                             <th scope="col">Correo</th>
                             <th scope="col">Sexo</th>
                             <th scope="col">Rol</th>
+                            <th scope="col">Cursos</th>
                             <th scope="col">Opciones</th>
                         </tr>
                     </thead>
@@ -232,12 +233,16 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                     echo "Estudiante"; 
                             } ?>
                             </td>
-   
+                            <td>
+                                <ul>
+                                    <li>Ingles I</li>
+                                </ul>
+                            </td>
                             <td>
                                 <button onclick="location.href='modifUsuario.php'" class="btn btn-primary me-1">
                                     Modificar
                                 </button>
-                                <button onclick="eliminarUser();" class="btn mt-1 btn-outline-danger">
+                                <button onclick="eliminarUser();" class="btn btn-outline-danger">
                                     Eliminar
                                 </button>
                             </td>

@@ -1,22 +1,3 @@
-<?php
-
-require "../../assests/php/LoginBD.php";
-
-if (isset($_SESSION['id_user'])) {
-
-    if ($_SESSION['Login'] == true) {
-
-        header("location: Inicio.php ");
-
-    } elseif ($_SESSION['Login'] == false) {
-
-        header("location: Inicio.php ");
-
-    }
-}
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,7 +48,7 @@ if (isset($_SESSION['id_user'])) {
     <section name="formulario">
         <form action="" method="post">
             <input type="hidden" name="" id="action" value="Login" class="action">
-            <div name="formulario" class="bg-pastel">
+            <div name="formulario">
                 <div class="formulario py-2 px-3 bg-blanco shadow rounded">
                     <div>
                         <p class="fs-1 text-center">Recuperar Contraseña</p>
