@@ -11,28 +11,32 @@ function EditarComentario() {
     // Obtener datos del formulario
     $id = $_POST['id_comentario'];
     $mensaje = $_POST['mensaje'];
-    $fechahora = $_POST['fechahora']; 
-    $idCurso = $_POST['idCurso']; //idCurso del foro
-    $idUser = $_POST['idUser']; //id del Usuario original del mensaje, por si es modificado por un admin   
+    $fechahora = $_POST['fechahora'];
+    //var_dump($_POST);
 
     // Validar campos obligatorios
-    if (empty($mensaje)) {
+    if (empty($mensaje) || empty($id) || empty($fechahora)) {
         echo "Debe completar todos los campos obligatorios.";
         exit;
     }
 
     // Preparar fechas en formato YYYY-MM-DD para MySQL
-    $fechahoraMySQL = date('Y-m-d H:i', strtotime($fechahora));
+    $fechahoraMySQL = date('Y-m-d H:i ', strtotime($fechahora));
 
     // Preparar consulta SQL con la nueva actividad
-    $sql = "UPDATE foro_curso 
-            SET mensaje = '$mensaje', modif_fecha = '$fechahoraMySQL', usuario_id_user = '$idUser', curso_id_curso = '$idCurso'
-            WHERE id_foro_cur = '$id'";
+    $sql = "UPDATE foro_curso
+            SET mensaje = ?, modif_fecha = ?
+            WHERE id_foro_cur = ?";
 
-    if (mysqli_query($mysqli, $sql)) {
+    $stmt = $mysqli->prepare($sql);
+    $stmt->bind_param("ssi", $mensaje, $fechahoraMySQL, $id);
+
+    if ($stmt->execute()) {
         echo "Mensaje editado correctamente";
     } else {
-        echo "Hubo un error al enviar el mensaje.";
+        echo "Hubo un error al enviar el mensaje: " . $mysqli->error;
     }
+
+    $stmt->close();
 }
 ?>

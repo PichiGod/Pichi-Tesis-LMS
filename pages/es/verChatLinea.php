@@ -189,7 +189,7 @@ if (isset($_SESSION['id_user'])) {
         <div class="container-fluid bg-blanco mt-3 shadow">
 
             <div class="container pt-4 pb-3">
-                <a href="verCurso.php?id_cur=<?php echo $id_curso_seleccionado;?>'"><i class="fa-solid mt-2 fa-arrow-left"
+                <a href="verCurso.php?id_cur=<?php echo $id_curso_seleccionado;?>"><i class="fa-solid mt-2 fa-arrow-left"
                         style="font-size:2rem;color:black;"></i></a>
                 <!--Titulo-->
                 <div class="p-2 mb-2 rounded shadow">

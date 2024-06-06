@@ -34,6 +34,16 @@ if (isset($_SESSION['id_user'])) {
 
 if (isset($_GET['id_cur'])) {
   $id_curso_seleccionado = $_GET['id_cur'];
+  $consultaCurso = mysqli_query($mysqli, "SELECT cursos.nombre_cur, empresa.nombre_empresa
+                                    FROM cursos 
+                                    LEFT JOIN empresa ON empresa.id_empresa = cursos.Empresa_id_empresa
+                                    WHERE id_cur = '$id_curso_seleccionado'");
+
+    if (mysqli_num_rows($consultaCurso) > 0) {
+        $datos3 = mysqli_fetch_assoc($consultaCurso);
+        $curso = $datos3['nombre_cur'];
+        $empresa = $datos3['nombre_empresa'];
+      }
 
   $consultaComentarios = mysqli_query($mysqli, "SELECT Usuario.nombre_user, Usuario.apellido_user, foro_curso.id_foro_cur, foro_curso.mensaje, foro_curso.modif_fecha, foro_curso.usuario_id_user
   FROM foro_curso 
@@ -186,7 +196,7 @@ if (isset($_GET['id_cur'])) {
       <a href="verCurso.php?id_cur=<?php echo $id_curso_seleccionado ?>"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
       <!--Titulo-->
       <div class="p-2 mb-2 rounded shadow">
-        <h2><strong>Foro - Nombre del curso - Empresa</strong></h2>
+        <h2><strong>Foro - <?php echo $curso; ?> - <?php echo $empresa; ?></strong></h2>
       </div>
 
       <form action="" method="post" enctype="multipart/form-data">
@@ -246,7 +256,7 @@ if (isset($_GET['id_cur'])) {
                   <i class="fa-regular fa-pen-to-square"></i>
                 </button>
 
-                <button onclick="eliminarComentario();" title="Eliminar" class="btn btn-link m-0 p-0 ms-1">
+                <button onclick="eliminarComentario(<?php echo $comentario['id_foro_cur'] ?>);" title="Eliminar" class="btn btn-link m-0 p-0 ms-1">
                   <i class="fa-solid fa-trash"></i>
                 </button>
 
@@ -309,17 +319,20 @@ if (isset($_GET['id_cur'])) {
   </section>
 
   <script>
-    function eliminarComentario() {
+    function eliminarComentario(id) {
+      //console.log(id);
       confimar = confirm('Seguro que quiere eliminar el comentario?');
       if (confimar == true) {
-        // e.preventDefault();
+        //e.preventDefault();
         //Accion para borrar comentario
-        alert('El comentario ha sido eliminado')
+        borrarComentario(id);
+        //alert('El comentario ha sido eliminado')
       }
     }
   </script>
 
   <?php require "../../assests/php/enviarComentarioMain.php"; ?>
+  <?php require "../../assests/php/borrarComentarioMain.php"; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

@@ -17,11 +17,11 @@
 
             // Crear un objeto FormData para enviar datos
             var formData = new FormData();
-            formData.append('id_comentario', $('#ID_MSJ'))
+            formData.append('id_comentario', $('#ID_MSJ').val())
             formData.append('mensaje', $('#mensaje').val());
             formData.append('fechahora', fechaString);
-            formData.append('idCurso', $('#ID_CUR').val());
-            formData.append('idUser', $('#ID_USER').val());
+            // formData.append('idCurso', $('#ID_CUR').val());
+            // formData.append('idUser', $('#ID_USER').val());
             formData.append('action', $('#action').val())
 
             //Realizar la solicitud AJAX usando FormData para enviar datos
@@ -33,8 +33,8 @@
                 contentType: false,
                 success: function (response) {
                     alert(response);
-                    if (response === 'Comentario editado correctamente') {
-                        window.location.reload();
+                    if (response === 'Mensaje editado correctamente') {
+                        location.href=`verForo.php?id_cur=${$('#ID_CUR').val()}`;
                     }
                 },
                 error: function (xhr, status, error) {

@@ -38,6 +38,17 @@ if (isset($_SESSION['id_user'])) {
 if (isset($_GET['id_cur'])) {
     $id_curso_seleccionado = $_GET['id_cur'];
 
+    $consultaCurso = mysqli_query($mysqli, "SELECT cursos.nombre_cur, empresa.nombre_empresa
+                                    FROM cursos 
+                                    LEFT JOIN empresa ON empresa.id_empresa = cursos.Empresa_id_empresa
+                                    WHERE id_cur = '$id_curso_seleccionado'");
+
+    if (mysqli_num_rows($consultaCurso) > 0) {
+        $datos3 = mysqli_fetch_assoc($consultaCurso);
+        $curso = $datos3['nombre_cur'];
+        $empresa = $datos3['nombre_empresa'];
+      }
+
     $consultaActividades = mysqli_query($mysqli, "SELECT * FROM actividades WHERE idCurso_id_cur = '$id_curso_seleccionado'");
 
     if (mysqli_num_rows($consultaActividades) > 0) {
@@ -191,11 +202,10 @@ if (isset($_GET['id_cur'])) {
         <div class="container-fluid bg-blanco mt-3 shadow">
             <!--Titulo-->
             <div class="container pt-4 pb-3">
-                <a href="cursos.php"><i class="fa-solid mt-2 fa-arrow-left"
-                        style="font-size:2rem;color:black;"></i></a>
+                <a href="cursos.php"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
 
                 <div class="p-2 mb-2 rounded shadow ">
-                    <h2><strong>Nombre del curso - Empresa</strong></h2>
+                    <h2><strong><?php echo $curso;?> - <?php echo $empresa;?></strong></h2>
                 </div>
 
                 <div class="p-2 my-4 rounded shadow ">
