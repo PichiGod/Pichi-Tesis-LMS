@@ -6,13 +6,15 @@ if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
         $datos = mysqli_fetch_assoc($conexion1);
 
         $empresaUsuario = $datos['Empresa_id_empresa'];
+
+        $rol = $datos['rol'];
 
         $nombreUsuario = $datos['nombre_user'];
 
@@ -138,10 +140,13 @@ if (isset($_GET['id_cur'])) {
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link link-dark">
-                    <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Administrar</span>
-                </a>
+                <?php if ($rol != 0) { ?>
+                    <a href="MenuAdmin.php" class="nav_link link-dark">
+                        <i class="bx bx-cog nav_icon"></i>
+                        <span class="nav_name">Administrar</span>
+                    </a>
+                <?php }
+                ; ?>
             </div>
         </nav>
     </div>
@@ -174,9 +179,9 @@ if (isset($_GET['id_cur'])) {
 
             <input type="hidden" name="" id="action" value="CrearActividad">
 
-            <div class="container-fluid mt-3 bg-white shadow">
-                <a href="verCurso.php?id_cur=<?php echo $id_curso_seleccionado ?>"><i class="fa-solid mt-2 fa-arrow-left"
-                        style="font-size:2rem;color:black;"></i></a>
+            <div class="container-fluid mt-3 bg-blanco shadow">
+                <a href="verCurso.php?id_cur=<?php echo $id_curso_seleccionado ?>"><i
+                        class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
 
                 <div class="TituloCrearActividad">
 

@@ -8,13 +8,15 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
   $usuariosActivos = $_SESSION['usuariosActive'];
 
-  $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+  $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
   if (mysqli_num_rows($conexion1) > 0) {
 
     $datos = mysqli_fetch_assoc($conexion1);
 
     $empresaUsuario = $datos['Empresa_id_empresa'];
+
+    $rol = $datos['rol'];
 
     $nombreUsuario = $datos['nombre_user'];
 
@@ -151,10 +153,13 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           <i class="bx bxs-book nav_icon"></i>
           <span class="nav_name">Cursos</span>
         </a>
-        <a href="#" class="nav_link active ">
-          <i class="bx bx-cog nav_icon"></i>
-          <span class="nav_name">Administrar</span>
-        </a>
+        <?php if ($rol != 0) { ?>
+          <a href="#" class="nav_link active">
+            <i class="bx bx-cog nav_icon"></i>
+            <span class="nav_name">Administrar</span>
+          </a>
+        <?php }
+        ; ?>
       </div>
     </nav>
   </div>
@@ -192,45 +197,54 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
         <label for="usuario">Administrar Usuarios</label>
         <hr>
         <div id="usuario" class="col">
-          <button onclick="location.href='ingresarUsuario.php'" class="btn btn-secondary">Ingresar Usuario</button>
-          <button onclick="location.href='inscribirUsuario.php'" class="btn btn-secondary">Inscribir cursos</button>
+          <?php if ($rol == 2) { ?>
+            <button onclick="location.href='ingresarUsuario.php'" class="btn btn-secondary">Ingresar Usuario</button>
+            <button onclick="location.href='inscribirUsuario.php'" class="btn btn-secondary">Inscribir cursos</button>
+          <?php }
+          ; ?>
           <button onclick="location.href='administrarUsuario.php'" class="btn btn-secondary">Administrar
             Usuarios</button>
-          <button onclick="location.href='verRendimiento.php'" class="btn btn-secondary">Consultar rendimiento academico</button>
+          <button onclick="location.href='verRendimiento.php'" class="btn btn-secondary">Consultar rendimiento
+            academico</button>
         </div>
       </div>
 
-      <div class="row justify-content-center align-items-center g-1 mb-3">
-        <label for="cursos">Administrar Cursos</label>
-        <hr>
-        <div id="cursos" class="col">
-          <button onclick="location.href='crearCurso.php'" class="btn btn-secondary">Crear Curso</button>
-          <button onclick="location.href='administrarCurso.php'" class="btn btn-secondary">Administrar Cursos</button>
-          <button onclick="location.href='estadoCurso.php'" class="btn btn-secondary">Visibilidad/disponibilidad de
-            Curso</button>
-          <button onclick="location.href='asignarDocente.php'" class="btn btn-secondary">Asignar docente</button>
+      <?php if ($rol == 2) { ?>
+        <div class="row justify-content-center align-items-center g-1 mb-3">
+          <label for="cursos">Administrar Cursos</label>
+          <hr>
+          <div id="cursos" class="col">
+            <button onclick="location.href='crearCurso.php'" class="btn btn-secondary">Crear Curso</button>
+            <button onclick="location.href='administrarCurso.php'" class="btn btn-secondary">Administrar Cursos</button>
+            <button onclick="location.href='estadoCurso.php'" class="btn btn-secondary">Visibilidad/disponibilidad de
+              Curso</button>
+            <button onclick="location.href='asignarDocente.php'" class="btn btn-secondary">Asignar docente</button>
+          </div>
         </div>
-      </div>
 
-      <div class="row justify-content-center align-items-center g-1 mb-3">
-        <label for="cursos">Periodo Academico</label>
-        <hr>
-        <div id="cursos" class="col">
-          <button onclick="location.href='crearPeriodo.php'" class="btn btn-secondary">Crear Nuevo Periodo
-            Academico</button>
-          <button onclick="location.href='verPeriodo.php'" class="btn btn-secondary">Visualizar Periodos
-            Académicos</button>
-        </div>
-      </div>
 
-      <div class="row justify-content-center align-items-center g-1 mb-3">
-        <label for="cursos">Reporte y Respaldo</label>
-        <hr>
-        <div id="cursos" class="col">
-          <button class="btn btn-secondary">Generar Reporte</button>
-          <button class="btn btn-secondary">Generar Respaldo</button>
+        <div class="row justify-content-center align-items-center g-1 mb-3">
+          <label for="cursos">Periodo Academico</label>
+          <hr>
+          <div id="cursos" class="col">
+            <button onclick="location.href='crearPeriodo.php'" class="btn btn-secondary">Crear Nuevo Periodo
+              Academico</button>
+            <button onclick="location.href='verPeriodo.php'" class="btn btn-secondary">Visualizar Periodos
+              Académicos</button>
+          </div>
         </div>
-      </div>
+
+        <div class="row justify-content-center align-items-center g-1 mb-3">
+          <label for="cursos">Reporte y Respaldo</label>
+          <hr>
+          <div id="cursos" class="col">
+            <button class="btn btn-secondary">Generar Reporte</button>
+            <button class="btn btn-secondary">Generar Respaldo</button>
+          </div>
+        </div>
+
+      <?php }
+      ; ?>
 
     </div>
   </section>

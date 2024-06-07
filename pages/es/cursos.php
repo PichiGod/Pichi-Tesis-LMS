@@ -8,11 +8,13 @@ if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
         $datos = mysqli_fetch_assoc($conexion1);
+
+        $rol = $datos['rol'];
 
         $empresaUsuario = $datos['Empresa_id_empresa'];
 
@@ -147,10 +149,13 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link link-dark">
-                    <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Administrar</span>
-                </a>
+                <?php if ($rol != 0) { ?>
+                    <a href="MenuAdmin.php" class="nav_link link-dark">
+                        <i class="bx bx-cog nav_icon"></i>
+                        <span class="nav_name">Administrar</span>
+                    </a>
+                <?php }
+                ; ?>
             </div>
         </nav>
     </div>
@@ -178,7 +183,7 @@ if (isset($_SESSION['id_user'])) {
     </div>
 
     <section class="Cursos">
-        <div class="container-fluid bg-blanco mt-3 shadow">
+        <div class="container-fluid bg-blanco pb-3 my-3 shadow">
             <h1 class="heading"><b>Cursos Activos Actualmente</b></h1>
 
             <div class="container">
@@ -206,11 +211,14 @@ if (isset($_SESSION['id_user'])) {
                 </div>
             </div>
 
-            <div class="containerButtonCrearCurso">
-                <button type="button" class="botonCrearCurso btn btn-primary" onclick="location.href='crearCurso.php'">
-                    Crear Nuevo Curso
-                </button>
-            </div>
+            <?php if ($rol == 2) { ?>
+                <div class="containerButtonCrearCurso">
+                    <button type="button" class="botonCrearCurso btn btn-primary" onclick="location.href='crearCurso.php'">
+                        Crear Nuevo Curso
+                    </button>
+                </div>
+            <?php }
+            ; ?>
         </div>
     </section>
 

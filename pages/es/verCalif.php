@@ -7,13 +7,15 @@ if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
         $datos = mysqli_fetch_assoc($conexion1);
 
         $empresaUsuario = $datos['Empresa_id_empresa'];
+
+        $rol = $datos['rol'];
 
         $nombreUsuario = $datos['nombre_user'];
 
@@ -138,10 +140,13 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bx-news nav_icon"></i>
                     <span class="nav_name">Evaluaciones</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link link-dark">
-                    <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Configuración</span>
-                </a>
+                <?php if ($rol != 0) { ?>
+                    <a href="MenuAdmin.php" class="nav_link link-dark">
+                        <i class="bx bx-cog nav_icon"></i>
+                        <span class="nav_name">Administrar</span>
+                    </a>
+                <?php }
+                ; ?>
             </div>
         </nav>
     </div>
@@ -174,11 +179,12 @@ if (isset($_SESSION['id_user'])) {
             <a href="verCurso.php"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
             <p class="fs-1 pt-2"><strong>Calificaciones</strong></p>
 
-            <select class="form-select mb-2" style="width: auto;" aria-label="Default select example">
+            Aqui solo pones el curso de donde se entro a la seccion de notas
+            <select class="form-select mb-2" style="width: auto;" aria-label="Default select example" disabled>
                 <option selected>#0001 Ingles - N1664</option>
-                <option value="1">#0002 Progamacion en PHP - N1664</option>
+                <!-- <option value="1">#0002 Progamacion en PHP - N1664</option>
                 <option value="2">#0003 Programacion Web - N1664</option>
-                <option value="3">#0004 Frances - N1664</option>
+                <option value="3">#0004 Frances - N1664</option> -->
             </select>
 
             <div class="table-responsive">

@@ -6,7 +6,7 @@ if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT id_user, Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT id_user, Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
@@ -17,6 +17,8 @@ if (isset($_SESSION['id_user'])) {
         $nombreUsuario = $datos['nombre_user'];
 
         $apellidoUsuario = $datos['apellido_user'];
+
+        $rol = $datos['rol'];
 
         $idUser = $datos['id_user'];
 
@@ -154,10 +156,13 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bx-news nav_icon"></i>
                     <span class="nav_name">Evaluaciones</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link link-dark">
-                    <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Administrar</span>
-                </a>
+                <?php if ($rol != 0) { ?>
+                    <a href="MenuAdmin.php" class="nav_link link-dark">
+                        <i class="bx bx-cog nav_icon"></i>
+                        <span class="nav_name">Administrar</span>
+                    </a>
+                <?php }
+                ; ?>
             </div>
         </nav>
     </div>
@@ -189,8 +194,8 @@ if (isset($_SESSION['id_user'])) {
         <div class="container-fluid bg-blanco mt-3 shadow">
 
             <div class="container pt-4 pb-3">
-                <a href="verCurso.php?id_cur=<?php echo $id_curso_seleccionado;?>"><i class="fa-solid mt-2 fa-arrow-left"
-                        style="font-size:2rem;color:black;"></i></a>
+                <a href="verCurso.php?id_cur=<?php echo $id_curso_seleccionado; ?>"><i
+                        class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
                 <!--Titulo-->
                 <div class="p-2 mb-2 rounded shadow">
                     <h2><strong>Nombre del curso - Empresa </strong></h2>

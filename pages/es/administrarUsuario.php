@@ -8,11 +8,13 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
     $usuariosActivos = $_SESSION['usuariosActive'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
         $datos = mysqli_fetch_assoc($conexion1);
+
+        $rol = $datos['rol'];
 
         $empresaUsuario = $datos['Empresa_id_empresa'];
 
@@ -30,8 +32,8 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
             $conexionConsultaBBDD = mysqli_query($mysqli, "SELECT * FROM usuario WHERE Empresa_id_empresa = '$empresaUsuario'");
 
-            if(mysqli_num_rows($conexionConsultaBBDD)> 0 ){
-                   
+            if (mysqli_num_rows($conexionConsultaBBDD) > 0) {
+
                 $datos3 = mysqli_fetch_assoc($conexionConsultaBBDD);
 
                 $usuarios[] = $datos3;
@@ -162,10 +164,13 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link active ">
-                    <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Administrar</span>
-                </a>
+                <?php if ($rol != 0) { ?>
+                    <a href="MenuAdmin.php" class="nav_link active">
+                        <i class="bx bx-cog nav_icon"></i>
+                        <span class="nav_name">Administrar</span>
+                    </a>
+                <?php }
+                ; ?>
             </div>
         </nav>
     </div>
@@ -194,8 +199,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
     <!--Contenido-->
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-            <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
-                    style="font-size:2rem;color:black;"></i></a>
+            <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2">Administrar Usuario</h1>
 
             <form class="d-flex" role="search">
@@ -215,38 +219,44 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                             <th scope="col">Sexo</th>
                             <th scope="col">Rol</th>
                             <th scope="col">Cursos</th>
-                            <th scope="col">Opciones</th>
+                            <?php if ($rol == 2) { ?>
+                                <th scope="col">Opciones</th>
+                            <?php }
+                            ; ?>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($usuarios as $usuario){ ?>
-                        <tr>
-                            <th scope="row"><?php echo $usuario['identificacion_user']; ?></th>
-                            <td><?php echo $usuario['nombre_user']; ?></td>
-                            <td><?php echo $usuario['apellido_user']; ?></td>
-                            <td><?php echo $usuario['direccion_user']; ?></td>
-                            <td><?php echo $usuario['correo_user']; ?></td>
-                            <td><?php echo $usuario['sexo_user']; ?></td>
-                            <td>
-                            <?php if($usuario['rol']==0){
+                        <?php foreach ($usuarios as $usuario) { ?>
+                            <tr>
+                                <th scope="row"><?php echo $usuario['identificacion_user']; ?></th>
+                                <td><?php echo $usuario['nombre_user']; ?></td>
+                                <td><?php echo $usuario['apellido_user']; ?></td>
+                                <td><?php echo $usuario['direccion_user']; ?></td>
+                                <td><?php echo $usuario['correo_user']; ?></td>
+                                <td><?php echo $usuario['sexo_user']; ?></td>
+                                <td>
+                                    <?php if ($usuario['rol'] == 0) {
 
-                                    echo "Estudiante"; 
-                            } ?>
-                            </td>
-                            <td>
-                                <ul>
-                                    <li>Ingles I</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <button onclick="location.href='modifUsuario.php'" class="btn btn-primary me-1">
-                                    Modificar
-                                </button>
-                                <button onclick="eliminarUser();" class="btn btn-outline-danger">
-                                    Eliminar
-                                </button>
-                            </td>
-                        </tr>
+                                        echo "Estudiante";
+                                    } ?>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>Ingles I</li>
+                                    </ul>
+                                </td>
+                                <?php if ($rol == 2) { ?>
+                                    <td>
+                                        <button onclick="location.href='modifUsuario.php'" class="btn btn-primary me-1">
+                                            Modificar
+                                        </button>
+                                        <button onclick="eliminarUser();" class="btn btn-outline-danger">
+                                            Eliminar
+                                        </button>
+                                    </td>
+                                <?php }
+                                ; ?>
+                            </tr>
                         <?php } ?>
                     </tbody>
                 </table>

@@ -6,11 +6,13 @@ if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
         $datos = mysqli_fetch_assoc($conexion1);
+
+        $rol = $datos['rol'];
 
         $empresaUsuario = $datos['Empresa_id_empresa'];
 
@@ -162,10 +164,13 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bx-news nav_icon"></i>
                     <span class="nav_name">Evaluaciones</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link link-dark">
-                    <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Administrar</span>
-                </a>
+                <?php if ($rol != 0) { ?>
+                    <a href="MenuAdmin.php" class="nav_link link-dark">
+                        <i class="bx bx-cog nav_icon"></i>
+                        <span class="nav_name">Administrar</span>
+                    </a>
+                <?php }
+                ; ?>
             </div>
         </nav>
     </div>
@@ -233,7 +238,8 @@ if (isset($_SESSION['id_user'])) {
                         <div class="card-body">
                             <h4 class="card-title">Estudiante Seleccionado</h4>
                             <p class="card-text">Nombre estudiante</p>
-                            <textarea class="card-text form-control" rows="3" name="" id="" disabled>Mensaje del estudiante</textarea>
+                            <textarea class="card-text form-control" rows="3" name="" id=""
+                                disabled>Mensaje del estudiante</textarea>
                             <h4 class="card-title">Archivos entregados</h4>
                             <ul class="list-group">
                                 <li class="list-group-item">

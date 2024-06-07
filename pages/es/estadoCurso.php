@@ -8,11 +8,13 @@ if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
         $datos = mysqli_fetch_assoc($conexion1);
+
+        $rol = $datos['rol'];
 
         $empresaUsuario = $datos['Empresa_id_empresa'];
 
@@ -162,10 +164,13 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link active ">
-                    <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Administrar</span>
-                </a>
+                <?php if ($rol != 0) { ?>
+                    <a href="MenuAdmin.php" class="nav_link active">
+                        <i class="bx bx-cog nav_icon"></i>
+                        <span class="nav_name">Administrar</span>
+                    </a>
+                <?php }
+                ; ?>
             </div>
         </nav>
     </div>
@@ -196,8 +201,7 @@ if (isset($_SESSION['id_user'])) {
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
 
-            <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
-                    style="font-size:2rem;color:black;"></i></a>
+            <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2">Visibilidad Curso</h1>
             <h4 class="text-center fw-light">Haga click en un curso para seleccionar</h4>
 
@@ -222,21 +226,21 @@ if (isset($_SESSION['id_user'])) {
                         </thead>
                         <tbody id="tableBody">
                             <?php foreach ($cursos as $curso) { ?>
-                            <tr onclick="selectRow(this);">
-                                <td scope="row">
-                                    <?php echo $curso['id_cur']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $curso['nombre_cur']; ?>
-                                </td>
-                                <td>Pichongo</td>
-                                <td>
-                                    <span
-                                        class="badge <?php echo $curso['visibilidad_curso'] === 'Visible' ? 'text-bg-success' : 'text-bg-danger'; ?>">
-                                        <?php echo $curso['visibilidad_curso']; ?>
-                                    </span>
-                                </td>
-                            </tr>
+                                <tr onclick="selectRow(this);">
+                                    <td scope="row">
+                                        <?php echo $curso['id_cur']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $curso['nombre_cur']; ?>
+                                    </td>
+                                    <td>Pichongo</td>
+                                    <td>
+                                        <span
+                                            class="badge <?php echo $curso['visibilidad_curso'] === 'Visible' ? 'text-bg-success' : 'text-bg-danger'; ?>">
+                                            <?php echo $curso['visibilidad_curso']; ?>
+                                        </span>
+                                    </td>
+                                </tr>
                             <?php } ?>
                         </tbody>
                     </table>
@@ -298,10 +302,10 @@ if (isset($_SESSION['id_user'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
-    </script>
+        </script>
 </body>
 
 </html>

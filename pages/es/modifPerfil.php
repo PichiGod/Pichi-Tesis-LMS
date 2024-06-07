@@ -16,6 +16,8 @@ if (isset($_SESSION['id_user'])) {
 
         $empresaUsuario = $datos['Empresa_id_empresa'];
 
+        $rol = $datos['rol'];
+
         $nombreUsuario = $datos['nombre_user'];
 
         $apellidoUsuario = $datos['apellido_user'];
@@ -152,10 +154,13 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link link-dark">
-                    <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Administrar</span>
-                </a>
+                <?php if ($rol != 0) { ?>
+                    <a href="MenuAdmin.php" class="nav_link link-dark">
+                        <i class="bx bx-cog nav_icon"></i>
+                        <span class="nav_name">Administrar</span>
+                    </a>
+                <?php }
+                ; ?>
             </div>
         </nav>
     </div>
@@ -185,8 +190,7 @@ if (isset($_SESSION['id_user'])) {
     <!--Contenido Usuario-->
     <section>
         <div class="container-fluid bg-blanco my-3 shadow">
-            <a href="verUser.php"><i class="fa-solid mt-2" fa-arrow-left"
-                    style="font-size:2rem;color:black;"></i></a>
+            <a href="verUser.php"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
             <h3 class="text-center pt-2">Modificar Perfil</h3>
             <div class="row d-flex align-items-center">
                 <div class="col-lg-4 ">
@@ -233,41 +237,6 @@ if (isset($_SESSION['id_user'])) {
                                 </div>
                             </form>
 
-                            <!-- <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0">Fecha de Nacimiento</p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0">12 / 07 / 2002</p>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0">Telefono</p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0">(097) 234-5678</p>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0">Sexo</p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0">Masculino</p>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0">Dirección</p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0">Manolo Cabeza de Huevo</p>
-                                </div>
-                            </div> -->
                         </div>
                     </div>
                 </div>

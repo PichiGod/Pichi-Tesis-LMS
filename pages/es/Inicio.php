@@ -8,7 +8,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
     $usuariosActivos = $_SESSION['usuariosActive'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
@@ -19,6 +19,8 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
         $nombreUsuario = $datos['nombre_user'];
 
         $apellidoUsuario = $datos['apellido_user'];
+
+        $rol = $datos['rol'];
 
         $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
 
@@ -56,7 +58,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Perfil de Usuario</title>
+    <title>Inicio - Pichi</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -162,17 +164,20 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <span class="nav_name">Inicio</span>
                 </a>
                 <a href="tutorial.php" class="nav_link link-dark">
-                    <i class="bx bx-user nav_icon"></i>
+                    <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
                 <a href="cursos.php" class="nav_link link-dark">
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link link-dark">
-                    <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Administrar</span>
-                </a>
+                <?php if ($rol != 0) { ?>
+                    <a href="MenuAdmin.php" class="nav_link link-dark">
+                        <i class="bx bx-cog nav_icon"></i>
+                        <span class="nav_name">Administrar</span>
+                    </a>
+                <?php }
+                ; ?>
             </div>
         </nav>
     </div>
@@ -202,12 +207,13 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
     <!--Contenido Inicio-->
     <section>
         <div class="container-fluid bg-blanco mt-3 rounded shadow">
-            <span class="fs-1"><strong>Bienvenido al gestor de aprendizaje, <?php echo $nombreUsuario . " " . $apellidoUsuario; ?>!
+            <span class="fs-1"><strong>Bienvenido al gestor de aprendizaje,
+                    <?php echo $nombreUsuario . " " . $apellidoUsuario; ?>!
                 </strong></span>
         </div>
         <div class="container-fluid bg-blanco mt-3 pt-3 pb-3 mb-3 rounded shadow">
             <div class="row gx-3 gy-2">
-                <div class="col-sm col-md-5">
+                <div class="col-sm col-md-7">
                     <div
                         class="text-center border border-1 border-secondary border-opacity-50  shadow bg-secondary-subtle">
                         <p class="mb-0"><strong>Cursos Inscritos</strong></p>
@@ -257,7 +263,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                             <div class="row g-0">
                                                 <div class="col-md-4">
                                                     <img src="https://github.com/PichiGod.png"
-                                                        class="img-fluid rounded-start" alt="...">
+                                                        class="img-fluid rounded-start" width="150" alt="...">
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
@@ -285,7 +291,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                             <div class="row g-0">
                                                 <div class="col-md-4">
                                                     <img src="https://github.com/PichiGod.png"
-                                                        class="img-fluid rounded-start" alt="...">
+                                                        class="img-fluid rounded-start" width="150" alt="...">
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
@@ -310,7 +316,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                             </div>
                             <div>
                                 <div class="oval">
-                                    <p class="mt-3 "><strong><?php echo $usuariosActivos; ?> / 20</strong></p>
+                                    <p class="mt-3 "><strong><?php echo $usuariosActivos; ?></strong></p>
                                 </div>
                             </div>
                         </div>
@@ -320,7 +326,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     </div>
 
                 </div>
-                <div class="col-sm">
+                <!-- <div class="col-sm">
                     <div
                         class="text-center border border-1 border-secondary border-opacity-50 pb-3 shadow bg-secondary-subtle">
                         <div class="d-flex flex-column justify-content-center align-items-center">
@@ -336,7 +342,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
                     </div>
 
-                </div>
+                </div> -->
             </div>
             <hr class="mx-5">
             <div class="row gx-3 gy-3">
@@ -369,7 +375,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                         border-opacity-50  shadow bg-secondary-subtle">
                         <div class="d-flex flex-column">
                             <div>
-                                <p class="mb-0 ms-2 fw-bold fs-5" >Ingles</p>
+                                <p class="mb-0 ms-2 fw-bold fs-5">Ingles</p>
                             </div>
                             <div>
                                 <p class="ms-2 mb-0 fs-5">Verbo To-Be</p>

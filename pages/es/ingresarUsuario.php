@@ -8,13 +8,15 @@ if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
         $datos = mysqli_fetch_assoc($conexion1);
 
         $empresaUsuario = $datos['Empresa_id_empresa'];
+
+        $rol = $datos['rol'];
 
         $nombreUsuario = $datos['nombre_user'];
 
@@ -143,10 +145,13 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link active ">
-                    <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Administrar</span>
-                </a>
+                <?php if ($rol != 0) { ?>
+                    <a href="MenuAdmin.php" class="nav_link active">
+                        <i class="bx bx-cog nav_icon"></i>
+                        <span class="nav_name">Administrar</span>
+                    </a>
+                <?php }
+                ; ?>
             </div>
         </nav>
     </div>
@@ -176,110 +181,110 @@ if (isset($_SESSION['id_user'])) {
     <!--Contenido-->
     <section>
         <form action="" method="post">
-        <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-            <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
-                    style="font-size:2rem;color:black;"></i></a>
-            <h1 class="text-center pt-2">Ingresar Usuario</h1>
+            <div class="container-fluid bg-blanco my-3 pb-2 shadow">
+                <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
+                        style="font-size:2rem;color:black;"></i></a>
+                <h1 class="text-center pt-2">Ingresar Usuario</h1>
 
-            <form action="" method="post">
-                <input type="hidden" name="" id="action" value="Register">
-                <div name="formulario">
+                <form action="" method="post">
+                    <input type="hidden" name="" id="action" value="Register">
+                    <div name="formulario">
 
-                    <hr class="mx-5" />
+                        <hr class="mx-5" />
 
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="nombreUsuario form-control form" name="formId1" id="nombreUsuario"
-                                placeholder="" />
-                            <label for="formId1">Nombre de usuario</label>
+                        <div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="nombreUsuario form-control form" name="formId1"
+                                    id="nombreUsuario" placeholder="" />
+                                <label for="formId1">Nombre de usuario</label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="apellidoUsuario form-control form" name="formId1"
-                                id="apellidoUsuario" placeholder="" />
-                            <label for="formId1">Apellido de usuario</label>
+                        <div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="apellidoUsuario form-control form" name="formId1"
+                                    id="apellidoUsuario" placeholder="" />
+                                <label for="formId1">Apellido de usuario</label>
+                            </div>
                         </div>
-                    </div>
 
 
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="email" class="correoUsuario form-control form" name="formId1"
-                                id="correoUsuario" placeholder="" />
-                            <label for="">Correo Electronico</label>
+                        <div>
+                            <div class="form-floating mb-3">
+                                <input type="email" class="correoUsuario form-control form" name="formId1"
+                                    id="correoUsuario" placeholder="" />
+                                <label for="">Correo Electronico</label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="number" class="rifUsuario form-control form" name="formId2" id="rifUsuario"
-                                placeholder="" />
-                            <label for="formId1">Cedula</label>
+                        <div>
+                            <div class="form-floating mb-3">
+                                <input type="number" class="rifUsuario form-control form" name="formId2" id="rifUsuario"
+                                    placeholder="" />
+                                <label for="formId1">Cedula</label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="contrasenaUsuario form-control form" name="formId3"
-                                id="contrasenaUsuario" placeholder="" />
-                            <label for="formId1">Contraseña</label>
+                        <div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="contrasenaUsuario form-control form" name="formId3"
+                                    id="contrasenaUsuario" placeholder="" />
+                                <label for="formId1">Contraseña</label>
+                            </div>
                         </div>
-                    </div>
 
 
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="direccionUsuario form-control form" name="formId3"
-                                id="direccionUsuario" placeholder="" />
-                            <label for="formId1">Dirección</label>
+                        <div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="direccionUsuario form-control form" name="formId3"
+                                    id="direccionUsuario" placeholder="" />
+                                <label for="formId1">Dirección</label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div>
+                        <div>
+                            <div class="form-floating mb-4">
+                                <select class="GeneroUsuario form-select" aria-label="Default select example"
+                                    id="GeneroUsuario">
+                                    <option selected>Masculino</option>
+                                    <option value="1">Femenino</option>
+                                </select>
+                                <label for="formId1">Genero</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="form-floating mb-4">
+                                <select class="Empresa form-select" aria-label="Default select example" id="Empresa"
+                                    name="Empresa">
+                                    <option selected disabled>Aqui quiero que la unica opcion sea la empresa del admin
+                                    </option>
+                                    <?php foreach ($empresas as $empresa): ?>
+                                        <option value="<?php echo $empresa; ?>"><?php echo $empresa; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <label for="Empresa">Empresa</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="form-floating mb-3">
+                                <input type="date" class="fechaNacimiento form-control" id="fechaNacimiento"
+                                    name="fecha">
+                                <label for="formId1">Fecha de Nacimineto</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="form-floating mb-3 w-auto align-self-center">
+                                <input type="number" class="telefonoUsuario form-control" name="formId1"
+                                    id="telefonoUsuario" placeholder="" />
+                                <label for="formId1">Telefono</label>
+                            </div>
+                        </div>
+
                         <div class="form-floating mb-4">
-                            <select class="GeneroUsuario form-select" aria-label="Default select example"
-                                id="GeneroUsuario">
-                                <option selected>Masculino</option>
-                                <option value="1">Femenino</option>
-                            </select>
-                            <label for="formId1">Genero</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-4">
-                            <select class="Empresa form-select" aria-label="Default select example" id="Empresa"
-                                name="Empresa">
-                                <option selected disabled>Aqui quiero que la unica opcion sea la empresa del admin
-                                </option>
-                                <?php foreach ($empresas as $empresa): ?>
-                                    <option value="<?php echo $empresa; ?>"><?php echo $empresa; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <label for="Empresa">Empresa</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3">
-                            <input type="date" class="fechaNacimiento form-control" id="fechaNacimiento" name="fecha">
-                            <label for="formId1">Fecha de Nacimineto</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="form-floating mb-3 w-auto align-self-center">
-                            <input type="number" class="telefonoUsuario form-control" name="formId1"
-                                id="telefonoUsuario" placeholder="" />
-                            <label for="formId1">Telefono</label>
-                        </div>
-                    </div>
-
-                    <div class="form-floating mb-4">
-                            <select class="rbRol form-select" aria-label="Default select example"
-                                id="rbRol">
+                            <select class="rbRol form-select" aria-label="Default select example" id="rbRol">
                                 <option selected>Estudiante</option>
                                 <option value="1">Profesor</option>
                             </select>
@@ -293,8 +298,8 @@ if (isset($_SESSION['id_user'])) {
                         </button>
                     </div>
 
-                </div>
-            </form>
+            </div>
+        </form>
         </div>
         </form>
     </section>
@@ -306,11 +311,11 @@ if (isset($_SESSION['id_user'])) {
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
 
-<?php
+    <?php
 
-require "../../assests/php/ingresarUsuarioAdminMain.php";
+    require "../../assests/php/ingresarUsuarioAdminMain.php";
 
-?>
+    ?>
 </body>
 
 </html>

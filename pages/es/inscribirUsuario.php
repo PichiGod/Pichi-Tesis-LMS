@@ -18,7 +18,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
     $usuariosActivos = $_SESSION['usuariosActive'];
 
     // Consulta para obtener datos del usuario actual
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     // Verificar si se encontró el usuario actual
     if (mysqli_num_rows($conexion1) > 0) {
@@ -26,6 +26,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
         // Extraer datos del usuario actual
         $datos = mysqli_fetch_assoc($conexion1);
         $empresaUsuario = $datos['Empresa_id_empresa'];
+        $rol1 = $datos['rol'];
         $nombreUsuario = $datos['nombre_user'];
         $apellidoUsuario = $datos['apellido_user'];
 
@@ -192,10 +193,13 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link active ">
-                    <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Administrar</span>
-                </a>
+                <?php if ($rol1 != 0) { ?>
+                    <a href="MenuAdmin.php" class="nav_link active">
+                        <i class="bx bx-cog nav_icon"></i>
+                        <span class="nav_name">Administrar</span>
+                    </a>
+                <?php }
+                ; ?>
             </div>
         </nav>
     </div>
@@ -224,7 +228,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
     <!--Contenido-->
     <section>
-    <form action="" method="post">
+        <form action="" method="post">
             <div class="container-fluid bg-blanco my-3 pb-2 shadow">
                 <!-- Formulario de búsqueda -->
                 <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
@@ -233,7 +237,8 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                 <h1 class="text-center pt-2">Inscribir Usuario</h1>
                 <form class="d-flex" role="search" method="GET" action="">
                     <div class="input-group">
-                        <input class="form-control me-2" type="search" placeholder="Ingrese Identificación" aria-label="Search" name="identificacion" value="<?php echo $identificacion; ?>">
+                        <input class="form-control me-2" type="search" placeholder="Ingrese Identificación"
+                            aria-label="Search" name="identificacion" value="<?php echo $identificacion; ?>">
                         <button class="btn btn-outline-success" type="submit">Buscar</button>
                     </div>
                 </form>

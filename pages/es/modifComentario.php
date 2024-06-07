@@ -6,13 +6,15 @@ if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
         $datos = mysqli_fetch_assoc($conexion1);
 
         $empresaUsuario = $datos['Empresa_id_empresa'];
+
+        $rol = $datos['rol'];
 
         $nombreUsuario = $datos['nombre_user'];
 
@@ -149,10 +151,13 @@ if (isset($_GET['id_cur']) && isset($_GET['idComen'])) {
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link link-dark">
-                    <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Administrar</span>
-                </a>
+                <?php if ($rol != 0) { ?>
+                    <a href="MenuAdmin.php" class="nav_link link-dark">
+                        <i class="bx bx-cog nav_icon"></i>
+                        <span class="nav_name">Administrar</span>
+                    </a>
+                <?php }
+                ; ?>
             </div>
         </nav>
     </div>
@@ -195,8 +200,10 @@ if (isset($_GET['id_cur']) && isset($_GET['idComen'])) {
 
                         <input type="hidden" name="ID_MSJ" id="ID_MSJ" class="ID_MSJ"
                             value="<?php echo $comentario['id_foro_cur'] ?>">
-                        <input type="hidden" name="ID_CUR" id="ID_CUR" class="ID_CUR" value="<?php echo $comentario['curso_id_curso'] ?>">
-                        <input type="hidden" name="ID_USER" id="ID_USER" class="ID_USER" value="<?php echo $comentario['usuario_id_user'] ?>">
+                        <input type="hidden" name="ID_CUR" id="ID_CUR" class="ID_CUR"
+                            value="<?php echo $comentario['curso_id_curso'] ?>">
+                        <input type="hidden" name="ID_USER" id="ID_USER" class="ID_USER"
+                            value="<?php echo $comentario['usuario_id_user'] ?>">
                         <input type="hidden" name="" id="action" value="EditarComentario">
 
                         <div class="rounded ">

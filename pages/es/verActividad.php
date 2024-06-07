@@ -7,13 +7,15 @@ if (isset($_SESSION['id_user'])) {
     $usuarios1 = $_SESSION['id_user'];
     $conexion1 = mysqli_query(
         $mysqli,
-        "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'"
+        "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'"
     );
     if (mysqli_num_rows($conexion1) > 0) {
 
         $datos = mysqli_fetch_assoc($conexion1);
 
         $empresaUsuario = $datos['Empresa_id_empresa'];
+
+        $rol = $datos['rol'];
 
         $nombreUsuario = $datos['nombre_user'];
 
@@ -143,10 +145,13 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bx-news nav_icon"></i>
                     <span class="nav_name">Evaluaciones</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link link-dark">
-                    <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Administrar</span>
-                </a>
+                <?php if ($rol != 0) { ?>
+                    <a href="MenuAdmin.php" class="nav_link link-dark">
+                        <i class="bx bx-cog nav_icon"></i>
+                        <span class="nav_name">Administrar</span>
+                    </a>
+                <?php }
+                ; ?>
             </div>
         </nav>
     </div>
@@ -185,7 +190,7 @@ if (isset($_SESSION['id_user'])) {
                     <h2><strong>Nombre de la actividad - Empresa</strong></h2>
                 </div>
 
-                Descripcion (Borra esto)
+                Descripción
                 <div class="bg-white rounded border py-1 ">
                     <p class="mb-0 ms-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quae
                         odio
@@ -239,7 +244,7 @@ if (isset($_SESSION['id_user'])) {
                                 <label for="formFileMultiple" class="form-label">Seleccionar archivos...</label>
                                 <input class="form-control" type="file" id="formFileMultiple" multiple>
                             </div>
-                            
+
                             <p class="mb-0"><strong>Inserta un texto</strong></p>
                             <div id="editor">
                             </div>
@@ -328,22 +333,27 @@ if (isset($_SESSION['id_user'])) {
                     </div>
                 </div>
 
-                <hr>
+                <?php if ($rol != 0) { ?>
 
-                <div>
-                    Esta seccion es para el profesor
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Opciones</h4>
-                            <button onclick="location.href='asignarNota.php'" class="btn btn-primary">Asignar
-                                nota</button>
-                            <button onclick="location.href='editarNota.php'" class="btn btn-secondary">Editar
-                                nota</button>
-                            <button onclick="location.href='editarActividad.php'"
-                                class="btn btn-outline-secondary">Editar Actividad</button>
+                    <hr>
+
+                    <div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Opciones</h4>
+                                <button onclick="location.href='asignarNota.php'" class="btn btn-primary">Asignar
+                                    nota</button>
+                                <button onclick="location.href='editarNota.php'" class="btn btn-secondary">Editar
+                                    nota</button>
+                                <button onclick="location.href='editarActividad.php'"
+                                    class="btn btn-outline-secondary">Editar Actividad</button>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                <?php }
+                ; ?>
 
             </div>
         </div>

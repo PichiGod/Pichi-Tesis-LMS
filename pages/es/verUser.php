@@ -30,6 +30,8 @@ if (isset($_SESSION['id_user'])) {
 
     $direccionUsuario = $datos['direccion_user'];
 
+    $rol = $datos['rol'];
+
     $fechaNacimientoFormateada = date('d-m-Y', strtotime(str_replace('/', '-', $fechaNacimiento)));
 
     $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
@@ -160,10 +162,13 @@ if (isset($_SESSION['id_user'])) {
           <i class="bx bxs-book nav_icon"></i>
           <span class="nav_name">Cursos</span>
         </a>
-        <a href="MenuAdmin.php" class="nav_link link-dark">
-          <i class="bx bx-cog nav_icon"></i>
-          <span class="nav_name">Administrar</span>
-        </a>
+        <?php if ($rol != 0) { ?>
+          <a href="MenuAdmin.php" class="nav_link link-dark">
+            <i class="bx bx-cog nav_icon"></i>
+            <span class="nav_name">Administrar</span>
+          </a>
+        <?php }
+        ; ?>
       </div>
     </nav>
   </div>

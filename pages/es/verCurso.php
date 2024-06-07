@@ -7,7 +7,7 @@ if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
@@ -18,6 +18,8 @@ if (isset($_SESSION['id_user'])) {
         $nombreUsuario = $datos['nombre_user'];
 
         $apellidoUsuario = $datos['apellido_user'];
+
+        $rol = $datos['rol'];
 
         $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
 
@@ -47,7 +49,7 @@ if (isset($_GET['id_cur'])) {
         $datos3 = mysqli_fetch_assoc($consultaCurso);
         $curso = $datos3['nombre_cur'];
         $empresa = $datos3['nombre_empresa'];
-      }
+    }
 
     $consultaActividades = mysqli_query($mysqli, "SELECT * FROM actividades WHERE idCurso_id_cur = '$id_curso_seleccionado'");
 
@@ -159,7 +161,7 @@ if (isset($_GET['id_cur'])) {
                     <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
-                <a href="verCurso.php" class="nav_link active">
+                <a href="cursos.php" class="nav_link active">
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
@@ -167,10 +169,13 @@ if (isset($_GET['id_cur'])) {
                     <i class="bx bx-news nav_icon"></i>
                     <span class="nav_name">Evaluaciones</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link link-dark">
-                    <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Administrar</span>
-                </a>
+                <?php if ($rol != 0) { ?>
+                    <a href="MenuAdmin.php" class="nav_link link-dark">
+                        <i class="bx bx-cog nav_icon"></i>
+                        <span class="nav_name">Administrar</span>
+                    </a>
+                <?php }
+                ; ?>
             </div>
         </nav>
     </div>
@@ -199,17 +204,17 @@ if (isset($_GET['id_cur'])) {
 
     <section class="Cursos">
 
-        <div class="container-fluid bg-blanco mt-3 shadow">
+        <div class="container-fluid mb-4 bg-blanco mt-3 shadow">
             <!--Titulo-->
             <div class="container pt-4 pb-3">
                 <a href="cursos.php"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
 
                 <div class="p-2 mb-2 rounded shadow ">
-                    <h2><strong><?php echo $curso;?> - <?php echo $empresa;?></strong></h2>
+                    <h2><strong><?php echo $curso; ?> - <?php echo $empresa; ?></strong></h2>
                 </div>
 
                 <div class="p-2 my-4 rounded shadow ">
-                    <h4>Esenciales (Para las cosas que siempre va a tener un curso. Osea el Foro y el chat)</h4>
+                    <h4>Esenciales</h4>
                 </div>
 
                 <div class="item-recurso container bg-secondary-subtle text-secondary-emphasis mt-3 p-3">
@@ -251,17 +256,19 @@ if (isset($_GET['id_cur'])) {
                     </div>
                 </div>
 
-                <div>
-                    <hr>
-                    Solo para admins y profesores
+                <?php if ($rol != 0) { ?>
                     <div>
-                        <button onclick="location.href='crearRecurso.php'" class="btn btn-primary">Crear
-                            Recurso</button>
+                        <hr>
+                        <div>
+                            <button onclick="location.href='crearRecurso.php'" class="btn btn-primary">Crear
+                                Recurso</button>
+                        </div>
                     </div>
-                </div>
+                <?php }
+                ; ?>
 
                 <div class="p-2 my-4 rounded shadow ">
-                    <h4>Actividades (Estrictamente para actividades de la materia como tareas/entregas)</h4>
+                    <h4>Actividades</h4>
                 </div>
 
                 <?php
@@ -299,10 +306,15 @@ if (isset($_GET['id_cur'])) {
                     <button type="button" class="botonRegresar btn btn-primary"
                         onclick="location.href='cursos.php'">Regresar</button>
 
-                    <button type="button" class="botonCrearCursoFin btn btn-primary"
-                        onclick="location.href='crearActividad.php?id_cur=<?php echo $id_curso_seleccionado; ?>'">
-                        Crear Actividad
-                    </button>
+                    <?php if ($rol != 0) { ?>
+
+                        <button type="button" class="botonCrearCursoFin btn btn-primary"
+                            onclick="location.href='crearActividad.php?id_cur=<?php echo $id_curso_seleccionado; ?>'">
+                            Crear Actividad
+                        </button>
+
+                    <?php }
+                    ; ?>
 
                 </div>
 

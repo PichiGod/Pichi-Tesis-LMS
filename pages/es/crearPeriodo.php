@@ -8,11 +8,13 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
   $usuariosActivos = $_SESSION['usuariosActive'];
 
-  $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+  $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
   if (mysqli_num_rows($conexion1) > 0) {
 
     $datos = mysqli_fetch_assoc($conexion1);
+
+    $rol = $datos['rol'];
 
     $empresaUsuario = $datos['Empresa_id_empresa'];
 
@@ -36,7 +38,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
     while ($row = mysqli_fetch_assoc($conexion3)) {
       $cursosCantidad[] = $row;
-  }
+    }
 
 
   }
@@ -148,10 +150,13 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           <i class="bx bxs-book nav_icon"></i>
           <span class="nav_name">Cursos</span>
         </a>
-        <a href="MenuAdmin.php" class="nav_link active ">
-          <i class="bx bx-cog nav_icon"></i>
-          <span class="nav_name">Administrar</span>
-        </a>
+        <?php if ($rol != 0) { ?>
+          <a href="MenuAdmin.php" class="nav_link active">
+            <i class="bx bx-cog nav_icon"></i>
+            <span class="nav_name">Administrar</span>
+          </a>
+        <?php }
+        ; ?>
       </div>
     </nav>
   </div>
@@ -181,15 +186,14 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
   <!--Contenido-->
   <section>
     <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-      <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
-          style="font-size:2rem;color:black;"></i></a>
+      <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
       <h1 class="text-center pt-2">Crear Periodo Academico</h1>
 
       <form action="" method="post">
 
-      <input type="hidden" name="" id="action" value="crearPeriodo" class="action">
+        <input type="hidden" name="" id="action" value="crearPeriodo" class="action">
 
-      <input type="hidden" name="" id="action2" value="<?php echo $idEmpresa;?>" class="action">
+        <input type="hidden" name="" id="action2" value="<?php echo $idEmpresa; ?>" class="action">
 
         <label class="mt-2" for="nomPer">Nombre del periodo</label>
         <input class="idPer form-control" type="text" name="idPer" id="idPer" />
@@ -199,14 +203,14 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
         <label class="mt-2" for="fecFin">Fecha de Culminacion</label>
         <input class="FechaFinPer form-control" type="date" name="FechaFinPer" id="FechaFinPer" />
-                   
+
         <button class="btn btn-primary mt-2" onclick="submitData();">Crear Periodo</button>
       </form>
 
     </div>
   </section>
 
-<?php require "../../assests/php/crearPeriodoMain.php"; ?>
+  <?php require "../../assests/php/crearPeriodoMain.php"; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

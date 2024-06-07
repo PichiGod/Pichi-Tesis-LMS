@@ -6,7 +6,7 @@ if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
@@ -17,6 +17,8 @@ if (isset($_SESSION['id_user'])) {
         $nombreUsuario = $datos['nombre_user'];
 
         $apellidoUsuario = $datos['apellido_user'];
+
+        $rol = $datos['rol'];
 
         $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
 
@@ -159,10 +161,13 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bx-news nav_icon"></i>
                     <span class="nav_name">Evaluaciones</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link link-dark">
-                    <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Administrar</span>
-                </a>
+                <?php if ($rol != 0) { ?>
+                    <a href="MenuAdmin.php" class="nav_link link-dark">
+                        <i class="bx bx-cog nav_icon"></i>
+                        <span class="nav_name">Administrar</span>
+                    </a>
+                <?php }
+                ; ?>
             </div>
         </nav>
     </div>
@@ -172,7 +177,7 @@ if (isset($_SESSION['id_user'])) {
         <div class="container-fluid bg-blanco my-3 p-3 rounded shadow">
             <!--Titulo-->
             <div class="container">
-                <a href="verCurso.php" ><i class="fa-solid mt-2 fa-arrow-left"
+                <a href="verCurso.php"><i class="fa-solid mt-2 fa-arrow-left"
                         style="font-size:2rem;color:black;"></i></a>
 
                 <div class="p-2 mb-2 rounded shadow ">
@@ -199,12 +204,14 @@ if (isset($_SESSION['id_user'])) {
 
                 <button class="btn btn-primary mt-2" onclick="location.href='verCurso.php'">Regresar</button>
 
-                <div>Esta parte eso solo para el profesor y admin
-                    <hr>
-                    <button onclick="location.href='editarRecurso.php'" class="btn btn-primary">Editar Recurso</button>
-                    <button onclick="confirmarElim();" class="btn btn-outline-danger">Eliminar Recurso</button>
-                </div>
-
+                <?php if ($rol != 0) { ?>
+                    <div>
+                        <hr>
+                        <button onclick="location.href='editarRecurso.php'" class="btn btn-primary">Editar Recurso</button>
+                        <button onclick="confirmarElim();" class="btn btn-outline-danger">Eliminar Recurso</button>
+                    </div>
+                <?php }
+                ; ?>
             </div>
         </div>
 

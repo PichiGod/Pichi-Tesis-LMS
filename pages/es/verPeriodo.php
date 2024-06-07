@@ -8,7 +8,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
   $usuariosActivos = $_SESSION['usuariosActive'];
 
-  $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+  $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
   if (mysqli_num_rows($conexion1) > 0) {
 
@@ -19,6 +19,8 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
     $nombreUsuario = $datos['nombre_user'];
 
     $apellidoUsuario = $datos['apellido_user'];
+
+    $rol = $datos['rol'];
 
     $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa, id_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
 
@@ -42,7 +44,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
       while ($row = mysqli_fetch_assoc($verPeriodo)) {
         $periodos[] = $row;
-    }
+      }
 
     } else {
 
@@ -159,10 +161,13 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           <i class="bx bxs-book nav_icon"></i>
           <span class="nav_name">Cursos</span>
         </a>
-        <a href="MenuAdmin.php" class="nav_link active ">
-          <i class="bx bx-cog nav_icon"></i>
-          <span class="nav_name">Administrar</span>
-        </a>
+        <?php if ($rol != 0) { ?>
+          <a href="MenuAdmin.php" class="nav_link active">
+            <i class="bx bx-cog nav_icon"></i>
+            <span class="nav_name">Administrar</span>
+          </a>
+        <?php }
+        ; ?>
       </div>
     </nav>
   </div>
@@ -192,8 +197,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
   <!--Contenido-->
   <section>
     <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-      <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
-          style="font-size:2rem;color:black;"></i></a>
+      <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
       <h1 class="text-center pt-2">Visualizar Periodos Academicos</h1>
 
       <form class="d-flex" role="search">
@@ -214,13 +218,13 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           </thead>
           <tbody>
             <tr>
-            <?php foreach($periodos as $periodo){ ?>
-              <th scope="row"><?php echo $periodo['id_peri'];?></th>
-              <td><?php echo $periodo['nombre_peri'];?></td>
-              <td><?php echo $periodo['fecha_ini_peri'];?></td>
-              <td><?php echo $periodo['fecha_fin_peri'];?></td>
-              <td>
-                <?php }?>
+              <?php foreach ($periodos as $periodo) { ?>
+                <th scope="row"><?php echo $periodo['id_peri']; ?></th>
+                <td><?php echo $periodo['nombre_peri']; ?></td>
+                <td><?php echo $periodo['fecha_ini_peri']; ?></td>
+                <td><?php echo $periodo['fecha_fin_peri']; ?></td>
+                <td>
+                <?php } ?>
                 <button onclick="location.href='modifPeriodo.php'" class="btn mt-1 btn-primary me-1">
                   Modificar
                 </button>
@@ -238,11 +242,11 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
   <script>
     function eliminarPeri() {
-      confimar = confirm('Seguro que quiere eliminar al usuario?');
+      confimar = confirm('Seguro que quiere eliminar al periodo?');
       if (confimar == true) {
         // e.preventDefault();
         //Accion para borrar usuario
-        alert('El usuario ha sido eliminado')
+        alert('El periodo ha sido eliminado')
       }
     }
   </script>

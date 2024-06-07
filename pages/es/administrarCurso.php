@@ -8,11 +8,13 @@ if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
         $datos = mysqli_fetch_assoc($conexion1);
+
+        $rol = $datos['rol'];
 
         $empresaUsuario = $datos['Empresa_id_empresa'];
 
@@ -148,10 +150,13 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link link-dark">
-                    <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Administrar</span>
-                </a>
+                <?php if ($rol != 0) { ?>
+                    <a href="MenuAdmin.php" class="nav_link link-dark">
+                        <i class="bx bx-cog nav_icon"></i>
+                        <span class="nav_name">Administrar</span>
+                    </a>
+                <?php }
+                ; ?>
             </div>
         </nav>
     </div>
@@ -181,8 +186,7 @@ if (isset($_SESSION['id_user'])) {
     <!--Contenido-->
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-            <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
-                    style="font-size:2rem;color:black;"></i></a>
+            <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2">Administrar Cursos</h1>
 
             <form class="d-flex" role="search">
@@ -206,25 +210,25 @@ if (isset($_SESSION['id_user'])) {
                         </tr>
                     </thead>
                     <tbody>
-                    <?php foreach($cursos as $curso){ ?>
-                        <tr>
-                            <th scope="row"><?php echo $curso['id_cur'];?></th>
-                            <td><?php echo $curso['nombre_cur'];?></td>
-                            <td><?php echo $curso['fecha_inicio'];?></td>
-                            <td><?php echo $curso['fecha_fin'];?></td>
-                            <td><?php echo $curso['cupos_cur_min'];?></td>
-                            <td><?php echo $curso['cupos_cur_max'];?></td>
-                            <td>docente</td>
-                            <td>periodo</td>
-                            <td>
-                                <button onclick="location.href='modifCurso.php'" class="btn btn-primary me-1">
-                                    Modificar
-                                </button>
-                                <button onclick="eliminarCurso();" class="btn mt-1 btn-outline-danger">
-                                    Eliminar
-                                </button>
-                            </td>
-                        </tr>
+                        <?php foreach ($cursos as $curso) { ?>
+                            <tr>
+                                <th scope="row"><?php echo $curso['id_cur']; ?></th>
+                                <td><?php echo $curso['nombre_cur']; ?></td>
+                                <td><?php echo $curso['fecha_inicio']; ?></td>
+                                <td><?php echo $curso['fecha_fin']; ?></td>
+                                <td><?php echo $curso['cupos_cur_min']; ?></td>
+                                <td><?php echo $curso['cupos_cur_max']; ?></td>
+                                <td>Docente</td>
+                                <td>Periodo</td>
+                                <td>
+                                    <button onclick="location.href='modifCurso.php'" class="btn btn-primary me-1">
+                                        Modificar
+                                    </button>
+                                    <button onclick="eliminarCurso();" class="btn mt-1 btn-outline-danger">
+                                        Eliminar
+                                    </button>
+                                </td>
+                            </tr>
                         <?php } ?>
                     </tbody>
                 </table>

@@ -8,11 +8,13 @@ if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
         $datos = mysqli_fetch_assoc($conexion1);
+
+        $rol = $datos['rol'];
 
         $empresaUsuario = $datos['Empresa_id_empresa'];
 
@@ -152,10 +154,13 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="MenuAdmin.php" class="nav_link active ">
-                    <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Administrar</span>
-                </a>
+                <?php if ($rol != 0) { ?>
+                    <a href="MenuAdmin.php" class="nav_link active">
+                        <i class="bx bx-cog nav_icon"></i>
+                        <span class="nav_name">Administrar</span>
+                    </a>
+                <?php }
+                ; ?>
             </div>
         </nav>
     </div>
@@ -185,8 +190,7 @@ if (isset($_SESSION['id_user'])) {
     <!--Contenido-->
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
-            <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
-                    style="font-size:2rem;color:black;"></i></a>
+            <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center">Asignar Docente</h1>
 
             <form class="d-flex" role="search">
@@ -197,7 +201,8 @@ if (isset($_SESSION['id_user'])) {
             <div class="card my-3" style="max-width: 500px;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="https://github.com/PichiGod.png" style="max-width: 150px;" class="pt-2 img-fluid rounded-start" alt="...">
+                        <img src="https://github.com/PichiGod.png" style="max-width: 150px;"
+                            class="pt-2 img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -217,7 +222,8 @@ if (isset($_SESSION['id_user'])) {
             </div>
 
             <div class="card my-3">
-                <p class="mb-0">Aqui se muestran los cursos creados, los que tienen marca significa que ya esta asignado a
+                <p class="mb-0">Aqui se muestran los cursos creados, los que tienen marca significa que ya esta asignado
+                    a
                     esa materia</p>
 
                 <div class="card-body overflow-auto " style="max-height:15rem;">

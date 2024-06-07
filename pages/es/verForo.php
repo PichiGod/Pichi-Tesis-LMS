@@ -6,7 +6,7 @@ if (isset($_SESSION['id_user'])) {
 
   $usuarios1 = $_SESSION['id_user'];
 
-  $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+  $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
   if (mysqli_num_rows($conexion1) > 0) {
 
@@ -17,6 +17,8 @@ if (isset($_SESSION['id_user'])) {
     $nombreUsuario = $datos['nombre_user'];
 
     $apellidoUsuario = $datos['apellido_user'];
+
+    $rol = $datos['rol'];
 
     $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
 
@@ -39,11 +41,11 @@ if (isset($_GET['id_cur'])) {
                                     LEFT JOIN empresa ON empresa.id_empresa = cursos.Empresa_id_empresa
                                     WHERE id_cur = '$id_curso_seleccionado'");
 
-    if (mysqli_num_rows($consultaCurso) > 0) {
-        $datos3 = mysqli_fetch_assoc($consultaCurso);
-        $curso = $datos3['nombre_cur'];
-        $empresa = $datos3['nombre_empresa'];
-      }
+  if (mysqli_num_rows($consultaCurso) > 0) {
+    $datos3 = mysqli_fetch_assoc($consultaCurso);
+    $curso = $datos3['nombre_cur'];
+    $empresa = $datos3['nombre_empresa'];
+  }
 
   $consultaComentarios = mysqli_query($mysqli, "SELECT Usuario.nombre_user, Usuario.apellido_user, foro_curso.id_foro_cur, foro_curso.mensaje, foro_curso.modif_fecha, foro_curso.usuario_id_user
   FROM foro_curso 
@@ -160,10 +162,13 @@ if (isset($_GET['id_cur'])) {
           <i class="bx bx-news nav_icon"></i>
           <span class="nav_name">Evaluaciones</span>
         </a>
-        <a href="MenuAdmin.php" class="nav_link link-dark">
-          <i class="bx bx-cog nav_icon"></i>
-          <span class="nav_name">Administrar</span>
-        </a>
+        <?php if ($rol != 0) { ?>
+          <a href="MenuAdmin.php" class="nav_link link-dark">
+            <i class="bx bx-cog nav_icon"></i>
+            <span class="nav_name">Administrar</span>
+          </a>
+        <?php }
+        ; ?>
       </div>
     </nav>
   </div>
@@ -193,7 +198,8 @@ if (isset($_GET['id_cur'])) {
   <!--Contenido Usuario-->
   <section>
     <div class="container-fluid bg-blanco my-3 py-2 shadow">
-      <a href="verCurso.php?id_cur=<?php echo $id_curso_seleccionado ?>"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
+      <a href="verCurso.php?id_cur=<?php echo $id_curso_seleccionado ?>"><i class="fa-solid mt-2 fa-arrow-left"
+          style="font-size:2rem;color:black;"></i></a>
       <!--Titulo-->
       <div class="p-2 mb-2 rounded shadow">
         <h2><strong>Foro - <?php echo $curso; ?> - <?php echo $empresa; ?></strong></h2>
@@ -238,7 +244,8 @@ if (isset($_GET['id_cur'])) {
                   <img src="https://github.com/PichiGod.png" class="img-fluid rounded-circle"
                     style="width: 3rem; height: auto" alt="..." />
                   <figcaption class="figure-caption fs-6 text-body text-center ">
-                    <?php echo $comentario['nombre_user'] . " " . $comentario['apellido_user']; ?> <br> <?php echo $comentario['modif_fecha'] ?>
+                    <?php echo $comentario['nombre_user'] . " " . $comentario['apellido_user']; ?> <br>
+                    <?php echo $comentario['modif_fecha'] ?>
                   </figcaption>
                 </figure>
               </div>
@@ -248,22 +255,24 @@ if (isset($_GET['id_cur'])) {
                     <?php echo $comentario['mensaje'] ?>
                   </p>
                 </div>
-                <?php if ($comentario['usuario_id_user'] == $usuarios1){
+                <?php if ($comentario['usuario_id_user'] == $usuarios1 || $rol == 2 ) {
                   ?>
                   <button class="btn btn-link m-0 p-0"
-                onclick="location.href='modifComentario.php?idComen=<?php echo $comentario['id_foro_cur'];?>&id_cur=<?php echo $id_curso_seleccionado;?>'"
-                  title="Editar">
-                  <i class="fa-regular fa-pen-to-square"></i>
-                </button>
+                    onclick="location.href='modifComentario.php?idComen=<?php echo $comentario['id_foro_cur']; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>'"
+                    title="Editar">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </button>
 
-                <button onclick="eliminarComentario(<?php echo $comentario['id_foro_cur'] ?>);" title="Eliminar" class="btn btn-link m-0 p-0 ms-1">
-                  <i class="fa-solid fa-trash"></i>
-                </button>
+                  <button onclick="eliminarComentario(<?php echo $comentario['id_foro_cur'] ?>);" title="Eliminar"
+                    class="btn btn-link m-0 p-0 ms-1">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
 
-                <?php
-                };
+                  <?php
+                }
+                ;
                 ?>
-                
+
               </div>
             </div>
           <?php endforeach;
