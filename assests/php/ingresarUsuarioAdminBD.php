@@ -71,7 +71,7 @@ function Register() {
 
     // Insertar nuevo usuario con el id_empresa correspondiente
     $query = "INSERT INTO usuario (identificacion_user, nombre_user, apellido_user, correo_user, contrasena_user, direccion_user, numero_user, fecha_nacimiento_user, sexo_user, Empresa_id_empresa, rol ) 
-              VALUES ('$rifUsuario', '$nombreUsuario', '$apellidoUsuario', '$correoUsuario', '$contrasenaUsuario', '$direccionUsuario', '$telefonoUsuario', '$fechaNacimientoBD', '$GeneroUsuario', '$idEmpresa', '$rbRol')";
+              VALUES ('$rifUsuario', '$nombreUsuario', '$apellidoUsuario', '$correoUsuario', '$contrasenaUsuario', '$direccionUsuario', '$telefonoUsuario', '$fechaNacimientoBD', '$GeneroUsuario', '$idEmpresa', '$respuestaRol')";
 
     if (mysqli_query($mysqli, $query)) {
         echo "Se ha registrado el Usuario en el sistema";
