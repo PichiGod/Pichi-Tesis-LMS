@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-06-2024 a las 21:33:55
+-- Tiempo de generación: 07-06-2024 a las 22:00:16
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -310,9 +310,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_user`, `identificacion_user`, `nombre_user`, `apellido_user`, `correo_user`, `contrasena_user`, `direccion_user`, `numero_user`, `fecha_nacimiento_user`, `Active_online`, `sexo_user`, `Empresa_id_empresa`, `rol`, `img_perfil`) VALUES
-(3, '28009473', 'Pichi', 'Josefina', 'SoyGay@gmail.com', '12345', 'URB. La paz', '04146119988', '2003-09-12 00:00:00', 0, '1', 2, 0, ''),
-(4, '30251284', 'Lenin', 'Martinez', 'martinezlenin@gmail.com', '12345', 'La paz', '04146119988', '2003-09-12 00:00:00', 0, 'Masculino', 1, 0, ''),
-(5, '30423882', 'SantiaGO', 'viloria', 'santi@gmail.com', '12345', 'la paz', '04246027064', '2004-06-23 00:00:00', 1, '1', 1, 0, ''),
+(3, '28467144', 'Pichi', 'Duarte', 'dsjoseale@gmail.com', '12345', 'URB. La paz', '04146119988', '2003-09-12 00:00:00', 0, '1', 1, 0, ''),
+(4, '30251284', 'Lenin', 'Martinez', 'martinezlenin@gmail.com', '12345', 'La paz', '04146119988', '2003-09-12 00:00:00', 0, 'Masculino', 1, 2, ''),
+(5, '30423882', 'SantiaGO', 'viloria', 'santi@gmail.com', '12345', 'la paz', '04246027064', '2004-06-23 00:00:00', 1, '1', 1, 1, ''),
 (7, '28009474', 'Arianna', 'Martinez', 'ari.luz.martinez@gmail.com', '12345', 'Urb San Miguel', '04246418343', '1999-05-12 20:13:12', 0, 'Femenino', NULL, 2, '');
 
 -- --------------------------------------------------------
