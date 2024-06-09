@@ -228,7 +228,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
     <!--Contenido-->
     <section>
-        <form action="" method="post">
+        <form action="" method="get">
             <div class="container-fluid bg-blanco my-3 pb-2 shadow">
                 <!-- Formulario de búsqueda -->
                 <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
