@@ -35,7 +35,52 @@ if (isset($_SESSION['id_user'])) {
 
 }
 
+if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
+    $id_curso_seleccionado = $_GET['id_cur'];
+    $id_act_seleccionado = $_GET['id_act'];
 
+    $consultaCurso = mysqli_query($mysqli, "SELECT cursos.nombre_cur, empresa.nombre_empresa
+                                    FROM cursos 
+                                    LEFT JOIN empresa ON empresa.id_empresa = cursos.Empresa_id_empresa
+                                    WHERE id_cur = '$id_curso_seleccionado'");
+
+    if (mysqli_num_rows($consultaCurso) > 0) {
+        $datos3 = mysqli_fetch_assoc($consultaCurso);
+        $curso = $datos3['nombre_cur'];
+        $empresa = $datos3['nombre_empresa'];
+    }
+
+    $consultaActividades = mysqli_query($mysqli, "SELECT * FROM actividades WHERE idActividades = '$id_act_seleccionado'");
+
+    if (mysqli_num_rows($consultaActividades) > 0) {
+        while ($datosActividad = mysqli_fetch_assoc($consultaActividades)) {
+            $Actividades[] = $datosActividad;
+        }
+
+    }
+
+    $consultaEntrega = mysqli_query($mysqli, "SELECT * FROM entregas WHERE id_user = '$usuarios1' AND id_actividad = '$id_act_seleccionado'");
+    $noentrega = false;
+    if (mysqli_num_rows($consultaEntrega) > 0) {
+        while ($datosEntrega = mysqli_fetch_assoc($consultaEntrega)) {
+            $entrega[] = $datosEntrega;
+        }
+
+    } else {
+        $noentrega = true;
+    }
+
+    $consultaNota = mysqli_query($mysqli, "SELECT * FROM notas WHERE Usuario_id_user = '$usuarios1' AND Actividad_id_act = '$id_act_seleccionado'");
+    $noNota = false;
+    if (mysqli_num_rows($consultaNota) > 0) {
+        while ($datosNotas = mysqli_fetch_assoc($consultaEntrega)) {
+            $notas[] = $datosNotas;
+        }
+
+    } else {
+        $noNota = true;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -183,155 +228,215 @@ if (isset($_SESSION['id_user'])) {
         <div class="container-fluid bg-blanco mt-3 shadow ">
             <!--Titulo-->
             <div class="container pt-4 mb-3 pb-3">
-                <a href="verCurso.php"><i class="fa-solid mt-2 fa-arrow-left"
-                        style="font-size:2rem;color:black;"></i></a>
+                <a href="verCurso.php?id_cur=<?php echo $id_curso_seleccionado; ?>"><i
+                        class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
 
-                <div class="p-2 mb-2 rounded shadow ">
-                    <h2><strong>Nombre de la actividad - Empresa</strong></h2>
-                </div>
+                <?php
 
-                Descripción
-                <div class="bg-white rounded border py-1 ">
-                    <p class="mb-0 ms-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quae
-                        odio
-                        labore veniam laudantium temporibus, voluptatem ea dolorum vero facere pariatur deserunt
-                        delectus ducimus corporis quis praesentium non aperiam sed!</p>
-                </div>
+                if (mysqli_num_rows($consultaActividades) > 0) {
 
-                <div class="d-inline-flex align-items-center bg-dark-subtle px-2 mt-2 mb-1 rounded">
-                    <p class="mb-0">Fecha de Inicio: 27/05/2024</p>
-                </div>
+                    foreach ($Actividades as $actividad): ?>
 
-                <div class="d-inline-flex align-items-center bg-dark-subtle px-2 mt-2 mb-1 rounded">
-                    <p class="mb-0">Fecha de Culminacion: 27/05/2024</p>
-                </div>
-
-                <hr>
-
-                <div class="p-2 my-3 rounded shadow ">
-                    <h4>Archivos del Recurso (El archivo[s] del recurso)(si tiene)</h4>
-                </div>
-
-                <ul class="list-group mb-1">
-                    <li class="list-group-item">
-                        <i class="fa-solid fa-file"></i> <a class="ms-2" href="#">Archivo</a>
-                    </li>
-                </ul>
-
-                <div class="d-inline-flex align-items-center bg-dark-subtle px-2 mt-2 mb-1 rounded fs-4">
-                    <div class="me-3">
-                        <p class="card-text">Estado de entrega</p>
-                    </div>
-                    <div>
-                        <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
-                    </div>
-                    <div class="ms-3 mb-1">
-                        <span class="badge text-bg-danger"><strong>No entregado</strong></span>
-                        <span class="badge text-bg-success"><strong>Entregado</strong></span>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="card">
-                    <div class="card-body">
-                        <div>
-                            Esta parte solo se muestra si no se ha realizado una entrega
-                            <h4 class="card-title">Entrega de actividad</h4>
-                            <p class="card-text">Maxima # de archivos: X</p>
-                            <p class="card-text">Maxima peso de archivo: X MB</p>
-                            <div class="mb-3">
-                                <label for="formFileMultiple" class="form-label">Seleccionar archivos...</label>
-                                <input class="form-control" type="file" id="formFileMultiple" multiple>
-                            </div>
-
-                            <p class="mb-0"><strong>Inserta un texto</strong></p>
-                            <div id="editor">
-                            </div>
-                            <input type="hidden" id="texto_actividad" class="texto_actividad" name="texto_actividad">
-                            <div>
-
-
-                            </div>
-                            <input type="submit" class="btn btn-primary mt-2"></input>
-
-                            <hr>
+                        <div class="p-2 mb-2 rounded shadow ">
+                            <h2><strong><?php echo $actividad['Titulo']; ?> - <?php echo $empresa; ?></strong></h2>
                         </div>
 
-                        <div>
-                            Esta parte se muestra si ya se realizo una entrega
-                            <div>
-                                <div class="d-flex align-items-center bg-body-secondary px-2 mb-2 me-2 rounded fs-5">
-                                    <div class="me-3">
-                                        <p class="card-text">Docente</p>
-                                    </div>
-                                    <div>
-                                        <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
-                                    </div>
-                                    <div class="ms-3">
-                                        <span><strong>Jose Alejandro Duarte Salcedo</strong></span>
-                                    </div>
-                                </div>
-
-                                <!-- Force next columns to break to new line at md breakpoint and up -->
-                                <div class="w-100 d-none d-md-block"></div>
-                                <div
-                                    class="d-inline-flex align-items-center bg-body-secondary px-2 mb-2 me-2 rounded fs-5">
-                                    <div class="me-3">
-                                        <p class="card-text">Estado de Calificacion</p>
-                                    </div>
-                                    <div>
-                                        <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
-                                    </div>
-                                    <div class="ms-3 mb-1">
-                                        <span class="badge bg-warning-subtle text-warning-emphasis"><strong>No
-                                                calificado</strong></span>
-                                        <span class="badge text-bg-success"><strong>Calificado</strong></span>
-                                    </div>
-                                </div>
-                                <div class="d-inline-flex align-items-center bg-body-secondary px-2 mb-2 rounded fs-5">
-                                    <div class="me-3">
-                                        <p class=" card-text">Calificacion del profesor</p>
-                                    </div>
-                                    <div>
-                                        <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
-                                    </div>
-                                    <div class="ms-3">
-                                        <span><strong>Nota</strong></span>
-                                    </div>
-                                </div>
-                                <p class="mb-0 fs-5">Retroalimentación</p>
-                                <div class="p-2 mb-2 border rounded">
-                                    <p id="retro" class="mb-0">
-                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora ad
-                                        deleniti eaque dolore necessitatibus minus! Saepe eligendi adipisci est
-                                        atque
-                                        quas, sequi voluptatibus velit similique nisi voluptatem amet, alias minima.
-                                    </p>
-                                </div>
-
+                        Descripción
+                        <div class="bg-white rounded border py-1 ">
+                            <p class="mb-0 ms-1">
+                            <div class="mx-2">
+                                <?php echo $actividad['ContenidoAcitividad']; ?>
                             </div>
-                            <h4 class="card-title">Editar entrega</h4>
-                            <button onclick="location.href='editarEntrega.php'" class="btn btn-primary">Editar</button>
+                            </p>
+                        </div>
+
+                        <div class="d-inline-flex align-items-center bg-dark-subtle px-2 mt-2 mb-1 rounded">
+                            <p class="mb-0">Fecha de Inicio:
+                                <?php $fechaIni = date('d/m/Y', strtotime($actividad['fechaInicio']));
+                                echo $fechaIni; ?>
+                            </p>
+                        </div>
+
+                        <div class="d-inline-flex align-items-center bg-dark-subtle px-2 mt-2 mb-1 rounded">
+                            <p class="mb-0">Fecha de Culminacion:
+                                <?php $fechaFin = date('d/m/Y', strtotime($actividad['fechaCulminacion']));
+                                echo $fechaFin; ?>
+                            </p>
                         </div>
 
                         <hr>
 
-                        <div>Aqui se muestra cuando ya la actividad se entrego para visualizar los archivos enviados
-                            <h4 class="card-title">Archivos entregados</h4>
-                            <p class="font-monospace mb-0">Ultima modificacion: 28/05/2024</p>
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <i class="fa-solid fa-file"></i> <a class="ms-2" href="#">Archivo #1</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <i class="fa-solid fa-file"></i> <a class="ms-2" href="#">Archivo #2</a>
-                                </li>
-                            </ul>
+                        <div class="p-2 my-3 rounded shadow ">
+                            <h4>Archivos de la actividad </h4>
                         </div>
 
-                    </div>
-                </div>
+                        <?php if ($actividad['archivosPrincipal'] == null) { ?>
+                            <ul class="list-group mb-1">
+                                <li class="list-group-item">
+                                    No hay archivos disponibles
+                                </li>
+                            </ul>
+                        <?php } else { ?>
+
+                            <ul class="list-group mb-1">
+                                <li class="list-group-item">
+                                    <i class="fa-solid fa-file"></i> <a class="ms-2"
+                                        href="#"><?php echo $actividad['archivosPrincipal']; ?></a>
+                                </li>
+
+
+                            <?php }
+                        if ($actividad['archivosAdicional'] != null) { ?>
+                                <li class="list-group-item">
+                                    <i class="fa-solid fa-file"></i> <a class="ms-2"
+                                        href="#"><?php echo $actividad['archivosAdicional']; ?></a>
+                                </li>
+                            <?php }
+                        ; ?>
+                        </ul>
+
+                        <?php if ($rol == 0) { ?>
+                            <div class="d-inline-flex align-items-center bg-dark-subtle px-2 mt-2 mb-1 rounded fs-4">
+                                <div class="me-3">
+                                    <p class="card-text">Estado de entrega</p>
+                                </div>
+                                <div>
+                                    <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
+                                </div>
+                                <div class="ms-3 mb-1">
+                                    <?php if ($noentrega = true) { ?>
+                                        <span class="badge text-bg-danger"><strong>No entregado</strong></span>
+                                    <?php } else { ?>
+                                        <span class="badge text-bg-success"><strong>Entregado</strong></span>
+                                    <?php }
+                                    ; ?>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <?php if ($noentrega = false) { ?>
+                                        <div>
+                                            <h4 class="card-title">Entrega de actividad</h4>
+                                            <p class="card-text">Maxima cantidad de archivos: 2</p>
+                                            <p class="card-text">Maxima peso de archivo: <?php echo $actividad['pesoArchivo'] ?> MB</p>
+                                            <div class="mb-3">
+                                                <label for="formFileMultiple" class="form-label">Seleccionar archivos...</label>
+                                                <input class="form-control" type="file" id="formFileMultiple" multiple>
+                                            </div>
+
+                                            <p class="mb-0"><strong>Inserta un texto</strong></p>
+                                            <div id="editor">
+                                            </div>
+                                            <input type="hidden" id="texto_actividad" class="texto_actividad" name="texto_actividad">
+                                            <div>
+
+                                            </div>
+                                            <input type="submit" value="Entregar" class="btn btn-primary mt-2" />
+
+                                        </div>
+                                    <?php } else { ?>
+                                        <div>
+                                            <div>
+                                                <div class="d-flex align-items-center bg-body-secondary px-2 mb-2 me-2 rounded fs-5">
+                                                    <div class="me-3">
+                                                        <p class="card-text">Docente</p>
+                                                    </div>
+                                                    <div>
+                                                        <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
+                                                    </div>
+                                                    <div class="ms-3">
+                                                        <span><strong>Jose Alejandro Duarte Salcedo</strong></span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Force next columns to break to new line at md breakpoint and up -->
+                                                <div class="w-100 d-none d-md-block"></div>
+                                                <div
+                                                    class="d-inline-flex align-items-center bg-body-secondary px-2 mb-2 me-2 rounded fs-5">
+                                                    <div class="me-3">
+                                                        <p class="card-text">Estado de Calificacion</p>
+                                                    </div>
+                                                    <div>
+                                                        <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
+                                                    </div>
+                                                    <div class="ms-3 mb-1">
+                                                        <?php if ($noNota = true) { ?>
+                                                            <span class="badge bg-warning-subtle text-warning-emphasis"><strong>No
+                                                                    calificado</strong></span>
+                                                        <?php } else { ?>
+                                                            <span class="badge text-bg-success"><strong>Calificado</strong></span>
+                                                        <?php }
+                                                        ; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="d-inline-flex align-items-center bg-body-secondary px-2 mb-2 rounded fs-5">
+                                                    <div class="me-3">
+                                                        <p class=" card-text">Calificacion del profesor</p>
+                                                    </div>
+                                                    <div>
+                                                        <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
+                                                    </div>
+                                                    <div class="ms-3">
+                                                        <?php if ($noNota = true) { ?>
+                                                            <span><strong>No
+                                                                    calificado</strong></span>
+                                                        <?php }
+                                                        ; ?>
+
+                                                    </div>
+                                                </div>
+                                                <p class="mb-0 fs-5">Retroalimentación</p>
+                                                <div class="p-2 mb-2 border rounded">
+                                                    <p id="retro" class="mb-0">
+                                                        <?php if ($noNota = true) { ?>
+                                                            <strong>No
+                                                                calificado</strong>
+                                                        <?php }
+                                                        ; ?>
+                                                        <!-- Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora ad
+                                                deleniti eaque dolore necessitatibus minus! Saepe eligendi adipisci est
+                                                atque
+                                                quas, sequi voluptatibus velit similique nisi voluptatem amet, alias minima. -->
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                            <h4 class="card-title">Editar entrega</h4>
+                                            <button
+                                                onclick="location.href='editarEntrega.php?id_act=<?php echo $id_act_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>'"
+                                                class="btn btn-primary">Editar</button>
+
+                                            <hr>
+                                        </div>
+
+                                        <div>
+                                            <h4 class="card-title">Archivos entregados</h4>
+                                            <p class="font-monospace mb-0">Ultima modificacion: 28/05/2024</p>
+                                            <ul class="list-group">
+                                                <li class="list-group-item">
+                                                    <i class="fa-solid fa-file"></i> <a class="ms-2" href="#">Archivo #1</a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <i class="fa-solid fa-file"></i> <a class="ms-2" href="#">Archivo #2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    <?php }
+                                    ; ?>
+
+                                </div>
+                            </div>
+
+
+                        <?php }
+                        ; ?>
+
+                    <?php endforeach;
+                }
+                ; ?>
 
                 <?php if ($rol != 0) { ?>
 
@@ -342,11 +447,16 @@ if (isset($_SESSION['id_user'])) {
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Opciones</h4>
-                                <button onclick="location.href='asignarNota.php'" class="btn btn-primary">Asignar
+                                <button
+                                    onclick="location.href='asignarNota.php?id_act=<?php echo $id_act_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>'"
+                                    class="btn btn-primary">Asignar
                                     nota</button>
-                                <button onclick="location.href='editarNota.php'" class="btn btn-secondary">Editar
+                                <button
+                                    onclick="location.href='editarNota.php?id_act=<?php echo $id_act_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>'"
+                                    class="btn btn-secondary">Editar
                                     nota</button>
-                                <button onclick="location.href='editarActividad.php'"
+                                <button
+                                    onclick="location.href='editarActividad.php?id_act=<?php echo $id_act_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>'"
                                     class="btn btn-outline-secondary">Editar Actividad</button>
                             </div>
                         </div>

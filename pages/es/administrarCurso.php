@@ -243,7 +243,7 @@ if (isset($_SESSION['id_user'])) {
             if (confimar == true) {
                 // e.preventDefault();
                 //Accion para borrar usuario
-                alert('El usuario ha sido eliminado')
+                alert('El usuario ha sido eliminado');
             }
         }
 

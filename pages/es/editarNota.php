@@ -34,6 +34,10 @@ if (isset($_SESSION['id_user'])) {
 
 }
 
+if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
+    $id_curso_seleccionado = $_GET['id_cur'];
+    $id_act_seleccionado = $_GET['id_act'];
+}
 
 ?>
 
@@ -201,7 +205,7 @@ if (isset($_SESSION['id_user'])) {
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
 
-            <a href="verActividad.php"><i class="fa-solid mt-2 fa-arrow-left"
+            <a href="verActividad.php?id_act=<?php echo $id_act_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>"><i class="fa-solid mt-2 fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2">Editar Nota</h1>
             <h4 class="text-center fw-light">Haga click en un estudiante para seleccionar</h4>

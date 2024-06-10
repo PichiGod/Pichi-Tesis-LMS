@@ -199,7 +199,7 @@ if (isset($_SESSION['id_user'])) {
                             <img src="https://github.com/PichiGod.png" alt="avatar" id="cambio"
                                 class="rounded-circle img-fluid"
                                 style="height:200px; max-width:150px;max-height:150px;" />
-                            <h5 class="my-3">José</h5>
+                            <h5 class="my-3"><?php echo $nombreUsuario; ?></h5>
                             <label for="imagen" class="btn btn-primary">Cambiar Imagen</label>
                             <input type="file" accept="image/png, image/jpeg" class="btn btn-primary" id="imagen"
                                 style="display:none;"></input>
@@ -212,6 +212,37 @@ if (isset($_SESSION['id_user'])) {
                             <form action="">
                                 <div class="row">
                                     <div class="col-sm-3 w-75">
+                                        <p class="mb-0">Dirección</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="input" value="<?php echo $datos['direccion_user']; ?>"
+                                            class="form-control text-muted mb-0"></input>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3 w-75">
+                                        <p class="mb-0">Número telefónico</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="input" value="<?php echo $datos['numero_user']; ?>"
+                                            class="form-control text-muted mb-0"></input>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3 w-75">
+                                        <p class="mb-0">Fecha de Nacimiento</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="date" class="form-control text-muted mb-0" id="fechaNacimiento"
+                                            name="fecha" value="<?php $fechaIni = date('Y-m-d', strtotime($datos['fecha_nacimiento_user']));
+                                            echo $fechaIni; ?>" />
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3 w-75">
                                         <p class="mb-0">Nueva Contraseña</p>
                                     </div>
                                     <div class="col-sm-9">
@@ -219,8 +250,7 @@ if (isset($_SESSION['id_user'])) {
                                             class="form-control text-muted mb-0"></input>
                                     </div>
                                 </div>
-                                <hr />
-                                <div class="row">
+                                <div class="row mt-1">
                                     <div class="col-sm-3 w-75">
                                         <p class="mb-0">Confirmar Contraseña</p>
                                     </div>

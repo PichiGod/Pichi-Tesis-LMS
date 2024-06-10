@@ -252,7 +252,7 @@ if (isset($_GET['id_cur'])) {
 
                 <div class="fechaculminacionContenedor">
 
-                    <label for="">fecha de Culminación</label>
+                    <label for="">Fecha de Culminación</label>
 
                     <input type="date" class="fechaFin form-control" id="fechaFin" name="fecha">
 
@@ -262,7 +262,7 @@ if (isset($_GET['id_cur'])) {
 
                 <div class="fechanotificacionContenedor">
 
-                    <label for="">fecha de Notificacion</label>
+                    <label for="">Fecha de Notificacion</label>
 
                     <input type="date" class="fechaNoti form-control" id="fechaNoti" name="fecha">
 

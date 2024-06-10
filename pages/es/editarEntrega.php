@@ -33,7 +33,17 @@ if (isset($_SESSION['id_user'])) {
     }
 
 }
+if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
+    $id_curso_seleccionado = $_GET['id_cur'];
+    $id_act_seleccionado = $_GET['id_act'];
 
+    $consultaActividades = mysqli_query($mysqli, "SELECT * FROM actividades WHERE idActividades = '$id_act_seleccionado'");
+
+    if (mysqli_num_rows($consultaActividades) > 0) {
+        $datosActividad = mysqli_fetch_assoc($consultaActividades);       
+
+    }
+}
 
 ?>
 
@@ -188,15 +198,15 @@ if (isset($_SESSION['id_user'])) {
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
 
-            <a href="verActividad.php"><i class="fa-solid mt-2  fa-arrow-left"
+            <a href="verActividad.php?id_act=<?php echo $id_act_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>"><i class="fa-solid mt-2  fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2">Editar Entrega</h1>
 
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Entrega de actividad</h4>
-                    <p class="card-text">Maxima # de archivos: X</p>
-                    <p class="card-text">Maxima peso de archivo: X MB</p>
+                    <p class="card-text">Maxima cantidad de archivos: 2</p>
+                    <p class="card-text">Maxima peso de archivo: <?php echo $datosActividad['pesoArchivo'] ?> MB</p>
                     <div class="mb-1">
                         <label for="formFileMultiple" class="form-label">Seleccionar archivos...</label>
                         <input class="form-control" type="file" id="formFileMultiple" multiple>

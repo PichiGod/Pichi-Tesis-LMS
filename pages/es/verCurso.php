@@ -276,13 +276,14 @@ if (isset($_GET['id_cur'])) {
                 if (mysqli_num_rows($consultaActividades) > 0) {
 
                     foreach ($Actividades as $actividad): ?>
-                        <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis p-3"
+                        <div class="item-recurso d-flex container mb-2 bg-secondary-subtle text-secondary-emphasis p-3"
                             style="padding: 10px;">
                             <div>
                                 <div>
                                     <i class="fa-solid fa-note-sticky me-2 p-3 rounded bg-warning-subtle" witdh="35"
                                         height="35"></i>
-                                    <span><a href=""><?php echo $actividad['Titulo'] ?></a></span>
+                                    <span><a
+                                            href="verActividad.php?id_act=<?php echo $actividad['idActividades']; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>"><?php echo $actividad['Titulo'] ?></a></span>
                                 </div>
                             </div>
                         </div>
@@ -301,7 +302,7 @@ if (isset($_GET['id_cur'])) {
 
                 <?php } ?>
 
-                <div class="containerButtonCrearActividadFin">
+                <div class="containerButtonCrearActividadFin mt-0">
 
                     <button type="button" class="botonRegresar btn btn-primary"
                         onclick="location.href='cursos.php'">Regresar</button>

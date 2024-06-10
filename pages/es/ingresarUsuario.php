@@ -246,8 +246,8 @@ if (isset($_SESSION['id_user'])) {
                             <div class="form-floating mb-4">
                                 <select class="GeneroUsuario form-select" aria-label="Default select example"
                                     id="GeneroUsuario">
-                                    <option selected>Masculino</option>
-                                    <option value="1">Femenino</option>
+                                    <option value="Masculino" selected>Masculino</option>
+                                    <option value="Femenino">Femenino</option>
                                 </select>
                                 <label for="formId1">Genero</label>
                             </div>

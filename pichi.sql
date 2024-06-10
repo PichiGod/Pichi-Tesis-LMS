@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 07-06-2024 a las 22:00:16
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Host: 127.0.0.1
+-- Generation Time: Jun 10, 2024 at 01:25 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `pichi`
+-- Database: `pichi`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `actividades`
+-- Table structure for table `actividades`
 --
 
 CREATE TABLE `actividades` (
@@ -43,10 +43,10 @@ CREATE TABLE `actividades` (
   `Porcentaje` int(3) DEFAULT NULL,
   `archivosAdicional` varchar(255) DEFAULT NULL,
   `idCurso_id_cur` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `actividades`
+-- Dumping data for table `actividades`
 --
 
 INSERT INTO `actividades` (`idActividades`, `Titulo`, `ContenidoAcitividad`, `archivosPrincipal`, `fechaInicio`, `fechaCulminacion`, `fechaNotificacion`, `pesoArchivo`, `notaMaxima`, `notaMinima`, `visible`, `activarPorcentaje`, `Porcentaje`, `archivosAdicional`, `idCurso_id_cur`) VALUES
@@ -60,7 +60,7 @@ INSERT INTO `actividades` (`idActividades`, `Titulo`, `ContenidoAcitividad`, `ar
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `calificaciones`
+-- Table structure for table `calificaciones`
 --
 
 CREATE TABLE `calificaciones` (
@@ -69,12 +69,12 @@ CREATE TABLE `calificaciones` (
   `usuario_identificacion_user` varchar(11) NOT NULL,
   `cursos_id_cur` varchar(100) NOT NULL,
   `periodo_id_peri` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cursos`
+-- Table structure for table `cursos`
 --
 
 CREATE TABLE `cursos` (
@@ -86,10 +86,10 @@ CREATE TABLE `cursos` (
   `Empresa_id_empresa` int(11) NOT NULL,
   `fecha_fin` date NOT NULL,
   `visibilidad_curso` varchar(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `cursos`
+-- Dumping data for table `cursos`
 --
 
 INSERT INTO `cursos` (`id_cur`, `nombre_cur`, `fecha_inicio`, `cupos_cur_min`, `cupos_cur_max`, `Empresa_id_empresa`, `fecha_fin`, `visibilidad_curso`) VALUES
@@ -100,16 +100,16 @@ INSERT INTO `cursos` (`id_cur`, `nombre_cur`, `fecha_inicio`, `cupos_cur_min`, `
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `empresa`
+-- Table structure for table `empresa`
 --
 
 CREATE TABLE `empresa` (
   `id_empresa` int(11) NOT NULL,
   `nombre_empresa` varchar(80) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `empresa`
+-- Dumping data for table `empresa`
 --
 
 INSERT INTO `empresa` (`id_empresa`, `nombre_empresa`) VALUES
@@ -119,7 +119,7 @@ INSERT INTO `empresa` (`id_empresa`, `nombre_empresa`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `entregas`
+-- Table structure for table `entregas`
 --
 
 CREATE TABLE `entregas` (
@@ -127,18 +127,17 @@ CREATE TABLE `entregas` (
   `texto_entrega` text NOT NULL,
   `archivo` varchar(255) NOT NULL,
   `archivoAdicional` varchar(255) NOT NULL,
-  `tipo_archivo` varchar(45) NOT NULL,
   `retroalimentacion` text NOT NULL,
   `fecha_modificacion` date NOT NULL,
   `id_user` int(11) NOT NULL,
   `id_actividad` int(11) NOT NULL,
   `id_nota` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `foro_curso`
+-- Table structure for table `foro_curso`
 --
 
 CREATE TABLE `foro_curso` (
@@ -147,20 +146,22 @@ CREATE TABLE `foro_curso` (
   `modif_fecha` datetime NOT NULL,
   `usuario_id_user` int(11) NOT NULL,
   `curso_id_curso` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `foro_curso`
+-- Dumping data for table `foro_curso`
 --
 
 INSERT INTO `foro_curso` (`id_foro_cur`, `mensaje`, `modif_fecha`, `usuario_id_user`, `curso_id_curso`) VALUES
 (1, 'Hola profe', '2024-06-05 13:27:00', 4, 'Cur_URBE_01'),
-(4, 'Hola Lenin', '2024-06-06 10:13:00', 5, 'Cur_URBE_01');
+(4, 'Hola Lenin', '2024-06-06 10:13:00', 5, 'Cur_URBE_01'),
+(6, 'jose oropeza', '2024-06-07 18:44:00', 4, 'Cur_URBE_01'),
+(7, 'hola', '2024-06-07 19:36:00', 4, 'Cur_URBE_01');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `inscripcion`
+-- Table structure for table `inscripcion`
 --
 
 CREATE TABLE `inscripcion` (
@@ -170,12 +171,12 @@ CREATE TABLE `inscripcion` (
   `Usuario_id_user` int(11) NOT NULL,
   `Periodo_id_peri` int(11) NOT NULL,
   `Cursos_id_cur` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `mensaje`
+-- Table structure for table `mensaje`
 --
 
 CREATE TABLE `mensaje` (
@@ -184,34 +185,40 @@ CREATE TABLE `mensaje` (
   `fecha_hora` datetime DEFAULT NULL,
   `id_user` int(11) NOT NULL,
   `id_sala` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `mensaje`
+-- Dumping data for table `mensaje`
 --
 
 INSERT INTO `mensaje` (`id_mensaje`, `contenido`, `fecha_hora`, `id_user`, `id_sala`) VALUES
 (24, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>17:21</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                Hola mi gente de puerto rico\n            </div>\n        </li>\n    ', NULL, 4, 1),
 (25, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>17:22</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                Como esta todo el mundo en esta monda??\n            </div>\n        </li>\n    ', NULL, 4, 1),
-(26, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>SantiaGO viloria</strong></span>\n                <span>11:59</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                Todo Bien profe.\n            </div>\n        </li>\n    ', NULL, 5, 1);
+(26, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>SantiaGO viloria</strong></span>\n                <span>11:59</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                Todo Bien profe.\n            </div>\n        </li>\n    ', NULL, 5, 1),
+(27, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>18:26</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                Como estan?\n            </div>\n        </li>\n    ', NULL, 4, 1),
+(28, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Pichi Duarte</strong></span>\n                <span>18:27</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                Todo chikiluki\n            </div>\n        </li>\n    ', NULL, 3, 1),
+(29, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Pichi Duarte</strong></span>\n                <span>18:46</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                hola\n            </div>\n        </li>\n    ', NULL, 3, 1),
+(30, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>19:37</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                pichi\n            </div>\n        </li>\n    ', NULL, 4, 1),
+(31, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>19:38</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                pichi2\n            </div>\n        </li>\n    ', NULL, 4, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `notas`
+-- Table structure for table `notas`
 --
 
 CREATE TABLE `notas` (
   `idNotas` int(11) NOT NULL,
   `NotaAlumno` float NOT NULL,
   `Usuario_id_user` int(11) NOT NULL,
-  `Cursos_id_cur` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `Cursos_id_cur` varchar(100) NOT NULL,
+  `Actividad_id_act` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `periodo`
+-- Table structure for table `periodo`
 --
 
 CREATE TABLE `periodo` (
@@ -221,10 +228,10 @@ CREATE TABLE `periodo` (
   `fecha_fin_peri` date NOT NULL,
   `id_empresa` int(11) NOT NULL,
   `periodo_id_cur` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `periodo`
+-- Dumping data for table `periodo`
 --
 
 INSERT INTO `periodo` (`id_peri`, `nombre_peri`, `fecha_ini_peri`, `fecha_fin_peri`, `id_empresa`, `periodo_id_cur`) VALUES
@@ -233,7 +240,7 @@ INSERT INTO `periodo` (`id_peri`, `nombre_peri`, `fecha_ini_peri`, `fecha_fin_pe
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `recursos`
+-- Table structure for table `recursos`
 --
 
 CREATE TABLE `recursos` (
@@ -248,22 +255,22 @@ CREATE TABLE `recursos` (
   `Actividades_idActividades` int(11) NOT NULL,
   `Sala_id_sala` int(11) NOT NULL,
   `foro_id_foro` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `sala`
+-- Table structure for table `sala`
 --
 
 CREATE TABLE `sala` (
   `id_sala` int(11) NOT NULL,
   `nombre_sala` varchar(45) NOT NULL,
   `id_curso` varchar(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `sala`
+-- Dumping data for table `sala`
 --
 
 INSERT INTO `sala` (`id_sala`, `nombre_sala`, `id_curso`) VALUES
@@ -272,7 +279,7 @@ INSERT INTO `sala` (`id_sala`, `nombre_sala`, `id_curso`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `seccionhistorial`
+-- Table structure for table `seccionhistorial`
 --
 
 CREATE TABLE `seccionhistorial` (
@@ -280,12 +287,12 @@ CREATE TABLE `seccionhistorial` (
   `fecha_apertura` datetime NOT NULL,
   `fecha_cierre` datetime NOT NULL,
   `id_sala` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Table structure for table `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -303,51 +310,52 @@ CREATE TABLE `usuario` (
   `Empresa_id_empresa` int(11) DEFAULT NULL,
   `rol` tinyint(1) NOT NULL,
   `img_perfil` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `usuario`
+-- Dumping data for table `usuario`
 --
 
 INSERT INTO `usuario` (`id_user`, `identificacion_user`, `nombre_user`, `apellido_user`, `correo_user`, `contrasena_user`, `direccion_user`, `numero_user`, `fecha_nacimiento_user`, `Active_online`, `sexo_user`, `Empresa_id_empresa`, `rol`, `img_perfil`) VALUES
-(3, '28467144', 'Pichi', 'Duarte', 'dsjoseale@gmail.com', '12345', 'URB. La paz', '04146119988', '2003-09-12 00:00:00', 0, '1', 1, 0, ''),
-(4, '30251284', 'Lenin', 'Martinez', 'martinezlenin@gmail.com', '12345', 'La paz', '04146119988', '2003-09-12 00:00:00', 0, 'Masculino', 1, 2, ''),
-(5, '30423882', 'SantiaGO', 'viloria', 'santi@gmail.com', '12345', 'la paz', '04246027064', '2004-06-23 00:00:00', 1, '1', 1, 1, ''),
+(3, '28467144', 'Pichi', 'Duarte', 'dsjoseale@gmail.com', '12345', 'URB. La paz', '04146119988', '2003-09-12 00:00:00', 1, 'Femenino', 1, 0, ''),
+(4, '30251284', 'Lenin', 'Martinez', 'martinezlenin@gmail.com', '12345', 'La paz', '04146119988', '2003-09-12 00:00:00', 1, 'Masculino', 1, 2, ''),
+(5, '30423882', 'SantiaGO', 'viloria', 'santi@gmail.com', '12345', 'la paz', '04246027064', '2004-06-23 00:00:00', 0, 'Femenino', 1, 1, ''),
 (7, '28009474', 'Arianna', 'Martinez', 'ari.luz.martinez@gmail.com', '12345', 'Urb San Miguel', '04246418343', '1999-05-12 20:13:12', 0, 'Femenino', NULL, 2, '');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuariosala`
+-- Table structure for table `usuariosala`
 --
 
 CREATE TABLE `usuariosala` (
   `id_user` int(11) DEFAULT NULL,
   `id_sala` int(11) DEFAULT NULL,
   `id_curso` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `usuariosala`
+-- Dumping data for table `usuariosala`
 --
 
 INSERT INTO `usuariosala` (`id_user`, `id_sala`, `id_curso`) VALUES
-(4, 1, 'Cur_URBE_01'),
-(5, 1, 'Cur_URBE_01');
+(5, 1, 'Cur_URBE_01'),
+(3, 1, 'Cur_URBE_01'),
+(4, 1, 'Cur_URBE_01');
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `actividades`
+-- Indexes for table `actividades`
 --
 ALTER TABLE `actividades`
   ADD PRIMARY KEY (`idActividades`),
   ADD KEY `idCurso_id_cur` (`idCurso_id_cur`);
 
 --
--- Indices de la tabla `calificaciones`
+-- Indexes for table `calificaciones`
 --
 ALTER TABLE `calificaciones`
   ADD PRIMARY KEY (`id_calificacion`),
@@ -357,20 +365,20 @@ ALTER TABLE `calificaciones`
   ADD KEY `periodo_id_peri` (`periodo_id_peri`);
 
 --
--- Indices de la tabla `cursos`
+-- Indexes for table `cursos`
 --
 ALTER TABLE `cursos`
   ADD PRIMARY KEY (`id_cur`),
   ADD KEY `Empresa_id_empresa` (`Empresa_id_empresa`);
 
 --
--- Indices de la tabla `empresa`
+-- Indexes for table `empresa`
 --
 ALTER TABLE `empresa`
   ADD PRIMARY KEY (`id_empresa`);
 
 --
--- Indices de la tabla `entregas`
+-- Indexes for table `entregas`
 --
 ALTER TABLE `entregas`
   ADD PRIMARY KEY (`id_entregas`),
@@ -379,7 +387,7 @@ ALTER TABLE `entregas`
   ADD KEY `id_nota` (`id_nota`);
 
 --
--- Indices de la tabla `foro_curso`
+-- Indexes for table `foro_curso`
 --
 ALTER TABLE `foro_curso`
   ADD PRIMARY KEY (`id_foro_cur`),
@@ -387,7 +395,7 @@ ALTER TABLE `foro_curso`
   ADD KEY `curso_id_curso` (`curso_id_curso`);
 
 --
--- Indices de la tabla `inscripcion`
+-- Indexes for table `inscripcion`
 --
 ALTER TABLE `inscripcion`
   ADD PRIMARY KEY (`id_inscripcion`),
@@ -396,7 +404,7 @@ ALTER TABLE `inscripcion`
   ADD KEY `Cursos_id_cur` (`Cursos_id_cur`);
 
 --
--- Indices de la tabla `mensaje`
+-- Indexes for table `mensaje`
 --
 ALTER TABLE `mensaje`
   ADD PRIMARY KEY (`id_mensaje`),
@@ -404,15 +412,16 @@ ALTER TABLE `mensaje`
   ADD KEY `id_user` (`id_user`);
 
 --
--- Indices de la tabla `notas`
+-- Indexes for table `notas`
 --
 ALTER TABLE `notas`
   ADD PRIMARY KEY (`idNotas`),
   ADD KEY `Cursos_id_cur` (`Cursos_id_cur`),
-  ADD KEY `Usuario_id_user` (`Usuario_id_user`);
+  ADD KEY `Usuario_id_user` (`Usuario_id_user`),
+  ADD KEY `Actividad_id_act` (`Actividad_id_act`);
 
 --
--- Indices de la tabla `periodo`
+-- Indexes for table `periodo`
 --
 ALTER TABLE `periodo`
   ADD PRIMARY KEY (`id_peri`),
@@ -420,7 +429,7 @@ ALTER TABLE `periodo`
   ADD KEY `periodo_id_cur` (`periodo_id_cur`);
 
 --
--- Indices de la tabla `recursos`
+-- Indexes for table `recursos`
 --
 ALTER TABLE `recursos`
   ADD PRIMARY KEY (`id_recursos`),
@@ -429,21 +438,21 @@ ALTER TABLE `recursos`
   ADD KEY `Sala_id_sala` (`Sala_id_sala`);
 
 --
--- Indices de la tabla `sala`
+-- Indexes for table `sala`
 --
 ALTER TABLE `sala`
   ADD PRIMARY KEY (`id_sala`),
   ADD KEY `ibk_1` (`id_curso`);
 
 --
--- Indices de la tabla `seccionhistorial`
+-- Indexes for table `seccionhistorial`
 --
 ALTER TABLE `seccionhistorial`
   ADD PRIMARY KEY (`id_seccion_historial`),
   ADD KEY `id_sala` (`id_sala`);
 
 --
--- Indices de la tabla `usuario`
+-- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_user`),
@@ -451,7 +460,7 @@ ALTER TABLE `usuario`
   ADD KEY `Empresa_id_empresa` (`Empresa_id_empresa`);
 
 --
--- Indices de la tabla `usuariosala`
+-- Indexes for table `usuariosala`
 --
 ALTER TABLE `usuariosala`
   ADD KEY `id_user` (`id_user`,`id_sala`),
@@ -459,63 +468,63 @@ ALTER TABLE `usuariosala`
   ADD KEY `usuariossala_ibkf_4` (`id_curso`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `actividades`
+-- AUTO_INCREMENT for table `actividades`
 --
 ALTER TABLE `actividades`
   MODIFY `idActividades` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `empresa`
+-- AUTO_INCREMENT for table `empresa`
 --
 ALTER TABLE `empresa`
   MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `foro_curso`
+-- AUTO_INCREMENT for table `foro_curso`
 --
 ALTER TABLE `foro_curso`
-  MODIFY `id_foro_cur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_foro_cur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT de la tabla `mensaje`
+-- AUTO_INCREMENT for table `mensaje`
 --
 ALTER TABLE `mensaje`
-  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
--- AUTO_INCREMENT de la tabla `periodo`
+-- AUTO_INCREMENT for table `periodo`
 --
 ALTER TABLE `periodo`
   MODIFY `id_peri` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `sala`
+-- AUTO_INCREMENT for table `sala`
 --
 ALTER TABLE `sala`
   MODIFY `id_sala` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `usuario`
+-- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `actividades`
+-- Constraints for table `actividades`
 --
 ALTER TABLE `actividades`
   ADD CONSTRAINT `actividades_ibfk_1` FOREIGN KEY (`idCurso_id_cur`) REFERENCES `cursos` (`id_cur`);
 
 --
--- Filtros para la tabla `calificaciones`
+-- Constraints for table `calificaciones`
 --
 ALTER TABLE `calificaciones`
   ADD CONSTRAINT `calificaciones_ibfk_1` FOREIGN KEY (`usuario_identificacion_user`) REFERENCES `usuario` (`identificacion_user`),
@@ -523,13 +532,13 @@ ALTER TABLE `calificaciones`
   ADD CONSTRAINT `calificaciones_ibfk_3` FOREIGN KEY (`periodo_id_peri`) REFERENCES `periodo` (`id_peri`);
 
 --
--- Filtros para la tabla `cursos`
+-- Constraints for table `cursos`
 --
 ALTER TABLE `cursos`
   ADD CONSTRAINT `cursos_ibfk_1` FOREIGN KEY (`Empresa_id_empresa`) REFERENCES `empresa` (`id_empresa`);
 
 --
--- Filtros para la tabla `entregas`
+-- Constraints for table `entregas`
 --
 ALTER TABLE `entregas`
   ADD CONSTRAINT `entregas_ibfk_1` FOREIGN KEY (`id_actividad`) REFERENCES `actividades` (`idActividades`),
@@ -537,14 +546,14 @@ ALTER TABLE `entregas`
   ADD CONSTRAINT `entregas_ibfk_3` FOREIGN KEY (`id_nota`) REFERENCES `notas` (`idNotas`);
 
 --
--- Filtros para la tabla `foro_curso`
+-- Constraints for table `foro_curso`
 --
 ALTER TABLE `foro_curso`
   ADD CONSTRAINT `foro_curso_ibfk_1` FOREIGN KEY (`usuario_id_user`) REFERENCES `usuario` (`id_user`),
   ADD CONSTRAINT `foro_curso_ibfk_2` FOREIGN KEY (`curso_id_curso`) REFERENCES `cursos` (`id_cur`);
 
 --
--- Filtros para la tabla `inscripcion`
+-- Constraints for table `inscripcion`
 --
 ALTER TABLE `inscripcion`
   ADD CONSTRAINT `inscripcion_ibfk_3` FOREIGN KEY (`Cursos_id_cur`) REFERENCES `cursos` (`id_cur`),
@@ -552,52 +561,52 @@ ALTER TABLE `inscripcion`
   ADD CONSTRAINT `inscripcion_ibfk_5` FOREIGN KEY (`Periodo_id_peri`) REFERENCES `periodo` (`id_peri`);
 
 --
--- Filtros para la tabla `mensaje`
+-- Constraints for table `mensaje`
 --
 ALTER TABLE `mensaje`
   ADD CONSTRAINT `id_sala` FOREIGN KEY (`id_sala`) REFERENCES `sala` (`id_sala`),
   ADD CONSTRAINT `mensaje_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_user`);
 
 --
--- Filtros para la tabla `notas`
+-- Constraints for table `notas`
 --
 ALTER TABLE `notas`
   ADD CONSTRAINT `notas_ibfk_2` FOREIGN KEY (`Cursos_id_cur`) REFERENCES `cursos` (`id_cur`),
   ADD CONSTRAINT `notas_ibfk_3` FOREIGN KEY (`Usuario_id_user`) REFERENCES `usuario` (`id_user`);
 
 --
--- Filtros para la tabla `periodo`
+-- Constraints for table `periodo`
 --
 ALTER TABLE `periodo`
   ADD CONSTRAINT `ibk_1_id_empresa` FOREIGN KEY (`id_empresa`) REFERENCES `empresa` (`id_empresa`);
 
 --
--- Filtros para la tabla `recursos`
+-- Constraints for table `recursos`
 --
 ALTER TABLE `recursos`
   ADD CONSTRAINT `recursos_ibfk_2` FOREIGN KEY (`Actividades_idActividades`) REFERENCES `actividades` (`idActividades`),
   ADD CONSTRAINT `recursos_ibfk_3` FOREIGN KEY (`Sala_id_sala`) REFERENCES `sala` (`id_sala`);
 
 --
--- Filtros para la tabla `sala`
+-- Constraints for table `sala`
 --
 ALTER TABLE `sala`
   ADD CONSTRAINT `ibk_1` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_cur`);
 
 --
--- Filtros para la tabla `seccionhistorial`
+-- Constraints for table `seccionhistorial`
 --
 ALTER TABLE `seccionhistorial`
   ADD CONSTRAINT `seccionhistorial_ibfk_1` FOREIGN KEY (`id_sala`) REFERENCES `sala` (`id_sala`);
 
 --
--- Filtros para la tabla `usuario`
+-- Constraints for table `usuario`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `Empresa_id_empresa` FOREIGN KEY (`Empresa_id_empresa`) REFERENCES `empresa` (`id_empresa`);
 
 --
--- Filtros para la tabla `usuariosala`
+-- Constraints for table `usuariosala`
 --
 ALTER TABLE `usuariosala`
   ADD CONSTRAINT `usuariosala_ibfk_2` FOREIGN KEY (`id_sala`) REFERENCES `sala` (`id_sala`),
