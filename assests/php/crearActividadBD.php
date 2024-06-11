@@ -29,7 +29,7 @@ function crearActividad() {
     }
 
     // Manejar archivo principal
-    $carpetaDestino = __DIR__ . "/";
+    $carpetaDestino = "../archivos/actividades/";
     $archivoPrincipal = isset($_FILES['archivo']['name']) ? $_FILES['archivo']['name'] : null;
     $archivoAdicional = isset($_FILES['archivo1']['name']) ? $_FILES['archivo1']['name'] : null;
 

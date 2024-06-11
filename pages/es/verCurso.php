@@ -51,6 +51,15 @@ if (isset($_GET['id_cur'])) {
         $empresa = $datos3['nombre_empresa'];
     }
 
+    $consultaRecursos = mysqli_query($mysqli, "SELECT * FROM recursos WHERE id_cur = '$id_curso_seleccionado'");
+    if (mysqli_num_rows($consultaRecursos) > 0) {
+        while ($datosRecursos = mysqli_fetch_assoc($consultaRecursos)) {
+            $Recursos[] = $datosRecursos;
+
+        }
+
+    }
+
     $consultaActividades = mysqli_query($mysqli, "SELECT * FROM actividades WHERE idCurso_id_cur = '$id_curso_seleccionado'");
 
     if (mysqli_num_rows($consultaActividades) > 0) {
@@ -241,10 +250,41 @@ if (isset($_GET['id_cur'])) {
                 </div>
 
                 <div class="p-2 my-4 rounded shadow ">
-                    <h4>Contenido de materia (Para recursos de tipo texto, archivo [word, powerpoint, img, etc.])</h4>
+                    <h4>Contenido de materia</h4>
                 </div>
 
-                <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis p-3">
+                <?php
+
+                if (mysqli_num_rows($consultaRecursos) > 0) {
+
+                    foreach ($Recursos as $recurso): ?>
+                        <div class="item-recurso d-flex container mb-2 bg-secondary-subtle text-secondary-emphasis p-3">
+                            <div class="">
+
+                                <div class="">
+                                    <i class="fa-solid fa-note-sticky me-2 p-3 rounded bg-warning-subtle" witdh="35"
+                                        height="35"></i>
+                                    <span><a
+                                            href="verRecurso.php?id_rec=<?php echo $recurso['id_recursos']; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>"><?php echo $recurso['nombre_recurso']; ?></a></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    <?php endforeach;
+                } else { ?>
+
+                    <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis p-3"
+                        style="padding: 10px;">
+                        <div>
+                            <div>
+                                <span>No hay Actividades disponibles en este momento</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                <?php } ?>
+                <!-- <div class="item-recurso d-flex container bg-secondary-subtle text-secondary-emphasis p-3">
                     <div class="">
 
                         <div class="">
@@ -254,13 +294,14 @@ if (isset($_GET['id_cur'])) {
                         </div>
 
                     </div>
-                </div>
+                </div> -->
 
                 <?php if ($rol != 0) { ?>
                     <div>
                         <hr>
                         <div>
-                            <button onclick="location.href='crearRecurso.php'" class="btn btn-primary">Crear
+                            <button onclick="location.href='crearRecurso.php?id_cur=<?php echo $id_curso_seleccionado; ?>'"
+                                class="btn btn-primary">Crear
                                 Recurso</button>
                         </div>
                     </div>

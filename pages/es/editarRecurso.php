@@ -34,7 +34,15 @@ if (isset($_SESSION['id_user'])) {
 
 }
 
+if (isset($_GET['id_cur']) && isset($_GET['id_rec'])) {
+    $id_curso_seleccionado = $_GET['id_cur'];
+    $id_recurso_seleccionado = $_GET['id_rec'];
 
+    $consultaRecursos = mysqli_query($mysqli, "SELECT * FROM recursos WHERE id_cur = '$id_curso_seleccionado' AND id_recursos = '$id_recurso_seleccionado'");
+    if (mysqli_num_rows($consultaRecursos) > 0) {
+        $datosrecurso = mysqli_fetch_assoc($consultaRecursos);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -55,6 +63,8 @@ if (isset($_SESSION['id_user'])) {
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- CSS only -->
     <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../assests/css/crearActividad.css">
     <link rel="stylesheet" href="../../assests/css/viewUser.css" />
     <link rel="stylesheet" href="../../assests/css/sidebar.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
@@ -177,15 +187,22 @@ if (isset($_SESSION['id_user'])) {
     <section>
 
         <div class="container-fluid bg-blanco my-3 p-3 shadow rounded">
-            <a href="verRecurso.php"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
+            <a href="verRecurso.php?id_cur=<?php echo $id_curso_seleccionado ?>&id_rec=<?php echo $id_recurso_seleccionado;?>"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2">Editar Recurso</h1>
 
             <form action="">
                 <label for="titulo">Titulo del recurso</label>
-                <input class="form-control mb-2" type="text" name="titulo" id="titulo"></input>
+                <input class="form-control mb-2" type="text" name="titulo" value="<?php echo $datosrecurso['nombre_recurso']; ?>" id="titulo"></input>
 
                 <label for="desp">Descripcion o Instrucciones del recurso</label>
-                <textarea rows="4" class="form-control mb-2" type="text" name="desp" id="desp"></textarea>
+                <label for="descrip">Descripcion o Instrucciones del recurso</label>
+                <div class="bg-white" id="editor"><?php echo $datosrecurso['descripcion_recurso']; ?>
+                </div>
+                <input type="hidden" id="descrip" class="texto_actividad" name="descrip">
+                <div>
+
+
+                </div>
 
                 <div>
                     <div class="mb-3">
@@ -201,7 +218,7 @@ if (isset($_SESSION['id_user'])) {
                     <li class="list-group-item ">
                         <i class="fa-solid fa-file"></i> <a class="ms-2 text-break" href="#">Archivo #1</a>
                         <a class="ms-3" href="#">
-                            <span>Editar</span>
+                            <span>Cambiar</span>
                             <i class="fa-regular fa-pen-to-square"></i>
                         </a>
 
@@ -213,7 +230,7 @@ if (isset($_SESSION['id_user'])) {
                     <li class="list-group-item">
                         <i class="fa-solid fa-file"></i> <a class="ms-2 text-break" href="#">Archivo #2</a>
                         <a class="ms-3" href="#">
-                            <span>Editar</span>
+                            <span>Cambiar</span>
                             <i class="fa-regular fa-pen-to-square"></i>
                         </a>
 
@@ -224,11 +241,23 @@ if (isset($_SESSION['id_user'])) {
                     </li>
                 </ul>
 
-                <button type="submit" class="btn btn-primary">Confirmar Cambios</button>
+                <button type="submit" class="btn btn-primary mt-2">Confirmar Cambios</button>
             </form>
         </div>
 
     </section>
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+        var form = document.querySelector('form');
+        form.onsubmit = function () {
+            var editorContent = document.querySelector('.ql-editor').innerHTML;
+            document.getElementById('descrip').value = editorContent;
+        };
+    </script>
 
     <script>
         //Funcion JQuery para validar el cantidad MAX de archivos

@@ -34,6 +34,9 @@ if (isset($_SESSION['id_user'])) {
 
 }
 
+if (isset($_GET['id_cur'])) {
+    $id_curso_seleccionado = $_GET['id_cur'];
+}
 
 ?>
 
@@ -55,7 +58,9 @@ if (isset($_SESSION['id_user'])) {
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- CSS only -->
     <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link rel="stylesheet" href="../../assests/css/viewUser.css" />
+    <link rel="stylesheet" href="../../assests/css/crearActividad.css">
     <link rel="stylesheet" href="../../assests/css/sidebar.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
     <!--Sidebar.js-->
@@ -177,21 +182,29 @@ if (isset($_SESSION['id_user'])) {
     <section>
 
         <div class="container-fluid bg-blanco my-3 p-3 shadow rounded">
-            <a href="verCurso.php"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
+            <a href="verCurso.php?id_cur=<?php echo $id_curso_seleccionado ?>"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2">Crear Recurso</h1>
 
-            <form action="">
+            <form action="" id="entrega" method="post" autocomplete="off" enctype="multipart/form-data">
+                <input type="hidden" name="" id="action" value="CrearRecurso">
+                <input type="hidden" name="ID_CUR" id="ID_CUR" class="ID_CUR" value="<?php echo $id_curso_seleccionado ?>">
                 <label for="titulo">Titulo del recurso</label>
                 <input class="form-control mb-2" type="text" name="titulo" id="titulo"></input>
 
-                <label for="desp">Descripcion o Instrucciones del recurso</label>
-                <textarea rows="4" class="form-control mb-2" type="text" name="desp" id="desp"></textarea>
+                <label for="descrip">Descripcion o Instrucciones del recurso</label>
+                <div class="bg-white" id="editor">
+                </div>
+                <input type="hidden" id="descrip" class="texto_actividad" name="descrip">
+                <div>
+
+
+                </div>
 
                 <div>
-                    <div class="mb-3">
+                    <div class="mb-3 mt-2">
                         <label for="formFileMultiple" class="form-label">Seleccionar archivos... (2 archivos
                             máximo)</label>
-                        <input class="form-control" type="file" id="formFileMultiple" multiple>
+                        <input class="form-control" type="file" id="files" multiple>
                     </div>
                     <button type="submit" class="btn btn-primary">Crear Recurso</button>
                 </div>
@@ -199,6 +212,18 @@ if (isset($_SESSION['id_user'])) {
         </div>
 
     </section>
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+        var form = document.querySelector('form');
+        form.onsubmit = function () {
+            var editorContent = document.querySelector('.ql-editor').innerHTML;
+            document.getElementById('descrip').value = editorContent;
+        };
+    </script>
 
     <script>
         //Funcion JQuery para validar el cantidad MAX de archivos
@@ -211,10 +236,18 @@ if (isset($_SESSION['id_user'])) {
                 //Con el valor de la base de datos que limita los archivoss
                 if (parseInt($fileUpload.get(0).files.length) > 2) {
                     alert("Solo puedes subir el maximo de 2 archivos");
+                }else {
+                    submitData();
                 }
             });
         });
+
+        // $("#entrega").submit(function(e){
+        //         e.preventDefault(e);
+        //     });
     </script>
+
+    <?php require "../../assests/php/crearRecursoMain.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

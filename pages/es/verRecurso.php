@@ -34,7 +34,27 @@ if (isset($_SESSION['id_user'])) {
 
 }
 
+if (isset($_GET['id_cur']) && isset($_GET['id_rec'])) {
+    $id_curso_seleccionado = $_GET['id_cur'];
+    $id_recurso_seleccionado = $_GET['id_rec'];
 
+    $consultaCurso = mysqli_query($mysqli, "SELECT cursos.nombre_cur, empresa.nombre_empresa
+                                    FROM cursos 
+                                    LEFT JOIN empresa ON empresa.id_empresa = cursos.Empresa_id_empresa
+                                    WHERE id_cur = '$id_curso_seleccionado'");
+
+    if (mysqli_num_rows($consultaCurso) > 0) {
+        $datos3 = mysqli_fetch_assoc($consultaCurso);
+        $curso = $datos3['nombre_cur'];
+        $empresa = $datos3['nombre_empresa'];
+    }
+
+    $consultaRecursos = mysqli_query($mysqli, "SELECT * FROM recursos WHERE id_cur = '$id_curso_seleccionado' AND id_recursos = '$id_recurso_seleccionado'");
+    if (mysqli_num_rows($consultaRecursos) > 0) {
+        $datosrecurso = mysqli_fetch_assoc($consultaRecursos);
+    }
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -177,41 +197,63 @@ if (isset($_SESSION['id_user'])) {
         <div class="container-fluid bg-blanco my-3 p-3 rounded shadow">
             <!--Titulo-->
             <div class="container">
-                <a href="verCurso.php"><i class="fa-solid mt-2 fa-arrow-left"
-                        style="font-size:2rem;color:black;"></i></a>
+                <a href="verCurso.php?id_cur=<?php echo $id_curso_seleccionado; ?>"><i
+                        class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
 
                 <div class="p-2 mb-2 rounded shadow ">
-                    <h2><strong>Nombre del Recurso - Empresa</strong></h2>
+                    <h2><strong><?php echo $datosrecurso['nombre_recurso'] ?> - <?php echo $empresa; ?></strong></h2>
                 </div>
 
                 <div class="p-2 mb-2 border bg-white rounded">
                     <p class="mb-0">
-                        Descripcion e Instrucciones del recurso
+                    <div class="mx-2">
+                        <?php echo $datosrecurso['descripcion_recurso']; ?>
+                    </div>
                     </p>
                 </div>
 
                 <hr>
 
                 <div class="p-2 my-4 rounded shadow ">
-                    <h4>Archivos del Recurso (El archivo[s] del recurso)</h4>
+                    <h4>Archivos del Recurso</h4>
                 </div>
 
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <i class="fa-solid fa-file"></i> <a class="ms-2" href="#">Archivo</a>
-                    </li>
-                </ul>
+                <?php if ($datosrecurso['archivo'] == null) { ?>
+                    <ul class="list-group mb-1">
+                        <li class="list-group-item">
+                            No hay archivos disponibles
+                        </li>
+                    <?php } else { ?>
 
-                <button class="btn btn-primary mt-2" onclick="location.href='verCurso.php'">Regresar</button>
+                        <ul class="list-group mb-1">
+                            <li class="list-group-item">
+                                <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank" rel="noopener noreferrer"
+                                    href="../../assests/php/descargarRecurso.php?file_name=<?php echo $datosrecurso['archivo']; ?>&id_rec=<?php echo $id_recurso_seleccionado; ?>"><?php echo $datosrecurso['archivo']; ?></a>
+                            </li>
 
-                <?php if ($rol != 0) { ?>
-                    <div>
-                        <hr>
-                        <button onclick="location.href='editarRecurso.php'" class="btn btn-primary">Editar Recurso</button>
-                        <button onclick="confirmarElim();" class="btn btn-outline-danger">Eliminar Recurso</button>
-                    </div>
-                <?php }
+
+                        <?php }
+                if ($datosrecurso['archivoAdicional'] != null) { ?>
+                            <li class="list-group-item">
+                                <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank" rel="noopener noreferrer"
+                                    href="../../assests/php/descargarRecurso.php?file_name=<?php echo $datosrecurso['archivoAdicional']; ?>&id_rec=<?php echo $id_recurso_seleccionado; ?>"><?php echo $datosrecurso['archivoAdicional']; ?></a>
+                            </li>
+                        <?php }
                 ; ?>
+                    </ul>
+                    <button class="btn btn-primary mt-2"
+                        onclick="location.href='verCurso.php?id_cur=<?php echo $id_curso_seleccionado; ?>'">Regresar</button>
+
+                    <?php if ($rol != 0) { ?>
+                        <div>
+                            <hr>
+                            <button onclick="location.href='editarRecurso.php?id_rec=<?php echo $id_recurso_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado;?>'" class="btn btn-primary">Editar
+                                Recurso</button>
+                            <button onclick="confirmarElim();" class="btn btn-outline-danger">Eliminar Recurso</button>
+                        </div>
+                    <?php }
+                    ; ?>
+
             </div>
         </div>
 

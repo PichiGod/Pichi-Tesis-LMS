@@ -279,16 +279,16 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
 
                                 <ul class="list-group mb-1">
                                     <li class="list-group-item">
-                                        <i class="fa-solid fa-file"></i> <a class="ms-2"
-                                            href="#"><?php echo $actividad['archivosPrincipal']; ?></a>
+                                        <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank" rel="noopener noreferrer"
+                                            href="../../assests/php/descargarActividad.php?file_name=<?php echo $actividad['archivosPrincipal']; ?>&id_act=<?php echo $id_act_seleccionado; ?>"><?php echo $actividad['archivosPrincipal']; ?></a>
                                     </li>
 
 
                                 <?php }
                         if ($actividad['archivosAdicional'] != null) { ?>
                                     <li class="list-group-item">
-                                        <i class="fa-solid fa-file"></i> <a class="ms-2"
-                                            href="#"><?php echo $actividad['archivosAdicional']; ?></a>
+                                        <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank" rel="noopener noreferrer"
+                                            href="../../assests/php/descargarActividad.php?file_name=<?php echo $actividad['archivosAdicional']; ?>&id_act=<?php echo $id_act_seleccionado; ?>">><?php echo $actividad['archivosAdicional']; ?></a>
                                     </li>
                                 <?php }
                         ; ?>
@@ -426,7 +426,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                                                     echo $fechaModif; ?>
                                                 </p>
                                                 <?php $pattern = '/<p><br><\/p>/'; // expresión regular para buscar el patrón. Usar '/<p>\s*<br\s*\/>\s*<\/p>/' para ser mas flexible
-                                                if (!preg_match($pattern, $datosEntrega['texto_entrega'])) { ?>
+                                                                if (!preg_match($pattern, $datosEntrega['texto_entrega'])) { ?>
                                                     <h4 class="card-title">Texto</h4>
                                                     <div class="bg-white rounded border py-1 ">
                                                         <p class="mb-0 ms-1">
@@ -436,7 +436,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                                                         </p>
                                                     </div>
                                                 <?php }
-                                                ; ?>
+                                                                ; ?>
                                                 <h4 class="card-title mt-1">Archivos entregados</h4>
 
                                                 <?php if ($datosEntrega['archivo'] == null) { ?>
@@ -448,8 +448,9 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
 
                                                         <ul class="list-group">
                                                             <li class="list-group-item">
-                                                                <i class="fa-solid fa-file"></i> <a class="ms-2"
-                                                                href="../../assests/php/descargarEntrega.php?file_name=<?php echo $datosEntrega['archivo'];?>">
+                                                                <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    href="../../assests/php/descargarEntrega.php?file_name=<?php echo $datosEntrega['archivo']; ?>">
                                                                     <?php echo $datosEntrega['archivo']; ?>
                                                                 </a>
                                                             </li>
@@ -458,7 +459,9 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                                                         <?php }
                                                 if ($datosEntrega['archivoAdicional'] != null) { ?>
                                                             <li class="list-group-item">
-                                                                <i class="fa-solid fa-file"></i> <a class="ms-2" href="../../assests/php/descargarEntrega.php?file_name=<?php echo $datosEntrega['archivoAdicional'];?>">
+                                                                <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    href="../../assests/php/descargarEntrega.php?file_name=<?php echo $datosEntrega['archivoAdicional']; ?>">
                                                                     <?php echo $datosEntrega['archivoAdicional']; ?></a>
                                                             </li>
                                                         <?php }
