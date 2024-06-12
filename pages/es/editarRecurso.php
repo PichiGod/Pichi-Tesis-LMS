@@ -187,14 +187,19 @@ if (isset($_GET['id_cur']) && isset($_GET['id_rec'])) {
     <section>
 
         <div class="container-fluid bg-blanco my-3 p-3 shadow rounded">
-            <a href="verRecurso.php?id_cur=<?php echo $id_curso_seleccionado ?>&id_rec=<?php echo $id_recurso_seleccionado;?>"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
+            <a
+                href="verRecurso.php?id_cur=<?php echo $id_curso_seleccionado ?>&id_rec=<?php echo $id_recurso_seleccionado; ?>"><i
+                    class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2">Editar Recurso</h1>
 
-            <form action="">
+            <form action="" autocomplete="off" id="entrega" method="post" enctype="multipart/form-data">
+                <input type="hidden" id="action" value="editarRecurso">
+                <input type="hidden" id="id_cur" value="<?php echo $id_curso_seleccionado ?>">
+                <input type="hidden" id="id_rec" value="<?php echo $id_recurso_seleccionado ?>">
                 <label for="titulo">Titulo del recurso</label>
-                <input class="form-control mb-2" type="text" name="titulo" value="<?php echo $datosrecurso['nombre_recurso']; ?>" id="titulo"></input>
+                <input class="form-control mb-2" type="text" name="titulo"
+                    value="<?php echo $datosrecurso['nombre_recurso']; ?>" id="titulo"></input>
 
-                <label for="desp">Descripcion o Instrucciones del recurso</label>
                 <label for="descrip">Descripcion o Instrucciones del recurso</label>
                 <div class="bg-white" id="editor"><?php echo $datosrecurso['descripcion_recurso']; ?>
                 </div>
@@ -206,39 +211,47 @@ if (isset($_GET['id_cur']) && isset($_GET['id_rec'])) {
 
                 <div>
                     <div class="mb-3">
-                        <label for="formFileMultiple" class="form-label">Seleccionar archivos... (2 archivos
+                        <label for="files" class="form-label">Seleccionar archivos... (2 archivos
                             máximo)</label>
-                        <input class="form-control" type="file" id="formFileMultiple" multiple>
+                        <input class="form-control" type="file" name="files[]" id="files" multiple>
                     </div>
 
                 </div>
 
-                Lista de archivos que ya haya sido subidos (si tiene)
+                Lista de archivos
                 <ul class="list-group mt-2">
-                    <li class="list-group-item ">
-                        <i class="fa-solid fa-file"></i> <a class="ms-2 text-break" href="#">Archivo #1</a>
-                        <a class="ms-3" href="#">
-                            <span>Cambiar</span>
-                            <i class="fa-regular fa-pen-to-square"></i>
-                        </a>
+                    <?php if ($datosrecurso['archivo'] == null && $datosrecurso['archivoAdicional'] == null) { ?>
 
-                        <a class="ms-2" href="#">
-                            <span>Eliminar</span>
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <i class="fa-solid fa-file"></i> <a class="ms-2 text-break" href="#">Archivo #2</a>
-                        <a class="ms-3" href="#">
-                            <span>Cambiar</span>
-                            <i class="fa-regular fa-pen-to-square"></i>
-                        </a>
+                        <li class="list-group-item">
+                            No hay archivos disponibles
+                        </li>
+                    <?php } elseif ($datosrecurso['archivo'] != null) { ?>
+                        <li class="list-group-item ">
+                            <i class="fa-solid mt-1 fa-file"></i> <a class="ms-2 text-break"
+                                href="#"><?php echo $datosrecurso['archivo']; ?></a>
+                            <input type="hidden" id="actionArchivo1" value="borrar"></input>
+                            <input type="hidden" id="archivoActual" value="<?php echo $datosrecurso['archivo']; ?>"></input>
+                            <button class="btn btn-link mb-1 p-0 ms-2" onclick="borrarArchivo();">
+                                <span>Eliminar</span>
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </li>
+                    <?php };
+                    if ($datosrecurso['archivoAdicional'] != null) { ?>
 
-                        <a class="ms-2" href="#">
-                            <span>Eliminar</span>
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
-                    </li>
+                        <li class="list-group-item">
+                            <i class="fa-solid fa-file"></i> <a class="ms-2 text-break"
+                                href="#"><?php echo $datosrecurso['archivoAdicional']; ?></a>
+                            <input type="hidden" id="actionArchivo2" value="borrarAdicional"></input>
+                            <input type="hidden" id="aAdicionalActual"
+                                value="<?php echo $datosrecurso['archivoAdicional']; ?>"></input>
+                            <button class="btn btn-link mb-1 p-0 ms-2" onclick="borrarArchivoAdicional();">
+                                <span>Eliminar</span>
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </li>
+                    <?php }
+                    ; ?>
                 </ul>
 
                 <button type="submit" class="btn btn-primary mt-2">Confirmar Cambios</button>
@@ -270,10 +283,18 @@ if (isset($_GET['id_cur']) && isset($_GET['id_rec'])) {
                 //Con el valor de la base de datos que limita los archivoss
                 if (parseInt($fileUpload.get(0).files.length) > 2) {
                     alert("Solo puedes subir el maximo de 2 archivos");
+                } else {
+                    editarRecurso();
                 }
             });
         });
+
+        $("#entrega").submit(function(e){
+                e.preventDefault(e);
+            });
     </script>
+
+    <?php require "../../assests/php/editarRecursoMain.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

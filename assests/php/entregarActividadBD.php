@@ -32,7 +32,7 @@ function entregarActividad($mysqli)
             // Get the file extension
             $fileExtension = pathinfo($value, PATHINFO_EXTENSION);
             if (!preg_match('/^(pdf|doc|docx)$/', $fileExtension)) {
-                echo "Formato de archivo principal no permitido. Sube un PDF, DOC o DOCX.";
+                echo "Formato de archivo no permitido. Sube un PDF, DOC o DOCX.";
                 exit;
             }
 
@@ -50,7 +50,7 @@ function entregarActividad($mysqli)
             move_uploaded_file($files['tmp_name'][$key], $uploadFile);
 
             // Add the uploaded file name to the array
-            $uploadedFiles[] = $value; //$Usar $uniqueFileName para evitar nombres de archivos repetidos
+            $uploadedFiles[] = basename($uploadFile); //$Usar $uniqueFileName para evitar nombres de archivos repetidos
         }
     }
 

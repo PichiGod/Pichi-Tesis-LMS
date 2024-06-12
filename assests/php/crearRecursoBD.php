@@ -28,7 +28,7 @@ function crearRecurso($mysqli)
             // Get the file extension
             $fileExtension = pathinfo($value, PATHINFO_EXTENSION);
             if (!preg_match('/^(pdf|doc|docx)$/', $fileExtension)) {
-                echo "Formato de archivo principal no permitido. Sube un PDF, DOC o DOCX.";
+                echo "Formato de archivo no permitido. Sube un PDF, DOC o DOCX.";
                 exit;
             }
 
@@ -46,7 +46,7 @@ function crearRecurso($mysqli)
             move_uploaded_file($files['tmp_name'][$key], $uploadFile);
 
             // Add the uploaded file name to the array
-            $uploadedFiles[] = $value; //$Usar $uniqueFileName para evitar nombres de archivos repetidos
+            $uploadedFiles[] = basename($uploadFile); //$Usar $uniqueFileName para evitar nombres de archivos repetidos
         }
 
     }
@@ -55,8 +55,12 @@ function crearRecurso($mysqli)
     if (empty($texto_recurso)) {
         echo "Debe enviar la descripción del recurso";
         exit;
-    }
-    ;
+    };
+
+    if (empty($titulo)) {
+        echo "Debe enviar un titulo al recurso";
+        exit;
+    };
 
     // Preparar consulta SQL con el nuevo recurso
     $sql = "INSERT INTO recursos (nombre_recurso, descripcion_recurso, archivo, archivoAdicional, id_cur)

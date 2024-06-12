@@ -511,6 +511,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                                     <button
                                         onclick="location.href='editarActividad.php?id_act=<?php echo $id_act_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>'"
                                         class="btn btn-outline-secondary">Editar Actividad</button>
+                                    <button onclick="confirmarElim();" class="btn btn-outline-danger">Eliminar Actividad</button>
                                 </div>
                             </div>
                         </div>
@@ -522,6 +523,17 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
         </div>
 
     </section>
+
+    <script>
+        function confirmarElim() {
+            confirmar = confirm("Esta seguro que quiere eliminar el recurso?");
+            if (confirmar == true) {
+                //Codigo para eliminar el recurso
+                alert('Se ha eliminado el recurso correctamente');
+                window.location.href = "verCurso.php";
+            }
+        }
+    </script>
 
     <script>
         //Funcion JQuery para validar el cantidad MAX de archivos

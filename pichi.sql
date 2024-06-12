@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-06-2024 a las 22:30:11
+-- Tiempo de generación: 12-06-2024 a las 22:22:00
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -55,7 +55,8 @@ INSERT INTO `actividades` (`idActividades`, `Titulo`, `ContenidoAcitividad`, `ar
 (3, 'Portugues II INSTRUCCIONES II', '', 'Tipos de modelos de negocio.pdf', '2024-05-17 04:00:00.000000', '2024-05-31 04:00:00.000000', '2024-05-31 04:00:00.000000', 5, 20, 10, 0, 1, 0, NULL, 'Cur_URBE_01'),
 (4, 'Portugues II INSTRUCCIONES III', '<p>Hola estas son las instrucciones necesarias</p>', 'Informe Simulacion de sistemas.docx', '2024-05-18 04:00:00.000000', '2024-05-24 04:00:00.000000', '2024-05-31 04:00:00.000000', 5, 20, 10, 0, 1, 0, NULL, 'Cur_URBE_01'),
 (5, 'Portugues II INSTRUCCIONES IV', '<p>pRUEBAS XD</p>', 'Informe Simulacion de sistemas.docx', '2024-05-24 04:00:00.000000', '2024-05-24 04:00:00.000000', '2024-05-31 04:00:00.000000', 20, 20, 10, 0, 1, 0, 'finales (FINAL).docx', 'Cur_URBE_01'),
-(6, 'Ingles I documentos para Evaluativo', '<p>Aqui cualquier descripción </p>', 'finales (FINAL).docx', '2024-05-24 04:00:00.000000', '2024-05-31 04:00:00.000000', '2024-05-30 04:00:00.000000', 20, 20, 10, 0, 0, 10, NULL, 'Cur_URBE_01');
+(6, 'Ingles I documentos para Evaluativo', '<p>Aqui cualquier descripción </p>', 'finales (FINAL).docx', '2024-05-24 04:00:00.000000', '2024-05-31 04:00:00.000000', '2024-05-30 04:00:00.000000', 20, 20, 10, 0, 0, 10, NULL, 'Cur_URBE_01'),
+(7, 'Verbo To-Be', '<p>Ver el archivo incluido en la actividad.</p>', 'InformePasantia-Cap-III.pdf', '2024-06-11 04:00:00.000000', '2024-06-19 04:00:00.000000', '2024-06-17 04:00:00.000000', 10, 20, 1, 0, 1, 0, NULL, 'Cur_URBE_01');
 
 -- --------------------------------------------------------
 
@@ -137,9 +138,8 @@ CREATE TABLE `entregas` (
 --
 
 INSERT INTO `entregas` (`id_entregas`, `texto_entrega`, `archivo`, `archivoAdicional`, `fecha_modificacion`, `id_user`, `id_actividad`) VALUES
-(2, '<p>Prueba</p>', 'InformePasantia-Cap-I.pdf', 'InformePasantia-Cap-II.pdf', '2024-06-10', 3, 6),
-(3, '<p><br></p>', 'InformePasantia-Cap-III.pdf', NULL, '2024-06-10', 3, 5),
-(4, '<p>Solo texto enviado</p>', NULL, NULL, '2024-06-10', 3, 4);
+(5, '<p>Prueba</p>', 'InformePasantia-Cap-I.pdf', 'InformePasantia-Cap-II.pdf', '2024-06-11', 3, 6),
+(6, '<p>asasas</p>', NULL, NULL, '2024-06-11', 3, 7);
 
 -- --------------------------------------------------------
 
@@ -252,18 +252,25 @@ INSERT INTO `periodo` (`id_peri`, `nombre_peri`, `fecha_ini_peri`, `fecha_fin_pe
 --
 
 CREATE TABLE `recursos` (
-  `id_recursos` varchar(8) NOT NULL,
+  `id_recursos` int(11) NOT NULL,
   `nombre_recurso` varchar(45) NOT NULL,
-  `tipo_recurso` varchar(45) NOT NULL,
-  `ubicacion_recurso` varchar(45) NOT NULL,
-  `descripcion_recurso` varchar(45) NOT NULL,
-  `tipo_archivo` varchar(45) NOT NULL,
-  `archivo` varchar(45) NOT NULL,
-  `id_cur` varchar(100) NOT NULL,
-  `Actividades_idActividades` int(11) NOT NULL,
-  `Sala_id_sala` int(11) NOT NULL,
-  `foro_id_foro` int(11) NOT NULL
+  `tipo_recurso` varchar(45) DEFAULT NULL,
+  `ubicacion_recurso` varchar(45) DEFAULT NULL,
+  `descripcion_recurso` text NOT NULL,
+  `tipo_archivo` varchar(45) DEFAULT NULL,
+  `archivo` varchar(255) DEFAULT NULL,
+  `archivoAdicional` varchar(255) DEFAULT NULL,
+  `id_cur` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `recursos`
+--
+
+INSERT INTO `recursos` (`id_recursos`, `nombre_recurso`, `tipo_recurso`, `ubicacion_recurso`, `descripcion_recurso`, `tipo_archivo`, `archivo`, `archivoAdicional`, `id_cur`) VALUES
+(3, 'Prueba', NULL, NULL, '<p>prueba</p>', NULL, 'InformePasantia-Cap-I.docx', 'InformePasantia-Cap-II.docx', 'Cur_URBE_01'),
+(4, 'prueba 2', NULL, NULL, '<p>prueba</p>', NULL, 'InformePasantia-Cap-III.docx', NULL, 'Cur_URBE_01'),
+(14, 'Prueba 3', NULL, NULL, '<p>Recurso puro texto</p>', NULL, NULL, NULL, 'Cur_URBE_01');
 
 -- --------------------------------------------------------
 
@@ -325,7 +332,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_user`, `identificacion_user`, `nombre_user`, `apellido_user`, `correo_user`, `contrasena_user`, `direccion_user`, `numero_user`, `fecha_nacimiento_user`, `Active_online`, `sexo_user`, `Empresa_id_empresa`, `rol`, `img_perfil`) VALUES
-(3, '28467144', 'Pichi', 'Duarte', 'dsjoseale@gmail.com', '12345', 'URB. La paz', '04146119988', '2003-09-12 00:00:00', 1, 'Femenino', 1, 0, ''),
+(3, '28467144', 'Pichi', 'Duarte', 'dsjoseale@gmail.com', '12345', 'URB. La paz', '04146119988', '2003-09-12 00:00:00', 0, 'Femenino', 1, 0, ''),
 (4, '30251284', 'Lenin', 'Martinez', 'martinezlenin@gmail.com', '12345', 'La paz', '04146119988', '2003-09-12 00:00:00', 1, 'Masculino', 1, 2, ''),
 (5, '30423882', 'SantiaGO', 'viloria', 'santi@gmail.com', '12345', 'la paz', '04246027064', '2004-06-23 00:00:00', 0, 'Femenino', 1, 1, ''),
 (7, '28009474', 'Arianna', 'Martinez', 'ari.luz.martinez@gmail.com', '12345', 'Urb San Miguel', '04246418343', '1999-05-12 20:13:12', 0, 'Femenino', NULL, 2, '');
@@ -440,9 +447,7 @@ ALTER TABLE `periodo`
 --
 ALTER TABLE `recursos`
   ADD PRIMARY KEY (`id_recursos`),
-  ADD KEY `id_cur` (`id_cur`,`Actividades_idActividades`,`Sala_id_sala`),
-  ADD KEY `Actividades_idActividades` (`Actividades_idActividades`),
-  ADD KEY `Sala_id_sala` (`Sala_id_sala`);
+  ADD KEY `id_cur` (`id_cur`);
 
 --
 -- Indices de la tabla `sala`
@@ -482,7 +487,7 @@ ALTER TABLE `usuariosala`
 -- AUTO_INCREMENT de la tabla `actividades`
 --
 ALTER TABLE `actividades`
-  MODIFY `idActividades` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idActividades` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `empresa`
@@ -494,7 +499,7 @@ ALTER TABLE `empresa`
 -- AUTO_INCREMENT de la tabla `entregas`
 --
 ALTER TABLE `entregas`
-  MODIFY `id_entregas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_entregas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `foro_curso`
@@ -513,6 +518,12 @@ ALTER TABLE `mensaje`
 --
 ALTER TABLE `periodo`
   MODIFY `id_peri` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `recursos`
+--
+ALTER TABLE `recursos`
+  MODIFY `id_recursos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `sala`
@@ -591,13 +602,6 @@ ALTER TABLE `notas`
 --
 ALTER TABLE `periodo`
   ADD CONSTRAINT `ibk_1_id_empresa` FOREIGN KEY (`id_empresa`) REFERENCES `empresa` (`id_empresa`);
-
---
--- Filtros para la tabla `recursos`
---
-ALTER TABLE `recursos`
-  ADD CONSTRAINT `recursos_ibfk_2` FOREIGN KEY (`Actividades_idActividades`) REFERENCES `actividades` (`idActividades`),
-  ADD CONSTRAINT `recursos_ibfk_3` FOREIGN KEY (`Sala_id_sala`) REFERENCES `sala` (`id_sala`);
 
 --
 -- Filtros para la tabla `sala`

@@ -204,7 +204,7 @@ if (isset($_GET['id_cur'])) {
                     <div class="mb-3 mt-2">
                         <label for="formFileMultiple" class="form-label">Seleccionar archivos... (2 archivos
                             máximo)</label>
-                        <input class="form-control" type="file" id="files" multiple>
+                        <input class="form-control" name="files[]" type="file" id="files" multiple>
                     </div>
                     <button type="submit" class="btn btn-primary">Crear Recurso</button>
                 </div>

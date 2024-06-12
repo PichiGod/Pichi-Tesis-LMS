@@ -217,42 +217,46 @@ if (isset($_GET['id_cur']) && isset($_GET['id_rec'])) {
                 <div class="p-2 my-4 rounded shadow ">
                     <h4>Archivos del Recurso</h4>
                 </div>
+                <ul class="list-group mb-1">
+                    <?php if ($datosrecurso['archivo'] == null && $datosrecurso['archivoAdicional'] == null) { ?>
 
-                <?php if ($datosrecurso['archivo'] == null) { ?>
-                    <ul class="list-group mb-1">
                         <li class="list-group-item">
                             No hay archivos disponibles
                         </li>
-                    <?php } else { ?>
+                    <?php } elseif ($datosrecurso['archivo'] != null) { ?>
 
-                        <ul class="list-group mb-1">
-                            <li class="list-group-item">
-                                <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank" rel="noopener noreferrer"
-                                    href="../../assests/php/descargarRecurso.php?file_name=<?php echo $datosrecurso['archivo']; ?>&id_rec=<?php echo $id_recurso_seleccionado; ?>"><?php echo $datosrecurso['archivo']; ?></a>
-                            </li>
+                        <li class="list-group-item">
+                            <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank" rel="noopener noreferrer"
+                                href="../../assests/php/descargarRecurso.php?file_name=<?php echo $datosrecurso['archivo']; ?>&id_rec=<?php echo $id_recurso_seleccionado; ?>"><?php echo $datosrecurso['archivo']; ?></a>
+                        </li>
 
 
-                        <?php }
-                if ($datosrecurso['archivoAdicional'] != null) { ?>
-                            <li class="list-group-item">
-                                <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank" rel="noopener noreferrer"
-                                    href="../../assests/php/descargarRecurso.php?file_name=<?php echo $datosrecurso['archivoAdicional']; ?>&id_rec=<?php echo $id_recurso_seleccionado; ?>"><?php echo $datosrecurso['archivoAdicional']; ?></a>
-                            </li>
-                        <?php }
-                ; ?>
-                    </ul>
-                    <button class="btn btn-primary mt-2"
-                        onclick="location.href='verCurso.php?id_cur=<?php echo $id_curso_seleccionado; ?>'">Regresar</button>
-
-                    <?php if ($rol != 0) { ?>
-                        <div>
-                            <hr>
-                            <button onclick="location.href='editarRecurso.php?id_rec=<?php echo $id_recurso_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado;?>'" class="btn btn-primary">Editar
-                                Recurso</button>
-                            <button onclick="confirmarElim();" class="btn btn-outline-danger">Eliminar Recurso</button>
-                        </div>
+                    <?php }
+                    ;
+                    if ($datosrecurso['archivoAdicional'] != null) { ?>
+                        <li class="list-group-item">
+                            <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank" rel="noopener noreferrer"
+                                href="../../assests/php/descargarRecurso.php?file_name=<?php echo $datosrecurso['archivoAdicional']; ?>&id_rec=<?php echo $id_recurso_seleccionado; ?>"><?php echo $datosrecurso['archivoAdicional']; ?></a>
+                        </li>
                     <?php }
                     ; ?>
+                </ul>
+
+                <button class="btn btn-primary mt-2"
+                    onclick="location.href='verCurso.php?id_cur=<?php echo $id_curso_seleccionado; ?>'">Regresar
+                </button>
+
+                <?php if ($rol != 0) { ?>
+                    <div>
+                        <hr>
+                        <button
+                            onclick="location.href='editarRecurso.php?id_rec=<?php echo $id_recurso_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>'"
+                            class="btn btn-primary">Editar
+                            Recurso</button>
+                        <button onclick="confirmarElim(<?php echo $id_recurso_seleccionado; ?>);" class="btn btn-outline-danger">Eliminar Recurso</button>
+                    </div>
+                <?php }
+                ; ?>
 
             </div>
         </div>
@@ -260,10 +264,11 @@ if (isset($_GET['id_cur']) && isset($_GET['id_rec'])) {
     </section>
 
     <script>
-        function confirmarElim() {
+        function confirmarElim(id) {
             confirmar = confirm("Esta seguro que quiere eliminar el recurso?");
             if (confirmar == true) {
                 //Codigo para eliminar el recurso
+                eliminarRecurso(id);
                 alert('Se ha eliminado el recurso correctamente');
                 window.location.href = "verCurso.php";
             }
