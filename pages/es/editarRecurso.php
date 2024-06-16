@@ -194,8 +194,8 @@ if (isset($_GET['id_cur']) && isset($_GET['id_rec'])) {
 
             <form action="" autocomplete="off" id="entrega" method="post" enctype="multipart/form-data">
                 <input type="hidden" id="action" value="editarRecurso">
-                <input type="hidden" id="id_cur" value="<?php echo $id_curso_seleccionado ?>">
-                <input type="hidden" id="id_rec" value="<?php echo $id_recurso_seleccionado ?>">
+                <input type="hidden" id="id_cur" value="<?php echo $id_curso_seleccionado; ?>">
+                <input type="hidden" id="id_rec" value="<?php echo $id_recurso_seleccionado; ?>">
                 <label for="titulo">Titulo del recurso</label>
                 <input class="form-control mb-2" type="text" name="titulo"
                     value="<?php echo $datosrecurso['nombre_recurso']; ?>" id="titulo"></input>
@@ -236,7 +236,8 @@ if (isset($_GET['id_cur']) && isset($_GET['id_rec'])) {
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </li>
-                    <?php };
+                    <?php }
+                    ;
                     if ($datosrecurso['archivoAdicional'] != null) { ?>
 
                         <li class="list-group-item">
@@ -289,9 +290,9 @@ if (isset($_GET['id_cur']) && isset($_GET['id_rec'])) {
             });
         });
 
-        $("#entrega").submit(function(e){
-                e.preventDefault(e);
-            });
+        // $("#entrega").submit(function (e) {
+        //     e.preventDefault(e);
+        // });
     </script>
 
     <?php require "../../assests/php/editarRecursoMain.php"; ?>

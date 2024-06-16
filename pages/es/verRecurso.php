@@ -253,7 +253,8 @@ if (isset($_GET['id_cur']) && isset($_GET['id_rec'])) {
                             onclick="location.href='editarRecurso.php?id_rec=<?php echo $id_recurso_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>'"
                             class="btn btn-primary">Editar
                             Recurso</button>
-                        <button onclick="confirmarElim(<?php echo $id_recurso_seleccionado; ?>);" class="btn btn-outline-danger">Eliminar Recurso</button>
+                        <button onclick="confirmarElim(<?php echo $id_recurso_seleccionado; ?>);"
+                            class="btn btn-outline-danger">Eliminar Recurso</button>
                     </div>
                 <?php }
                 ; ?>
@@ -270,10 +271,13 @@ if (isset($_GET['id_cur']) && isset($_GET['id_rec'])) {
                 //Codigo para eliminar el recurso
                 eliminarRecurso(id);
                 alert('Se ha eliminado el recurso correctamente');
-                window.location.href = "verCurso.php";
+                window.location.href = "verCurso.php?id_cur=<?php echo $id_curso_seleccionado; ?>";
+
             }
         }
     </script>
+
+    <?php require "../../assests/php/borrarRecursoMain.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

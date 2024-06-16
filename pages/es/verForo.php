@@ -51,7 +51,7 @@ if (isset($_GET['id_cur'])) {
   FROM foro_curso 
   LEFT JOIN Usuario ON Usuario.id_user = foro_curso.usuario_id_user
   WHERE curso_id_curso = '$id_curso_seleccionado'
-  ORDER BY modif_fecha DESC");
+  ORDER BY modif_fecha ASC");
 
   if (mysqli_num_rows($consultaComentarios) > 0) {
     while ($datosComentarios = mysqli_fetch_assoc($consultaComentarios)) {
@@ -245,7 +245,9 @@ if (isset($_GET['id_cur'])) {
                     style="width: 3rem; height: auto" alt="..." />
                   <figcaption class="figure-caption fs-6 text-body text-center ">
                     <?php echo $comentario['nombre_user'] . " " . $comentario['apellido_user']; ?> <br>
-                    <?php echo $comentario['modif_fecha'] ?>
+                    <!-- <?php echo $comentario['modif_fecha'] ?> -->
+                    <?php echo date('d/m/Y H:i', strtotime($comentario['modif_fecha'])); ?><br>
+                    <!-- <p class="font-monospace m-0 p-0">(Editado)</p> -->
                   </figcaption>
                 </figure>
               </div>

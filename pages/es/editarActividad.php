@@ -37,6 +37,12 @@ if (isset($_SESSION['id_user'])) {
 if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
     $id_curso_seleccionado = $_GET['id_cur'];
     $id_act_seleccionado = $_GET['id_act'];
+
+    $consultaActividades = mysqli_query($mysqli, "SELECT * FROM actividades WHERE idActividades = '$id_act_seleccionado'");
+
+    if (mysqli_num_rows($consultaActividades) > 0) {
+        $datosActividad = mysqli_fetch_assoc($consultaActividades);
+    }
 }
 ?>
 
@@ -182,16 +188,22 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
     <section>
 
         <div class="container-fluid bg-blanco my-3 p-3 shadow rounded">
-            <a href="verActividad.php?id_act=<?php echo $id_act_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>"><i class="fa-solid mt-2 fa-arrow-left"
-                    style="font-size:2rem;color:black;"></i></a>
+            <a
+                href="verActividad.php?id_act=<?php echo $id_act_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>"><i
+                    class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2">Editar Actividad</h1>
 
-            <form action="">
+            <form action="" autocomplete="off" id="entrega" method="post" enctype="multipart/form-data">
+                <input type="hidden" id="action" value="editarActividad">
+                <input type="hidden" id="id_cur" value="<?php echo $id_curso_seleccionado; ?>">
+                <input type="hidden" id="id_act" value="<?php echo $id_act_seleccionado; ?>">
                 <label for="titulo">Titulo de Actividad</label>
-                <input class="form-control mb-2" type="text" name="titulo" id="titulo"></input>
+                <input class="form-control mb-2" type="text" value="<?php echo $datosActividad['Titulo']; ?>"
+                    name="titulo" id="titulo"></input>
 
                 <p class="mb-0"><strong>Descripción o Instrucciones de la actividad</strong></p>
                 <div class="bg-white" id="editor">
+                    <?php echo $datosActividad['ContenidoAcitividad']; ?>
                 </div>
                 <input type="hidden" id="texto_actividad" class="texto_actividad" name="texto_actividad">
                 <div>
@@ -203,43 +215,103 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                     <div class="mb-1">
                         <label for="formFileMultiple" class="form-label">Seleccionar archivos... (2 archivos
                             máximo)</label>
-                        <input class="form-control" type="file" id="formFileMultiple" multiple>
+                        <input class="form-control" type="file" id="files" name="files[]" multiple>
                     </div>
                 </div>
 
-                Lista de archivos (si tiene)
+                Lista de archivos
                 <ul class="list-group mt-2">
-                    <li class="list-group-item ">
-                        <i class="fa-solid fa-file"></i> <a class="ms-2 text-break" href="#">Archivo #1</a>
-                        <a class="ms-3" href="#">
-                            <span>Editar</span>
-                            <i class="fa-regular fa-pen-to-square"></i>
-                        </a>
+                    <?php if ($datosActividad['archivosPrincipal'] == null && $datosActividad['archivosAdicional'] == null) { ?>
 
-                        <a class="ms-2" href="#">
-                            <span>Eliminar</span>
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <i class="fa-solid fa-file"></i> <a class="ms-2 text-break" href="#">Archivo #2</a>
-                        <a class="ms-3" href="#">
-                            <span>Editar</span>
-                            <i class="fa-regular fa-pen-to-square"></i>
-                        </a>
+                        <li class="list-group-item">
+                            No hay archivos disponibles
+                        </li>
+                    <?php } elseif ($datosActividad['archivosPrincipal'] != null) { ?>
+                        <li class="list-group-item ">
+                            <i class="fa-solid mt-1 fa-file"></i> <a class="ms-2 text-break"
+                                href="#"><?php echo $datosActividad['archivosPrincipal']; ?></a>
+                            <input type="hidden" id="actionArchivo1" value="borrar"></input>
+                            <input type="hidden" id="archivoActual"
+                                value="<?php echo $datosActividad['archivosPrincipal']; ?>"></input>
+                            <button class="btn btn-link mb-1 p-0 ms-2" onclick="borrarArchivo();">
+                                <span>Eliminar</span>
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </li>
+                    <?php }
+                    ;
+                    if ($datosActividad['archivosAdicional'] != null) { ?>
 
-                        <a class="ms-2" href="#">
-                            <span>Eliminar</span>
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
-                    </li>
+                        <li class="list-group-item">
+                            <i class="fa-solid fa-file"></i> <a class="ms-2 text-break"
+                                href="#"><?php echo $datosActividad['archivosAdicional']; ?></a>
+                            <input type="hidden" id="actionArchivo2" value="borrarAdicional"></input>
+                            <input type="hidden" id="aAdicionalActual"
+                                value="<?php echo $datosActividad['archivosAdicional']; ?>"></input>
+                            <button class="btn btn-link mb-1 p-0 ms-2" onclick="borrarArchivoAdicional();">
+                                <span>Eliminar</span>
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </li>
+                    <?php }
+                    ; ?>
                 </ul>
 
                 <label for="fechaIni">Fecha de Inicio</label>
-                <input type="date" class="form-control" name="fechaIni" id="fechaIni">
+                <input type="date" value="<?php echo date('Y-m-d', strtotime($datosActividad['fechaInicio'])); ?>"
+                    class="form-control" name="fechaIni" id="fechaIni">
 
                 <label for="fechaFin">Fecha de Culminación</label>
-                <input type="date" class="form-control" name="fechaFin" id="fechaFin">
+                <input type="date" value="<?php echo date('Y-m-d', strtotime($datosActividad['fechaCulminacion'])); ?>"
+                    class="form-control" name="fechaFin" id="fechaFin">
+
+                <label for="fechaFin">Fecha de Notificación</label>
+                <input type="date" value="<?php echo date('Y-m-d', strtotime($datosActividad['fechaNotificacion'])); ?>"
+                    class="form-control" name="fechaNot" id="fechaNot">
+
+                <label for="maximo">Peso Máximo del Archivo</label>
+                <div class="input-group">
+                    <input type="number" value="<?php echo $datosActividad['pesoArchivo']; ?>"
+                        class="maximo form-control" id="maximo" placeholder="0"><span class="input-group-text">MB</span>
+                </div>
+
+                <label for="notaMaxima">Nota Maxima</label>
+                <input type="number" class="notaMaxima form-control"
+                    value="<?php echo $datosActividad['notaMaxima']; ?>" id="notaMaxima" placeholder="Nota maxima">
+
+                <label for="notaMinima">Nota Minima</label>
+                <input type="number" class="notaMinima form-control"
+                    value="<?php echo $datosActividad['notaMinima']; ?>" id="notaMinima" placeholder="Nota minima">
+
+                <label for="visibilidadActividad">Visibilidad de la Actividad</label>
+                <select class="visibilidadActividad seleccion form-select" id="visibilidadActividad"
+                    aria-label="Default select example">
+                    <?php if ($datosActividad['visible'] == 0) { ?>
+                        <option value="0" selected>Visible</option>
+                        <option value="1">Invisible</option>
+                    <?php } else { ?>
+                        <option value="0">Visible</option>
+                        <option value="1" selected>Invisible</option>
+                    <?php } ?>
+                </select>
+
+                <label for="selectActivarPorcentaje">Activar Porcentaje</label>
+                <select id="selectActivarPorcentaje" class="selectActivarPorcentaje form-select"
+                    aria-label="Default select example">
+                    <?php if ($datosActividad['activarPorcentaje'] == 0) { ?>
+                        <option value="0" selected>Activado</option>
+                        <option value="1">Desactivado</option>
+                    <?php } else { ?>
+                        <option value="0">Activado</option>
+                        <option value="1" selected>Desactivado</option>
+                    <?php } ?>
+                </select>
+
+                <div id="porcentajeContenedor" class="porcentajeContenedor">
+                    <label for="">Porcentaje Actividad</label>
+                    <input type="number" value="<?php echo $datosActividad['Porcentaje'] ?>"
+                        class="porcentajeActividad form-control" id="porcentajeActividad" placeholder="0">
+                </div>
 
                 <button type="submit" class="btn btn-primary mt-2">Confirmar Cambios</button>
             </form>
@@ -258,6 +330,33 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                 //Con el valor de la base de datos que limita los archivoss
                 if (parseInt($fileUpload.get(0).files.length) > 2) {
                     alert("Solo puedes subir el maximo de 2 archivos");
+                } else {
+                    editarActividad();
+                }
+            });
+        });
+
+        $("#entrega").submit(function (e) {
+            e.preventDefault(e);
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var selectActivarPorcentaje = document.getElementById("selectActivarPorcentaje");
+            var porcentajeContenedor = document.getElementById("porcentajeContenedor");
+
+            // Ocultar por defecto al cargar la página si está desactivado
+            if (selectActivarPorcentaje.value === "1") {
+                porcentajeContenedor.style.display = "none";
+            }
+
+            // Escuchar cambios en el select
+            selectActivarPorcentaje.addEventListener("change", function () {
+                if (selectActivarPorcentaje.value === "0") {
+                    porcentajeContenedor.style.display = "block"; // Mostrar si está activado
+                } else {
+                    porcentajeContenedor.style.display = "none"; // Ocultar si está desactivado
                 }
             });
         });
@@ -274,6 +373,8 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
             document.getElementById('texto_actividad').value = editorContent;
         };
     </script>
+
+    <?php require "../../assests/php/editarActividadMain.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

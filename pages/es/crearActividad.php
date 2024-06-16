@@ -175,7 +175,7 @@ if (isset($_GET['id_cur'])) {
 
     <section class="crearActividad">
 
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="" method="post" autocomplete="off" enctype="multipart/form-data">
 
             <input type="hidden" name="" id="action" value="CrearActividad">
 
@@ -307,7 +307,8 @@ if (isset($_GET['id_cur'])) {
 
                     <select class="visibilidadActividad seleccion form-select" id="visibilidadActividad"
                         aria-label="Default select example">
-                        <option selected>Visible</option>
+                        <!-- Visibilidad de la actividad. 0 es visible y 1 es Invisible-->
+                        <option value="0" selected>Visible</option>
                         <option value="1">Invisible</option>
                     </select>
 

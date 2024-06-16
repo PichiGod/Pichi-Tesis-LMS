@@ -9,38 +9,38 @@ if (isset($_POST['actionArchivo']) && $_POST['actionArchivo'] === "borrarAdicion
     borrarArchivoAdicional($mysqli);
 }
 
-if (isset($_POST['action']) && $_POST['action'] == "editarRecurso") {
-    editarRecurso($mysqli);
+if (isset($_POST['action']) && $_POST['action'] == "editarActividad") {
+    editarActividad($mysqli);
 }
 
 function borrarArchivo($mysqli)
 {
     //Obtener archivo a eliminar 
     $archivo = $_POST['archivo'];
-    $id_rec = $_POST['id_rec'];
+    $id_act = $_POST['id_act'];
 
     // Ruta del archivo a eliminar
-    $filePath = '../archivos/recursos/' . $archivo;
+    $filePath = '../archivos/actividades/' . $archivo;
 
     // Borrar archivo en sistema
     if (file_exists($filePath)) {
         if (unlink($filePath)) {
             //echo "Archivo eliminado del sistema de archivos/n";
         } else {
-            echo "Error al eliminar el archivo del sistema de archivos/n";
+            echo "Error al eliminar el archivo del sistema de archivos";
         }
     } else {
-        echo "El archivo no existe en el sistema de archivos/n";
+        echo "El archivo no existe en el sistema de archivos";
     }
 
     //Eliminar archivo de la base de datos
     // Preparar consulta SQL con la nueva actividad
-    $sql = "UPDATE recursos 
-            SET archivo = null
-            WHERE  id_recursos = ?";
+    $sql = "UPDATE actividades 
+            SET archivosPrincipal = null
+            WHERE  idActividades = ?";
 
     $stmt = mysqli_prepare($mysqli, $sql);
-    mysqli_stmt_bind_param($stmt, "i", $id_rec);
+    mysqli_stmt_bind_param($stmt, "i", $id_act);
     if (mysqli_stmt_execute($stmt)) {
         echo "Archivo Eliminado Exitosamente";
     } else {
@@ -52,10 +52,10 @@ function borrarArchivoAdicional($mysqli)
 {
     //Obtener archivo a eliminar 
     $archivoAdicional = $_POST['archivoAdicional'];
-    $id_rec = $_POST['id_rec'];
+    $id_act = $_POST['id_act'];
 
     // Ruta del archivo a eliminar
-    $filePath = '../archivos/recursos/' . $archivoAdicional;
+    $filePath = '../archivos/actividades/' . $archivoAdicional;
 
     // Borrar archivo en sistema
     if (file_exists($filePath)) {
@@ -70,12 +70,12 @@ function borrarArchivoAdicional($mysqli)
 
     //Eliminar archivo de la base de datos
     // Preparar consulta SQL con la nueva actividad
-    $sql = "UPDATE recursos 
-            SET archivoAdicional = null
-            WHERE  id_recursos = ?";
+    $sql = "UPDATE actividades 
+            SET archivosAdicional = null
+            WHERE  idActividades = ?";
 
     $stmt = mysqli_prepare($mysqli, $sql);
-    mysqli_stmt_bind_param($stmt, "i", $id_rec);
+    mysqli_stmt_bind_param($stmt, "i", $id_act);
     if (mysqli_stmt_execute($stmt)) {
         echo "Archivo Eliminado Exitosamente";
     } else {
@@ -83,12 +83,41 @@ function borrarArchivoAdicional($mysqli)
     }
 }
 
-function editarRecurso($mysqli)
+function editarActividad($mysqli)
 {
+
     // Get the posted data
     $titulo = $_POST['titulo'];
-    $texto_recurso = $_POST['texto_recurso'];
-    $id_rec = $_POST['id_rec'];
+    $texto_actividad = $_POST['texto_actividad'];
+    $fechaInicio = $_POST['fechaInicio'];
+    $fechaFin = $_POST['fechaFin'];
+    $fechaNotif = $_POST['fechaNoti'];
+    $notaMaxima = $_POST['notaMaxima'];
+    $notaMinima = $_POST['notaMinima'];
+    $visible = $_POST['visible'];
+    $pesoArchivo = $_POST['pesoArchivo'];
+    $activarPorcentaje = $_POST['activarPorcentaje'];
+    $porcentaje = $_POST['porcentaje'];
+    $id_act = $_POST['id_act'];
+    //$id_cur = $_POST['id_cur'];
+
+    // Preparar fechas en formato YYYY-MM-DD para MySQL
+    $fechaInicioMySQL = date('Y-m-d', strtotime($fechaInicio));
+    $fechaFinMySQL = date('Y-m-d', strtotime($fechaFin));
+    $fechaNotifMySQL = date('Y-m-d', strtotime($fechaNotif));
+
+    // Validar campos. Si no hay texto pero hay archivo hacer el Insert y tambien de que si no hay archivo pero hay texto que haga el insert
+    // if (empty($texto_actividad)) {
+    //     echo "Debe enviar la descripción del recurso";
+    //     exit;
+    // }
+    // ;
+
+    if (empty($titulo)) {
+        echo "Debe enviar un titulo al recurso";
+        exit;
+    }
+    ;
 
     if (isset($_FILES['archivo'])) {
         $archivo = $_FILES['archivo'];
@@ -116,7 +145,7 @@ function editarRecurso($mysqli)
         }
 
         // Move the uploaded file to a directory
-        $uploadDir = "../archivos/recursos/"; // adjust the directory path as needed
+        $uploadDir = "../archivos/actividades/"; // adjust the directory path as needed
         $uploadFile = $uploadDir . $archivo['name'];
         $i = 0;
         while (file_exists($uploadFile)) {
@@ -139,7 +168,7 @@ function editarRecurso($mysqli)
         }
 
         // Move the uploaded file to a directory
-        $uploadDir = "../archivos/recursos/"; // adjust the directory path as needed
+        $uploadDir = "../archivos/actividades/"; // adjust the directory path as needed
         $uploadFile = $uploadDir . $archivoAdicional['name'];
         $i = 0;
         while (file_exists($uploadFile)) {
@@ -153,35 +182,25 @@ function editarRecurso($mysqli)
 
     }
 
-    // Validar campos. Si no hay texto pero hay archivo hacer el Insert y tambien de que si no hay archivo pero hay texto que haga el insert
-    if (empty($texto_recurso)) {
-        echo "Debe enviar la descripción del recurso";
-        exit;
-    }
-    ;
-
-    if (empty($titulo)) {
-        echo "Debe enviar un titulo al recurso";
-        exit;
-    }
-    ;
-
-    $sql = "UPDATE recursos 
-        SET nombre_recurso =?, descripcion_recurso =?, archivo = CASE
+    $sql = "UPDATE actividades 
+        SET Titulo = ?, ContenidoAcitividad = ?, fechaInicio = ?, fechaCulminacion = ?, fechaNotificacion = ?,
+            pesoArchivo = ?, notaMaxima = ?, notaMinima = ?, visible = ?, activarPorcentaje = ?,
+            Porcentaje = ?, archivosPrincipal = CASE
             WHEN ? IS NOT NULL THEN ?
-            ELSE archivo
-        END, archivoAdicional = CASE
+            ELSE archivosPrincipal
+        END, archivosAdicional = CASE
             WHEN ? IS NOT NULL THEN ?
-        ELSE archivoAdicional
+        ELSE archivosAdicional
         END
-        WHERE  id_recursos =?";
+        WHERE  idActividades = ?";
 
     $stmt = mysqli_prepare($mysqli, $sql);
-    mysqli_stmt_bind_param($stmt, "ssssssi", $titulo, $texto_recurso, $uploadedFiles[0], $uploadedFiles[0], $upload[0], $upload[0], $id_rec);
+    mysqli_stmt_bind_param($stmt, "sssssdddiiissssi", $titulo, $texto_actividad, $fechaInicioMySQL, $fechaFinMySQL, $fechaNotifMySQL, $pesoArchivo, $notaMaxima, $notaMinima, $visible, $activarPorcentaje, $porcentaje, $uploadedFiles[0], $uploadedFiles[0], $upload[0], $upload[0], $id_act);
     if (mysqli_stmt_execute($stmt)) {
-        echo "Recurso Editado Exitosamente";
+        echo "Actividad Modificada Exitosamente";
     } else {
-        echo "Hubo un error al editar el recurso.";
+        echo "Hubo un error al editar la Actividad.";
     }
 }
+
 ?>

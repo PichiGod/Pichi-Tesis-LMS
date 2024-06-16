@@ -277,7 +277,7 @@ if (isset($_GET['id_cur'])) {
                         style="padding: 10px;">
                         <div>
                             <div>
-                                <span>No hay Actividades disponibles en este momento</span>
+                                <span>No hay recursos disponibles en este momento</span>
                             </div>
                         </div>
                     </div>
@@ -316,18 +316,34 @@ if (isset($_GET['id_cur'])) {
 
                 if (mysqli_num_rows($consultaActividades) > 0) {
 
-                    foreach ($Actividades as $actividad): ?>
-                        <div class="item-recurso d-flex container mb-2 bg-secondary-subtle text-secondary-emphasis p-3"
-                            style="padding: 10px;">
-                            <div>
+                    foreach ($Actividades as $actividad):
+                        if ($actividad['visible'] == "0" && $rol == "0") { ?>
+
+                            <div class="item-recurso d-flex container mb-2 bg-secondary-subtle text-secondary-emphasis p-3"
+                                style="padding: 10px;">
                                 <div>
-                                    <i class="fa-solid fa-note-sticky me-2 p-3 rounded bg-warning-subtle" witdh="35"
-                                        height="35"></i>
-                                    <span><a
-                                            href="verActividad.php?id_act=<?php echo $actividad['idActividades']; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>"><?php echo $actividad['Titulo'] ?></a></span>
+                                    <div>
+                                        <i class="fa-solid fa-note-sticky me-2 p-3 rounded bg-warning-subtle" witdh="35"
+                                            height="35"></i>
+                                        <span><a
+                                                href="verActividad.php?id_act=<?php echo $actividad['idActividades']; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>"><?php echo $actividad['Titulo'] ?></a></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php } else if ($rol != 0) { ?>
+                                <div class="item-recurso d-flex container mb-2 bg-secondary-subtle text-secondary-emphasis p-3"
+                                    style="padding: 10px;">
+                                    <div>
+                                        <div>
+                                            <i class="fa-solid fa-note-sticky me-2 p-3 rounded bg-warning-subtle" witdh="35"
+                                                height="35"></i>
+                                            <span><a
+                                                    href="verActividad.php?id_act=<?php echo $actividad['idActividades']; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>"><?php echo $actividad['Titulo'] ?></a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                        <?php }
+                        ; ?>
                     <?php endforeach;
                 } else { ?>
 

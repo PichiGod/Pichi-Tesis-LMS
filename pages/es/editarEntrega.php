@@ -33,15 +33,21 @@ if (isset($_SESSION['id_user'])) {
     }
 
 }
-if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
+if (isset($_GET['id_cur']) && isset($_GET['id_act']) && isset($_GET['id_ent'])) {
     $id_curso_seleccionado = $_GET['id_cur'];
     $id_act_seleccionado = $_GET['id_act'];
+    $id_ent_seleccionado = $_GET['id_ent'];
+
+    $consultaEntrega = mysqli_query($mysqli, "SELECT * FROM entregas WHERE id_entregas = '$id_ent_seleccionado' AND id_user = '$usuarios1' AND id_actividad = '$id_act_seleccionado'");
+
+    if (mysqli_num_rows($consultaEntrega) > 0) {
+        $datosEntrega = mysqli_fetch_assoc($consultaEntrega);
+    }
 
     $consultaActividades = mysqli_query($mysqli, "SELECT * FROM actividades WHERE idActividades = '$id_act_seleccionado'");
 
     if (mysqli_num_rows($consultaActividades) > 0) {
-        $datosActividad = mysqli_fetch_assoc($consultaActividades);       
-
+        $datosActividad = mysqli_fetch_assoc($consultaActividades);
     }
 }
 
@@ -198,61 +204,80 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
 
-            <a href="verActividad.php?id_act=<?php echo $id_act_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>"><i class="fa-solid mt-2  fa-arrow-left"
-                    style="font-size:2rem;color:black;"></i></a>
+            <a
+                href="verActividad.php?id_act=<?php echo $id_act_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>"><i
+                    class="fa-solid mt-2  fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2">Editar Entrega</h1>
 
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Entrega de actividad</h4>
-                    <p class="card-text">Maxima cantidad de archivos: 2</p>
-                    <p class="card-text">Maxima peso de archivo: <?php echo $datosActividad['pesoArchivo'] ?> MB</p>
-                    <div class="mb-1">
-                        <label for="formFileMultiple" class="form-label">Seleccionar archivos...</label>
-                        <input class="form-control" type="file" id="formFileMultiple" multiple>
-                    </div>
-                    <p class="mb-0"><strong>Inserta un texto</strong></p>
-                    <div id="editor">
-                    </div>
-                    <input type="hidden" id="texto_actividad" class="texto_actividad" name="texto_actividad">
-                    <div>
+            <form action="" autocomplete="off" id="entrega" method="post" enctype="multipart/form-data">
+            <input type="hidden" id="action" value="editarEntrega">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Entrega de actividad</h4>
+                        <p class="card-text">Maxima cantidad de archivos: 2</p>
+                        <p class="card-text">Maxima peso de archivo: <?php echo $datosActividad['pesoArchivo'] ?> MB</p>
+                        <input type="hidden" value="<?php echo $datosActividad['pesoArchivo']; ?>" id="fileSize" />
+                        <input type="hidden" value="<?php echo $id_ent_seleccionado; ?>" id="id_ent" />
+                        <input type="hidden" value="<?php echo $id_cur_seleccionado; ?>" id="id_cur" />
+                        <input type="hidden" value="<?php echo $id_act_seleccionado; ?>" id="id_act" />
+                        <div class="mb-1">
+                            <label for="formFileMultiple" class="form-label">Seleccionar archivos...</label>
+                            <input class="form-control" type="file" id="files" name="files[]" multiple>
+                        </div>
+                        <p class="mb-0"><strong>Inserta un texto</strong></p>
+                        <div id="editor">
+                            <?php echo $datosEntrega['texto_entrega']; ?>
+                        </div>
+                        <input type="hidden" id="texto_actividad" class="texto_actividad" name="texto_actividad">
+                        <div>
 
 
+
+                        </div>
                     </div>
-                    <p>No dejar que el usuario pueda agregar un archivo si los que ya estan subidos siguen alli. Solo
-                        permitir si la cantidad de archivo no exede la cantidad maxima</p>
+
                 </div>
 
-            </div>
+                Lista de archivos
+                <ul class="list-group mt-2">
+                    <?php if ($datosEntrega['archivo'] == null && $datosEntrega['archivoAdicional'] == null) { ?>
 
-            <ul class="list-group mt-2">
-                <li class="list-group-item ">
-                    <i class="fa-solid fa-file"></i> <a class="ms-2 text-break" href="#">Archivo #1</a>
-                    <a class="ms-3" href="#">
-                        <span>Editar</span>
-                        <i class="fa-regular fa-pen-to-square"></i>
-                    </a>
+                        <li class="list-group-item">
+                            No hay archivos disponibles
+                        </li>
+                    <?php } else if ($datosEntrega['archivo'] != null) { ?>
+                            <li class="list-group-item ">
+                                <i class="fa-solid mt-1 fa-file"></i> <a class="ms-2 text-break"
+                                    href="#"><?php echo $datosEntrega['archivo']; ?></a>
+                                <input type="hidden" id="actionArchivo1" value="borrar"></input>
+                                <input type="hidden" id="archivoActual" value="<?php echo $datosEntrega['archivo']; ?>"></input>
+                                <button class="btn btn-link mb-1 p-0 ms-2" onclick="borrarArchivo();">
+                                    <span>Eliminar</span>
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </li>
+                    <?php }
+                    ;
+                    if ($datosEntrega['archivoAdicional'] != null) { ?>
 
-                    <a class="ms-2" href="#">
-                        <span>Eliminar</span>
-                        <i class="fa-solid fa-trash"></i>
-                    </a>
-                </li>
-                <li class="list-group-item">
-                    <i class="fa-solid fa-file"></i> <a class="ms-2 text-break" href="#">Archivo #2</a>
-                    <a class="ms-3" href="#">
-                        <span>Editar</span>
-                        <i class="fa-regular fa-pen-to-square"></i>
-                    </a>
+                        <li class="list-group-item">
+                            <i class="fa-solid fa-file"></i> <a class="ms-2 text-break"
+                                href="#"><?php echo $datosEntrega['archivoAdicional']; ?></a>
+                            <input type="hidden" id="actionArchivo2" value="borrarAdicional"></input>
+                            <input type="hidden" id="aAdicionalActual"
+                                value="<?php echo $datosEntrega['archivoAdicional']; ?>"></input>
+                            <button class="btn btn-link mb-1 p-0 ms-2" onclick="borrarArchivoAdicional();">
+                                <span>Eliminar</span>
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </li>
+                    <?php }
+                    ; ?>
+                </ul>
+            </form>
 
-                    <a class="ms-2" href="#">
-                        <span>Eliminar</span>
-                        <i class="fa-solid fa-trash"></i>
-                    </a>
-                </li>
-            </ul>
 
-            <button class="btn mt-2 btn-primary">Aceptar cambios</button>
+            <button type="submit" class="btn mt-2 btn-primary">Aceptar cambios</button>
 
         </div>
     </section>
@@ -268,6 +293,30 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
             document.getElementById('texto_actividad').value = editorContent;
         };
     </script>
+
+<script>
+        //Funcion JQuery para validar el cantidad MAX de archivos
+        $(function () {
+
+            $("button[type='submit']").click(function () {
+
+                var $fileUpload = $("input[type='file']");
+                //El 2 de aqui es el limitador de archivos. Solo se tiene que cambiar 
+                //Con el valor de la base de datos que limita los archivoss
+                if (parseInt($fileUpload.get(0).files.length) > 2) {
+                    alert("Solo puedes subir el maximo de 2 archivos");
+                } else {
+                    editarEntrega();
+                }
+            });
+        });
+
+        $("#entrega").submit(function (e) {
+            e.preventDefault(e);
+        });
+    </script>
+
+    <?php require "../../assests/php/editarEntregaMain.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

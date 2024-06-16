@@ -73,10 +73,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
     $consultaNota = mysqli_query($mysqli, "SELECT * FROM notas WHERE Usuario_id_user = '$usuarios1' AND Actividad_id_act = '$id_act_seleccionado'");
     $noNota = false;
     if (mysqli_num_rows($consultaNota) > 0) {
-        while ($datosNotas = mysqli_fetch_assoc($consultaEntrega)) {
-            $notas[] = $datosNotas;
-        }
-
+        $datosNotas = mysqli_fetch_assoc($consultaEntrega);
     } else {
         $noNota = true;
     }
@@ -242,13 +239,23 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                         </div>
 
                         Descripción
-                        <div class="bg-white rounded border py-1 ">
-                            <p class="mb-0 ms-1">
-                            <div class="mx-2">
-                                <?php echo $actividad['ContenidoAcitividad']; ?>
+                        <?php if ($actividad['ContenidoAcitividad'] == null) { ?>
+                            <div class="bg-white rounded border py-1 ">
+                                <p class="mb-0 ms-1">
+                                <div class="mx-2">
+                                    Descripción no dispoinble
+                                </div>
+                                </p>
                             </div>
-                            </p>
-                        </div>
+                        <?php } else { ?>
+                            <div class="bg-white rounded border py-1 ">
+                                <p class="mb-0 ms-1">
+                                <div class="mx-2">
+                                    <?php echo $actividad['ContenidoAcitividad']; ?>
+                                </div>
+                                </p>
+                            </div>
+                        <?php } ?>
 
                         <div class="d-inline-flex align-items-center bg-dark-subtle px-2 mt-2 mb-1 rounded">
                             <p class="mb-0">Fecha de Inicio:
@@ -269,13 +276,13 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                         <div class="p-2 my-3 rounded shadow ">
                             <h4>Archivos de la actividad </h4>
                         </div>
+                        <ul class="list-group mb-1">
+                            <?php if ($actividad['archivosPrincipal'] == null && $actividad['archivosAdicional'] == null) { ?>
 
-                        <?php if ($actividad['archivosPrincipal'] == null) { ?>
-                            <ul class="list-group mb-1">
                                 <li class="list-group-item">
                                     No hay archivos disponibles
                                 </li>
-                            <?php } else { ?>
+                            <?php } elseif ($actividad['archivosPrincipal'] != null) { ?>
 
                                 <ul class="list-group mb-1">
                                     <li class="list-group-item">
@@ -285,13 +292,14 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
 
 
                                 <?php }
-                        if ($actividad['archivosAdicional'] != null) { ?>
+                            ;
+                            if ($actividad['archivosAdicional'] != null) { ?>
                                     <li class="list-group-item">
                                         <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank" rel="noopener noreferrer"
-                                            href="../../assests/php/descargarActividad.php?file_name=<?php echo $actividad['archivosAdicional']; ?>&id_act=<?php echo $id_act_seleccionado; ?>">><?php echo $actividad['archivosAdicional']; ?></a>
+                                            href="../../assests/php/descargarActividad.php?file_name=<?php echo $actividad['archivosAdicional']; ?>&id_act=<?php echo $id_act_seleccionado; ?>"><?php echo $actividad['archivosAdicional']; ?></a>
                                     </li>
                                 <?php }
-                        ; ?>
+                            ; ?>
                             </ul>
 
                             <?php if ($rol == 0) { ?>
@@ -438,48 +446,43 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                                                 <?php }
                                                                 ; ?>
                                                 <h4 class="card-title mt-1">Archivos entregados</h4>
+                                                <ul class="list-group mt-2">
+                                                    <?php if ($datosEntrega['archivo'] == null && $datosEntrega['archivoAdicional'] == null) { ?>
 
-                                                <?php if ($datosEntrega['archivo'] == null) { ?>
-                                                    <ul class="list-group">
                                                         <li class="list-group-item">
                                                             No se enviaron archivos
                                                         </li>
-                                                    <?php } else { ?>
+                                                    <?php } else if ($datosEntrega['archivo'] != null) { ?>
 
-                                                        <ul class="list-group">
                                                             <li class="list-group-item">
                                                                 <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank"
                                                                     rel="noopener noreferrer"
                                                                     href="../../assests/php/descargarEntrega.php?file_name=<?php echo $datosEntrega['archivo']; ?>">
-                                                                    <?php echo $datosEntrega['archivo']; ?>
+                                                                <?php echo $datosEntrega['archivo']; ?>
                                                                 </a>
                                                             </li>
 
 
-                                                        <?php }
-                                                if ($datosEntrega['archivoAdicional'] != null) { ?>
-                                                            <li class="list-group-item">
-                                                                <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    href="../../assests/php/descargarEntrega.php?file_name=<?php echo $datosEntrega['archivoAdicional']; ?>">
-                                                                    <?php echo $datosEntrega['archivoAdicional']; ?></a>
-                                                            </li>
-                                                        <?php }
-                                                ; ?>
-                                                    </ul>
-                                                    <hr>
-                                                    <h4 class="card-title">Editar entrega</h4>
-                                                    <button
-                                                        onclick="location.href='editarEntrega.php?id_act=<?php echo $id_act_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>'"
-                                                        class="btn btn-primary">Editar</button>
+                                                    <?php }
+                                                    ;
+                                                    if ($datosEntrega['archivoAdicional'] != null) { ?>
+                                                        <li class="list-group-item">
+                                                            <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                href="../../assests/php/descargarEntrega.php?file_name=<?php echo $datosEntrega['archivoAdicional']; ?>">
+                                                                <?php echo $datosEntrega['archivoAdicional']; ?></a>
+                                                        </li>
+                                                    <?php }
+                                                    ; ?>
+                                                </ul>
+                                                <hr>
+                                                <h4 class="card-title">Editar entrega</h4>
+                                                <button
+                                                    onclick="location.href='editarEntrega.php?id_act=<?php echo $id_act_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>&id_ent=<?php echo $datosEntrega['id_entregas']; ?>'"
+                                                    class="btn btn-primary">Editar</button>
                                             </div>
                                         <?php }
                                         ; ?>
-
-
-
-
-
                                     </div>
                                 </div>
 
@@ -511,7 +514,8 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                                     <button
                                         onclick="location.href='editarActividad.php?id_act=<?php echo $id_act_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>'"
                                         class="btn btn-outline-secondary">Editar Actividad</button>
-                                    <button onclick="confirmarElim();" class="btn btn-outline-danger">Eliminar Actividad</button>
+                                    <button onclick="confirmarElim(<?php echo $id_act_seleccionado; ?>);"
+                                        class="btn btn-outline-danger">Eliminar Actividad</button>
                                 </div>
                             </div>
                         </div>
@@ -525,12 +529,13 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
     </section>
 
     <script>
-        function confirmarElim() {
-            confirmar = confirm("Esta seguro que quiere eliminar el recurso?");
+        function confirmarElim(id) {
+            confirmar = confirm("Esta seguro que quiere eliminar la actividad? Se eliminaran todas las entregas realizadas.");
             if (confirmar == true) {
                 //Codigo para eliminar el recurso
-                alert('Se ha eliminado el recurso correctamente');
-                window.location.href = "verCurso.php";
+                eliminarActividad(id);
+                alert('Se ha eliminado la actividad correctamente');
+                window.location.href = "verCurso.php?id_cur=<?php echo $id_curso_seleccionado; ?>";
             }
         }
     </script>
@@ -573,6 +578,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
     ; ?>
 
     <?php require "../../assests/php/entregarActividadMain.php"; ?>
+    <?php require "../../assests/php/borrarActividadMain.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
