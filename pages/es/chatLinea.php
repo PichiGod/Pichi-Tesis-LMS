@@ -59,6 +59,14 @@ if (isset($_SESSION['id_user'])) {
     }
 
 }
+
+if (!isset($_SESSION['id_user'])) {
+    // Redirigir a la página de inicio de sesión o mostrar un mensaje de error
+    echo "<script>
+        alert('Tu sesión ha expirado. Por favor, entra a la sala si lo deseas nuevamente.');
+    </script>";
+    exit;
+}
 ?>
 
 
@@ -101,47 +109,26 @@ if (isset($_SESSION['id_user'])) {
         </nav>
     </header>
 
-    <!-- Sidebar -->
     <div class="l-navbar bg-body-tertiary" id="nav-bar">
-        <nav class="nav">
-            <div class="nav_list" style="overflow: auto">
+    <nav class="nav">
+        <div class="nav_list" style="overflow: auto">
+            <a href="javascript:;" class="nav_link link-dark">
+                <i class="bx bx-menu nav_icon" id="header-toggle"></i>
+                <span class="nav_name">Usuarios</span>
+            </a>
 
-                <a href="javascript:;" class="nav_link link-dark">
-                    <i class="bx bx-menu nav_icon" id="header-toggle"></i>
-                    <span class="nav_name">Usuarios</span>
-                </a>
-
-                <?php foreach ($usuariosSalaActualmente as $usuarioSalaActual) { ?>
-
-                <p href="#" class="nav_link link-dark">
-                    <img src="https://github.com/PichiGod.png" witdh="24" height="24" alt="...">
-                    <span><strong><?php echo $usuarioSalaActual['nombre_user'] . ' ' . $usuarioSalaActual['apellido_user']; ?></strong></span>
-                </p>
-
-               <?php } ?>
-
+            <div id="listaUsuarios">
+                <!-- Aquí se agregarán los usuarios dinámicamente -->
             </div>
-        </nav>
-    </div>
 
+        </div>
+    </nav>
+</div>
     <!--Contenido ChatRoom-->
     <section>
         <div class="col py-3">
             <ul class="list-group-flush mb-5" id="mensajes">
-
-
-                    </div>
-                    <div id="mensaje" class="ms-3 text-break">
-                       
-                    </div>
-                    
-
-                </li>
-                
-               
             </ul>
-
-           
 
             <div id="input-chat" class="container rounded p-1 bg-secondary-subtle"
                 style="position: fixed; bottom: 0px;">
@@ -158,41 +145,77 @@ if (isset($_SESSION['id_user'])) {
         </div>
     </section>
 
+    <script>
+    var idSala = <?php echo $id_sala; ?>; // Asegúrate de pasar el id de la sala correctamente
+
+    function obtenerUsuariosSala() {
+        $.ajax({
+            url: '../../assests/php/obtenerUsuariosSalaBD.php',
+            type: 'post',
+            data: { id_sala: idSala },
+            success: function(response) {
+                var usuarios = JSON.parse(response);
+                var listaUsuarios = $('#listaUsuarios');
+                listaUsuarios.empty();
+                usuarios.forEach(function(usuario) {
+                    listaUsuarios.append(
+                        '<p href="#" class="nav_link link-dark">' +
+                        '<img src="https://github.com/PichiGod.png" width="24" height="24" alt="...">' +
+                        '<span><strong>' + usuario.nombre_user + ' ' + usuario.apellido_user + '</strong></span>' +
+                        '</p>'
+                    );
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error al obtener la lista de usuarios:', error);
+            }
+        });
+    }
+
+    // Llamar a la función obtenerUsuariosSala cada 5 segundos
+    setInterval(obtenerUsuariosSala, 5000);
+
+    // Obtener la lista de usuarios cuando se carga la página
+    $(document).ready(function() {
+        obtenerUsuariosSala();
+    });
+    </script>
+
 <!-- Aquí colocas el script JavaScript -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        // Obtener el ID de la sala de alguna manera, por ejemplo, desde una variable PHP
+        obtenerMensajes(); // Llama a la función para obtener mensajes cuando se carga la página
+        setInterval(obtenerMensajes, 5000); // Llama a la función obtenerMensajes cada 5 segundos
+    });
+
+    function obtenerMensajes() {
         var id_sala = <?php echo $id_sala; ?>;
 
-        // Realizar una solicitud AJAX GET para obtener los mensajes de la sala específica
         $.ajax({
             url: '../../assests/php/obtenerMensajes.php',
             type: 'GET',
-            data: { id_sala: id_sala }, // Pasar el ID de la sala como parámetro GET
+            data: { id_sala: id_sala },
             success: function(response) {
                 // Actualizar el área de mensajes con los mensajes obtenidos del servidor
                 document.getElementById("mensajes").innerHTML = response;
             },
             error: function(xhr, status, error) {
-                // Manejar el error en caso de que ocurra
                 console.error('Error al obtener los mensajes:', error);
             }
         });
-    });
-</script>
+    }
 
-    <script>
-function enviarMensaje() {
-    // Obtener el mensaje ingresado por el usuario
-    var mensaje = document.getElementById("mensajeInput").value;
+    function enviarMensaje() {
+        // Obtener el mensaje ingresado por el usuario
+        var mensaje = document.getElementById("mensajeInput").value;
 
-    // Formatear el mensaje con el nombre del usuario y la hora actual
-    var fecha = new Date();
-    var hora = fecha.getHours();
-    var minutos = fecha.getMinutes();
-    var horaActual = (hora < 10 ? "0" : "") + hora + ":" + (minutos < 10 ? "0" : "") + minutos;
-    var mensajeFormateado = `
+        // Formatear el mensaje con el nombre del usuario y la hora actual
+        var fecha = new Date();
+        var hora = fecha.getHours();
+        var minutos = fecha.getMinutes();
+        var horaActual = (hora < 10 ? "0" : "") + hora + ":" + (minutos < 10 ? "0" : "") + minutos;
+        var mensajeFormateado = `
           <li class="list-group-item bg-white p-1 my-1 rounded">
             <div id="userName" class="ms-2 text-break">
                 <span><strong><?php echo $nombreUsuario . ' ' . $apellidoUsuario; ?></strong></span>
@@ -203,38 +226,31 @@ function enviarMensaje() {
             </div>
         </li>
     `;
+        // Crear un objeto con los datos del mensaje
+        var data = {
+            mensaje: mensajeFormateado,
+            id_usuario: <?php echo $idUser; ?>, // Obtener el ID del usuario desde PHP
+            id_sala: <?php echo $id_sala; ?> // Obtener el ID de la sala desde PHP
+        };
 
-    // Agregar el nuevo mensaje al elemento <ul> con id="mensajes"
-    var mensajesLista = document.getElementById("mensajes");
-    mensajesLista.innerHTML += mensajeFormateado;
+        // Realizar la petición AJAX para enviar los datos al servidor
+        $.ajax({
+            url: '../../assests/php/enviarMensaje.php', // Ruta al archivo PHP que maneja la inserción del mensaje
+            type: 'POST',
+            data: data,
+            success: function(response) {
+                // Llamar a la función para obtener los mensajes y actualizar la vista
+                obtenerMensajes();
+            },
+            error: function(xhr, status, error) {
+                // Manejar el error en caso de que ocurra
+                console.error('Error al enviar el mensaje:', error);
+            }
+        });
 
-    // Crear un objeto con los datos del mensaje
-    var data = {
-        mensaje: mensajeFormateado,
-        id_usuario: <?php echo $idUser; ?>, // Obtener el ID del usuario desde PHP
-        id_sala: <?php echo $id_sala; ?> // Obtener el ID de la sala desde PHP
-    };
-
-    // Realizar la petición AJAX para enviar los datos al servidor
-    $.ajax({
-        url: '../../assests/php/enviarMensaje.php', // Ruta al archivo PHP que maneja la inserción del mensaje
-        type: 'POST',
-        data: data,
-        success: function(response) {
-            // Manejar la respuesta del servidor
-            // Por ejemplo, si el servidor devuelve los mensajes actualizados, podrías reemplazar todo el contenido de #mensajes con la nueva lista
-            mensajesLista.innerHTML = response;
-        },
-        error: function(xhr, status, error) {
-            // Manejar el error en caso de que ocurra
-            console.error('Error al enviar el mensaje:', error);
-        }
-    });
-
-    // Limpiar el campo de entrada de texto
-    document.getElementById("mensajeInput").value = "";
-}
-
+        // Limpiar el campo de entrada de texto
+        document.getElementById("mensajeInput").value = "";
+    }
 </script>
 
 <script>
@@ -255,6 +271,9 @@ function resetInactivityTimer() {
             data: { id_user: idUsuario }, // Pasar el ID de usuario como dato POST
             success: function(response) {
                 console.log('Usuario desconectado debido a inactividad.');
+                // Mostrar mensaje de desconexión y redirigir
+                alert('Has sido desconectado por inactividad. Por favor, inicia sesión nuevamente.');
+                window.location.href = 'login.php'; // Redirigir a la página de inicio de sesión o cualquier otra página adecuada
             },
             error: function(xhr, status, error) {
                 console.error('Error al desconectar al usuario:', error);
@@ -277,16 +296,6 @@ document.addEventListener('click', handleUserActivity);
 resetInactivityTimer();
 
 </script>
-
-
-<?php require "../../assests/php/entrarSalaMain.php"; ?>
-
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-crossorigin="anonymous"></script>
 
 <script>
 window.addEventListener('beforeunload', function(event) {

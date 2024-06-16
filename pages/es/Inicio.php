@@ -6,8 +6,6 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
     $usuarios1 = $_SESSION['id_user'];
 
-    $usuariosActivos = $_SESSION['usuariosActive'];
-
     $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
@@ -36,7 +34,18 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
         if (mysqli_num_rows($conexion3) > 0) {
 
-            $cursosCantidad = mysqli_num_rows($conexion3);
+            while ($datos3 = mysqli_fetch_assoc($conexion3)) {
+                $cursos[] = $datos3;
+
+            }
+
+            $usuariosActivos= mysqli_query($mysqli, "SELECT Active_online FROM usuario WHERE Empresa_id_empresa = '$empresaUsuario' AND Active_online = '1'");
+
+    if (mysqli_num_rows($usuariosActivos)>0){
+
+         $usuarioResult = mysqli_num_rows($usuariosActivos);
+
+         }
 
         } else {
 
@@ -219,12 +228,13 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                         <p class="mb-0"><strong>Cursos Inscritos</strong></p>
                         <div class="accordion accordion-flush " id="accordionFlushExample">
                             <!--Copias esto para añadir un curso-->
+                            <?php foreach($cursos as $curso){ ?>
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#flush-collapseOne" aria-expanded="false"
                                         aria-controls="flush-collapseOne">
-                                        Ingles I
+                                        <?php echo $curso["nombre_cur"] ?>
                                     </button>
                                 </h2>
                                 <div id="flush-collapseOne" class="accordion-collapse collapse"
@@ -247,63 +257,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#flush-collapseTwo" aria-expanded="false"
-                                        aria-controls="flush-collapseTwo">
-                                        Programación I
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                                    data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">
-                                        <div class="card mb-3" style="max-width: 540px;">
-                                            <div class="row g-0">
-                                                <div class="col-md-4">
-                                                    <img src="https://github.com/PichiGod.png"
-                                                        class="img-fluid rounded-start" width="150" alt="...">
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="card-body">
-                                                        <h6 class="card-title">Nombre del docente</h6>
-                                                        <button class="btn btn-primary ">Ir al Curso</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#flush-collapseThree" aria-expanded="false"
-                                        aria-controls="flush-collapseThree">
-                                        Portugués II
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseThree" class="accordion-collapse collapse"
-                                    data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">
-                                        <div class="card mb-3" style="max-width: 540px;">
-                                            <div class="row g-0">
-                                                <div class="col-md-4">
-                                                    <img src="https://github.com/PichiGod.png"
-                                                        class="img-fluid rounded-start" width="150" alt="...">
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="card-body">
-                                                        <h6 class="card-title">Nombre del docente</h6>
-                                                        <button class="btn btn-primary">Ir al Curso</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -316,7 +270,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                             </div>
                             <div>
                                 <div class="oval">
-                                    <p class="mt-3 "><strong><?php echo $usuariosActivos; ?></strong></p>
+                                    <p class="mt-3 "><strong><?php echo $usuarioResult; ?></strong></p>
                                 </div>
                             </div>
                         </div>

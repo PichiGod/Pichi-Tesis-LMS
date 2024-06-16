@@ -11,9 +11,9 @@ if (isset($_GET['id_sala'])) {
 
     // Consulta SQL para obtener los mensajes por id_sala
     $sql = "SELECT mensaje.id_user, mensaje.id_sala, mensaje.contenido, usuario.nombre_user, usuario.apellido_user 
-            FROM mensaje 
+            FROM mensaje
             INNER JOIN usuario ON mensaje.id_user = usuario.id_user
-            WHERE mensaje.id_sala = '$id_sala'";
+            WHERE mensaje.id_sala = '$id_sala' ORDER BY mensaje.fecha_envio ASC";
 
     // Ejecutar la consulta
     $result = mysqli_query($mysqli, $sql);
