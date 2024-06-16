@@ -238,7 +238,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           <label for="cursos">Reporte y Respaldo</label>
           <hr>
           <div id="cursos" class="col">
-            <button class="btn btn-secondary">Generar Reporte</button>
+            <button onclick="location.href='../../../assests/Reportes/reportes.php'" class="btn btn-secondary">Generar Reporte</button>
             <button class="btn btn-secondary">Generar Respaldo</button>
           </div>
         </div>

@@ -8,9 +8,9 @@ if (isset($_POST['mensaje']) && isset($_POST['id_usuario']) && isset($_POST['id_
     $mensaje = $_POST['mensaje'];
     $id_usuario = $_POST['id_usuario'];
     $id_sala = $_POST['id_sala'];
-
+    $fecha_hora_actual = date('Y-m-d H:i:s');
     // Insertar el mensaje en la tabla de mensajes
-    $query = "INSERT INTO mensaje (id_user, id_sala, contenido) VALUES ('$id_usuario', '$id_sala', '$mensaje')";
+    $query = "INSERT INTO mensaje (id_user, id_sala, contenido, fecha_envio) VALUES ('$id_usuario', '$id_sala', '$mensaje', '$fecha_hora_actual')";
     $resultado = mysqli_query($mysqli, $query);
 
     // Verificar si la inserción fue exitosa
