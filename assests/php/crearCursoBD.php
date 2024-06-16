@@ -35,6 +35,16 @@ function crearCurso() {
         exit;
     }
 
+    if ($maximos <= 0 ){
+        echo "El valor de maximos debe ser mayor a 0";
+        exit;
+    }
+
+    if ($minimos <= 0 || $minimos >= $maximos){
+        echo "El valor de minimos debe ser mayor a 0 o menor que cupos maximos.";
+        exit;
+    }
+
     // Convertir fecha de nacimiento al formato de la base de datos (YYYY-MM-DD)
     $fechaInicioBD = date('Y-m-d', strtotime(str_replace('/', '-', $fechaInicio)));
     $fechaFinBD = date('Y-m-d', strtotime(str_replace('/', '-', $fechaFin)));

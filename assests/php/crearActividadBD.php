@@ -5,7 +5,8 @@ if (isset($_POST['action']) && $_POST['action'] == "CrearActividad") {
     crearActividad();
 }
 
-function crearActividad() {
+function crearActividad()
+{
     global $mysqli;
 
     // Obtener datos del formulario
@@ -23,8 +24,9 @@ function crearActividad() {
     $id_curso = $_POST['actionID_CUR']; // ID del curso seleccionado
 
     // Validar campos obligatorios
-    if (empty($titulo)|| empty($contenido) || empty($fechaInicio) || empty($fechaFin) || empty($fechaNoti) || empty($maximo) || empty($notaMaxima) || empty($notaMinima) || empty($visibilidad) || empty($activarPorcentaje)) {
+    if ( empty($contenido) || empty($fechaInicio) || empty($fechaFin) || empty($fechaNoti) || empty($maximo) || empty($notaMaxima) || empty($notaMinima) || empty($visibilidad) || empty($activarPorcentaje)) {
         echo "Debe completar todos los campos obligatorios.";
+        //echo $contenido;
         exit;
     }
 
@@ -32,13 +34,7 @@ function crearActividad() {
     $carpetaDestino = "../archivos/actividades/";
     $archivoPrincipal = isset($_FILES['archivo']['name']) ? $_FILES['archivo']['name'] : null;
     $archivoAdicional = isset($_FILES['archivo1']['name']) ? $_FILES['archivo1']['name'] : null;
-
-    // Verificar si archivo principal está vacío
-    if (empty($archivoPrincipal)) {
-        echo "El campo archivo principal no puede estar vacío.";
-        exit;
-    }
-
+    
     // Validar extensión del archivo principal
     $extension = strtolower(pathinfo($archivoPrincipal, PATHINFO_EXTENSION));
     if (!in_array($extension, ['pdf', 'doc', 'docx'])) {
@@ -53,6 +49,8 @@ function crearActividad() {
             echo "Formato de archivo adicional no permitido. Sube un PDF, DOC o DOCX.";
             exit;
         }
+    } else {
+        $archivoPrincipal = NULL;
     }
 
     // Mover archivo principal a carpeta de destino

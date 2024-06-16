@@ -172,7 +172,7 @@ if (isset($_SESSION['id_user'])) {
 
     <section class="crearCurso">
 
-        <form action="" method="post">
+        <form action="" autocomplete="off" method="post">
 
             <input type="hidden" name="action" id="action" value="NuevoCurso">
 
@@ -241,7 +241,7 @@ if (isset($_SESSION['id_user'])) {
                         <select class="visibilidadCurso seleccion form-select" id="visibilidadCurso"
                             name="visibilidadCurso" aria-label="Default select example">
                             <option selected>Visible</option>
-                            <option value="1">Invisible</option>
+                            <option value="Invisible">Invisible</option>
                         </select>
 
                     </div>

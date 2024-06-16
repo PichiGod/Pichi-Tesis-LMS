@@ -228,16 +228,19 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                         <p class="mb-0"><strong>Cursos Inscritos</strong></p>
                         <div class="accordion accordion-flush " id="accordionFlushExample">
                             <!--Copias esto para añadir un curso-->
-                            <?php foreach($cursos as $curso){ ?>
+                            <?php $contador = 0; foreach($cursos as $curso){ 
+                                
+                                $contador++;
+                                ?>
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                        aria-controls="flush-collapseOne">
+                                        data-bs-target="#flush-<?php echo $contador;?>" aria-expanded="false"
+                                        aria-controls="flush-<?php echo $contador;?>">
                                         <?php echo $curso["nombre_cur"] ?>
                                     </button>
                                 </h2>
-                                <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                <div id="flush-<?php echo $contador;?>" class="accordion-collapse collapse"
                                     data-bs-parent="#accordionFlushExample">
                                     <div class="accordion-body">
                                         <div class="card w-100 mb-3">

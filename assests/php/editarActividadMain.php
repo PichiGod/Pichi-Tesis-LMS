@@ -68,16 +68,16 @@
 
         // Obtener el contenido del editor Quill
         var editorContent = quill.root.innerHTML;
+        //alert(editorContent);  
 
         //Validacion. Si la actividad no tiene texto, archivos seleccionados y no tiene archivos subidos que cancele la operacion
-        if (selectedFiles.length === 0) {
-            if (editorContent == null) {
-                if (archivo == null && archivoAdicional == null) {
-                    alert("Por favor, inserte un texto o seleccione un archivo para enviar.");
-                    return;
-                }
-            }
+        if (editorContent == null || editorContent.trim() == "<p><br></p>") {
+
+            alert("Por favor, inserte una instruccion.");
+            return;
+
         };
+        //return;
 
         //Validar las fechas de Inicio, fecha de culminacion y fecha de notificacion
         const fechaInicio = $('#fechaIni').val();
