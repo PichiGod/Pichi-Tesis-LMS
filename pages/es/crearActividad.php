@@ -308,7 +308,7 @@ if (isset($_GET['id_cur'])) {
                     <select class="visibilidadActividad seleccion form-select" id="visibilidadActividad"
                         aria-label="Default select example">
                         <!-- Visibilidad de la actividad. 0 es visible y 1 es Invisible-->
-                        <option value="0" selected>Visible</option>
+                        <option selected>Visible</option>
                         <option value="1">Invisible</option>
                     </select>
 
