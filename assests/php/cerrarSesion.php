@@ -1,4 +1,5 @@
 <?php
+//Santiago es gay
 require "conexion.php";
 require "LoginBD.php";
 
