@@ -2,67 +2,85 @@
 
 <script type="text/javascript">
 
-function submitData(){
+   function submitData() {
 
-$(document).ready(function(){
+      $(document).ready(function () {
 
-var data = {
+         const fechaNacimiento = $('#fechaNacimiento').val();
+         const birthDate = new Date(fechaNacimiento);
+         const currentDate = new Date();
+         const maxAgeInYears = 100;
+         const minAgeInYears = 6;
 
+         const ageInYears = currentDate.getFullYear() - birthDate.getFullYear();
 
-    nombreUsuario: $('#nombreUsuario').val(),
+         if (ageInYears > maxAgeInYears || ageInYears < minAgeInYears) {
+            // validation failed, handle error
+            alert('Edad Invalida');
+            return;
+         } else {
+            // validation passed
+            console.log('Age is valid');
+            //return;
+         }
 
-    apellidoUsuario: $('#apellidoUsuario').val(),
-    
-    correoUsuario: $('#correoUsuario').val(),
-
-    rifUsuario: $('#rifUsuario').val(),
-
-    contrasenaUsuario: $('#contrasenaUsuario').val(),
-
-    GeneroUsuario: $('#GeneroUsuario').val(),
-
-    fechaNacimiento: $('#fechaNacimiento').val(),
-
-    direccionUsuario: $('#direccionUsuario').val(),
-
-    telefonoUsuario: $('#telefonoUsuario').val(),
-    
-    rbRol: $('#rbRol').val(),
-
-    Empresa: $('#Empresa').val(),
-
-    action: $('#action').val(),
-
-};
+         var data = {
 
 
-$.ajax({
+            nombreUsuario: $('#nombreUsuario').val(),
 
-  url: '../../assests/php/ingresarUsuarioAdminBD.php',
+            apellidoUsuario: $('#apellidoUsuario').val(),
 
-  type: 'post',
+            correoUsuario: $('#correoUsuario').val(),
 
-  data: data,
+            rifUsuario: $('#rifUsuario').val(),
 
-  success:function(response){
+            contrasenaUsuario: $('#contrasenaUsuario').val(),
 
-     alert(response);
+            GeneroUsuario: $('#GeneroUsuario').val(),
 
-     if(response=="Se ha registrado el Usuario en el sistema"){
+            fechaNacimiento: $('#fechaNacimiento').val(),
+
+            direccionUsuario: $('#direccionUsuario').val(),
+
+            telefonoUsuario: $('#telefonoUsuario').val(),
+
+            rbRol: $('#rbRol').val(),
+
+            Empresa: $('#Empresa').val(),
+
+            action: $('#action').val(),
+
+         };
 
 
-        window.location.reload();
-     }
+         $.ajax({
 
-  }
+            url: '../../assests/php/ingresarUsuarioAdminBD.php',
+
+            type: 'post',
+
+            data: data,
+
+            success: function (response) {
+
+               alert(response);
+
+               if (response == "Se ha registrado el Usuario en el sistema") {
 
 
-});
+                  window.location.reload();
+               }
+
+            }
 
 
-});
+         });
 
 
-}
+      });
+
+
+   }
 
 </script>

@@ -189,24 +189,46 @@ if (isset($_SESSION['id_user'])) {
             <div class="container">
                 <div class="row gy-3 mb-4">
                     <?php foreach ($cursos as $curso) { ?>
-                        <div class="col">
-                            <div class="card" style="width: 18rem">
-                                <div class="card-body">
-                                    <?php
-                                    // Determinar la clase de fondo según la visibilidad del curso
-                                    $bgClass = ($curso['visibilidad_curso'] == 'Invisible') ? 'bg-danger' : 'bg-success';
-                                    ?>
-                                    <span class="card-text text-bg-success rounded p-1 fs-6 <?php echo $bgClass; ?>">Estatus
-                                        del curso: <?php echo $curso['visibilidad_curso']; ?></span>
-                                    <p class="mt-2 card-text text-end">Fecha de Creación:</p>
-                                    <p class="card-text text-end"><?php echo $curso['fecha_inicio']; ?></p>
-                                    <h4 class="card-title text-start"><?php echo $curso['nombre_cur']; ?></h4>
-                                    <a class="btn btn-primary mt-2"
-                                        href="verCurso.php?id_cur=<?php echo $curso['id_cur']; ?>">Ver Curso</a>
+                        <?php if ($curso['visibilidad_curso'] == "Visible" && $rol == "0") { ?>
+                            <div class="col">
+                                <div class="card" style="width: 18rem">
+                                    <div class="card-body">
+                                        <?php
+                                        // Determinar la clase de fondo según la visibilidad del curso
+                                        $bgClass = ($curso['visibilidad_curso'] == 'Invisible') ? 'bg-danger' : 'bg-success';
+                                        ?>
+                                        <span class="card-text text-bg-success rounded p-1 fs-6 <?php echo $bgClass; ?>">Estatus
+                                            del curso: <?php echo $curso['visibilidad_curso']; ?></span>
+                                        <p class="mt-2 card-text text-end">Fecha de Creación:</p>
+                                        <p class="card-text text-end"><?php echo $curso['fecha_inicio']; ?></p>
+                                        <h4 class="card-title text-start"><?php echo $curso['nombre_cur']; ?></h4>
+                                        <a class="btn btn-primary mt-2"
+                                            href="verCurso.php?id_cur=<?php echo $curso['id_cur']; ?>">Ver Curso</a>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php } elseif ($rol != 0) { ?>
+                            <div class="col">
+                                <div class="card" style="width: 18rem">
+                                    <div class="card-body">
+                                        <?php
+                                        // Determinar la clase de fondo según la visibilidad del curso
+                                        $bgClass = ($curso['visibilidad_curso'] == 'Invisible') ? 'bg-danger' : 'bg-success';
+                                        ?>
+                                        <span class="card-text text-bg-success rounded p-1 fs-6 <?php echo $bgClass; ?>">Estatus
+                                            del curso: <?php echo $curso['visibilidad_curso']; ?></span>
+                                        <p class="mt-2 card-text text-end">Fecha de Creación:</p>
+                                        <p class="card-text text-end"><?php echo $curso['fecha_inicio']; ?></p>
+                                        <h4 class="card-title text-start"><?php echo $curso['nombre_cur']; ?></h4>
+                                        <a class="btn btn-primary mt-2"
+                                            href="verCurso.php?id_cur=<?php echo $curso['id_cur']; ?>">Ver Curso</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        <?php }
+                        ; ?>
                     <?php } ?>
                 </div>
             </div>

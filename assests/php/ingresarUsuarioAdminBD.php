@@ -20,7 +20,7 @@ function Register() {
     $fechaNacimiento = $_POST['fechaNacimiento'];
     $telefonoUsuario = $_POST['telefonoUsuario'];
     $rbRol = $_POST['rbRol'];
-    $respuestaRol;
+    // $respuestaRol;
 
     if($rbRol == "Estudiante"){
 

@@ -322,173 +322,193 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
 
                                 <hr>
 
-                                <div class="card">
-                                    <div class="card-body">
-                                        <?php if ($noentrega == true) { ?>
-                                            <form action="" id="entrega" method="post" enctype="multipart/form-data">
-                                                <div>
-                                                    <h4 class="card-title">Entrega de actividad</h4>
-                                                    <p class="card-text">Maxima cantidad de archivos: 2</p>
-                                                    <p class="card-text">Maxima peso de archivo: <?php echo $actividad['pesoArchivo'] ?>
-                                                        MB
-                                                    </p>
-                                                    <input type="hidden" value="<?php echo $actividad['pesoArchivo']; ?>"
-                                                        id="fileSize" />
-                                                    <input type="hidden" name="" id="action" value="EntregarActividad">
-                                                    <input type="hidden" name="ID_USER" id="ID_USER" class="ID_USER"
-                                                        value="<?php echo $usuarios1; ?>">
-                                                    <input type="hidden" name="ID_ACT" id="ID_ACT" class="ID_ACT"
-                                                        value="<?php echo $id_act_seleccionado; ?>">
-                                                    <div class="mb-3">
-                                                        <label for="files" class="form-label">Seleccionar archivos...</label>
-                                                        <input class="form-control" type="file" id="files" name="files[]" multiple>
-                                                    </div>
+                                <?php
+                                $fechaIni = new DateTime($actividad['fechaInicio']);
+                                $fechaFin = new DateTime($actividad['fechaCulminacion']);
+                                $currentDate = new DateTime();                        
 
-                                                    <p class="mb-0"><strong>Inserta un texto</strong></p>
-                                                    <div id="editor">
-                                                    </div>
-                                                    <input type="hidden" id="texto_actividad" class="texto_actividad"
-                                                        name="texto_actividad">
-                                                    <div>
-
-                                                    </div>
-                                                    <input type="submit" value="Entregar" class="btn btn-primary mt-2" />
-                                                </div>
-                                            </form>
-                                        <?php } else { ?>
-                                            <div>
-                                                <div>
-                                                    <div
-                                                        class="d-flex align-items-center bg-body-secondary px-2 mb-2 me-2 rounded fs-5">
-                                                        <div class="me-3">
-                                                            <p class="card-text">Docente</p>
-                                                        </div>
-                                                        <div>
-                                                            <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
-                                                        </div>
-                                                        <div class="ms-3">
-                                                            <span><strong>Jose Alejandro Duarte Salcedo</strong></span>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Force next columns to break to new line at md breakpoint and up -->
-                                                    <div class="w-100 d-none d-md-block"></div>
-                                                    <div
-                                                        class="d-inline-flex align-items-center bg-body-secondary px-2 mb-2 me-2 rounded fs-5">
-                                                        <div class="me-3">
-                                                            <p class="card-text">Estado de Calificacion</p>
-                                                        </div>
-                                                        <div>
-                                                            <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
-                                                        </div>
-                                                        <div class="ms-3 mb-1">
-                                                            <?php if ($noNota == true) { ?>
-                                                                <span class="badge bg-warning-subtle text-warning-emphasis"><strong>No
-                                                                        calificado</strong></span>
-                                                            <?php } else { ?>
-                                                                <span class="badge text-bg-success"><strong>Calificado</strong></span>
-                                                            <?php }
-                                                            ; ?>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="d-inline-flex align-items-center bg-body-secondary px-2 mb-2 rounded fs-5">
-                                                        <div class="me-3">
-                                                            <p class=" card-text">Calificacion del profesor</p>
-                                                        </div>
-                                                        <div>
-                                                            <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
-                                                        </div>
-                                                        <div class="ms-3">
-                                                            <?php if ($noNota == true) { ?>
-                                                                <span><strong>No
-                                                                        calificado</strong></span>
-                                                            <?php }
-                                                            ; ?>
-
-                                                        </div>
-                                                    </div>
-                                                    <p class="mb-0 fs-5">Retroalimentación</p>
-                                                    <div class="p-2 mb-2 border rounded">
-                                                        <p id="retro" class="mb-0">
-                                                            <?php if ($noNota = true) { ?>
-                                                                <strong>No
-                                                                    calificado</strong>
-                                                            <?php }
-                                                            ; ?>
-                                                            <!-- Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora ad
-                                                deleniti eaque dolore necessitatibus minus! Saepe eligendi adipisci est
-                                                atque
-                                                quas, sequi voluptatibus velit similique nisi voluptatem amet, alias minima. -->
-                                                        </p>
-                                                    </div>
-
-                                                </div>
-
-                                                <hr>
-                                            </div>
-
-                                            <div>
-                                                <p class="font-monospace mb-0">Ultima modificacion:
-                                                    <?php $fechaModif = date('d/m/Y', strtotime($datosEntrega['fecha_modificacion']));
-                                                    echo $fechaModif; ?>
-                                                </p>
-                                                <?php $pattern = '/<p><br><\/p>/'; // expresión regular para buscar el patrón. Usar '/<p>\s*<br\s*\/>\s*<\/p>/' para ser mas flexible
-                                                                if (!preg_match($pattern, $datosEntrega['texto_entrega'])) { ?>
-                                                    <h4 class="card-title">Texto</h4>
-                                                    <div class="bg-white rounded border py-1 ">
-                                                        <p class="mb-0 ms-1">
-                                                        <div class="mx-2">
-                                                            <?php echo $datosEntrega['texto_entrega']; ?>
-                                                        </div>
-                                                        </p>
-                                                    </div>
-                                                <?php }
-                                                                ; ?>
-                                                <h4 class="card-title mt-1">Archivos entregados</h4>
-                                                <ul class="list-group mt-2">
-                                                    <?php if ($datosEntrega['archivo'] == null && $datosEntrega['archivoAdicional'] == null) { ?>
-
-                                                        <li class="list-group-item">
-                                                            No se enviaron archivos
-                                                        </li>
-                                                    <?php } else if ($datosEntrega['archivo'] != null) { ?>
-
-                                                            <li class="list-group-item">
-                                                                <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    href="../../assests/php/descargarEntrega.php?file_name=<?php echo $datosEntrega['archivo']; ?>">
-                                                                <?php echo $datosEntrega['archivo']; ?>
-                                                                </a>
-                                                            </li>
-
-
-                                                    <?php }
-                                                    ;
-                                                    if ($datosEntrega['archivoAdicional'] != null) { ?>
-                                                        <li class="list-group-item">
-                                                            <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                href="../../assests/php/descargarEntrega.php?file_name=<?php echo $datosEntrega['archivoAdicional']; ?>">
-                                                                <?php echo $datosEntrega['archivoAdicional']; ?></a>
-                                                        </li>
-                                                    <?php }
-                                                    ; ?>
-                                                </ul>
-                                                <hr>
-                                                <h4 class="card-title">Editar entrega</h4>
-                                                <button
-                                                    onclick="location.href='editarEntrega.php?id_act=<?php echo $id_act_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>&id_ent=<?php echo $datosEntrega['id_entregas']; ?>'"
-                                                    class="btn btn-primary">Editar</button>
-                                            </div>
-                                        <?php }
-                                        ; ?>
+                                if ($currentDate < $fechaIni) { ?>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">La entrega se activara el <?= $fechaIni->format('d/m/Y'); ?></h4>
+                                        </div>
                                     </div>
-                                </div>
+                                <?php } elseif ($currentDate > $fechaFin) { ?>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title">La actividad ya culminó.</h4>
+                                            </div>
+                                        </div>
+                                <?php } else { ?>
+                                        <div class="card">
+                                            <div class="card-body">
+                                            <?php if ($noentrega == true) { ?>
+                                                    <form action="" id="entrega" method="post" enctype="multipart/form-data">
+                                                        <div>
+                                                            <h4 class="card-title">Entrega de actividad</h4>
+                                                            <p class="card-text">Maxima cantidad de archivos: 2</p>
+                                                            <p class="card-text">Maxima peso de archivo: <?php echo $actividad['pesoArchivo'] ?>
+                                                                MB
+                                                            </p>
+                                                            <input type="hidden" value="<?php echo $actividad['pesoArchivo']; ?>"
+                                                                id="fileSize" />
+                                                            <input type="hidden" name="" id="action" value="EntregarActividad">
+                                                            <input type="hidden" name="ID_USER" id="ID_USER" class="ID_USER"
+                                                                value="<?php echo $usuarios1; ?>">
+                                                            <input type="hidden" name="ID_ACT" id="ID_ACT" class="ID_ACT"
+                                                                value="<?php echo $id_act_seleccionado; ?>">
+                                                            <div class="mb-3">
+                                                                <label for="files" class="form-label">Seleccionar archivos...</label>
+                                                                <input class="form-control" type="file" id="files" name="files[]" multiple>
+                                                            </div>
+
+                                                            <p class="mb-0"><strong>Inserta un texto</strong></p>
+                                                            <div id="editor">
+                                                            </div>
+                                                            <input type="hidden" id="texto_actividad" class="texto_actividad"
+                                                                name="texto_actividad">
+                                                            <div>
+
+                                                            </div>
+                                                            <input type="submit" value="Entregar" class="btn btn-primary mt-2" />
+                                                        </div>
+                                                    </form>
+                                            <?php } else { ?>
+                                                    <div>
+                                                        <div>
+                                                            <div
+                                                                class="d-flex align-items-center bg-body-secondary px-2 mb-2 me-2 rounded fs-5">
+                                                                <div class="me-3">
+                                                                    <p class="card-text">Docente</p>
+                                                                </div>
+                                                                <div>
+                                                                    <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
+                                                                </div>
+                                                                <div class="ms-3">
+                                                                    <span><strong>Jose Alejandro Duarte Salcedo</strong></span>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Force next columns to break to new line at md breakpoint and up -->
+                                                            <div class="w-100 d-none d-md-block"></div>
+                                                            <div
+                                                                class="d-inline-flex align-items-center bg-body-secondary px-2 mb-2 me-2 rounded fs-5">
+                                                                <div class="me-3">
+                                                                    <p class="card-text">Estado de Calificacion</p>
+                                                                </div>
+                                                                <div>
+                                                                    <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
+                                                                </div>
+                                                                <div class="ms-3 mb-1">
+                                                                <?php if ($noNota == true) { ?>
+                                                                        <span class="badge bg-warning-subtle text-warning-emphasis"><strong>No
+                                                                                calificado</strong></span>
+                                                                <?php } else { ?>
+                                                                        <span class="badge text-bg-success"><strong>Calificado</strong></span>
+                                                                <?php }
+                                                                ; ?>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="d-inline-flex align-items-center bg-body-secondary px-2 mb-2 rounded fs-5">
+                                                                <div class="me-3">
+                                                                    <p class=" card-text">Calificacion del profesor</p>
+                                                                </div>
+                                                                <div>
+                                                                    <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
+                                                                </div>
+                                                                <div class="ms-3">
+                                                                <?php if ($noNota == true) { ?>
+                                                                        <span><strong>No
+                                                                                calificado</strong></span>
+                                                                <?php }
+                                                                ; ?>
+
+                                                                </div>
+                                                            </div>
+                                                            <p class="mb-0 fs-5">Retroalimentación</p>
+                                                            <div class="p-2 mb-2 border rounded">
+                                                                <p id="retro" class="mb-0">
+                                                                <?php if ($noNota = true) { ?>
+                                                                        <strong>No
+                                                                            calificado</strong>
+                                                                <?php }
+                                                                ; ?>
+                                                                    <!-- Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora ad
+                                        deleniti eaque dolore necessitatibus minus! Saepe eligendi adipisci est
+                                        atque
+                                        quas, sequi voluptatibus velit similique nisi voluptatem amet, alias minima. -->
+                                                                </p>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <hr>
+                                                    </div>
+
+                                                    <div>
+                                                        <p class="font-monospace mb-0">Ultima modificacion:
+                                                        <?php $fechaModif = date('d/m/Y', strtotime($datosEntrega['fecha_modificacion']));
+                                                        echo $fechaModif; ?>
+                                                        </p>
+                                                    <?php $pattern = '/<p><br><\/p>/'; // expresión regular para buscar el patrón. Usar '/<p>\s*<br\s*\/>\s*<\/p>/' para ser mas flexible
+                                                                        if (!preg_match($pattern, $datosEntrega['texto_entrega'])) { ?>
+                                                            <h4 class="card-title">Texto</h4>
+                                                            <div class="bg-white rounded border py-1 ">
+                                                                <p class="mb-0 ms-1">
+                                                                <div class="mx-2">
+                                                                <?php echo $datosEntrega['texto_entrega']; ?>
+                                                                </div>
+                                                                </p>
+                                                            </div>
+                                                    <?php }
+                                                                        ; ?>
+                                                        <h4 class="card-title mt-1">Archivos entregados</h4>
+                                                        <ul class="list-group mt-2">
+                                                        <?php if ($datosEntrega['archivo'] == null && $datosEntrega['archivoAdicional'] == null) { ?>
+
+                                                                <li class="list-group-item">
+                                                                    No se enviaron archivos
+                                                                </li>
+                                                        <?php } else if ($datosEntrega['archivo'] != null) { ?>
+
+                                                                    <li class="list-group-item">
+                                                                        <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                            href="../../assests/php/descargarEntrega.php?file_name=<?php echo $datosEntrega['archivo']; ?>">
+                                                                    <?php echo $datosEntrega['archivo']; ?>
+                                                                        </a>
+                                                                    </li>
 
 
-                            <?php }
-                            ; ?>
+                                                        <?php }
+                                                        ;
+                                                        if ($datosEntrega['archivoAdicional'] != null) { ?>
+                                                                <li class="list-group-item">
+                                                                    <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        href="../../assests/php/descargarEntrega.php?file_name=<?php echo $datosEntrega['archivoAdicional']; ?>">
+                                                                    <?php echo $datosEntrega['archivoAdicional']; ?></a>
+                                                                </li>
+                                                        <?php }
+                                                        ; ?>
+                                                        </ul>
+                                                        <hr>
+                                                        <h4 class="card-title">Editar entrega</h4>
+                                                        <button
+                                                            onclick="location.href='editarEntrega.php?id_act=<?php echo $id_act_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>&id_ent=<?php echo $datosEntrega['id_entregas']; ?>'"
+                                                            class="btn btn-primary">Editar</button>
+                                                    </div>
+                                            <?php }
+                                            ; ?>
+                                            </div>
+                                        </div>
+
+
+                                <?php }
+                                ; ?>             <?php
+                            }
+                            ?>
 
                         <?php endforeach;
                 }
