@@ -44,7 +44,7 @@ if (isset($_SESSION['id_user'])) {
                 <a class="navbar-brand ms-3" href="../../index.html">
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
-                <div class="d-flex justify-content-end">
+                <div class="d-flex flex-wrap justify-content-end">
                     <div class="vr me-2"></div>
                     <div class="nav-item dropdown">
                         <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">

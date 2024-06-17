@@ -122,7 +122,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
-                <div class="d-flex justify-content-end">
+                <div class="d-flex flex-wrap justify-content-end">
                     <!--Cambio de Idioma ver.Español-->
                     <div class="vr me-2"></div>
                     <div class="nav-item dropdown">
@@ -451,13 +451,13 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                                                         <?php $fechaModif = date('d/m/Y', strtotime($datosEntrega['fecha_modificacion']));
                                                         echo $fechaModif; ?>
                                                         </p>
-                                                    <?php $pattern = '/<p><br><\/p>/'; // expresión regular para buscar el patrón. Usar '/<p>\s*<br\s*\/>\s*<\/p>/' para ser mas flexible
+                                                    <?php $pattern = '/<p>\s*<br\s*\/>\s*<\/p>/'; // expresión regular para buscar el patrón. Usar '/<p>\s*<br\s*\/>\s*<\/p>/' para ser mas flexible
                                                                         if (!preg_match($pattern, $datosEntrega['texto_entrega'])) { ?>
                                                             <h4 class="card-title">Texto</h4>
                                                             <div class="bg-white rounded border py-1 ">
                                                                 <p class="mb-0 ms-1">
                                                                 <div class="mx-2">
-                                                                <?php echo $datosEntrega['texto_entrega']; ?>
+                                                                    <?php echo $datosEntrega['texto_entrega']; ?>
                                                                 </div>
                                                                 </p>
                                                             </div>

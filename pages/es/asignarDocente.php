@@ -91,7 +91,7 @@ if (isset($_SESSION['id_user'])) {
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
-                <div class="d-flex justify-content-end">
+                <div class="d-flex flex-wrap justify-content-end">
                     <!--Cambio de Idioma ver.Español-->
                     <div class="vr me-2"></div>
                     <div class="nav-item dropdown">
@@ -222,9 +222,9 @@ if (isset($_SESSION['id_user'])) {
             </div>
 
             <div class="card my-3">
-                <p class="mb-0">Aqui se muestran los cursos creados, los que tienen marca significa que ya esta asignado
+                <!-- <p class="mb-0">Aqui se muestran los cursos creados, los que tienen marca significa que ya esta asignado
                     a
-                    esa materia</p>
+                    esa materia</p> -->
 
                 <div class="card-body overflow-auto " style="max-height:15rem;">
                     <ul class="list-group overflow-auto">
@@ -232,23 +232,23 @@ if (isset($_SESSION['id_user'])) {
                             <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" checked>
                             <label class="form-check-label" for="firstCheckbox">Matematica</label>
                         </li>
-                        <li class="list-group-item">
+                        <!-- <li class="list-group-item">
                             <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
                             <label class="form-check-label" for="secondCheckbox">Brawl</label>
-                        </li>
-                        <li class="list-group-item">
+                        </li> -->
+                        <!-- <li class="list-group-item">
                             <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
                             <label class="form-check-label" for="thirdCheckbox">Ser pro</label>
-                        </li>
+                        </li> -->
                         <li class="list-group-item">
                             <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
                             <label class="form-check-label" for="thirdCheckbox">Programacion</label>
                         </li>
-                        <li class="list-group-item">
+                        <!-- <li class="list-group-item">
                             <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
                             <label class="form-check-label" for="thirdCheckbox">El puteo</label>
-                        </li>
-                        <li class="list-group-item">
+                        </li> -->
+                        <!-- <li class="list-group-item">
                             <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
                             <label class="form-check-label" for="thirdCheckbox">Gocheria</label>
                         </li>
@@ -259,7 +259,7 @@ if (isset($_SESSION['id_user'])) {
                         <li class="list-group-item">
                             <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
                             <label class="form-check-label" for="thirdCheckbox">Santiago es gay</label>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
 

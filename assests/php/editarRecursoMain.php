@@ -66,6 +66,11 @@
         // Obtener el contenido del editor Quill
         var editorContent = quill.root.innerHTML;
 
+        if (editorContent == null || editorContent.trim() == "<p><br></p>") {
+            alert("El contenido del recurso no puede estar vacío.");
+            return;
+        }
+
         var archivo = $('#archivoActual').val();
         var archivoAdicional = $('#aAdicionalActual').val();
 

@@ -25,7 +25,7 @@ function EditarComentario() {
 
     // Preparar consulta SQL con la nueva actividad
     $sql = "UPDATE foro_curso
-            SET mensaje = ?, modif_fecha = ?
+            SET mensaje = ?, modificacion = ?
             WHERE id_foro_cur = ?";
 
     $stmt = $mysqli->prepare($sql);

@@ -100,7 +100,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
         </a>
 
-        <div class="d-flex justify-content-end">
+        <div class="d-flex flex-wrap justify-content-end">
           <!--Cambio de Idioma ver.Español-->
           <div class="vr me-2"></div>
           <div class="nav-item dropdown">
@@ -224,7 +224,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                 <td><?php echo $periodo['fecha_ini_peri']; ?></td>
                 <td><?php echo $periodo['fecha_fin_peri']; ?></td>
                 <td>
-                <?php } ?>
+                
                 <button onclick="location.href='modifPeriodo.php'" class="btn mt-1 btn-primary me-1">
                   Modificar
                 </button>
@@ -233,6 +233,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                 </button>
               </td>
             </tr>
+            <?php } ?>
           </tbody>
         </table>
       </div>

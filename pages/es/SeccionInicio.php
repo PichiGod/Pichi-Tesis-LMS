@@ -2,13 +2,13 @@
 
 require "../../assests/php/LoginBD.php";
 
-if(isset($_SESSION['id_user'])){
+if (isset($_SESSION['id_user'])) {
 
-  if($_SESSION['Login']==true){
+  if ($_SESSION['Login'] == true) {
 
-  header("location: Inicio.php ");
+    header("location: Inicio.php ");
 
-  }elseif($_SESSION['Login']==false){
+  } elseif ($_SESSION['Login'] == false) {
 
     header("location: Inicio.php ");
 
@@ -39,14 +39,14 @@ if(isset($_SESSION['id_user'])){
 <body class="bg-pastel">
   <!--- Navbar -->
   <header>
-    <nav class="navbar bg-body-tertiary shadow">
+    <nav class="navbar container-fluid bg-body-tertiary shadow">
       <div class="container-fluid">
         <a class="navbar-brand ms-3" href="../../index.html">
           <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
         </a>
-        <div class="d-flex justify-content-end">
+        <div class="d-flex flex-wrap">
           <div class="vr me-2"></div>
-          <div class="nav-item dropdown">
+          <div class="nav-item dropdown ">
             <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">
               <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary" href="#">Español
                 (Latino America)</a>
@@ -59,17 +59,23 @@ if(isset($_SESSION['id_user'])){
             </ul>
           </div>
           <div class="vr me-2"></div>
-          <a name="regis" id="regis" class="btn btn-secundary d-flex shadow me-3" href="registro.php"
-            role="button">Registrarse</a>
-          <a name="login" id="login" class="btn btn-primary me-4 d-flex shadow" href="#" role="button">Iniciar
-            Sesión</a>
+          <div>
+            <a name="regis" id="regis" class="btn btn-secundary shadow me-3" href="registro.php"
+              role="button">Registrarse</a>
+          </div>
+          <div>
+            <a name="login" id="login" class="btn btn-primary shadow" href="#" role="button">Iniciar
+              Sesión</a>
+          </div>
+
+
         </div>
       </div>
     </nav>
   </header>
 
-  <section name="formulario">
-     <form action="" method="post">
+  <section name="formulario" class="d-flex justify-content-center align-items-center mt-5">
+    <form action="" method="post">
       <input type="hidden" name="" id="action" value="Login" class="action">
       <div name="formulario">
         <div class="formulario pt-2 px-3 bg-blanco shadow rounded">
@@ -79,31 +85,33 @@ if(isset($_SESSION['id_user'])){
 
           <hr class="mx-5" />
 
-            <div>
-              <div class="form-floating mb-3 w-auto align-self-center">
-              <input type="number" class="cedulaLogin form-control" name="cedulaLogin" id="cedulaLogin" placeholder="" />
-                <label for="formId1">Identificación del Usuario</label>
-              </div>
+          <div>
+            <div class="form-floating mb-3 w-auto align-self-center">
+              <input type="number" class="cedulaLogin form-control" name="cedulaLogin" id="cedulaLogin"
+                placeholder="" />
+              <label for="formId1">Identificación del Usuario</label>
             </div>
+          </div>
 
-            <div>
-              <div class="form-floating mb-4">
-              <input type="password" class="contrasenaLogin form-control" name="contrasenaLogin" id="contrasenaLogin" placeholder="" />
-                <label for="formId1">Contraseña</label>
-              </div>
+          <div>
+            <div class="form-floating mb-4">
+              <input type="password" class="contrasenaLogin form-control" name="contrasenaLogin" id="contrasenaLogin"
+                placeholder="" />
+              <label for="formId1">Contraseña</label>
             </div>
+          </div>
 
-            <div class="text-center">
-              <button type="button" class="btn btn-primary mb-4" onclick="submitData();">
-                Iniciar Sesión
-              </button>
-              <a href="recuperarContra.php" class="btn btn-link mb-4">Olvido su contraseña?</a>
-            </div>
-          
+          <div class="text-center">
+            <button type="button" class="btn btn-primary mb-4" onclick="submitData();">
+              Iniciar Sesión
+            </button>
+            <a href="recuperarContra.php" class="btn btn-link mb-4">Olvido su contraseña?</a>
+          </div>
+
         </div>
       </div>
-      </form>
-    </section>
+    </form>
+  </section>
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -111,7 +119,7 @@ if(isset($_SESSION['id_user'])){
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
     crossorigin="anonymous"></script>
-    <?php require "../../assests/php/LoginMain.php"; ?>
+  <?php require "../../assests/php/LoginMain.php"; ?>
 </body>
 
 </html>

@@ -12,7 +12,7 @@
         var editorContent = quill.root.innerHTML;
 
         if (selectedFiles.length === 0) {
-            if (editorContent == null) {
+            if (editorContent == null || editorContent.trim() == "<p><br></p>") {
                 alert("Por favor, inserte un texto o seleccione un archivo para enviar.");
                 return;
             }

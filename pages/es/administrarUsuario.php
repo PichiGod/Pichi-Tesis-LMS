@@ -34,9 +34,10 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
             if (mysqli_num_rows($conexionConsultaBBDD) > 0) {
 
-                $datos3 = mysqli_fetch_assoc($conexionConsultaBBDD);
+                while ($datos3 = mysqli_fetch_assoc($conexionConsultaBBDD)) {
+                    $usuarios[] = $datos3;
 
-                $usuarios[] = $datos3;
+                }
 
             }
 
@@ -101,7 +102,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
-                <div class="d-flex justify-content-end">
+                <div class="d-flex flex-wrap justify-content-end">
                     <!--Cambio de Idioma ver.Español-->
                     <div class="vr me-2"></div>
                     <div class="nav-item dropdown">
@@ -236,8 +237,13 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                 <td><?php echo $usuario['sexo_user']; ?></td>
                                 <td>
                                     <?php if ($usuario['rol'] == 0) {
-
                                         echo "Estudiante";
+                                    } ?>
+                                    <?php if ($usuario['rol'] == 1) {
+                                        echo "Docente";
+                                    } ?>
+                                    <?php if ($usuario['rol'] == 2) {
+                                        echo "Administrador";
                                     } ?>
                                 </td>
                                 <td>

@@ -71,7 +71,7 @@ function borrarArchivo() {
 
         //Validacion. Si la entrega no tiene texto, archivos seleccionados y no tiene archivos subidos que cancele la operacion
         if (selectedFiles.length === 0) {
-            if (editorContent == null) {
+            if (editorContent == null || editorContent.trim() == "<p><br></p>") {
                 if (archivo == null && archivoAdicional == null){
                     alert("Por favor, inserte un texto o seleccione un archivo para enviar.");
                     return;

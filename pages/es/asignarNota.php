@@ -37,6 +37,18 @@ if (isset($_SESSION['id_user'])) {
 if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
     $id_curso_seleccionado = $_GET['id_cur'];
     $id_act_seleccionado = $_GET['id_act'];
+
+    $consultaEntrega = mysqli_query($mysqli, "SELECT entregas.texto_entrega, entregas.archivo, entregas.archivoAdicional,
+                                                     entregas.fecha_modificacion, usuario.nombre_user, usuario.apellido_user,
+                                                     usuario.identificacion_user
+                                                FROM entregas 
+                                                LEFT JOIN usuario ON usuario.id_user = entregas.id_user
+                                                WHERE id_actividad = '$id_act_seleccionado'");
+    if (mysqli_num_rows($consultaEntrega) > 0) {
+        while ($datosEntrega = mysqli_fetch_assoc($consultaEntrega)) {
+            $Entregas[] = $datosEntrega;
+        }
+    }
 }
 ?>
 
@@ -87,6 +99,19 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
             pointer-events: none;
             background-color: lightgrey;
         }
+
+        .paragraph-as-textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            height: 100px;
+            /* adjust the height to your liking */
+            resize: vertical;
+            overflow-y: auto;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
     </style>
 </head>
 
@@ -102,7 +127,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
-                <div class="d-flex justify-content-end">
+                <div class="d-flex flex-wrap justify-content-end">
                     <!--Cambio de Idioma ver.Español-->
                     <div class="vr me-2"></div>
                     <div class="nav-item dropdown">
@@ -204,8 +229,9 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
 
-            <a href="verActividad.php?id_act=<?php echo $id_act_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>"><i class="fa-solid mt-2 fa-arrow-left"
-                    style="font-size:2rem;color:black;"></i></a>
+            <a
+                href="verActividad.php?id_act=<?php echo $id_act_seleccionado; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>"><i
+                    class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2">Asignar Nota</h1>
             <h4 class="text-center fw-light">Haga click en un estudiante para seleccionar</h4>
 
@@ -227,11 +253,32 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                             </tr>
                         </thead>
                         <tbody id="tableBody">
-                            <tr onclick="selectRow(this);">
-                                <td scope="row">28467144</td>
-                                <td>Jose Duarte </td>
-                                <td>Duarte Salcedo</td>
-                            </tr>
+                            <?php
+                            if (mysqli_num_rows($consultaEntrega) > 0) {
+                                $n = 0;
+                                foreach ($Entregas as $entrega):
+                                    $n++;
+                                    ?>
+                                    <tr onclick="selectRow(this, <?php echo $n; ?>);">
+                                        <td scope="row"><?php echo $entrega['identificacion_user']; ?></td>
+                                        <td><?php echo $entrega['nombre_user']; ?></td>
+                                        <td><?php echo $entrega['apellido_user']; ?></td>
+                                        <input type="hidden" id="texto-<?php echo $n; ?>"
+                                            value="<?php echo $entrega['texto_entrega']; ?>">
+                                        <input type="hidden" id="archivo-<?php echo $n; ?>"
+                                            value="<?php echo $entrega['archivo']; ?>">
+                                        <input type="hidden" id="archivoAdicional-<?php echo $n; ?>"
+                                            value="<?php echo $entrega['archivoAdicional']; ?>">
+                                        <input type="hidden" id="fecha-<?php echo $n; ?>"
+                                            value="<?php echo $entrega['fecha_modificacion']; ?>">
+                                    </tr>
+                                    <!-- <tr onclick="selectRow(this);">
+                                        <td scope="row">28467144</td>
+                                        <td>Jose Duarte </td>
+                                        <td>Duarte Salcedo</td>
+                                    </tr> -->
+                                <?php endforeach;
+                            } ?>
                         </tbody>
                     </table>
                 </div>
@@ -240,19 +287,21 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                         <div class="card-body">
                             <h4 class="card-title">Estudiante Seleccionado</h4>
                             <p class="card-text">Nombre estudiante</p>
-                            <textarea class="card-text form-control" rows="3" name="" id=""
-                                disabled>Mensaje del estudiante</textarea>
+                            <!-- <textarea class="card-text form-control" rows="3" name="" id="mensaje" disabled>
+                            </textarea> -->
+                            <p class="paragraph-as-textarea" rows="3" name="" id="mensaje"
+                                disabled>
+                            </p>
                             <h4 class="card-title">Archivos entregados</h4>
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <i class="fa-solid fa-file"></i> <a class="ms-2" href="#">Archivo #1</a>
+                                    <i class="fa-solid fa-file"></i> <a class="ms-2" id="file" href="#">Archivo #1</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <i class="fa-solid fa-file"></i> <a class="ms-2" href="#">Archivo #2</a>
+                                    <i class="fa-solid fa-file"></i> <a class="ms-2" id="aFile" href="#">Archivo #2</a>
                                 </li>
                             </ul>
-                            <textarea rows="4" class="form-control mt-1" id="retro"
-                                placeholder="Retroalimentacion"></textarea>
+                            <textarea rows="4" class="form-control mt-1 disable" id="retro" placeholder="Retroalimentacion"></textarea>
                         </div>
                         <div class="card-footer">
                             <form action="">
@@ -278,10 +327,33 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
 
     <script>
 
-        function selectRow(row) {
+        function selectRow(row, n) {
+            //Requeridos para la interfaz
             const selectedRow = document.querySelector(".table tbody tr.table-active");
+            const Retroalimentacion = document.getElementById('retro');
             const buttonCalif = document.getElementById("btn-calif");
             const inputCalif = document.getElementById("calif");
+            const file = document.getElementById("file");
+            const aFile = document.getElementById("aFile");
+
+            //Mostrar la informacion del mensaje si la tiene;
+            const textoEntrega = document.getElementById(`texto-${n}`).value;
+            //console.log(textoEntrega);
+            const mensaje = document.getElementById('mensaje');
+            mensaje.innerHTML += textoEntrega;
+
+            //Buscar el archivo de la entrega
+            const archivo =document.getElementById(`archivo-${n}`).value;
+            console.log(archivo);
+            //Validacion si el archivo no existe
+            if (archivo == '' || archivo == null) {
+                file.style.display = 'none';
+            }
+            //Mostrar el archivo
+            file.innerHTML = archivo;
+            file.href = `../../assests/php/descargarEntrega.php?file_name=${archivo}`;
+
+            //Buscar el archivoAdicional de la entrega
 
             if (selectedRow) {
                 selectedRow.classList.remove("table-active");
@@ -289,6 +361,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
             row.classList.add("table-active");
             buttonCalif.classList.remove("disabled");
             inputCalif.classList.remove("disable");
+            Retroalimentacion.classList.remove('disable');
         }
 
     </script>

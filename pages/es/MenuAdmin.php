@@ -92,7 +92,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
         </a>
 
-        <div class="d-flex justify-content-end">
+        <div class="d-flex flex-wrap justify-content-end">
           <!--Cambio de Idioma ver.Español-->
           <div class="vr me-2"></div>
           <div class="nav-item dropdown">
@@ -235,11 +235,11 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
         </div>
 
         <div class="row justify-content-center align-items-center g-1 mb-3">
-          <label for="cursos">Reporte y Respaldo</label>
+          <label for="cursos">Reporte </label> <!-- y respaldo--->
           <hr>
           <div id="cursos" class="col">
-            <button onclick="location.href='../../../assests/Reportes/reportes.php'" class="btn btn-secondary">Generar Reporte</button>
-            <button class="btn btn-secondary">Generar Respaldo</button>
+            <a href='../../../assests/Reportes/reportes.php' target="_blank" class="btn btn-secondary">Generar Reporte</a>
+            <!-- <button class="btn btn-secondary">Generar Respaldo</button> -->
           </div>
         </div>
 

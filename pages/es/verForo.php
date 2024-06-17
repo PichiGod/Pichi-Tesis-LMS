@@ -47,7 +47,7 @@ if (isset($_GET['id_cur'])) {
     $empresa = $datos3['nombre_empresa'];
   }
 
-  $consultaComentarios = mysqli_query($mysqli, "SELECT Usuario.nombre_user, Usuario.apellido_user, foro_curso.id_foro_cur, foro_curso.mensaje, foro_curso.modif_fecha, foro_curso.usuario_id_user
+  $consultaComentarios = mysqli_query($mysqli, "SELECT Usuario.nombre_user, Usuario.apellido_user, foro_curso.id_foro_cur, foro_curso.mensaje, foro_curso.modif_fecha, foro_curso.modificacion, foro_curso.usuario_id_user
   FROM foro_curso 
   LEFT JOIN Usuario ON Usuario.id_user = foro_curso.usuario_id_user
   WHERE curso_id_curso = '$id_curso_seleccionado'
@@ -100,7 +100,7 @@ if (isset($_GET['id_cur'])) {
           <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
         </a>
 
-        <div class="d-flex justify-content-end">
+        <div class="d-flex flex-wrap justify-content-end">
           <!--Cambio de Idioma ver.Español-->
           <div class="vr me-2"></div>
           <div class="nav-item dropdown">
@@ -246,8 +246,14 @@ if (isset($_GET['id_cur'])) {
                   <figcaption class="figure-caption fs-6 text-body text-center ">
                     <?php echo $comentario['nombre_user'] . " " . $comentario['apellido_user']; ?> <br>
                     <!-- <?php echo $comentario['modif_fecha'] ?> -->
-                    <?php echo date('d/m/Y H:i', strtotime($comentario['modif_fecha'])); ?><br>
-                    <!-- <p class="font-monospace m-0 p-0">(Editado)</p> -->
+                    <?php if ($comentario['modificacion'] == null) { ?>
+                      <?php echo date('d/m/Y H:i', strtotime($comentario['modif_fecha'])); ?>
+                    <?php } else { ?>
+                      <?php echo date('d/m/Y H:i', strtotime($comentario['modificacion'])); ?>
+                      <br>
+                      <p class="font-monospace m-0 p-0">(Editado)</p>
+                    <?php }
+                    ; ?>
                   </figcaption>
                 </figure>
               </div>
@@ -257,7 +263,7 @@ if (isset($_GET['id_cur'])) {
                     <?php echo $comentario['mensaje'] ?>
                   </p>
                 </div>
-                <?php if ($comentario['usuario_id_user'] == $usuarios1 || $rol == 2 ) {
+                <?php if ($comentario['usuario_id_user'] == $usuarios1 || $rol == 2) {
                   ?>
                   <button class="btn btn-link m-0 p-0"
                     onclick="location.href='modifComentario.php?idComen=<?php echo $comentario['id_foro_cur']; ?>&id_cur=<?php echo $id_curso_seleccionado; ?>'"

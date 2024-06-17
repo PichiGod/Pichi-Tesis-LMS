@@ -91,7 +91,7 @@ if (isset($_SESSION['id_user'])) {
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
-                <div class="d-flex justify-content-end">
+                <div class="d-flex flex-wrap justify-content-end">
                     <!--Cambio de Idioma ver.Español-->
                     <div class="vr me-2"></div>
                     <div class="nav-item dropdown">
