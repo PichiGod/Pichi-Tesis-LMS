@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 12-06-2024 a las 22:22:00
+-- Servidor: localhost:3306
+-- Tiempo de generación: 17-06-2024 a las 02:24:27
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -56,7 +56,9 @@ INSERT INTO `actividades` (`idActividades`, `Titulo`, `ContenidoAcitividad`, `ar
 (4, 'Portugues II INSTRUCCIONES III', '<p>Hola estas son las instrucciones necesarias</p>', 'Informe Simulacion de sistemas.docx', '2024-05-18 04:00:00.000000', '2024-05-24 04:00:00.000000', '2024-05-31 04:00:00.000000', 5, 20, 10, 0, 1, 0, NULL, 'Cur_URBE_01'),
 (5, 'Portugues II INSTRUCCIONES IV', '<p>pRUEBAS XD</p>', 'Informe Simulacion de sistemas.docx', '2024-05-24 04:00:00.000000', '2024-05-24 04:00:00.000000', '2024-05-31 04:00:00.000000', 20, 20, 10, 0, 1, 0, 'finales (FINAL).docx', 'Cur_URBE_01'),
 (6, 'Ingles I documentos para Evaluativo', '<p>Aqui cualquier descripción </p>', 'finales (FINAL).docx', '2024-05-24 04:00:00.000000', '2024-05-31 04:00:00.000000', '2024-05-30 04:00:00.000000', 20, 20, 10, 0, 0, 10, NULL, 'Cur_URBE_01'),
-(7, 'Verbo To-Be', '<p>Ver el archivo incluido en la actividad.</p>', 'InformePasantia-Cap-III.pdf', '2024-06-11 04:00:00.000000', '2024-06-19 04:00:00.000000', '2024-06-17 04:00:00.000000', 10, 20, 1, 0, 1, 0, NULL, 'Cur_URBE_01');
+(7, 'Verbo To-Be', '<p>Ver el archivo incluido en la actividad.</p>', 'InformePasantia-Cap-III.pdf', '2024-06-11 04:00:00.000000', '2024-06-19 04:00:00.000000', '2024-06-17 04:00:00.000000', 10, 20, 1, 0, 1, 0, NULL, 'Cur_URBE_01'),
+(8, 'rgdefrsgretgrtg', '<p>dfvgfrdtsgbrgb</p>', 'finales (FINAL).docx', '2024-06-20 04:00:00.000000', '2024-06-27 04:00:00.000000', '2024-06-27 04:00:00.000000', 30, 20, 10, 1, 1, 0, NULL, 'Cur_URBE_03'),
+(9, 'regfergreg', '<p>regergretg</p>', 'finales (FINAL).docx', '2024-06-18 04:00:00.000000', '2024-06-20 04:00:00.000000', '2024-06-27 04:00:00.000000', 30, 20, 10, 0, 1, 0, NULL, 'Cur_URBE_03');
 
 -- --------------------------------------------------------
 
@@ -191,22 +193,35 @@ CREATE TABLE `mensaje` (
   `contenido` longtext NOT NULL,
   `fecha_hora` datetime DEFAULT NULL,
   `id_user` int(11) NOT NULL,
-  `id_sala` int(11) NOT NULL
+  `id_sala` int(11) NOT NULL,
+  `fecha_envio` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `mensaje`
 --
 
-INSERT INTO `mensaje` (`id_mensaje`, `contenido`, `fecha_hora`, `id_user`, `id_sala`) VALUES
-(24, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>17:21</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                Hola mi gente de puerto rico\n            </div>\n        </li>\n    ', NULL, 4, 1),
-(25, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>17:22</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                Como esta todo el mundo en esta monda??\n            </div>\n        </li>\n    ', NULL, 4, 1),
-(26, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>SantiaGO viloria</strong></span>\n                <span>11:59</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                Todo Bien profe.\n            </div>\n        </li>\n    ', NULL, 5, 1),
-(27, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>18:26</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                Como estan?\n            </div>\n        </li>\n    ', NULL, 4, 1),
-(28, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Pichi Duarte</strong></span>\n                <span>18:27</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                Todo chikiluki\n            </div>\n        </li>\n    ', NULL, 3, 1),
-(29, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Pichi Duarte</strong></span>\n                <span>18:46</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                hola\n            </div>\n        </li>\n    ', NULL, 3, 1),
-(30, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>19:37</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                pichi\n            </div>\n        </li>\n    ', NULL, 4, 1),
-(31, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>19:38</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                pichi2\n            </div>\n        </li>\n    ', NULL, 4, 1);
+INSERT INTO `mensaje` (`id_mensaje`, `contenido`, `fecha_hora`, `id_user`, `id_sala`, `fecha_envio`) VALUES
+(60, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>12:32</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                holis como estas??\n            </div>\n        </li>\n    ', NULL, 4, 1, '2024-06-15 22:32:01'),
+(61, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>SantiaGO viloria</strong></span>\n                <span>12:32</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                bien gracias a dios y tu??\n            </div>\n        </li>\n    ', NULL, 5, 1, '2024-06-15 22:32:13'),
+(62, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>12:32</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                bien bien \n            </div>\n        </li>\n    ', NULL, 4, 1, '2024-06-15 22:32:28'),
+(63, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>12:33</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                que bueno, me alegro\n            </div>\n        </li>\n    ', NULL, 4, 1, '2024-06-15 22:33:02'),
+(64, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>SantiaGO viloria</strong></span>\n                <span>12:33</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                fino fino \n            </div>\n        </li>\n    ', NULL, 5, 1, '2024-06-15 22:33:08'),
+(65, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>12:35</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                A que hora empieza esta vaina???\n            </div>\n        </li>\n    ', NULL, 4, 1, '2024-06-15 22:35:04'),
+(66, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>SantiaGO viloria</strong></span>\n                <span>12:35</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                ahorita yo creo \n            </div>\n        </li>\n    ', NULL, 5, 1, '2024-06-15 22:35:24'),
+(67, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>12:51</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                holis\n            </div>\n        </li>\n    ', NULL, 4, 1, '2024-06-15 22:51:47'),
+(68, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>SantiaGO viloria</strong></span>\n                <span>12:59</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                hello\n            </div>\n        </li>\n    ', NULL, 5, 1, '2024-06-15 22:59:33'),
+(69, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>12:59</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                fino\n            </div>\n        </li>\n    ', NULL, 4, 1, '2024-06-15 22:59:43'),
+(70, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>13:00</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                hhhhjvhhvjhvhjvhjvhjvhjvhjvhjvhjvhjhvhjhvjhvhjhvhjhvhjvhjhvhjhvhjhvjhvhvjhvhjhvjhhhh\n            </div>\n        </li>\n    ', NULL, 4, 1, '2024-06-15 23:00:28'),
+(71, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>13:00</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n            </div>\n        </li>\n    ', NULL, 4, 1, '2024-06-15 23:00:48'),
+(72, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>11:39</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                holis\n            </div>\n        </li>\n    ', NULL, 4, 1, '2024-06-16 21:39:25'),
+(73, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>SantiaGO viloria</strong></span>\n                <span>11:50</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                hello\n            </div>\n        </li>\n    ', NULL, 5, 1, '2024-06-16 21:50:59'),
+(74, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>11:56</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                jeje\n            </div>\n        </li>\n    ', NULL, 4, 1, '2024-06-16 21:56:48'),
+(75, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>SantiaGO viloria</strong></span>\n                <span>13:27</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                olis\n            </div>\n        </li>\n    ', NULL, 5, 1, '2024-06-16 23:27:30'),
+(76, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>13:28</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                hello\n            </div>\n        </li>\n    ', NULL, 4, 1, '2024-06-16 23:28:08'),
+(77, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>13:42</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                olis\n            </div>\n        </li>\n    ', NULL, 4, 1, '2024-06-16 23:42:15'),
+(78, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>Lenin Martinez</strong></span>\n                <span>13:42</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                oli\n            </div>\n        </li>\n    ', NULL, 4, 1, '2024-06-16 23:42:38'),
+(79, '\n          <li class=\"list-group-item bg-white p-1 my-1 rounded\">\n            <div id=\"userName\" class=\"ms-2 text-break\">\n                <span><strong>SantiaGO viloria</strong></span>\n                <span>13:42</span>\n            </div>\n            <div id=\"mensaje\" class=\"ms-2 text-break\">\n                ola\n            </div>\n        </li>\n    ', NULL, 5, 1, '2024-06-16 23:42:49');
 
 -- --------------------------------------------------------
 
@@ -354,9 +369,8 @@ CREATE TABLE `usuariosala` (
 --
 
 INSERT INTO `usuariosala` (`id_user`, `id_sala`, `id_curso`) VALUES
-(5, 1, 'Cur_URBE_01'),
 (3, 1, 'Cur_URBE_01'),
-(4, 1, 'Cur_URBE_01');
+(5, 1, 'Cur_URBE_01');
 
 --
 -- Índices para tablas volcadas
@@ -487,7 +501,7 @@ ALTER TABLE `usuariosala`
 -- AUTO_INCREMENT de la tabla `actividades`
 --
 ALTER TABLE `actividades`
-  MODIFY `idActividades` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idActividades` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `empresa`
@@ -511,7 +525,7 @@ ALTER TABLE `foro_curso`
 -- AUTO_INCREMENT de la tabla `mensaje`
 --
 ALTER TABLE `mensaje`
-  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT de la tabla `periodo`
