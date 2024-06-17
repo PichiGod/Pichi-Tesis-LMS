@@ -228,8 +228,8 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                         </li>
                     <?php } elseif ($datosActividad['archivosPrincipal'] != null) { ?>
                         <li class="list-group-item ">
-                            <i class="fa-solid mt-1 fa-file"></i> <a class="ms-2 text-break"
-                                href="#"><?php echo $datosActividad['archivosPrincipal']; ?></a>
+                            <i class="fa-solid mt-1 fa-file"></i> <a class="ms-2 text-break" target="_blank" rel="noopener noreferrer"
+                            href="../../assests/php/descargarActividad.php?file_name=<?php echo $datosActividad['archivosPrincipal']; ?>&id_act=<?php echo $id_act_seleccionado; ?>"><?php echo $datosActividad['archivosPrincipal']; ?></a>
                             <input type="hidden" id="actionArchivo1" value="borrar"></input>
                             <input type="hidden" id="archivoActual"
                                 value="<?php echo $datosActividad['archivosPrincipal']; ?>"></input>
@@ -243,8 +243,8 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                     if ($datosActividad['archivosAdicional'] != null) { ?>
 
                         <li class="list-group-item">
-                            <i class="fa-solid fa-file"></i> <a class="ms-2 text-break"
-                                href="#"><?php echo $datosActividad['archivosAdicional']; ?></a>
+                            <i class="fa-solid fa-file"></i> <a class="ms-2 text-break" target="_blank" rel="noopener noreferrer"
+                                href="../../assests/php/descargarActividad.php?file_name=<?php echo $datosActividad['archivosAdicional']; ?>&id_act=<?php echo $id_act_seleccionado; ?>"><?php echo $datosActividad['archivosAdicional']; ?></a>
                             <input type="hidden" id="actionArchivo2" value="borrarAdicional"></input>
                             <input type="hidden" id="aAdicionalActual"
                                 value="<?php echo $datosActividad['archivosAdicional']; ?>"></input>

@@ -75,7 +75,7 @@ if (isset($_SESSION['id_user'])) {
   </header>
 
   <section name="formulario" class="d-flex justify-content-center align-items-center mt-5">
-    <form action="" method="post">
+    <form action="" autocomplete="off" class="w-50" method="post">
       <input type="hidden" name="" id="action" value="Login" class="action">
       <div name="formulario">
         <div class="formulario pt-2 px-3 bg-blanco shadow rounded">

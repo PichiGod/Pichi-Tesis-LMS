@@ -289,19 +289,19 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                             <p class="card-text">Nombre estudiante</p>
                             <!-- <textarea class="card-text form-control" rows="3" name="" id="mensaje" disabled>
                             </textarea> -->
-                            <p class="paragraph-as-textarea" rows="3" name="" id="mensaje"
-                                disabled>
+                            <p class="paragraph-as-textarea" rows="3" name="" id="mensaje" disabled>
                             </p>
                             <h4 class="card-title">Archivos entregados</h4>
-                            <ul class="list-group">
-                                <li class="list-group-item">
+                            <ul id="ul" class="list-group">
+                                <li id="li1" class="list-group-item">
                                     <i class="fa-solid fa-file"></i> <a class="ms-2" id="file" href="#">Archivo #1</a>
                                 </li>
-                                <li class="list-group-item">
+                                <li id="li2" class="list-group-item">
                                     <i class="fa-solid fa-file"></i> <a class="ms-2" id="aFile" href="#">Archivo #2</a>
                                 </li>
                             </ul>
-                            <textarea rows="4" class="form-control mt-1 disable" id="retro" placeholder="Retroalimentacion"></textarea>
+                            <textarea rows="4" class="form-control mt-1 disable" id="retro"
+                                placeholder="Retroalimentacion"></textarea>
                         </div>
                         <div class="card-footer">
                             <form action="">
@@ -335,6 +335,9 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
             const inputCalif = document.getElementById("calif");
             const file = document.getElementById("file");
             const aFile = document.getElementById("aFile");
+            const li1 = document.getElementById('li1');
+            const li2 = document.getElementById('li2');
+            const ul = document.getElementById('ul');
 
             //Mostrar la informacion del mensaje si la tiene;
             const textoEntrega = document.getElementById(`texto-${n}`).value;
@@ -343,17 +346,33 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
             mensaje.innerHTML += textoEntrega;
 
             //Buscar el archivo de la entrega
-            const archivo =document.getElementById(`archivo-${n}`).value;
+            const archivo = document.getElementById(`archivo-${n}`).value;
             console.log(archivo);
             //Validacion si el archivo no existe
             if (archivo == '' || archivo == null) {
-                file.style.display = 'none';
+                li1.style.display = 'none';
             }
             //Mostrar el archivo
             file.innerHTML = archivo;
             file.href = `../../assests/php/descargarEntrega.php?file_name=${archivo}`;
 
             //Buscar el archivoAdicional de la entrega
+            const archivoAdicional = document.getElementById(`archivoAdicional-${n}`).value;
+            console.log(archivoAdicional);
+            //Validacion si el archivo existe
+            if (archivoAdicional == "" || archivoAdicional == null) {
+                li2.style.display = 'none';
+            }
+            //Mostrar el archivo
+            aFile.innerHTML = archivoAdicional;
+            aFile.href = `../../assests/php/descargarEntrega.php?file_name=${archivoAdicional}`
+
+            if ((archivo === null || archivo === '') && (archivoAdicional === null || archivoAdicional === '')) {
+                const liNoFiles = document.createElement('li');
+                liNoFiles.className = 'list-group-item border-top rounded';
+                liNoFiles.textContent = 'No hay archivos disponibles';
+                ul.appendChild(liNoFiles);
+            }
 
             if (selectedRow) {
                 selectedRow.classList.remove("table-active");

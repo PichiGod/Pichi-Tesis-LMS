@@ -247,8 +247,8 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act']) && isset($_GET['id_ent'])) 
                         </li>
                     <?php } else if ($datosEntrega['archivo'] != null) { ?>
                             <li class="list-group-item ">
-                                <i class="fa-solid mt-1 fa-file"></i> <a class="ms-2 text-break"
-                                    href="#"><?php echo $datosEntrega['archivo']; ?></a>
+                                <i class="fa-solid mt-1 fa-file"></i> <a class="ms-2 text-break" target="_blank" rel="noopener noreferrer"
+                                href="../../assests/php/descargarEntrega.php?file_name=<?php echo $datosEntrega['archivo'];?>"><?php echo $datosEntrega['archivo']; ?></a>
                                 <input type="hidden" id="actionArchivo1" value="borrar"></input>
                                 <input type="hidden" id="archivoActual" value="<?php echo $datosEntrega['archivo']; ?>"></input>
                                 <button class="btn btn-link mb-1 p-0 ms-2" onclick="borrarArchivo();">
@@ -261,8 +261,8 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act']) && isset($_GET['id_ent'])) 
                     if ($datosEntrega['archivoAdicional'] != null) { ?>
 
                         <li class="list-group-item">
-                            <i class="fa-solid fa-file"></i> <a class="ms-2 text-break"
-                                href="#"><?php echo $datosEntrega['archivoAdicional']; ?></a>
+                            <i class="fa-solid fa-file"></i> <a class="ms-2 text-break" target="_blank" rel="noopener noreferrer"
+                            href="../../assests/php/descargarEntrega.php?file_name=<?php echo $datosEntrega['archivoAdicional'];?>"><?php echo $datosEntrega['archivoAdicional']; ?></a>
                             <input type="hidden" id="actionArchivo2" value="borrarAdicional"></input>
                             <input type="hidden" id="aAdicionalActual"
                                 value="<?php echo $datosEntrega['archivoAdicional']; ?>"></input>

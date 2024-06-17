@@ -68,8 +68,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     </nav>
   </header>
   
-  <section name="formulario">
-      <form action="" method="post">
+  <section name="formulario" class="d-flex justify-content-center align-items-center mt-5">
+      <form action="" autocomplete="off" method="post" class="w-75">
         <input type="hidden" name="" id="action" value="Register">
       <div name="formulario" >
         <div class="containerRegistro pt-2 px-3 bg-blanco shadow rounded formulario">
