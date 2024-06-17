@@ -300,20 +300,21 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                                     <i class="fa-solid fa-file"></i> <a class="ms-2" id="aFile" href="#">Archivo #2</a>
                                 </li>
                             </ul>
-                            <textarea rows="4" class="form-control mt-1 disable" id="retro"
-                                placeholder="Retroalimentacion"></textarea>
+                            <form action="" autocomplete="off">
+                                <textarea tabindex="-1" rows="4" class="form-control mt-1 disable" id="retro"
+                                    placeholder="Retroalimentacion"></textarea>
                         </div>
                         <div class="card-footer">
-                            <form action="">
-                                <div class="input-group ">
-                                    <input id="calif" tabindex="-1" type="number" class="form-control disable"
-                                        placeholder="Nota" aria-label="Nota" aria-describedby="basic-addon2">
-                                    <!-- Botón para calificar -->
-                                    <button id="btn-calif" tabindex="-1" type="button"
-                                        class="btn btn-outline-primary disabled">
-                                        Calificar Activiad
-                                    </button>
-                                </div>
+
+                            <div class="input-group ">
+                                <input id="calif" tabindex="-1" type="number" class="form-control disable"
+                                    placeholder="Nota" aria-label="Nota" aria-describedby="basic-addon2">
+                                <!-- Botón para calificar -->
+                                <button id="btn-calif" tabindex="-1" type="button"
+                                    class="btn btn-outline-primary disabled">
+                                    Calificar Activiad
+                                </button>
+                            </div>
                             </form>
                         </div>
                     </div>
