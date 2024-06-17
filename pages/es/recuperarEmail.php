@@ -64,9 +64,9 @@ if (isset($_SESSION['id_user'])) {
         </nav>
     </header>
 
-    <section name="formulario">
+    <section name="formulario" class="d-flex justify-content-center align-items-center mt-5">
 
-        <div name="formulario" class="bg-pastel">
+        <div name="formulario" class="bg-pastel w-50">
             <div class="formulario py-2 px-3 bg-blanco shadow rounded">
                 <div>
                     <p class="fs-1 text-center">Recuperar Contraseña</p>

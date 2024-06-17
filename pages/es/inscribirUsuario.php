@@ -237,7 +237,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                 <h1 class="text-center pt-2">Inscribir Usuario</h1>
                 <form class="d-flex" role="search" method="GET" action="">
                     <div class="input-group">
-                        <input class="form-control me-2" type="search" placeholder="Ingrese Identificación"
+                        <input class="form-control me-2" type="number" placeholder="Ingrese Identificación"
                             aria-label="Search" name="identificacion" value="<?php echo $identificacion; ?>">
                         <button class="btn btn-outline-success" type="submit">Buscar</button>
                     </div>

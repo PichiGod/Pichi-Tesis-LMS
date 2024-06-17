@@ -45,8 +45,8 @@
         </nav>
     </header>
 
-    <section name="formulario">
-        <form action="" method="post">
+    <section name="formulario" class="d-flex justify-content-center align-items-center mt-5">
+        <form action="" method="post" class="w-75">
             <input type="hidden" name="" id="action" value="Login" class="action">
             <div name="formulario">
                 <div class="formulario py-2 px-3 bg-blanco shadow rounded">
