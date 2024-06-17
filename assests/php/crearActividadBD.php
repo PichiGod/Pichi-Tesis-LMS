@@ -24,7 +24,7 @@ function crearActividad()
     $id_curso = $_POST['actionID_CUR']; // ID del curso seleccionado
 
     // Validar campos obligatorios
-    if ( empty($contenido) || empty($fechaInicio) || empty($fechaFin) || empty($fechaNoti) || empty($maximo) || empty($notaMaxima) || empty($notaMinima) || empty($visibilidad) || empty($activarPorcentaje)) {
+    if (empty($contenido) || empty($fechaInicio) || empty($fechaFin) || empty($fechaNoti) || empty($maximo) || empty($notaMaxima) || empty($notaMinima) || empty($visibilidad) || empty($activarPorcentaje)) {
         echo "Debe completar todos los campos obligatorios.";
         //echo $contenido;
         exit;
@@ -34,12 +34,16 @@ function crearActividad()
     $carpetaDestino = "../archivos/actividades/";
     $archivoPrincipal = isset($_FILES['archivo']['name']) ? $_FILES['archivo']['name'] : null;
     $archivoAdicional = isset($_FILES['archivo1']['name']) ? $_FILES['archivo1']['name'] : null;
-    
+
     // Validar extensión del archivo principal
-    $extension = strtolower(pathinfo($archivoPrincipal, PATHINFO_EXTENSION));
-    if (!in_array($extension, ['pdf', 'doc', 'docx'])) {
-        echo "Formato de archivo principal no permitido. Sube un PDF, DOC o DOCX.";
-        exit;
+    if (!empty($archivoPrincipal)) {
+        $extension = strtolower(pathinfo($archivoPrincipal, PATHINFO_EXTENSION));
+        if (!in_array($extension, ['pdf', 'doc', 'docx'])) {
+            echo "Formato de archivo principal no permitido. Sube un PDF, DOC o DOCX.";
+            exit;
+        } else {
+            $archivoPrincipal = NULL;
+        }
     }
 
     // Validar extensión del archivo adicional si no está vacío
@@ -50,13 +54,15 @@ function crearActividad()
             exit;
         }
     } else {
-        $archivoPrincipal = NULL;
+        $archivoAdicional = NULL;
     }
 
     // Mover archivo principal a carpeta de destino
-    if (!move_uploaded_file($_FILES['archivo']['tmp_name'], $carpetaDestino . $archivoPrincipal)) {
-        echo "Error al mover el archivo principal.";
-        exit;
+    if (!empty($archivoPrincipal)) {
+        if (!move_uploaded_file($_FILES['archivo']['tmp_name'], $carpetaDestino . $archivoPrincipal)) {
+            echo "Error al mover el archivo principal.";
+            exit;
+        }
     }
 
     // Mover archivo adicional a carpeta de destino si no está vacío
@@ -65,8 +71,6 @@ function crearActividad()
             echo "Error al mover el archivo adicional.";
             exit;
         }
-    } else {
-        $archivoAdicional = NULL;
     }
 
     // Preparar fechas en formato YYYY-MM-DD para MySQL
