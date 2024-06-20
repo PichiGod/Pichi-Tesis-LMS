@@ -307,7 +307,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
                     <h5>Recursos</h5>
 
-                    <div class="text-center border border-1 border-secondary 
+                    <div class="text-center mb-2 border border-1 border-secondary 
                         border-opacity-50  shadow bg-secondary-subtle">
                         <div class="d-flex flex-row ">
                             <div class="bg-white p-2 pb-0">
@@ -317,7 +317,22 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                             <div class="ms-auto me-auto p-1 pb-0">
                                 <p class="text-center fs-5 text-body mb-0">Zlibrary - Libreria virtual gratuita</p>
                                 <a class="btn btn-primary my-1" href="https://z-library.es/" target="_blank"
-                                    rel="noopener noreferrer">Ir a libreria</a>
+                                    rel="noopener noreferrer">Ir al recurso</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center border border-1 border-secondary 
+                        border-opacity-50  shadow bg-secondary-subtle">
+                        <div class="d-flex flex-row ">
+                            <div class="bg-white p-2 pb-0">
+                                <img src="../../assests/img/BBB.jfif" class="img-fluid" width="216" alt="...">
+                            </div>
+                            <div class="vr text-secondary-emphasis"></div>
+                            <div class="ms-auto me-auto p-1 pb-0">
+                                <p class="text-center fs-5 text-body mb-0">Big Blue Button - Aula virtual</p>
+                                <a class="btn btn-primary my-1" href="https://z-library.es/" target="_blank"
+                                    rel="noopener noreferrer">Ir al recurso</a>
                             </div>
                         </div>
                     </div>

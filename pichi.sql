@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 17-06-2024 a las 02:24:27
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 20-06-2024 a las 22:16:40
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -51,7 +51,7 @@ CREATE TABLE `actividades` (
 
 INSERT INTO `actividades` (`idActividades`, `Titulo`, `ContenidoAcitividad`, `archivosPrincipal`, `fechaInicio`, `fechaCulminacion`, `fechaNotificacion`, `pesoArchivo`, `notaMaxima`, `notaMinima`, `visible`, `activarPorcentaje`, `Porcentaje`, `archivosAdicional`, `idCurso_id_cur`) VALUES
 (1, 'eferwtretertertertfetfe', '', 'finales.docx', '2024-05-11 04:00:00.000000', '2024-05-30 04:00:00.000000', '2024-05-29 04:00:00.000000', 5, 20, 10, 0, 1, 0, '', 'Cur_URBE_01'),
-(2, 'Portugues II INSTRUCCIONES', '', 'finales (FINAL).docx', '2024-05-18 04:00:00.000000', '2024-05-18 04:00:00.000000', '2024-05-17 04:00:00.000000', 5, 20, 5, 0, 1, 0, 'finales.docx', 'Cur_URBE_01'),
+(2, 'Portugues II INSTRUCCIONES', '', 'finales (FINAL).docx', '2024-06-20 13:37:35.680587', '2024-09-19 04:00:00.000000', '2024-05-17 04:00:00.000000', 5, 20, 5, 0, 1, 0, 'finales.docx', 'Cur_URBE_01'),
 (3, 'Portugues II INSTRUCCIONES II', '', 'Tipos de modelos de negocio.pdf', '2024-05-17 04:00:00.000000', '2024-05-31 04:00:00.000000', '2024-05-31 04:00:00.000000', 5, 20, 10, 0, 1, 0, NULL, 'Cur_URBE_01'),
 (4, 'Portugues II INSTRUCCIONES III', '<p>Hola estas son las instrucciones necesarias</p>', 'Informe Simulacion de sistemas.docx', '2024-05-18 04:00:00.000000', '2024-05-24 04:00:00.000000', '2024-05-31 04:00:00.000000', 5, 20, 10, 0, 1, 0, NULL, 'Cur_URBE_01'),
 (5, 'Portugues II INSTRUCCIONES IV', '<p>pRUEBAS XD</p>', 'Informe Simulacion de sistemas.docx', '2024-05-24 04:00:00.000000', '2024-05-24 04:00:00.000000', '2024-05-31 04:00:00.000000', 20, 20, 10, 0, 1, 0, 'finales (FINAL).docx', 'Cur_URBE_01'),
@@ -235,8 +235,16 @@ CREATE TABLE `notas` (
   `retroalimentacion` text DEFAULT NULL,
   `Usuario_id_user` int(11) NOT NULL,
   `Cursos_id_cur` varchar(100) NOT NULL,
-  `Actividad_id_act` int(11) NOT NULL
+  `Actividad_id_act` int(11) NOT NULL,
+  `Entregas_id_entregas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `notas`
+--
+
+INSERT INTO `notas` (`idNotas`, `NotaAlumno`, `retroalimentacion`, `Usuario_id_user`, `Cursos_id_cur`, `Actividad_id_act`, `Entregas_id_entregas`) VALUES
+(1, 20, 'Santiago es bobo', 3, 'Cur_URBE_01', 6, 5);
 
 -- --------------------------------------------------------
 
@@ -283,7 +291,7 @@ CREATE TABLE `recursos` (
 --
 
 INSERT INTO `recursos` (`id_recursos`, `nombre_recurso`, `tipo_recurso`, `ubicacion_recurso`, `descripcion_recurso`, `tipo_archivo`, `archivo`, `archivoAdicional`, `id_cur`) VALUES
-(3, 'Prueba', NULL, NULL, '<p>prueba</p>', NULL, 'InformePasantia-Cap-I.docx', 'InformePasantia-Cap-II.docx', 'Cur_URBE_01'),
+(3, 'Prueba', NULL, NULL, '<p>prueba</p>', NULL, 'InformePasantia-Cap-I.pdf', 'InformePasantia-Cap-II.docx', 'Cur_URBE_01'),
 (4, 'prueba 2', NULL, NULL, '<p>prueba</p>', NULL, 'InformePasantia-Cap-III.docx', NULL, 'Cur_URBE_01'),
 (14, 'Prueba 3', NULL, NULL, '<p>Recurso puro texto</p>', NULL, NULL, NULL, 'Cur_URBE_01');
 
@@ -369,7 +377,6 @@ CREATE TABLE `usuariosala` (
 --
 
 INSERT INTO `usuariosala` (`id_user`, `id_sala`, `id_curso`) VALUES
-(3, 1, 'Cur_URBE_01'),
 (5, 1, 'Cur_URBE_01');
 
 --
@@ -446,7 +453,8 @@ ALTER TABLE `notas`
   ADD PRIMARY KEY (`idNotas`),
   ADD KEY `Cursos_id_cur` (`Cursos_id_cur`),
   ADD KEY `Usuario_id_user` (`Usuario_id_user`),
-  ADD KEY `Actividad_id_act` (`Actividad_id_act`);
+  ADD KEY `Actividad_id_act` (`Actividad_id_act`),
+  ADD KEY `entregas_id_entregas` (`Entregas_id_entregas`);
 
 --
 -- Indices de la tabla `periodo`
@@ -526,6 +534,12 @@ ALTER TABLE `foro_curso`
 --
 ALTER TABLE `mensaje`
   MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+
+--
+-- AUTO_INCREMENT de la tabla `notas`
+--
+ALTER TABLE `notas`
+  MODIFY `idNotas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `periodo`
@@ -609,7 +623,9 @@ ALTER TABLE `mensaje`
 --
 ALTER TABLE `notas`
   ADD CONSTRAINT `notas_ibfk_2` FOREIGN KEY (`Cursos_id_cur`) REFERENCES `cursos` (`id_cur`),
-  ADD CONSTRAINT `notas_ibfk_3` FOREIGN KEY (`Usuario_id_user`) REFERENCES `usuario` (`id_user`);
+  ADD CONSTRAINT `notas_ibfk_3` FOREIGN KEY (`Usuario_id_user`) REFERENCES `usuario` (`id_user`),
+  ADD CONSTRAINT `notas_ibfk_4` FOREIGN KEY (`Actividad_id_act`) REFERENCES `actividades` (`idActividades`),
+  ADD CONSTRAINT `notas_ibfk_5` FOREIGN KEY (`Entregas_id_entregas`) REFERENCES `entregas` (`id_entregas`);
 
 --
 -- Filtros para la tabla `periodo`

@@ -38,12 +38,23 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
     $id_curso_seleccionado = $_GET['id_cur'];
     $id_act_seleccionado = $_GET['id_act'];
 
-    $consultaEntrega = mysqli_query($mysqli, "SELECT entregas.texto_entrega, entregas.archivo, entregas.archivoAdicional,
-                                                     entregas.fecha_modificacion, usuario.nombre_user, usuario.apellido_user,
-                                                     usuario.identificacion_user
-                                                FROM entregas 
-                                                LEFT JOIN usuario ON usuario.id_user = entregas.id_user
-                                                WHERE id_actividad = '$id_act_seleccionado'");
+    $consultaActividad = mysqli_query($mysqli, "SELECT notaMaxima, notaMinima FROM actividades WHERE idActividades = '$id_act_seleccionado'");
+    if (mysqli_num_rows($consultaActividad) > 0) {
+        $datosActividad = mysqli_fetch_assoc($consultaActividad);
+    }
+
+    $consultaEntrega = mysqli_query($mysqli, "SELECT e.id_entregas, e.texto_entrega, e.archivo, e.archivoAdicional,
+                                                     e.fecha_modificacion, u.nombre_user, u.apellido_user,
+                                                     u.identificacion_user, u.id_user
+                                              FROM entregas e
+                                              LEFT JOIN usuario u ON u.id_user = e.id_user
+                                              WHERE e.id_actividad = '$id_act_seleccionado'
+                                              AND NOT EXISTS (
+                                                SELECT 1
+                                                FROM notas n
+                                                WHERE n.Usuario_id_user = e.id_user
+                                                AND n.Actividad_id_act = e.id_actividad
+                                              )");
     if (mysqli_num_rows($consultaEntrega) > 0) {
         while ($datosEntrega = mysqli_fetch_assoc($consultaEntrega)) {
             $Entregas[] = $datosEntrega;
@@ -263,14 +274,28 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                                         <td scope="row"><?php echo $entrega['identificacion_user']; ?></td>
                                         <td><?php echo $entrega['nombre_user']; ?></td>
                                         <td><?php echo $entrega['apellido_user']; ?></td>
+                                        <!--Contador para buscar en el momento de insertar la nota--->
+                                <input type="hidden" id="contador-<?php echo $n; ?>" value="<?php echo $n ?>">
+
+                                <!--Información del Usuario-->
+                                        <input type="hidden" id="nombre-<?php echo $n; ?>"
+                                            value="<?php echo $entrega['nombre_user']; ?>">
+                                        <input type="hidden" id="apellido-<?php echo $n; ?>"
+                                            value="<?php echo $entrega['apellido_user']; ?>">
+                                        <input type="hidden" id="idUser-<?php echo $n; ?>"
+                                            value="<?php echo $entrega['id_user'] ?>">
+
+                                        <!--Informacion de la entrega-->
+                                        <input type="hidden" id="idEntrega-<?php echo $n; ?>"
+                                            value="<?php echo $entrega['id_entregas']; ?>">
                                         <input type="hidden" id="texto-<?php echo $n; ?>"
                                             value="<?php echo $entrega['texto_entrega']; ?>">
                                         <input type="hidden" id="archivo-<?php echo $n; ?>"
                                             value="<?php echo $entrega['archivo']; ?>">
                                         <input type="hidden" id="archivoAdicional-<?php echo $n; ?>"
                                             value="<?php echo $entrega['archivoAdicional']; ?>">
-                                        <input type="hidden" id="fecha-<?php echo $n; ?>"
-                                            value="<?php echo $entrega['fecha_modificacion']; ?>">
+                                        <!-- <input type="hidden" id="fecha-<?php echo $n; ?>"
+                                            value="<?php echo $entrega['fecha_modificacion']; ?>"> -->
                                     </tr>
                                     <!-- <tr onclick="selectRow(this);">
                                         <td scope="row">28467144</td>
@@ -286,7 +311,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Estudiante Seleccionado</h4>
-                            <p class="card-text">Nombre estudiante</p>
+                            <p class="card-text fs-5" id="userName">Nombre estudiante</p>
                             <!-- <textarea class="card-text form-control" rows="3" name="" id="mensaje" disabled>
                             </textarea> -->
                             <p class="paragraph-as-textarea" rows="3" name="" id="mensaje" disabled>
@@ -301,6 +326,18 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                                 </li>
                             </ul>
                             <form action="" autocomplete="off">
+                                <hr>
+                                <p class="card-text font-monospace m-0">La nota máxima de la actividad es
+                                    <strong><?php echo $datosActividad['notaMaxima']; ?></strong> <br>
+                                    La nota mínima para aprobar es
+                                    <strong><?php echo $datosActividad['notaMinima']; ?></strong>
+                                </p>
+                                <input type="hidden" id="contador">
+                                <input type="hidden" id="notaMaxima"
+                                    value="<?php echo $datosActividad['notaMaxima']; ?>">
+                                <input type="hidden" id="id_cur" value="<?php echo $id_curso_seleccionado; ?>">
+                                <input type="hidden" id="id_act" value="<?php echo $id_act_seleccionado; ?>">
+                                <input type="hidden" id="action" value="asignarNota">
                                 <textarea tabindex="-1" rows="4" class="form-control mt-1 disable" id="retro"
                                     placeholder="Retroalimentacion"></textarea>
                         </div>
@@ -311,6 +348,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                                     placeholder="Nota" aria-label="Nota" aria-describedby="basic-addon2">
                                 <!-- Botón para calificar -->
                                 <button id="btn-calif" tabindex="-1" type="button"
+                                    onclick="submitData(document.getElementById('contador').value);"
                                     class="btn btn-outline-primary disabled">
                                     Calificar Activiad
                                 </button>
@@ -336,9 +374,11 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
             const inputCalif = document.getElementById("calif");
             const file = document.getElementById("file");
             const aFile = document.getElementById("aFile");
+            const nombre = document.getElementById('userName');
             const li1 = document.getElementById('li1');
             const li2 = document.getElementById('li2');
             const ul = document.getElementById('ul');
+            const contador = document.getElementById('contador');
 
             //Mostrar la informacion del mensaje si la tiene;
             const textoEntrega = document.getElementById(`texto-${n}`).value;
@@ -348,32 +388,50 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
 
             //Buscar el archivo de la entrega
             const archivo = document.getElementById(`archivo-${n}`).value;
-            console.log(archivo);
+            //console.log(archivo);
             //Validacion si el archivo no existe
             if (archivo == '' || archivo == null) {
                 li1.style.display = 'none';
             }
             //Mostrar el archivo
-            file.innerHTML = archivo;
-            file.href = `../../assests/php/descargarEntrega.php?file_name=${archivo}`;
+            const extension = archivo.split('.').pop();
+            let icon = '';
+            if (extension === 'doc' || extension === 'docx') {
+                icon = '<i class="fa-solid fa-file-word"></i>';
+            } else if (extension === 'pdf') {
+                icon = '<i class="fa-solid fa-file-pdf"></i>';
+            } else {
+                icon = '<i class="fa-solid fa-file"></i>';
+            }
+            li1.innerHTML = icon + `<a class="ms-2" href='../../assests/php/descargarEntrega.php?file_name=${archivo}' target="_blank" rel="noopener noreferrer"> ` + archivo + `</a>`;
 
             //Buscar el archivoAdicional de la entrega
             const archivoAdicional = document.getElementById(`archivoAdicional-${n}`).value;
-            console.log(archivoAdicional);
+            //console.log(archivoAdicional);
             //Validacion si el archivo existe
             if (archivoAdicional == "" || archivoAdicional == null) {
                 li2.style.display = 'none';
             }
             //Mostrar el archivo
-            aFile.innerHTML = archivoAdicional;
-            aFile.href = `../../assests/php/descargarEntrega.php?file_name=${archivoAdicional}`
-
-            if ((archivo === null || archivo === '') && (archivoAdicional === null || archivoAdicional === '')) {
-                const liNoFiles = document.createElement('li');
-                liNoFiles.className = 'list-group-item border-top rounded';
-                liNoFiles.textContent = 'No hay archivos disponibles';
-                ul.appendChild(liNoFiles);
+            const extensionAdicional = archivoAdicional.split('.').pop();
+            let iconAdicional = '';
+            if (extensionAdicional === 'doc' || extensionAdicional === 'docx') {
+                iconAdicional = '<i class="fa-solid fa-file-word"></i>';
+            } else if (extensionAdicional === 'pdf') {
+                iconAdicional = '<i class="fa-solid fa-file-pdf"></i>';
+            } else {
+                iconAdicional = '<i class="fa-solid fa-file"></i>';
             }
+            li2.innerHTML = iconAdicional + `<a class="ms-2" href='../../assests/php/descargarEntrega.php?file_name=${archivoAdicional}' target="_blank" rel="noopener noreferrer"> ` + archivoAdicional + `</a>`;
+
+            //Agarra el nombre completo del estudiante
+            const name = document.getElementById(`nombre-${n}`).value;
+            const apellido = document.getElementById(`apellido-${n}`).value;
+            nombre.innerText = name + " " + apellido;
+
+            //Graber el id de la entrega
+            const idEntrega = document.getElementById(`contador-${n}`).value;
+            contador.value = idEntrega;
 
             if (selectedRow) {
                 selectedRow.classList.remove("table-active");
@@ -385,6 +443,8 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
         }
 
     </script>
+
+    <?php require "../../assests/php/asignarNotaMain.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

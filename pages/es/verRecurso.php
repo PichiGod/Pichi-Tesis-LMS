@@ -225,18 +225,41 @@ if (isset($_GET['id_cur']) && isset($_GET['id_rec'])) {
                         </li>
                     <?php } elseif ($datosrecurso['archivo'] != null) { ?>
 
-                        <li class="list-group-item">
-                            <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank" rel="noopener noreferrer"
-                                href="../../assests/php/descargarRecurso.php?file_name=<?php echo $datosrecurso['archivo']; ?>&id_rec=<?php echo $id_recurso_seleccionado; ?>"><?php echo $datosrecurso['archivo']; ?></a>
-                        </li>
+                        <?php
+                        $archivo = $datosrecurso['archivo'];
+                        $extension = pathinfo($archivo, PATHINFO_EXTENSION);
+                        if ($extension == 'doc' || $extension == 'docx') {
+                            $icon = '<i class="fa-solid fa-file-word"></i>';
+                        } elseif ($extension == 'pdf') {
+                            $icon = '<i class="fa-solid fa-file-pdf"></i>';
+                        } else {
+                            $icon = '<i class="fa-solid fa-file"></i>';
+                        }
+                        ?>
 
+                        <li class="list-group-item">
+                            <?= $icon ?> <a class="ms-2" target="_blank" rel="noopener noreferrer"
+                                href="../../assests/php/descargarRecurso.php?file_name=<?= $archivo ?>&id_rec=<?= $id_recurso_seleccionado; ?>"><?= $archivo ?></a>
+                        </li>
 
                     <?php }
                     ;
                     if ($datosrecurso['archivoAdicional'] != null) { ?>
+                        <?php
+                        $archivoAdicional = $datosrecurso['archivoAdicional'];
+                        $extensionAdicional = pathinfo($archivoAdicional, PATHINFO_EXTENSION);
+                        if ($extensionAdicional == 'doc' || $extensionAdicional == 'docx') {
+                            $iconAdicional = '<i class="fa-solid fa-file-word"></i>';
+                        } elseif ($extensionAdicional == 'pdf') {
+                            $iconAdicional = '<i class="fa-solid fa-file-pdf"></i>';
+                        } else {
+                            $iconAdicional = '<i class="fa-solid fa-file"></i>';
+                        }
+                        ?>
+
                         <li class="list-group-item">
-                            <i class="fa-solid fa-file"></i> <a class="ms-2" target="_blank" rel="noopener noreferrer"
-                                href="../../assests/php/descargarRecurso.php?file_name=<?php echo $datosrecurso['archivoAdicional']; ?>&id_rec=<?php echo $id_recurso_seleccionado; ?>"><?php echo $datosrecurso['archivoAdicional']; ?></a>
+                            <?= $iconAdicional ?> <a class="ms-2" target="_blank" rel="noopener noreferrer"
+                                href="../../assests/php/descargarRecurso.php?file_name=<?= $archivoAdicional ?>&id_rec=<?= $id_recurso_seleccionado; ?>"><?= $archivoAdicional ?></a>
                         </li>
                     <?php }
                     ; ?>

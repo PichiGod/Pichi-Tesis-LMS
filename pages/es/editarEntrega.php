@@ -210,7 +210,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act']) && isset($_GET['id_ent'])) 
             <h1 class="text-center pt-2">Editar Entrega</h1>
 
             <form action="" autocomplete="off" id="entrega" method="post" enctype="multipart/form-data">
-            <input type="hidden" id="action" value="editarEntrega">
+                <input type="hidden" id="action" value="editarEntrega">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Entrega de actividad</h4>
@@ -246,26 +246,49 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act']) && isset($_GET['id_ent'])) 
                             No hay archivos disponibles
                         </li>
                     <?php } else if ($datosEntrega['archivo'] != null) { ?>
+                            <?php
+                            $archivo = $datosEntrega['archivo'];
+                            $extension = pathinfo($archivo, PATHINFO_EXTENSION);
+                            if ($extension == 'doc' || $extension == 'docx') {
+                                $icon = '<i class="fa-solid mt-1 fa-file-word"></i>';
+                            } elseif ($extension == 'pdf') {
+                                $icon = '<i class="fa-solid fa-file-pdf"></i>';
+                            } else {
+                                $icon = '<i class="fa-solid fa-file"></i>';
+                            }
+                            ?>
+
                             <li class="list-group-item ">
-                                <i class="fa-solid mt-1 fa-file"></i> <a class="ms-2 text-break" target="_blank" rel="noopener noreferrer"
-                                href="../../assests/php/descargarEntrega.php?file_name=<?php echo $datosEntrega['archivo'];?>"><?php echo $datosEntrega['archivo']; ?></a>
+                            <?= $icon ?> <a class="ms-2 text-break" target="_blank" rel="noopener noreferrer"
+                                    href="../../assests/php/descargarEntrega.php?file_name=<?= $archivo ?>"><?= $archivo ?></a>
                                 <input type="hidden" id="actionArchivo1" value="borrar"></input>
-                                <input type="hidden" id="archivoActual" value="<?php echo $datosEntrega['archivo']; ?>"></input>
+                                <input type="hidden" id="archivoActual" value="<?= $archivo ?>"></input>
                                 <button class="btn btn-link mb-1 p-0 ms-2" onclick="borrarArchivo();">
                                     <span>Eliminar</span>
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </li>
+
                     <?php }
                     ;
                     if ($datosEntrega['archivoAdicional'] != null) { ?>
+                        <?php
+                        $archivoAdicional = $datosEntrega['archivoAdicional'];
+                        $extensionAdicional = pathinfo($archivoAdicional, PATHINFO_EXTENSION);
+                        if ($extensionAdicional == 'doc' || $extensionAdicional == 'docx') {
+                            $iconAdicional = '<i class="fa-solid fa-file-word"></i>';
+                        } elseif ($extensionAdicional == 'pdf') {
+                            $iconAdicional = '<i class="fa-solid fa-file-pdf"></i>';
+                        } else {
+                            $iconAdicional = '<i class="fa-solid fa-file"></i>';
+                        }
+                        ?>
 
                         <li class="list-group-item">
-                            <i class="fa-solid fa-file"></i> <a class="ms-2 text-break" target="_blank" rel="noopener noreferrer"
-                            href="../../assests/php/descargarEntrega.php?file_name=<?php echo $datosEntrega['archivoAdicional'];?>"><?php echo $datosEntrega['archivoAdicional']; ?></a>
+                            <?= $iconAdicional ?> <a class="ms-2 text-break" target="_blank" rel="noopener noreferrer"
+                                href="../../assests/php/descargarEntrega.php?file_name=<?= $archivoAdicional ?>"><?= $archivoAdicional ?></a>
                             <input type="hidden" id="actionArchivo2" value="borrarAdicional"></input>
-                            <input type="hidden" id="aAdicionalActual"
-                                value="<?php echo $datosEntrega['archivoAdicional']; ?>"></input>
+                            <input type="hidden" id="aAdicionalActual" value="<?= $archivoAdicional ?>"></input>
                             <button class="btn btn-link mb-1 p-0 ms-2" onclick="borrarArchivoAdicional();">
                                 <span>Eliminar</span>
                                 <i class="fa-solid fa-trash"></i>
@@ -294,7 +317,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act']) && isset($_GET['id_ent'])) 
         };
     </script>
 
-<script>
+    <script>
         //Funcion JQuery para validar el cantidad MAX de archivos
         $(function () {
 

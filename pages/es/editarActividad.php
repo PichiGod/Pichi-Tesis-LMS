@@ -227,27 +227,49 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                             No hay archivos disponibles
                         </li>
                     <?php } elseif ($datosActividad['archivosPrincipal'] != null) { ?>
+                        <?php
+                        $archivoPrincipal = $datosActividad['archivosPrincipal'];
+                        $extensionPrincipal = pathinfo($archivoPrincipal, PATHINFO_EXTENSION);
+                        if ($extensionPrincipal == 'doc' || $extensionPrincipal == 'docx') {
+                            $iconPrincipal = '<i class="fa-solid mt-1 fa-file-word"></i>';
+                        } elseif ($extensionPrincipal == 'pdf') {
+                            $iconPrincipal = '<i class="fa-solid fa-file-pdf"></i>';
+                        } else {
+                            $iconPrincipal = '<i class="fa-solid fa-file"></i>';
+                        }
+                        ?>
+
                         <li class="list-group-item ">
-                            <i class="fa-solid mt-1 fa-file"></i> <a class="ms-2 text-break" target="_blank" rel="noopener noreferrer"
-                            href="../../assests/php/descargarActividad.php?file_name=<?php echo $datosActividad['archivosPrincipal']; ?>&id_act=<?php echo $id_act_seleccionado; ?>"><?php echo $datosActividad['archivosPrincipal']; ?></a>
+                            <?= $iconPrincipal ?> <a class="ms-2 text-break" target="_blank" rel="noopener noreferrer"
+                                href="../../assests/php/descargarActividad.php?file_name=<?= $archivoPrincipal ?>&id_act=<?= $id_act_seleccionado; ?>"><?= $archivoPrincipal ?></a>
                             <input type="hidden" id="actionArchivo1" value="borrar"></input>
-                            <input type="hidden" id="archivoActual"
-                                value="<?php echo $datosActividad['archivosPrincipal']; ?>"></input>
+                            <input type="hidden" id="archivoActual" value="<?= $archivoPrincipal ?>"></input>
                             <button class="btn btn-link mb-1 p-0 ms-2" onclick="borrarArchivo();">
                                 <span>Eliminar</span>
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </li>
+
                     <?php }
                     ;
                     if ($datosActividad['archivosAdicional'] != null) { ?>
+                        <?php
+                        $archivoAdicional = $datosActividad['archivosAdicional'];
+                        $extensionAdicional = pathinfo($archivoAdicional, PATHINFO_EXTENSION);
+                        if ($extensionAdicional == 'doc' || $extensionAdicional == 'docx') {
+                            $iconAdicional = '<i class="fa-solid fa-file-word"></i>';
+                        } elseif ($extensionAdicional == 'pdf') {
+                            $iconAdicional = '<i class="fa-solid fa-file-pdf"></i>';
+                        } else {
+                            $iconAdicional = '<i class="fa-solid fa-file"></i>';
+                        }
+                        ?>
 
                         <li class="list-group-item">
-                            <i class="fa-solid fa-file"></i> <a class="ms-2 text-break" target="_blank" rel="noopener noreferrer"
-                                href="../../assests/php/descargarActividad.php?file_name=<?php echo $datosActividad['archivosAdicional']; ?>&id_act=<?php echo $id_act_seleccionado; ?>"><?php echo $datosActividad['archivosAdicional']; ?></a>
+                            <?= $iconAdicional ?> <a class="ms-2 text-break" target="_blank" rel="noopener noreferrer"
+                                href="../../assests/php/descargarActividad.php?file_name=<?= $archivoAdicional ?>&id_act=<?= $id_act_seleccionado; ?>"><?= $archivoAdicional ?></a>
                             <input type="hidden" id="actionArchivo2" value="borrarAdicional"></input>
-                            <input type="hidden" id="aAdicionalActual"
-                                value="<?php echo $datosActividad['archivosAdicional']; ?>"></input>
+                            <input type="hidden" id="aAdicionalActual" value="<?= $archivoAdicional ?>"></input>
                             <button class="btn btn-link mb-1 p-0 ms-2" onclick="borrarArchivoAdicional();">
                                 <span>Eliminar</span>
                                 <i class="fa-solid fa-trash"></i>

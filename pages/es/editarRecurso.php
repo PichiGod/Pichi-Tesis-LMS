@@ -226,26 +226,49 @@ if (isset($_GET['id_cur']) && isset($_GET['id_rec'])) {
                             No hay archivos disponibles
                         </li>
                     <?php } elseif ($datosrecurso['archivo'] != null) { ?>
+                        <?php
+                        $archivo = $datosrecurso['archivo'];
+                        $extension = pathinfo($archivo, PATHINFO_EXTENSION);
+                        if ($extension == 'doc' || $extension == 'docx') {
+                            $icon = '<i class="fa-solid mt-1 fa-file-word"></i>';
+                        } elseif ($extension == 'pdf') {
+                            $icon = '<i class="fa-solid fa-file-pdf"></i>';
+                        } else {
+                            $icon = '<i class="fa-solid fa-file"></i>';
+                        }
+                        ?>
+
                         <li class="list-group-item ">
-                            <i class="fa-solid mt-1 fa-file"></i> <a class="ms-2 text-break" target="_blank" rel="noopener noreferrer"
-                                href="../../assests/php/descargarRecurso.php?file_name=<?php echo $datosrecurso['archivo']; ?>&id_rec=<?php echo $id_recurso_seleccionado; ?>"><?php echo $datosrecurso['archivo']; ?></a>
+                            <?= $icon ?> <a class="ms-2 text-break" target="_blank" rel="noopener noreferrer"
+                                href="../../assests/php/descargarRecurso.php?file_name=<?= $archivo ?>&id_rec=<?= $id_recurso_seleccionado; ?>"><?= $archivo ?></a>
                             <input type="hidden" id="actionArchivo1" value="borrar"></input>
-                            <input type="hidden" id="archivoActual" value="<?php echo $datosrecurso['archivo']; ?>"></input>
+                            <input type="hidden" id="archivoActual" value="<?= $archivo ?>"></input>
                             <button class="btn btn-link mb-1 p-0 ms-2" onclick="borrarArchivo();">
                                 <span>Eliminar</span>
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </li>
+
                     <?php }
                     ;
                     if ($datosrecurso['archivoAdicional'] != null) { ?>
+                        <?php
+                        $archivoAdicional = $datosrecurso['archivoAdicional'];
+                        $extensionAdicional = pathinfo($archivoAdicional, PATHINFO_EXTENSION);
+                        if ($extensionAdicional == 'doc' || $extensionAdicional == 'docx') {
+                            $iconAdicional = '<i class="fa-solid fa-file-word"></i>';
+                        } elseif ($extensionAdicional == 'pdf') {
+                            $iconAdicional = '<i class="fa-solid fa-file-pdf"></i>';
+                        } else {
+                            $iconAdicional = '<i class="fa-solid fa-file"></i>';
+                        }
+                        ?>
 
                         <li class="list-group-item">
-                            <i class="fa-solid fa-file"></i> <a class="ms-2 text-break" target="_blank" rel="noopener noreferrer"
-                            href="../../assests/php/descargarRecurso.php?file_name=<?php echo $datosrecurso['archivoAdicional']; ?>&id_rec=<?php echo $id_recurso_seleccionado; ?>"><?php echo $datosrecurso['archivoAdicional']; ?></a>
+                            <?= $iconAdicional ?> <a class="ms-2 text-break" target="_blank" rel="noopener noreferrer"
+                                href="../../assests/php/descargarRecurso.php?file_name=<?= $archivoAdicional ?>&id_rec=<?= $id_recurso_seleccionado; ?>"><?= $archivoAdicional ?></a>
                             <input type="hidden" id="actionArchivo2" value="borrarAdicional"></input>
-                            <input type="hidden" id="aAdicionalActual"
-                                value="<?php echo $datosrecurso['archivoAdicional']; ?>"></input>
+                            <input type="hidden" id="aAdicionalActual" value="<?= $archivoAdicional ?>"></input>
                             <button class="btn btn-link mb-1 p-0 ms-2" onclick="borrarArchivoAdicional();">
                                 <span>Eliminar</span>
                                 <i class="fa-solid fa-trash"></i>
