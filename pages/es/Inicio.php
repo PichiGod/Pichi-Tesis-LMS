@@ -331,7 +331,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                             <div class="vr text-secondary-emphasis"></div>
                             <div class="ms-auto me-auto p-1 pb-0">
                                 <p class="text-center fs-5 text-body mb-0">Big Blue Button - Aula virtual</p>
-                                <a class="btn btn-primary my-1" href="https://z-library.es/" target="_blank"
+                                <a class="btn btn-primary my-1" href="https://bigbluebutton.org/" target="_blank"
                                     rel="noopener noreferrer">Ir al recurso</a>
                             </div>
                         </div>
