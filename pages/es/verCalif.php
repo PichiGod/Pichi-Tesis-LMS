@@ -59,11 +59,8 @@ if (isset($_GET['id_cur'])) {
                                                     
                                                     AND a.visible = 0;");
 
-    // "SELECT a.Titulo, a.notaMinima, a.notaMaxima, a.activarPorcentaje, a.Porcentaje,
-// n.NotaAlumno, n.retroalimentacion
-// FROM actividades a
-// LEFT JOIN notas n ON n.Actividad_id_act = a.idActividades  
-// WHERE a.idCurso_id_cur = '$id_curso_seleccionado' AND n.Usuario_id_user = '$usuarios1'"
+    // Usar lo de abajo para buscar solo las actividades que tienen nota
+    //AND n.Usuario_id_user = '$usuarios1'"
 
     if (mysqli_num_rows($consultaCalificaciones) > 0) {
         while ($datosCalificaciones = mysqli_fetch_assoc($consultaCalificaciones)) {
