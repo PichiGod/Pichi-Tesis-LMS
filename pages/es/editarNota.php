@@ -38,7 +38,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
     $id_curso_seleccionado = $_GET['id_cur'];
     $id_act_seleccionado = $_GET['id_act'];
 
-    $consultaNotas = mysqli_query($mysqli, "SELECT 
+    $consultaNotas = mysqli_query($mysqli, "SELECT n.notaAlumno, n.retro
                                             FROM notas n
                                             LEFT JOIN usuario u ON u.id_user = n.Usuario_id_user 
                                             LEFT JOIN entregas e ON e.id_entregas = n.Entregas_id_entregas 
