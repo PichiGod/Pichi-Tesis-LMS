@@ -15,7 +15,7 @@ function asignarNota($mysqli){
 
     // Validar campo. 
     if (empty($nota)) {
-        echo "Debe enviar la descripción del recurso";
+        echo "Debe enviar la nota de la actividad!!";
         exit;
     };
 

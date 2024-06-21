@@ -44,7 +44,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
     }
 
     $consultaEntrega = mysqli_query($mysqli, "SELECT e.id_entregas, e.texto_entrega, e.archivo, e.archivoAdicional,
-                                                     e.fecha_modificacion, u.nombre_user, u.apellido_user,
+                                                     u.nombre_user, u.apellido_user,
                                                      u.identificacion_user, u.id_user
                                               FROM entregas e
                                               LEFT JOIN usuario u ON u.id_user = e.id_user
@@ -294,8 +294,6 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                                             value="<?php echo $entrega['archivo']; ?>">
                                         <input type="hidden" id="archivoAdicional-<?php echo $n; ?>"
                                             value="<?php echo $entrega['archivoAdicional']; ?>">
-                                        <!-- <input type="hidden" id="fecha-<?php echo $n; ?>"
-                                            value="<?php echo $entrega['fecha_modificacion']; ?>"> -->
                                     </tr>
                                     <!-- <tr onclick="selectRow(this);">
                                         <td scope="row">28467144</td>

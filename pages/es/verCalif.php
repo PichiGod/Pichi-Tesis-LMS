@@ -37,6 +37,42 @@ if (isset($_SESSION['id_user'])) {
 
 }
 
+if (isset($_GET['id_cur'])) {
+    $id_curso_seleccionado = $_GET['id_cur'];
+
+    $consultaCurso = mysqli_query($mysqli, "SELECT cursos.nombre_cur, empresa.nombre_empresa
+                                    FROM cursos 
+                                    LEFT JOIN empresa ON empresa.id_empresa = cursos.Empresa_id_empresa
+                                    WHERE id_cur = '$id_curso_seleccionado'");
+
+    if (mysqli_num_rows($consultaCurso) > 0) {
+        $datos3 = mysqli_fetch_assoc($consultaCurso);
+        $curso = $datos3['nombre_cur'];
+        $empresa = $datos3['nombre_empresa'];
+    }
+
+    $consultaCalificaciones = mysqli_query($mysqli, "SELECT a.Titulo, a.notaMinima, a.notaMaxima, a.activarPorcentaje, a.Porcentaje,
+                                                            n.NotaAlumno, n.retroalimentacion
+                                                    FROM actividades a
+                                                    LEFT JOIN notas n ON n.Actividad_id_act = a.idActividades  
+                                                    WHERE a.idCurso_id_cur = '$id_curso_seleccionado'
+                                                    
+                                                    AND a.visible = 0;");
+
+    // "SELECT a.Titulo, a.notaMinima, a.notaMaxima, a.activarPorcentaje, a.Porcentaje,
+// n.NotaAlumno, n.retroalimentacion
+// FROM actividades a
+// LEFT JOIN notas n ON n.Actividad_id_act = a.idActividades  
+// WHERE a.idCurso_id_cur = '$id_curso_seleccionado' AND n.Usuario_id_user = '$usuarios1'"
+
+    if (mysqli_num_rows($consultaCalificaciones) > 0) {
+        while ($datosCalificaciones = mysqli_fetch_assoc($consultaCalificaciones)) {
+            $Calificaciones[] = $datosCalificaciones;
+        }
+    }
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -136,7 +172,7 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="verCalif.php" class="nav_link active">
+                <a href="#" class="nav_link active">
                     <i class="bx bx-news nav_icon"></i>
                     <span class="nav_name">Evaluaciones</span>
                 </a>
@@ -173,15 +209,14 @@ if (isset($_SESSION['id_user'])) {
         </div>
     </div>
 
-    <!--Contenido Usuario-->
+    <!--Contenido-->
     <section>
         <div class="container-fluid bg-blanco my-3 pb-3 shadow">
             <a href="verCurso.php"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
             <p class="fs-1 pt-2"><strong>Calificaciones</strong></p>
 
-            Aqui solo pones el curso de donde se entro a la seccion de notas
             <select class="form-select mb-2" style="width: auto;" aria-label="Default select example" disabled>
-                <option selected>#0001 Ingles - N1664</option>
+                <option selected><?php echo $curso; ?> - <?php echo $empresa; ?></option>
                 <!-- <option value="1">#0002 Progamacion en PHP - N1664</option>
                 <option value="2">#0003 Programacion Web - N1664</option>
                 <option value="3">#0004 Frances - N1664</option> -->
@@ -191,43 +226,46 @@ if (isset($_SESSION['id_user'])) {
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Tipo</th>
+                            <th scope="col">Actividad</th>
                             <th scope="col">Ponderacion</th>
                             <th scope="col">Calificacion</th>
                             <th scope="col">Rango</th>
                             <th scope="col">Porcentaje</th>
                             <th scope="col">Retroalimentacion</th>
-                            <th scope="col">Aporte total del curso</th>
+                            <!-- <th scope="col">Aporte total del curso</th> -->
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">Examen #1</th>
-                            <td>20%</td>
-                            <td>10</td>
-                            <td>1 - 20</td>
-                            <td>50%</td>
-                            <td>Estudie más para la proxima</td>
-                            <td>20%</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Examen #2</th>
-                            <td>20%</td>
-                            <td>15</td>
-                            <td>1 - 20</td>
-                            <td>75%</td>
-                            <td>Mejoro mucho! Siga asi!</td>
-                            <td>40%</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Examen Final</th>
-                            <td>60%</td>
-                            <td>20</td>
-                            <td>1 - 20</td>
-                            <td>100%</td>
-                            <td>Excelente!</td>
-                            <td>100%</td>
-                        </tr>
+                        <?php if (mysqli_num_rows($consultaCalificaciones) > 0) {
+                            foreach ($Calificaciones as $calif):
+                                ?>
+                                <tr>
+                                    <th scope="row"><?php echo $calif['Titulo']; ?></th>
+                                    <?php if ($calif['activarPorcentaje'] == "1") { ?>
+                                        <td>-</td>
+                                    <?php } else { ?>
+                                        <td><?php echo $calif['Porcentaje']; ?>%</td>
+                                    <?php }
+                                    ; ?>
+                                    <?php if ($calif['NotaAlumno'] == null) { ?>
+                                        <td>-</td>
+                                    <?php } else { ?>
+                                        <td><?php echo $calif['NotaAlumno']; ?></td>
+                                    <?php }
+                                    ; ?>
+
+                                    <td>1 - <?php echo $calif['notaMaxima']; ?></td>
+                                    <td><?php echo (($calif['NotaAlumno'] * 100) / $calif['notaMaxima']) ?>%</td>
+                                    <?php if ($calif['retroalimentacion'] == null) { ?>
+                                        <td>-</td>
+                                    <?php } else { ?>
+                                        <td><?php echo $calif['retroalimentacion']; ?></td>
+                                    <?php }
+                                    ; ?>
+                                    <!-- <td>20%</td> -->
+                                </tr>
+                            <?php endforeach;
+                        } ?>
                     </tbody>
                 </table>
             </div>
