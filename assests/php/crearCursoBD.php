@@ -16,7 +16,7 @@ function crearCurso() {
     $visibilidadCurso = $_POST['visibilidadCurso'];
     $fechaInicio = $_POST['fechaInicio'];
     $fechaFin = $_POST['fechaFin'];
-    $inputperiodo = $_POST['inputperiodo'];
+    // $inputperiodo = $_POST['inputperiodo'];
     $minimos = $_POST['minimos'];
     $maximos = $_POST['maximos'];
 
@@ -28,8 +28,8 @@ function crearCurso() {
 
 
 
-    // Validar que no haya campos vacíos
-    if (empty($IDcurso) || empty($nombreCurso) || empty($visibilidadCurso) || empty($fechaInicio) || empty($fechaFin) || empty($inputperiodo) 
+    // Validar que no haya campos vacíos Ps. Se quito input periodo de la validacion
+    if (empty($IDcurso) || empty($nombreCurso) || empty($visibilidadCurso) || empty($fechaInicio) || empty($fechaFin) 
         || empty($minimos) || empty($maximos)){
         echo "Rellene todos los campos para completar el registro";
         exit;

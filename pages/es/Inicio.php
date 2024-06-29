@@ -39,13 +39,13 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
             }
 
-            $usuariosActivos= mysqli_query($mysqli, "SELECT Active_online FROM usuario WHERE Empresa_id_empresa = '$empresaUsuario' AND Active_online = '1'");
+            $usuariosActivos = mysqli_query($mysqli, "SELECT Active_online FROM usuario WHERE Empresa_id_empresa = '$empresaUsuario' AND Active_online = '1'");
 
-    if (mysqli_num_rows($usuariosActivos)>0){
+            if (mysqli_num_rows($usuariosActivos) > 0) {
 
-         $usuarioResult = mysqli_num_rows($usuariosActivos);
+                $usuarioResult = mysqli_num_rows($usuariosActivos);
 
-         }
+            }
 
         } else {
 
@@ -228,38 +228,39 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                         <p class="mb-0"><strong>Cursos Inscritos</strong></p>
                         <div class="accordion accordion-flush " id="accordionFlushExample">
                             <!--Copias esto para añadir un curso-->
-                            <?php $contador = 0; foreach($cursos as $curso){ 
-                                
+                            <?php $contador = 0;
+                            foreach ($cursos as $curso) {
+
                                 $contador++;
                                 ?>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#flush-<?php echo $contador;?>" aria-expanded="false"
-                                        aria-controls="flush-<?php echo $contador;?>">
-                                        <?php echo $curso["nombre_cur"] ?>
-                                    </button>
-                                </h2>
-                                <div id="flush-<?php echo $contador;?>" class="accordion-collapse collapse"
-                                    data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">
-                                        <div class="card w-100 mb-3">
-                                            <div class="row g-0">
-                                                <div class="col-md-4">
-                                                    <img src="https://github.com/PichiGod.png"
-                                                        class="img-fluid rounded-start" width="150" alt="...">
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="card-body">
-                                                        <h6 class="card-title">José Oropeza</h6>
-                                                        <button class="btn btn-primary ">Ir al Curso</button>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-<?php echo $contador; ?>" aria-expanded="false"
+                                            aria-controls="flush-<?php echo $contador; ?>">
+                                            <?php echo $curso["nombre_cur"] ?>
+                                        </button>
+                                    </h2>
+                                    <div id="flush-<?php echo $contador; ?>" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div class="card w-100 mb-3">
+                                                <div class="row g-0">
+                                                    <div class="col-md-4">
+                                                        <img src="https://github.com/PichiGod.png"
+                                                            class="img-fluid rounded-start" width="150" alt="...">
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">José Oropeza</h6>
+                                                            <button class="btn btn-primary ">Ir al Curso</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             <?php } ?>
                         </div>
                     </div>
@@ -321,22 +322,22 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                             </div>
                         </div>
                     </div>
-
-                    <div class="text-center border border-1 border-secondary 
+                    <?php if ($rol != 0) { ?>
+                        <div class="text-center border border-1 border-secondary 
                         border-opacity-50  shadow bg-secondary-subtle">
-                        <div class="d-flex flex-row ">
-                            <div class="bg-white p-2 pb-0">
-                                <img src="../../assests/img/BBB.jfif" class="img-fluid" width="216" alt="...">
-                            </div>
-                            <div class="vr text-secondary-emphasis"></div>
-                            <div class="ms-auto me-auto p-1 pb-0">
-                                <p class="text-center fs-5 text-body mb-0">Big Blue Button - Aula virtual</p>
-                                <a class="btn btn-primary my-1" href="https://bigbluebutton.org/" target="_blank"
-                                    rel="noopener noreferrer">Ir al recurso</a>
+                            <div class="d-flex flex-row ">
+                                <div class="bg-white p-2 pb-0">
+                                    <img src="../../assests/img/BBB.jfif" class="img-fluid" width="216" alt="...">
+                                </div>
+                                <div class="vr text-secondary-emphasis"></div>
+                                <div class="ms-auto me-auto p-1 pb-0">
+                                    <p class="text-center fs-5 text-body mb-0">Big Blue Button - Aula virtual</p>
+                                    <a class="btn btn-primary my-1" href="https://bigbluebutton.org/" target="_blank"
+                                        rel="noopener noreferrer">Ir al recurso</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
+                    <?php } ?>
                 </div>
                 <div class="col">
 

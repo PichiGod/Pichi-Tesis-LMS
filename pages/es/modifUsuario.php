@@ -185,9 +185,9 @@ if (isset($_SESSION['id_user'])) {
                     style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2">Modificar Usuario</h1>
 
-            <h5>Aqui, quiero que agarres la informacion del usuario que se selecciono
+            <!-- <h5>Aqui, quiero que agarres la informacion del usuario que se selecciono
                 y reflejar la informacion en los inputs para modificar.
-            </h5>
+            </h5> -->
 
             <form action="" method="post">
                 <input type="hidden" name="" id="action" value="Register">
@@ -259,8 +259,9 @@ if (isset($_SESSION['id_user'])) {
                     <div>
                         <div class="form-floating mb-4">
                             <select class="Empresa form-select" aria-label="Default select example" id="Empresa"
-                                name="Empresa">
-                                <option selected disabled>Aqui quiero que la unica opcion sea la empresa del admin
+                                name="Empresa" disabled>
+                                <option selected disabled>
+                                    <!-- Aqui quiero que la unica opcion sea la empresa del admin -->URBE
                                 </option>
                                 <?php foreach ($empresas as $empresa): ?>
                                     <option value="<?php echo $empresa; ?>"><?php echo $empresa; ?></option>

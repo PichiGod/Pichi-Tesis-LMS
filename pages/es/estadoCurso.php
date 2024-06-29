@@ -206,11 +206,11 @@ if (isset($_SESSION['id_user'])) {
             <h4 class="text-center fw-light">Haga click en un curso para seleccionar</h4>
 
 
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" id="searchInput" type="search" placeholder="Search"
+            <!-- <form class="d-flex" role="search"> -->
+                <input class="form-control me-2" id="searchInput" type="search" placeholder="Buscar"
                     aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Filtrar</button>
-            </form>
+                <!-- <button class="btn btn-outline-success" type="submit">Filtrar</button> -->
+            <!-- </form> -->
 
             <div class="row mt-2 d-flex">
                 <div class="col-md col-sm col-lg-6 mb-2">

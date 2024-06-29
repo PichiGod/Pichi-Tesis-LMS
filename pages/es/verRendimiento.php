@@ -205,15 +205,15 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">Nombre Completo</h5>
+              <h5 class="card-title">Pichi Duarte</h5>
               <p class="card-text">
-                Cedula
+                28467144
               </p>
               <p class="card-text">
-                Correo
+                dsjoseale@gmail.com
               </p>
               <p class="card-text">
-                Rol
+                Estudiante
               </p>
             </div>
           </div>
@@ -221,7 +221,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
       </div>
 
       <div class="table-responsive">
-        <table class="table mt-2" style="white-space: nowrap;">
+        <table class="table table-striped table-bordered mt-2" style="white-space: nowrap;">
           <thead>
             <tr>
               <th scope="col">Id Curso</th>
@@ -232,10 +232,34 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           </thead>
           <tbody>
             <tr>
-              <th scope="row">ID_CUR_EMP</th>
-              <td>Tener sueño</td>
+              <th scope="row">CUR_URBE_01</th>
+              <td>Inglés I</td>
               <td>10</td>
               <td>10%</td>
+            </tr>
+            <tr>
+              <td colspan="4">
+                <table class="table mb-0">
+                  <thead>
+                    <th scope="col">Actividad</th>
+                    <th scope="col">Nota Minima</th>
+                    <th scope="col">Nota maxima</th>
+                    <th scope="col">Nota</th>
+                    <th scope="col">Porcentaje</th>
+                    <th scope="col">Aporte al curso</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Verbo To-Be</th>
+                      <td>5</td>
+                      <td>10</td>
+                      <td>10</td>
+                      <td>100%</td>
+                      <td>10%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
             </tr>
           </tbody>
         </table>

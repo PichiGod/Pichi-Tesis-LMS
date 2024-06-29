@@ -14,6 +14,8 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
     $datos = mysqli_fetch_assoc($conexion1);
 
+    $rol = $datos['rol'];
+
     $empresaUsuario = $datos['Empresa_id_empresa'];
 
     $nombreUsuario = $datos['nombre_user'];
@@ -194,7 +196,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
         <label class="mt-2" for="periodo">Periodo </label>
         <input type="text" class="form-control" name="periodo" id="periodo"
-          placeholder="Nombre del periodo seleccionado" disabled>
+          placeholder="Nombre del periodo seleccionado" value="Periodo Mayo-Septiembre_2024" disabled>
 
         <div>
           <label class="mt-2" for="fecIni">Fecha de Inicio</label>

@@ -38,7 +38,7 @@
 
             fechaFin: $('#fechaFin').val(),
 
-            inputperiodo: $('#inputperiodo').val(),
+            // inputperiodo: $('#inputperiodo').val(),
 
             minimos: $('#minimos').val(),
 

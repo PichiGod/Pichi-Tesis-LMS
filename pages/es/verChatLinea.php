@@ -53,6 +53,22 @@ if (isset($_SESSION['id_user'])) {
 
     }
 
+    if (isset($_GET['id_cur'])) {
+        $id_curso_seleccionado = $_GET['id_cur'];
+    
+        $consultaCurso = mysqli_query($mysqli, "SELECT cursos.nombre_cur, empresa.nombre_empresa
+                                        FROM cursos 
+                                        LEFT JOIN empresa ON empresa.id_empresa = cursos.Empresa_id_empresa
+                                        WHERE id_cur = '$id_curso_seleccionado'");
+    
+        if (mysqli_num_rows($consultaCurso) > 0) {
+            $datos3 = mysqli_fetch_assoc($consultaCurso);
+            $curso = $datos3['nombre_cur'];
+            $empresa = $datos3['nombre_empresa'];
+        }
+    
+    }
+
 }
 ?>
 <!DOCTYPE html>
@@ -152,10 +168,13 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="verCalif.php?id_cur=<?php echo $id_curso_seleccionado; ?>" class="nav_link link-dark">
-                    <i class="bx bx-news nav_icon"></i>
-                    <span class="nav_name">Evaluaciones</span>
-                </a>
+                <?php if ($rol == 0) { ?>
+                    <a href="verCalif.php?id_cur=<?php echo $id_curso_seleccionado; ?>" class="nav_link link-dark">
+                        <i class="bx bx-news nav_icon"></i>
+                        <span class="nav_name">Evaluaciones</span>
+                    </a>
+                <?php }
+                ; ?>
                 <?php if ($rol != 0) { ?>
                     <a href="MenuAdmin.php" class="nav_link link-dark">
                         <i class="bx bx-cog nav_icon"></i>
@@ -198,7 +217,7 @@ if (isset($_SESSION['id_user'])) {
                         class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
                 <!--Titulo-->
                 <div class="p-2 mb-2 rounded shadow">
-                    <h2><strong>Nombre del curso - Empresa </strong></h2>
+                    <h2><strong><?php echo $curso;?> - <?php echo $empresa ?> </strong></h2>
                 </div>
                 <form action="" method="post">
 
@@ -210,7 +229,7 @@ if (isset($_SESSION['id_user'])) {
                         <button type="button" class="btn btn-primary" onclick="submitData();">Entrar al Chat</button>
                     </span>
                     <span class="p-2 my-4 rounded ">
-                        <a id="mrk" href="verChatHistorial.php" class="btn btn-secondary ">Historial del Chat</a>
+                        <a id="mrk" href="verChatHistorial.php?id_cur=<?php echo $id_curso_seleccionado; ?>" class="btn btn-secondary ">Historial del Chat</a>
                     </span>
                 </form>
                 <hr>

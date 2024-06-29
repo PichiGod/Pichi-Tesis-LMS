@@ -47,6 +47,19 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
     }
 
 }
+if (isset($_GET['id_cur'])) {
+    $id_curso_seleccionado = $_GET['id_cur'];
+    $consultaCurso = mysqli_query($mysqli, "SELECT cursos.nombre_cur, empresa.nombre_empresa
+                                        FROM cursos 
+                                        LEFT JOIN empresa ON empresa.id_empresa = cursos.Empresa_id_empresa
+                                        WHERE id_cur = '$id_curso_seleccionado'");
+    
+        if (mysqli_num_rows($consultaCurso) > 0) {
+            $datos3 = mysqli_fetch_assoc($consultaCurso);
+            $curso = $datos3['nombre_cur'];
+            $empresa = $datos3['nombre_empresa'];
+        }
+}
 
 
 ?>
@@ -156,6 +169,13 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
+                <?php if ($rol == 0) { ?>
+                    <a href="verCalif.php?id_cur=<?php echo $id_curso_seleccionado; ?>" class="nav_link link-dark">
+                        <i class="bx bx-news nav_icon"></i>
+                        <span class="nav_name">Evaluaciones</span>
+                    </a>
+                <?php }
+                ; ?>
                 <?php if ($rol != 0) { ?>
                     <a href="MenuAdmin.php" class="nav_link link-dark">
                         <i class="bx bx-cog nav_icon"></i>
@@ -194,7 +214,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
         <div class="container-fluid bg-blanco my-3 pb-3 shadow">
             <a href="verChatLinea.php"><i class="fa-solid mt-2 fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
-            <h1 class="text-center pt-2">Nombre Curso - Historial</h1>
+            <h1 class="text-center pt-2"><?php echo $curso; ?> - Historial</h1>
 
             <div class="d-flex flex-column align-items-center">
                 <div class="card w-75">

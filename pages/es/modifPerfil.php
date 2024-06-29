@@ -229,7 +229,7 @@ if (isset($_SESSION['id_user'])) {
                                             class="form-control text-muted mb-0"></input>
                                     </div>
                                 </div>
-                                <hr>
+                                <!-- <hr>
                                 <div class="row">
                                     <div class="col-sm-3 w-75">
                                         <p class="mb-0">Fecha de Nacimiento</p>
@@ -239,7 +239,7 @@ if (isset($_SESSION['id_user'])) {
                                             name="fecha" value="<?php $fechaIni = date('Y-m-d', strtotime($datos['fecha_nacimiento_user']));
                                             echo $fechaIni; ?>" />
                                     </div>
-                                </div>
+                                </div> -->
                                 <hr>
                                 <div class="row">
                                     <div class="col-sm-3 w-75">

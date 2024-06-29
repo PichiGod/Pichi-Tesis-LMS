@@ -2,6 +2,12 @@
 
 require "../../assests/php/LoginBD.php";
 
+// Inicializar variables
+$nombreCompleto = "";
+$identificacion = "";
+$correo = "";
+$rol = "";
+$id_user = "";
 $cursos = [];
 
 if (isset($_SESSION['id_user'])) {
@@ -14,7 +20,7 @@ if (isset($_SESSION['id_user'])) {
 
         $datos = mysqli_fetch_assoc($conexion1);
 
-        $rol = $datos['rol'];
+        $rol1 = $datos['rol'];
 
         $empresaUsuario = $datos['Empresa_id_empresa'];
 
@@ -30,18 +36,63 @@ if (isset($_SESSION['id_user'])) {
 
             $nombreEmpresa = $datos2['nombre_empresa'];
 
-            $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
 
-            if (mysqli_num_rows($conexion3) > 0) {
-                while ($datos3 = mysqli_fetch_assoc($conexion3)) {
-                    $cursos[] = $datos3;
+        }
 
+        // Consulta para obtener la cantidad de cursos del usuario actual
+        $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
+        $cursosCantidad = mysqli_num_rows($conexion3) > 0 ? mysqli_num_rows($conexion3) : 0;
+
+        // Verificar si se envió el formulario de búsqueda
+        if (isset($_GET['identificacion']) && !empty($_GET['identificacion'])) {
+            // Obtener la identificación del formulario
+            $identificacion = $_GET['identificacion'];
+
+            // Consulta para obtener datos del usuario por identificación
+            $consulta_usuario = mysqli_query($mysqli, "SELECT id_user, nombre_user, apellido_user, identificacion_user, correo_user, rol FROM usuario WHERE identificacion_user = '$identificacion' AND Empresa_id_empresa = '$empresaUsuario'");
+
+            // Verificar si se encontraron resultados
+            if (mysqli_num_rows($consulta_usuario) > 0) {
+                // Extraer datos del usuario
+                $datos_usuario = mysqli_fetch_assoc($consulta_usuario);
+
+                // Asignar los datos a variables
+                $id_user = $datos_usuario['id_user'];
+                $nombreCompleto = $datos_usuario['nombre_user'] . ' ' . $datos_usuario['apellido_user'];
+                $identificacion = $datos_usuario['identificacion_user'];
+                $correo = $datos_usuario['correo_user'];
+                $rol = $datos_usuario['rol'];
+
+                // Validate if the user is a teacher
+                if ($rol != 1) {
+                    echo "<script>alert('El usuario elegido no es docente!');</script>";
+                    $nombreCompleto = "";
+                    $identificacion = "";
+                    $correo = "";
+                    $rol = "";
+                } else {
+                    $rol = "Docente";
                 }
-
             }
 
+        }
 
+        $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
 
+        if (mysqli_num_rows($conexion3) > 0) {
+            while ($datos3 = mysqli_fetch_assoc($conexion3)) {
+                $cursos[] = $datos3;
+            }
+        }
+
+        $conexion4 = mysqli_query($mysqli, "SELECT * FROM inscripcion WHERE Usuario_id_user = '$id_user'");
+
+        $inscripciones = array(); // Initialize as an empty array
+
+        if (mysqli_num_rows($conexion4) > 0) {
+            while ($datos4 = mysqli_fetch_assoc($conexion4)) {
+                $inscripciones[] = $datos4;
+            }
         }
 
     }
@@ -154,7 +205,7 @@ if (isset($_SESSION['id_user'])) {
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <?php if ($rol != 0) { ?>
+                <?php if ($rol1 != 0) { ?>
                     <a href="MenuAdmin.php" class="nav_link active">
                         <i class="bx bx-cog nav_icon"></i>
                         <span class="nav_name">Administrar</span>
@@ -193,86 +244,109 @@ if (isset($_SESSION['id_user'])) {
             <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center">Asignar Docente</h1>
 
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Buscar por cedula..." aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Buscar</button>
+            <form class="d-flex" role="search" method="GET" action="">
+                <input class="form-control me-2" type="number" placeholder="Ingrese Identificación Del Docente"
+                    aria-label="Search" name="identificacion" value="<?php echo $identificacion; ?>">
+                <button class="btn btn-outline-success" value="Search" type="submit">Buscar</button>
             </form>
+            <form id="enviar" action="" method="post">
+                <input type="hidden" id="action" value="asignarDocente">
+                <div class="card my-3" style="max-width: 500px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="https://github.com/PichiGod.png" style="max-width: 150px;"
+                                class="pt-2 img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
 
-            <div class="card my-3" style="max-width: 500px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="https://github.com/PichiGod.png" style="max-width: 150px;"
-                            class="pt-2 img-fluid rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Nombre Completo</h5>
-                            <p class="card-text">
-                                Cedula
-                            </p>
-                            <p class="card-text">
-                                Correo
-                            </p>
-                            <p class="card-text">
-                                Rol
-                            </p>
+                                <input type="hidden" id="idUser" value="<?php echo $id_user; ?>" />
+                                <h5 class="card-title"><?php echo $nombreCompleto; ?></h5>
+                                <p class="card-text"><b>Identificación:</b> <?php echo $identificacion; ?></p>
+                                <p class="card-text"><b>Correo Electronico:</b> <?php echo $correo; ?></p>
+                                <p class="card-text"><b>Rol: </b><?php echo $rol; ?></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="card my-3">
-                <!-- <p class="mb-0">Aqui se muestran los cursos creados, los que tienen marca significa que ya esta asignado
-                    a
-                    esa materia</p> -->
+                <div>
+                    <select id="periodo" class="form-control">
+                        <option value="0" hidden selected>Seleccione el periodo</option>
+                        <?php
+                        $conexion5 = "SELECT * FROM periodo";
+                        $resultado5 = mysqli_query($mysqli, $conexion5);
+                        if (mysqli_num_rows($resultado5) > 0) {
+                            while ($row = mysqli_fetch_array($resultado5)) {
+                                echo "<option value='" . $row['id_peri'] . "'>" . $row
+                                ['nombre_peri'] . "</option>";
+                            }
+                        }
+                        ?>
 
-                <div class="card-body overflow-auto " style="max-height:15rem;">
-                    <ul class="list-group overflow-auto">
-                        <li class="list-group-item">
-                            <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" checked>
-                            <label class="form-check-label" for="firstCheckbox">Matematica</label>
-                        </li>
-                        <!-- <li class="list-group-item">
-                            <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
-                            <label class="form-check-label" for="secondCheckbox">Brawl</label>
-                        </li> -->
-                        <!-- <li class="list-group-item">
-                            <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                            <label class="form-check-label" for="thirdCheckbox">Ser pro</label>
-                        </li> -->
-                        <li class="list-group-item">
-                            <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                            <label class="form-check-label" for="thirdCheckbox">Programacion</label>
-                        </li>
-                        <!-- <li class="list-group-item">
-                            <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                            <label class="form-check-label" for="thirdCheckbox">El puteo</label>
-                        </li> -->
-                        <!-- <li class="list-group-item">
-                            <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                            <label class="form-check-label" for="thirdCheckbox">Gocheria</label>
-                        </li>
-                        <li class="list-group-item">
-                            <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                            <label class="form-check-label" for="thirdCheckbox">Bobolongo</label>
-                        </li>
-                        <li class="list-group-item">
-                            <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                            <label class="form-check-label" for="thirdCheckbox">Santiago es gay</label>
-                        </li> -->
-                    </ul>
+                    </select>
                 </div>
 
-                <div class="card-footer">
-                    <button class="btn btn-primary">Asignar</button>
-                </div>
+                <div class="card my-3">
 
-            </div>
-        </div>
-        </div>
+                    <div class="card-body overflow-auto " style="max-height:15rem;">
+                        <ul class="list-group overflow-auto">
+                            <?php
+                            if (mysqli_num_rows($conexion3) > 0) {
+                                if (mysqli_num_rows($conexion4) > 0) {
+                                    $n = 0;
+                                    foreach ($cursos as $curso) {
+                                        $n++;
+                                        foreach ($inscripciones as $inscrip) { ?>
+                                            <li class="list-group-item">
+                                                <input class="form-check-input me-1" type="checkbox"
+                                                    value="<?php echo $curso['id_cur']; ?>" <?php if (isset($inscrip['Cursos_id_cur']) && $inscrip['Cursos_id_cur'] == $curso['id_cur']) {
+                                                           echo "checked";
+                                                       } ?>>
+                                                <label class="form-check-label"
+                                                    for="firstCheckbox"><?php echo $curso['nombre_cur'] ?></label>
+                                            </li>
+                                        <?php }
+                                    }
+                                } else {
+                                    // Handle the case where $conexion4 returns no rows
+                                    foreach ($cursos as $curso) { ?>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input me-1" type="checkbox"
+                                                value="<?php echo $curso['id_cur']; ?>">
+                                            <label class="form-check-label"
+                                                for="firstCheckbox"><?php echo $curso['nombre_cur'] ?></label>
+                                        </li>
+                                    <?php }
+                                }
+
+                            } else { ?>
+
+                                <h3>No hay cursos disponibles en tu Empresa</h3>
+
+                            <?php } ?>
+                        </ul>
+                    </div>
+
+                    <div class="card-footer">
+                        <button class="btn btn-primary" onclick="submitData();">Asignar Docente</button>
+                    </div>
+                </div>
+            </form>
+
         </div>
 
     </section>
+
+    <script>
+        // document.querySelector('#enviar').addEventListener('submit', function (e) {
+        //     e.preventDefault();
+        //     // Add your custom form handling code here
+        //     //console.log('Form submission prevented!');
+        // })
+    </script>
+
+    <?php require "../../assests/php/asignarDocenteMain.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

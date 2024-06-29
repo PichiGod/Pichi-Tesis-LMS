@@ -264,14 +264,14 @@ if (isset($_SESSION['id_user'])) {
 
                     </div>
 
-                    <div class="div45Crear">
+                    <!-- <div class="div45Crear">
 
                         <label for="">Nombre del periodo</label>
 
                         <input type="text" class="inputperiodo form-control" id="inputperiodo" name="inputperiodo"
                             placeholder="Nombre del periodo">
 
-                    </div>
+                    </div> -->
 
 
                     <div class="div5Crear">

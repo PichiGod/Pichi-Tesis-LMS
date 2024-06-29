@@ -14,6 +14,13 @@ if (isset($_SESSION['id_user'])) {
 
   }
 }
+
+$consultaEmpresas = mysqli_query($mysqli, "SELECT * FROM empresa");
+if (mysqli_num_rows($consultaEmpresas) > 0) {
+  while ($datosEmpresas = mysqli_fetch_assoc($consultaEmpresas)) {
+    $Empresas[] = $datosEmpresas;
+  }
+}
 ?>
 
 
@@ -59,9 +66,12 @@ if (isset($_SESSION['id_user'])) {
             </ul>
           </div>
           <div class="vr me-2"></div>
+          <!-- <div>
+                        <a name="regis" id="regis" class="btn btn-secondary shadow me-3" href="registro.php"
+                            role="button">Registrarse</a>
+                    </div> -->
           <div>
-            <a name="regis" id="regis" class="btn btn-secundary shadow me-3" href="registro.php"
-              role="button">Registrarse</a>
+            <a name="demo" id="demo" class="btn btn-secondary d-flex shadow me-3" href="./iniciarDemo.php" role="button">Demo</a>
           </div>
           <div>
             <a name="login" id="login" class="btn btn-primary shadow" href="#" role="button">Iniciar
@@ -74,7 +84,7 @@ if (isset($_SESSION['id_user'])) {
     </nav>
   </header>
 
-  <section name="formulario" class="d-flex justify-content-center align-items-center mt-5">
+  <section name="formulario" class="d-flex justify-content-center align-items-center my-5">
     <form action="" autocomplete="off" class="w-50" method="post">
       <input type="hidden" name="" id="action" value="Login" class="action">
       <div name="formulario">
@@ -98,6 +108,20 @@ if (isset($_SESSION['id_user'])) {
               <input type="password" class="contrasenaLogin form-control" name="contrasenaLogin" id="contrasenaLogin"
                 placeholder="" />
               <label for="formId1">Contraseña</label>
+            </div>
+          </div>
+
+          <div>
+            <div class="form-floating mb-4">
+              <select class="form-select" id="empresa" aria-label="Floating label select example">
+                <option hidden disabled selected>Seleccione la empresa</option>
+                <?php foreach ($Empresas as $empresa) { ?>
+                  <option id="<?php echo $empresa['id_empresa']; ?>" value="1"><?php echo $empresa['nombre_empresa']; ?>
+                  </option>
+                <?php }
+                ; ?>
+              </select>
+              <label for="empresa">Empresa</label>
             </div>
           </div>
 

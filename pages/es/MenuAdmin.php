@@ -200,6 +200,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           <?php if ($rol == 2) { ?>
             <button onclick="location.href='ingresarUsuario.php'" class="btn btn-secondary">Ingresar Usuario</button>
             <button onclick="location.href='inscribirUsuario.php'" class="btn btn-secondary">Inscribir cursos</button>
+            <button onclick="location.href='estadoAlumno.php'" class="btn btn-secondary">Activar/Desactivar Alumno</button>
           <?php }
           ; ?>
           <button onclick="location.href='administrarUsuario.php'" class="btn btn-secondary">Administrar
@@ -234,12 +235,36 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           </div>
         </div>
 
+        <!-- Modal Reportes-->
+        <div class="modal fade" id="reportes" tabindex="-1" aria-labelledby="reportes" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="reportes">Menu Reporte</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Elegir el reporte a generar
+              </div>
+              <div class="modal-footer">
+                <a href="../../../assests/Reportes/reporteUsuarios.php" target="_blank" class="btn btn-secondary me-2">Reporte Usuarios</a>
+                <a href="../../../assests/Reportes/reporteCursos.php" target="_blank" class="btn btn-secondary me-2" >Reporte Cursos</a>
+                <a href="../../../assests/Reportes/reporteNotas.php" target="_blank" class="btn btn-secondary me-2" >Reporte Notas</a>
+                <a href='../../../assests/Reportes/reportes.php' target="_blank" class="btn btn-secondary me-2">Reporte
+                  general
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="row justify-content-center align-items-center g-1 mb-3">
-          <label for="cursos">Reporte </label> <!-- y respaldo--->
-          <hr>
-          <div id="cursos" class="col">
-            <a href='../../../assests/Reportes/reportes.php' target="_blank" class="btn btn-secondary">Generar Reporte</a>
-            <!-- <button class="btn btn-secondary">Generar Respaldo</button> -->
+          <label for="cursos">Reporte y respaldo</label> <!-- y respaldo--->
+        <hr>
+        <div id="cursos" class="col">
+          <button type="button" data-bs-toggle="modal" data-bs-target="#reportes" class="btn btn-secondary">Generar
+            Reporte</button>
+          <button onclick="generarRespaldo(<?php echo $empresaUsuario; ?>)" class="btn btn-secondary">Generar Respaldo</button>
           </div>
         </div>
 
@@ -248,6 +273,8 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
     </div>
   </section>
+
+  <?php require "../../assests/php/generarRespaldoMain.php"; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

@@ -177,10 +177,13 @@ if (isset($_GET['id_cur']) && isset($_GET['id_rec'])) {
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
-                <a href="verCalif.php?id_cur=<?php echo $id_curso_seleccionado; ?>" class="nav_link link-dark">
-                    <i class="bx bx-news nav_icon"></i>
-                    <span class="nav_name">Evaluaciones</span>
-                </a>
+                <?php if ($rol == 0) { ?>
+                    <a href="verCalif.php?id_cur=<?php echo $id_curso_seleccionado; ?>" class="nav_link link-dark">
+                        <i class="bx bx-news nav_icon"></i>
+                        <span class="nav_name">Evaluaciones</span>
+                    </a>
+                <?php }
+                ; ?>
                 <?php if ($rol != 0) { ?>
                     <a href="MenuAdmin.php" class="nav_link link-dark">
                         <i class="bx bx-cog nav_icon"></i>
