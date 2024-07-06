@@ -3,17 +3,17 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'phpMailer/Exception.php';
-require 'phpMailer/PHPMailer.php';
-require 'phpMailer/SMTP.php';
+require '../../phpMailer/Exception.php';
+require '../../phpMailer/PHPMailer.php';
+require '../../phpMailer/SMTP.php';
 
 $mail = new PHPMailer(true);
 
-$db_host = $_ENV["DB_HOST"];
-$db_user = $_ENV['DB_USER'];
-$db_password = $_ENV['DB_PASSWORD'];
-$db_database = $_ENV['DB_DATABASE'];
-$db_port = $_ENV['DB_PORT'];
+$db_host = getenv("DB_HOST");
+$db_user = getenv('DB_USER');
+$db_password = getenv('DB_PASSWORD');
+$db_database = getenv('DB_DATABASE');
+$db_port = getenv('DB_PORT');
 
 
 if ($db_host === false || $db_user === false ||  $db_password === false || $db_database === false) {
@@ -23,30 +23,30 @@ if ($db_host === false || $db_user === false ||  $db_password === false || $db_d
     $db_database = 'pichi'; // Valor predeterminado para el nombre de la base de datos
 }
 
-$mysqli = mysqli_connect($db_host, $db_user, $db_password, $db_database, $db_port);
+$mysqli = mysqli_connect($db_host, $db_user, $db_password, $db_database);
 
 try {
 
 $emailtxt = $_POST['txtEmail'];
 
 if (empty($emailtxt)) {
-    echo "Enter your email to recover password";
+    echo "Ingresa tu correo electrónico para recuperar contraseña";
     exit;
 }
 
-$usuarios= mysqli_query($mysqli, "SELECT id, contrasena
-FROM users 
-WHERE email= '$emailtxt'");
+$usuarios= mysqli_query($mysqli, "SELECT id_user, contrasena_user
+FROM usuario 
+WHERE correo_user= '$emailtxt'");
 
 if(mysqli_num_rows($usuarios)<=0){
 
-    echo "The user's email does not exist in the database";
+    echo "El correo electrónico del usuario no existe en la base de datos";
 
 }else{
 
 $datos = mysqli_fetch_assoc($usuarios);
 
-$enviarContrasena = $datos['contrasena'];
+$enviarContrasena = $datos['contrasena_user'];
 
 
     // Server settings
@@ -163,14 +163,9 @@ $enviarContrasena = $datos['contrasena'];
         </head>
         <body>
             <div class="container">
-                <!----<img src="https://opensea-mining-web-production.up.railway.app/assets/img/logo.png" alt="Logo de OpenSea Mining">----->
+                <img src="https://github.com/PichiGod/Pichi-Tesis-LMS/blob/main/assests/img/text-1710023184778.png" alt="Logo de pichi">
                 <h1>Recuperar Contraseña - Pichi</h1>
-                <p>
-                Si recibiste este correo de Pichi, este viene con el proposito de recuperar tu cuenta y crear una nueva contraseña. Si quiere seguir con el proceso entonces presione el boton para cambiar su contraseña.
-                </p>
-                <p>
-                <a class="button" href="https://www.openseamining.app/CambiarContraseña.php?email=' . urlencode($emailtxt) . '">Recuperar cuenta</a>
-                </p>
+                <p>Si recibiste este correo de Pichi, este viene con el propósito de recuperar tu cuenta y recuperar tu contraseña. En este caso la contraseña adjunta a tu cuenta pichi es: ' . $enviarContrasena . '.</p>
                 <p>
                 Si no solicitaste este correo, entonces contactenos en nuestro correo.<a href="mailto:lms.pichi@gmail.com">lms.pichi@gmail.com</a>
                 </p>
@@ -183,7 +178,7 @@ $enviarContrasena = $datos['contrasena'];
     $mail->AltBody = 'Este es el cuerpo del correo en texto plano para clientes de correo que no admiten HTML';
 
     $mail->send();
-    echo 'A verification message was sent to your email';
+    echo 'Se envio un email con tu contraseña';
 
     
 

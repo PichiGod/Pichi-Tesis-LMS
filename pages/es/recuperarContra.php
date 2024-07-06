@@ -81,13 +81,13 @@ if(isset($_SESSION['id_user'])){
 
             <div>
               <div class="form-floating mb-3 w-auto align-self-center">
-              <input type="email" class="cedulaLogin form-control" name="cedulaLogin" id="cedulaLogin" placeholder="" />
+              <input type="email" class="txtEmail form-control" name="txtEmail" id="txtEmail" placeholder="" />
                 <label for="formId1">Correo Electronico</label>
               </div>
             </div>
 
             <div class="text-center">
-              <button type="button" class="btn btn-primary mb-4" onclick="location.href='recuperarEmail.php'">
+              <button type="button" class="btn btn-primary mb-4"  onclick="submitData();">
                 Recuperar
               </button>
               <a onclick="location.href='SeccionInicio.php'" class="btn btn-secondary mb-4">Regresar</a>
@@ -105,6 +105,7 @@ if(isset($_SESSION['id_user'])){
     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
     crossorigin="anonymous"></script>
     <?php require "../../assests/php/LoginMain.php"; ?>
+    <?php require "../../assests/php/recuperarContraMain.php"; ?>
 </body>
 
 </html>
