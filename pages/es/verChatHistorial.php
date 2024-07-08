@@ -47,6 +47,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
     }
 
 }
+
 if (isset($_GET['id_cur'])) {
     $id_curso_seleccionado = $_GET['id_cur'];
     $consultaCurso = mysqli_query($mysqli, "SELECT cursos.nombre_cur, empresa.nombre_empresa
@@ -54,17 +55,29 @@ if (isset($_GET['id_cur'])) {
                                         LEFT JOIN empresa ON empresa.id_empresa = cursos.Empresa_id_empresa
                                         WHERE id_cur = '$id_curso_seleccionado'");
     
-        if (mysqli_num_rows($consultaCurso) > 0) {
-            $datos3 = mysqli_fetch_assoc($consultaCurso);
-            $curso = $datos3['nombre_cur'];
-            $empresa = $datos3['nombre_empresa'];
-        }
+    if (mysqli_num_rows($consultaCurso) > 0) {
+        $datos3 = mysqli_fetch_assoc($consultaCurso);
+        $curso = $datos3['nombre_cur'];
+        $empresa = $datos3['nombre_empresa'];
+    }
 }
 
+// Consulta para agrupar por fecha de apertura
+$consultaHistorial = mysqli_query($mysqli, "
+    SELECT DATE(fecha_apertura) as fecha_apertura, MIN(fecha_cierre) as fecha_cierre
+    FROM seccionhistorial
+    GROUP BY DATE(fecha_apertura)
+");
+
+$historiales = [];
+
+if (mysqli_num_rows($consultaHistorial) > 0) {
+    while ($row = mysqli_fetch_assoc($consultaHistorial)) {
+        $historiales[] = $row;
+    }
+}
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -212,38 +225,26 @@ if (isset($_GET['id_cur'])) {
     <!--Contenido-->
     <section>
         <div class="container-fluid bg-blanco my-3 pb-3 shadow">
-            <a href="verChatLinea.php"><i class="fa-solid mt-2 fa-arrow-left"
+            <a href="verChatLinea.php?id_cur=<?php echo $id_curso_seleccionado; ?>"><i class="fa-solid mt-2 fa-arrow-left"
                     style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2"><?php echo $curso; ?> - Historial</h1>
 
             <div class="d-flex flex-column align-items-center">
-                <div class="card w-75">
-                    <div class="card-body">
-                        <p class="card-text">Fecha de Inicio: 28/05/2024</p>
-                        <p class="card-text">Fecha de Cierre: 28/05/2024</p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-end">
-                            <button class="btn btn-primary">
-                                Ver
-                            </button>
+                <?php foreach ($historiales as $historial) { ?>
+                    <div class="card w-75 mt-3">
+                        <div class="card-body">
+                            <p class="card-text">Fecha de Inicio: <?php echo $historial['fecha_apertura']; ?></p>
+                            <p class="card-text">Fecha de Cierre: <?php echo $historial['fecha_apertura']; ?></p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-end">
+                                <button class="btn btn-primary">
+                                    Ver
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="card w-75 mt-3">
-                    <div class="card-body">
-                        <p class="card-text">Fecha de Inicio: 28/05/2024</p>
-                        <p class="card-text">Fecha de Cierre: 28/05/2024</p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-end">
-                            <button class="btn btn-primary">
-                                Ver
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <?php } ?>
             </div>
 
         </div>

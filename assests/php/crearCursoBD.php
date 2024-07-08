@@ -80,7 +80,15 @@ function crearCurso() {
               VALUES ('$IDcurso', '$nombreCurso', '$fechaInicioBD', '$minimos', '$maximos', '$idEmpresa', '$fechaFinBD', '$visibilidadCurso')";
 
     if (mysqli_query($mysqli, $query)) {
+
+        $query2 = "INSERT INTO sala (nombre_sala, id_curso) VALUES ('$IDcurso', '$IDcurso')";
+
+        if (mysqli_query($mysqli, $query2)) {
+
         echo "¡Se ha creado un nuevo curso de forma exitosa!";
+
+        }
+        
     } else {
         echo "Error al crear nuevo curso: " . mysqli_error($mysqli);
     }
