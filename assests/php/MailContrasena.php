@@ -163,7 +163,7 @@ $enviarContrasena = $datos['contrasena'];
         </head>
         <body>
             <div class="container">
-                <!----<img src="https://opensea-mining-web-production.up.railway.app/assets/img/logo.png" alt="Logo de OpenSea Mining">----->
+                <img src="https://i.ibb.co/NWv8ks2/text-1710023184778.png" alt="Logo de Pichi" border="0" />
                 <h1>Recuperar Contraseña - Pichi</h1>
                 <p>
                 Si recibiste este correo de Pichi, este viene con el proposito de recuperar tu cuenta y crear una nueva contraseña. Si quiere seguir con el proceso entonces presione el boton para cambiar su contraseña.

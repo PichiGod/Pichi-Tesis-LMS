@@ -17,12 +17,12 @@
         formData.append('peri', $('#periodo').val());
         formData.append('action', $('#action').val());
 
-        // formData.forEach((value, key) => {
-        //     console.log(`${key}: ${value}`);
-        // });
+        formData.forEach((value, key) => {
+            console.log(`${key}: ${value}`);
+        });
 
         $.ajax({
-            url: '../../assests/php/asignarDocenteBD.php',
+            url: '../../assests/php/inscribirUsuarioBD.php',
             type: 'post',
             data: formData,
             processData: false,

@@ -55,6 +55,20 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
         }
 
+        $conexion4 = mysqli_query(
+            $mysqli,
+            "SELECT * FROM inscripcion i 
+        LEFT JOIN cursos c ON c.id_cur = i.Cursos_id_cur 
+        WHERE c.Empresa_id_empresa = '$empresaUsuario'"
+        );
+
+        if (mysqli_num_rows($conexion4) > 0) {
+
+            while ($datos4 = mysqli_fetch_assoc($conexion4)) {
+                $cursosInscritos[] = $datos4;
+            }
+
+        }
     }
 
 }
@@ -85,6 +99,9 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
     <link rel="stylesheet" href="../../assests/css/colorPallete.css" />
     <link rel="stylesheet" href="../../assests/css/viewUser.css" />
     <link rel="stylesheet" href="../../assests/css/sidebar.css" />
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!--Sidebar.js-->
     <script src="../../assests/js/sidebar.js"></script>
@@ -203,10 +220,10 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
             <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2">Administrar Usuario</h1>
 
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Filtrar</button>
-            </form>
+            <!-- <form class="d-flex" role="search"> -->
+            <input class="form-control me-2" id="searchInput" type="search" placeholder="Search" aria-label="Search">
+            <!-- <button class="btn btn-outline-success" type="submit">Filtrar</button> -->
+            <!-- </form> -->
 
             <div class="table-responsive">
                 <table class="table mt-2">
@@ -226,7 +243,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                             ; ?>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tableBody">
                         <?php foreach ($usuarios as $usuario) { ?>
                             <tr>
                                 <th scope="row"><?php echo $usuario['identificacion_user']; ?></th>
@@ -248,17 +265,34 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                 </td>
                                 <td>
                                     <ul>
-                                        <li>Ingles I</li>
+                                        <?php
+                                        $found = false;
+                                        foreach ($cursosInscritos as $inscrito) {
+                                            if ($inscrito['Usuario_id_user'] == $usuario['id_user']) {
+                                                echo "<li>" . $inscrito['nombre_cur'] . "</li>";
+                                                $found = true;
+                                            }
+                                        }
+                                        if (!$found) {
+                                            echo "<li>N/A</li>";
+                                        }
+                                        ?>
                                     </ul>
                                 </td>
                                 <?php if ($rol == 2) { ?>
                                     <td>
-                                        <button onclick="location.href='modifUsuario.php'" class="btn btn-primary me-1">
+                                        <button
+                                            onclick="location.href='modifUsuario.php?idUser=<?php echo $usuario['id_user']; ?>'"
+                                            class="btn btn-primary me-1">
                                             Modificar
                                         </button>
-                                        <button onclick="eliminarUser();" class="btn btn-outline-danger">
-                                            Eliminar
-                                        </button>
+
+                                        <?php if ($usuario['rol'] != 2) { ?>
+                                            <button onclick="eliminarUser(<?php echo $usuario['id_user'];?>);" class="btn btn-outline-danger">
+                                                Eliminar
+                                            </button>
+                                        <?php } ?>
+
                                     </td>
                                 <?php }
                                 ; ?>
@@ -271,15 +305,27 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
         </div>
     </section>
 
+    <?php require "../../assests/php/borrarUsuarioMain.php"; ?>
+
     <script>
-        function eliminarUser() {
+        function eliminarUser(id) {
             confimar = confirm('Seguro que quiere eliminar al usuario?');
             if (confimar == true) {
                 // e.preventDefault();
+                borrarUsuario(id);
                 //Accion para borrar usuario
-                alert('El usuario ha sido eliminado')
+                //alert('El usuario ha sido eliminado');
             }
         }
+
+        $(document).ready(function () {
+            $("#searchInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#tableBody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
 
         // When the user clicks on the button, scroll to the top of the document
         // function topFunction() {

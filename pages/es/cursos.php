@@ -30,17 +30,34 @@ if (isset($_SESSION['id_user'])) {
 
             $nombreEmpresa = $datos2['nombre_empresa'];
 
-            $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
+            if ($rol == 2) {
+                $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
 
-            if (mysqli_num_rows($conexion3) > 0) {
-                while ($datos3 = mysqli_fetch_assoc($conexion3)) {
-                    $cursos[] = $datos3;
+                if (mysqli_num_rows($conexion3) > 0) {
+                    while ($datos3 = mysqli_fetch_assoc($conexion3)) {
+                        $cursos[] = $datos3;
+
+                    }
 
                 }
+            } else {
+                $conexion3 = mysqli_query(
+                    $mysqli,
+                    "SELECT i.solvencia_estu, 
+                c.id_cur, c.nombre_cur, c.fecha_inicio, c.cupos_cur_min, c.cupos_cur_max, c.fecha_fin, c.visibilidad_curso
+                FROM cursos c
+                LEFT JOIN inscripcion i ON i.Cursos_id_cur = c.id_cur 
+                WHERE Empresa_id_empresa = '$empresaUsuario' AND i.Usuario_id_user = '$usuarios1'"
+                );
 
+                if (mysqli_num_rows($conexion3) > 0) {
+                    while ($datos3 = mysqli_fetch_assoc($conexion3)) {
+                        $cursos[] = $datos3;
+
+                    }
+
+                }
             }
-
-
 
         }
 
@@ -202,9 +219,14 @@ if (isset($_SESSION['id_user'])) {
                                         <p class="mt-2 card-text text-end">Fecha de Creación:</p>
                                         <p class="card-text text-end"><?php echo $curso['fecha_inicio']; ?></p>
                                         <h4 class="card-title text-start"><?php echo $curso['nombre_cur']; ?></h4>
-                                        <a class="btn btn-primary mt-2"
-                                            href="verCurso.php?id_cur=<?php echo $curso['id_cur']; ?>">Ver Curso</a>
-
+                                        <?php if (isset($curso['solvencia_estu']) && $curso['solvencia_estu'] == "1") { ?>
+                                            <button class="btn btn-primary mt-2" onclick="aviso();">
+                                                Ver Curso
+                                            </button>
+                                        <?php } else { ?>
+                                            <a class="btn btn-primary mt-2"
+                                                href="verCurso.php?id_cur=<?php echo $curso['id_cur']; ?>">Ver Curso</a>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
@@ -243,6 +265,12 @@ if (isset($_SESSION['id_user'])) {
             ; ?>
         </div>
     </section>
+
+    <script>
+        function aviso() {
+            alert('Usuario, usted no esta solvente para ver este curso.');
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

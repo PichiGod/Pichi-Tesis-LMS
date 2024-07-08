@@ -30,7 +30,15 @@ if (isset($_SESSION['id_user'])) {
 
             $nombreEmpresa = $datos2['nombre_empresa'];
 
-            $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
+            $conexion3 = mysqli_query($mysqli, "SELECT c.*, teachers.nombre_user, teachers.apellido_user 
+                FROM cursos c 
+                LEFT JOIN (
+                SELECT i.Cursos_id_cur, u.nombre_user, u.apellido_user
+                FROM inscripcion i 
+                JOIN usuario u ON i.Usuario_id_user = u.id_user 
+                WHERE u.rol = 1
+                ) AS teachers ON c.id_cur = teachers.Cursos_id_cur 
+                WHERE c.Empresa_id_empresa = '$empresaUsuario';");
 
             if (mysqli_num_rows($conexion3) > 0) {
                 while ($datos3 = mysqli_fetch_assoc($conexion3)) {
@@ -207,62 +215,74 @@ if (isset($_SESSION['id_user'])) {
 
 
             <!-- <form class="d-flex" role="search"> -->
-                <input class="form-control me-2" id="searchInput" type="search" placeholder="Buscar"
-                    aria-label="Search">
-                <!-- <button class="btn btn-outline-success" type="submit">Filtrar</button> -->
+            <input class="form-control me-2" id="searchInput" type="search" placeholder="Buscar" aria-label="Search">
+            <!-- <button class="btn btn-outline-success" type="submit">Filtrar</button> -->
             <!-- </form> -->
 
-            <div class="row mt-2 d-flex">
-                <div class="col-md col-sm col-lg-6 mb-2">
-                    <table style="height: 280px;" class="table table-bordered table-hover table-striped"
-                        id="courseTable">
-                        <thead>
-                            <tr>
-                                <th scope="col">Id curso</th>
-                                <th scope="col">Nombre curso</th>
-                                <th scope="col">Docente</th>
-                                <th scope="col">Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableBody">
-                            <?php foreach ($cursos as $curso) { ?>
-                                <tr onclick="selectRow(this);">
-                                    <td scope="row">
-                                        <?php echo $curso['id_cur']; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $curso['nombre_cur']; ?>
-                                    </td>
-                                    <td>Pichongo</td>
-                                    <td>
-                                        <span
-                                            class="badge <?php echo $curso['visibilidad_curso'] === 'Visible' ? 'text-bg-success' : 'text-bg-danger'; ?>">
-                                            <?php echo $curso['visibilidad_curso']; ?>
-                                        </span>
-                                    </td>
+            <form action="">
+                <div class="row mt-2 d-flex">
+                    <div class="col-md col-sm col-lg-6 mb-2 table-responsive">
+                        <table style="height: 280px;" class="table table-bordered table-hover table-striped"
+                            id="courseTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id curso</th>
+                                    <th scope="col">Nombre curso</th>
+                                    <th scope="col">Docente</th>
+                                    <th scope="col">Estado</th>
                                 </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-lg-6 col-md col-sm">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title" id="selectedCourseTitle">Curso seleccionado</h4>
-                            <p class="card-text" id="selectedCourseName"></p>
-                            <p class="card-text">Docente: <span id="selectedCourseTeacher"></span></p>
-                            <p class="card-text">Estado: <span class="badge text-bg-success"
-                                    id="selectedCourseStatus"></span></p>
-                        </div>
-                        <div class="card-footer">
-                            <!-- Botón para activar/desactivar -->
-                            <button id="activar" type="button" class="btn btn-outline-primary disabled">
-                                Activar/Desactivar Curso
-                            </button>
+                            </thead>
+                            <tbody id="tableBody">
+                                <?php foreach ($cursos as $curso) { ?>
+                                    <tr onclick="selectRow(this);">
+                                        <td scope="row">
+                                            <?php echo $curso['id_cur']; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $curso['nombre_cur']; ?>
+                                        </td>
+                                        <td>
+                                            <?php if (isset($curso['nombre_user']) && isset($curso['apellido_user'])) {
+                                                echo $curso['nombre_user'] . " " . $curso['apellido_user'];
+                                            } else {
+                                                echo "N/A";
+                                            } ?>
+                                        </td>
+                                        <td>
+                                            <span
+                                                class="badge <?php echo $curso['visibilidad_curso'] === 'Visible' ? 'text-bg-success' : 'text-bg-danger'; ?>">
+                                                <?php echo $curso['visibilidad_curso']; ?>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-6 col-md col-sm">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title" id="selectedCourseTitle">Curso seleccionado</h4>
+                                <p class="card-text" id="selectedCourseName"></p>
+                                <p class="card-text">Docente: <span id="selectedCourseTeacher"></span></p>
+                                <p class="card-text">Estado: <span class="badge text-bg-success"
+                                        id="selectedCourseStatus"></span></p>
+                                <input type="hidden" id="idCur">
+                                <input type="hidden" id="estadoCur">
+                            </div>
+                            <div class="card-footer">
+                                <!-- Botón para activar/desactivar -->
+                                <button id="activar" onclick="activarCurso(document.getElementById('idCur').value, document.getElementById('estadoCur').value);" type="button"
+                                    class="btn btn-outline-primary disabled">
+                                    Activar/Desactivar Curso
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
+
+
         </div>
     </section>
 
@@ -297,8 +317,13 @@ if (isset($_SESSION['id_user'])) {
             document.getElementById("selectedCourseTeacher").innerText = docenteCurso;
             document.getElementById("selectedCourseStatus").innerText = estadoCurso;
             document.getElementById("selectedCourseStatus").className = "badge " + (estadoCurso === "Visible" ? "text-bg-success" : "text-bg-danger");
+
+            document.getElementById('idCur').value = idCurso;
+            document.getElementById('estadoCur').value = estadoCurso;
         }
     </script>
+
+    <?php require "../../assests/php/estadoCursoMain.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">

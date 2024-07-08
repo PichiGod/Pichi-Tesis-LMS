@@ -30,21 +30,20 @@ if (isset($_SESSION['id_user'])) {
 
             $nombreEmpresa = $datos2['nombre_empresa'];
 
-            // $conexion3 = mysqli_query(
-            //     $mysqli,
-            //     "SELECT i.solvencia_estu, 
-            // FROM inscripcion i
-            // LEFT JOIN cursos c ON
-            // LEFT JOIN usuario u ON
-            // LEFT JOIN periodo p ON
-            // WHERE Empresa_id_empresa = '$empresaUsuario'"
-            // );
+            $conexion3 = mysqli_query(
+                $mysqli,
+                "SELECT i.id_inscripcion, i.solvencia_estu, c.id_cur, c.nombre_cur, u.identificacion_user, u.nombre_user, u.apellido_user
+            FROM usuario u
+            LEFT JOIN inscripcion i ON u.id_user = i.Usuario_id_user 
+            LEFT JOIN cursos c ON c.id_cur = i.Cursos_id_cur 
+            WHERE u.Empresa_id_empresa = '$empresaUsuario' AND u.rol = 0"
+            );
 
-            // if (mysqli_num_rows($conexion3) > 0) {
-            //     while ($datos3 = mysqli_fetch_assoc($conexion3)) {
-            //         $cursos[] = $datos3;
-            //     }
-            // }
+            if (mysqli_num_rows($conexion3) > 0) {
+                while ($datos3 = mysqli_fetch_assoc($conexion3)) {
+                    $cursos[] = $datos3;
+                }
+            }
         }
     }
 }
@@ -215,90 +214,84 @@ if (isset($_SESSION['id_user'])) {
 
 
             <!-- <form class="d-flex" role="search"> -->
-                <input class="form-control me-2" id="searchInput" type="search" placeholder="Search"
-                    aria-label="Search">
-                <!-- <button class="btn btn-outline-success" type="submit">Filtrar</button> -->
+            <input class="form-control me-2" id="searchInput" type="search" placeholder="Search" aria-label="Search">
+            <!-- <button class="btn btn-outline-success" type="submit">Filtrar</button> -->
             <!-- </form> -->
 
-            <div class="row mt-2 d-flex">
-                <div class="col-md col-sm col-lg-6 mb-2 table-responsive">
-                    <table style="height: 280px;" class="table table-bordered table-hover table-striped"
-                        id="courseTable">
-                        <thead>
-                            <tr>
-                                <th scope="col">Id curso</th>
-                                <th scope="col">Nombre curso</th>
-                                <th scope="col">Cedula</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Apellido</th>
-                                <th scope="col">Solvencia</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableBody">
-                            <tr onclick="selectRow(this);">
-                                <td scope="row">Cur_URBE_01</td>
-                                <td>Ingles I</td>
-                                <td>28467144</td>
-                                <td>Pichi</td>
-                                <td>Duarte</td>
-                                <td>
-                                    <span class="badge text-bg-success">
-                                        Activo
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr onclick="selectRow(this);">
-                                <td scope="row">Cur_URBE_02</td>
-                                <td>Ingles II</td>
-                                <td>28467144</td>
-                                <td>Pichi</td>
-                                <td>Duarte</td>
-                                <td>
-                                    <span class="badge text-bg-danger">
-                                        Inactivo
-                                    </span>
-                                </td>
-                            </tr>
-
-                            <!-- <?php foreach ($cursos as $curso) { ?>
-                                <tr onclick="selectRow(this);">
-                                    <td scope="row">
-                                        <?php echo $curso['id_cur']; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $curso['nombre_cur']; ?>
-                                    </td>
-                                    <td>28467144</td>
-                                    <td>Pichongo</td>
-                                    <td>
-                                        <span
-                                            class="badge <?php echo $curso['visibilidad_curso'] === 'Visible' ? 'text-bg-success' : 'text-bg-danger'; ?>">
-                                            <?php echo $curso['visibilidad_curso']; ?>
-                                        </span>
-                                    </td>
+            <form action="">
+                <div class="row mt-2 d-flex">
+                    <div class="col-md col-sm col-lg-6 mb-2 table-responsive">
+                        <table style="height: 280px;" class="table table-bordered table-hover table-striped"
+                            id="courseTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id curso</th>
+                                    <th scope="col">Nombre curso</th>
+                                    <th scope="col">Cedula</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Apellido</th>
+                                    <th scope="col">Solvencia</th>
                                 </tr>
-                            <?php } ?> -->
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-lg-6 col-md col-sm">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title" id="selectedCourseTitle">Estudiante seleccionado</h4>
-                            <p class="card-text" id="selectedCourseName"></p>
-                            <p class="card-text">Cedula: <span id="selectedCourseTeacher"></span></p>
-                            <p class="card-text">Estado: <span class="badge text-bg-success"
-                                    id="selectedCourseStatus"></span></p>
-                        </div>
-                        <div class="card-footer">
-                            <!-- Botón para activar/desactivar -->
-                            <button id="activar" type="button" class="btn btn-outline-primary disabled">
-                                Activar/Desactivar Alumno
-                            </button>
+                            </thead>
+                            <tbody id="tableBody">
+                                <?php $n = 0;
+                                foreach ($cursos as $curso) { 
+                                    $n++?>
+                                    <tr onclick="selectRow(this, <?php echo $n; ?>);">
+                                        <input type="hidden" id="idInscrip-<?php echo $n;?>" value="<?php echo $curso['id_inscripcion']; ?>">
+                                        <td scope="row">
+                                            <?php echo $curso['id_cur']; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $curso['nombre_cur']; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $curso['identificacion_user']; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $curso['nombre_user']; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $curso['apellido_user']; ?>
+                                        </td>
+                                        <td>
+                                            <span
+                                                class="badge <?php echo $curso['solvencia_estu'] === '0' ? 'text-bg-success' : 'text-bg-danger'; ?>">
+                                                <?php if ($curso['solvencia_estu'] == 0) {
+                                                    echo 'Activo';
+                                                } else {
+                                                    echo 'Inactivo';
+                                                } ?>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-6 col-md col-sm">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title" id="selectedCourseTitle">Estudiante seleccionado</h4>
+                                <p class="card-text" id="selectedCourseName"></p>
+                                <p class="card-text">Cedula: <span id="selectedCourseTeacher"></span></p>
+                                <p class="card-text">Estado: <span class="badge text-bg-success"
+                                        id="selectedCourseStatus"></span></p>
+                                <input type="hidden" id="idins">
+                                <input type="hidden" id="estadoAlum">
+                            </div>
+                            <div class="card-footer">
+                                <!-- Botón para activar/desactivar -->
+                                <button id="activar" onclick="activarAlumno(document.getElementById('idins').value, document.getElementById('estadoAlum').value)" type="button" class="btn btn-outline-primary disabled">
+                                    Activar/Desactivar Alumno
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
+
+
         </div>
     </section>
 
@@ -312,7 +305,7 @@ if (isset($_SESSION['id_user'])) {
             });
         });
 
-        function selectRow(row) {
+        function selectRow(row, n) {
             const selectedRow = document.querySelector(".table tbody tr.table-active");
             const buttonActivar = document.getElementById("activar");
 
@@ -323,18 +316,26 @@ if (isset($_SESSION['id_user'])) {
             buttonActivar.classList.remove("disabled");
 
             // Update selected course details
+            const idInscrip = document.getElementById(`idInscrip-${n}`).value;
             const idCurso = row.cells[0].innerText;
             const nombreCurso = row.cells[1].innerText;
             const docenteCurso = row.cells[2].innerText;
-            const estadoCurso = row.cells[3].innerText.trim();
+            const nombreAlumno = row.cells[3].innerText;
+            const apellidoAlumno = row.cells[4].innerText;
+            const estadoCurso = row.cells[5].innerText.trim();
 
-            document.getElementById("selectedCourseTitle").innerText = "Estudiante seleccionado: " + nombreCurso;
+            document.getElementById("selectedCourseTitle").innerText = "Estudiante seleccionado: " + nombreAlumno + " " + apellidoAlumno;
             document.getElementById("selectedCourseName").innerText = "Nombre curso: " + nombreCurso;
             document.getElementById("selectedCourseTeacher").innerText = docenteCurso;
             document.getElementById("selectedCourseStatus").innerText = estadoCurso;
-            document.getElementById("selectedCourseStatus").className = "badge " + (estadoCurso === "Visible" ? "text-bg-success" : "text-bg-danger");
+            document.getElementById("selectedCourseStatus").className = "badge " + (estadoCurso === "Activo" ? "text-bg-success" : "text-bg-danger");
+
+            document.getElementById('idins').value = idInscrip;
+            document.getElementById('estadoAlum').value = estadoCurso;
         }
     </script>
+
+    <?php require "../../assests/php/estadoAlumnoMain.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">

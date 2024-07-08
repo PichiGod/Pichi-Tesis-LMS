@@ -90,7 +90,10 @@ function borrarArchivo() {
 
         // Crear un objeto FormData para enviar datos
         var formData = new FormData();
-        if (archivo != null && archivoAdicional != null && selectedFiles.length > 0) {
+        if (selectedFiles.length > 2) {
+            alert("Por favor, elimine un archivo para subir otros");
+            return;
+        } else if (archivo != null && archivoAdicional != null && selectedFiles.length > 0) {
             alert("Por favor, elimine un archivo para subir otros");
             return;
         } else if (archivo == null && selectedFiles.length == 1) {
@@ -101,6 +104,9 @@ function borrarArchivo() {
             }
             // Update archivo
             formData.append("archivo", selectedFiles[0]);
+        } else if (archivo != null && archivoAdicional == null && selectedFiles.length > 1) {
+            alert("Por favor, elimine un archivo para subir otros");
+            return;
         } else if (archivoAdicional == null && selectedFiles.length == 1) {
             const file = selectedFiles[0];
             if (file.size > fileSizeLimitInBytes) {
@@ -109,6 +115,9 @@ function borrarArchivo() {
             }
             // Update archivoAdicional
             formData.append("archivoAdicional", selectedFiles[0]);
+        } else if (archivo == null && archivoAdicional != null && selectedFiles.length > 1) {
+            alert("Por favor, elimine un archivo para subir otros");
+            return;
         } else if (selectedFiles.length == 2) {
             const file = selectedFiles[0];
             if (file.size > fileSizeLimitInBytes) {

@@ -76,15 +76,24 @@
 
         //console.log(archivo + archivoAdicional);
         var formData = new FormData();
-        if (archivo != null && archivoAdicional != null && selectedFiles.length > 0) {
+        if (selectedFiles.length > 2) {
+            alert("Por favor, elimine un archivo para subir otros");
+            return;
+        } else if (archivo != null && archivoAdicional != null && selectedFiles.length > 0) {
             alert("Por favor, elimine un archivo para subir otros");
             return;
         } else if (archivo == null && selectedFiles.length == 1) {
             // Update archivo
             formData.append("archivo", selectedFiles[0]);
+        } else if (archivo != null && archivoAdicional == null && selectedFiles.length > 1) {
+            alert("Por favor, elimine un archivo para subir otros");
+            return;
         } else if (archivoAdicional == null && selectedFiles.length == 1) {
             // Update archivoAdicional
             formData.append("archivoAdicional", selectedFiles[0]);
+        } else if (archivo == null && archivoAdicional != null && selectedFiles.length > 1) {
+            alert("Por favor, elimine un archivo para subir otros");
+            return;
         } else if (selectedFiles.length == 2) {
             // Update both archivo and archivoAdicional
             formData.append("archivo", selectedFiles[0]);

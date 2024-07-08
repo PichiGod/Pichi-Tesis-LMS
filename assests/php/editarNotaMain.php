@@ -21,9 +21,9 @@
         formData.append('action', $('#action').val());
 
         //console.log(n, id_act, id_cur, nota, retro);
-        formData.forEach((value, key) => {
-            console.log(`${key}: ${value}`);
-        });
+        // formData.forEach((value, key) => {
+        //     console.log(`${key}: ${value}`);
+        // });
 
         //Realizar la solicitud AJAX usando FormData para enviar datos
         $.ajax({

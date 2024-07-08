@@ -40,6 +40,19 @@ if (isset($_SESSION['id_user'])) {
         }
     }
 }
+
+if (isset($_GET['idUser'])) {
+    $id_user_seleccionado = $_GET['idUser'];
+
+    $consultaUser = mysqli_query($mysqli, "SELECT *
+                                    FROM usuario 
+                                    WHERE id_user = '$id_user_seleccionado'");
+
+    if (mysqli_num_rows($consultaUser) > 0) {
+        $datos4 = mysqli_fetch_assoc($consultaUser);
+    }
+
+}
 ?>
 
 
@@ -185,12 +198,9 @@ if (isset($_SESSION['id_user'])) {
                     style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2">Modificar Usuario</h1>
 
-            <!-- <h5>Aqui, quiero que agarres la informacion del usuario que se selecciono
-                y reflejar la informacion en los inputs para modificar.
-            </h5> -->
-
             <form action="" method="post">
-                <input type="hidden" name="" id="action" value="Register">
+                <input type="hidden" name="" id="action" value="modificarUsuario">
+                <input type="hidden" name="" id="idUser" value="<?php echo $datos4['id_user'] ?>">
                 <div name="formulario">
 
                     <hr class="mx-5" />
@@ -198,7 +208,7 @@ if (isset($_SESSION['id_user'])) {
                     <div>
                         <div class="form-floating mb-3">
                             <input type="text" class="nombreUsuario form-control form" name="formId1" id="nombreUsuario"
-                                placeholder="" />
+                                placeholder="Nombre de Usuario" value="<?php echo $datos4['nombre_user']; ?>" />
                             <label for="formId1">Nombre de usuario</label>
                         </div>
                     </div>
@@ -206,7 +216,8 @@ if (isset($_SESSION['id_user'])) {
                     <div>
                         <div class="form-floating mb-3">
                             <input type="text" class="apellidoUsuario form-control form" name="formId1"
-                                id="apellidoUsuario" placeholder="" />
+                                id="apellidoUsuario" placeholder="Apellido de Usuario"
+                                value="<?php echo $datos4['apellido_user']; ?>" />
                             <label for="formId1">Apellido de usuario</label>
                         </div>
                     </div>
@@ -215,7 +226,8 @@ if (isset($_SESSION['id_user'])) {
                     <div>
                         <div class="form-floating mb-3">
                             <input type="email" class="correoUsuario form-control form" name="formId1"
-                                id="correoUsuario" placeholder="" />
+                                id="correoUsuario" placeholder="Correo Electronico"
+                                value="<?php echo $datos4['correo_user']; ?>" />
                             <label for="">Correo Electronico</label>
                         </div>
                     </div>
@@ -223,7 +235,7 @@ if (isset($_SESSION['id_user'])) {
                     <div>
                         <div class="form-floating mb-3">
                             <input type="number" class="rifUsuario form-control form" name="formId2" id="rifUsuario"
-                                placeholder="" />
+                                placeholder="Cedula" value="<?php echo $datos4['identificacion_user']; ?>" />
                             <label for="formId1">Cedula</label>
                         </div>
                     </div>
@@ -231,7 +243,8 @@ if (isset($_SESSION['id_user'])) {
                     <div>
                         <div class="form-floating mb-3">
                             <input type="password" class="contrasenaUsuario form-control form" name="formId3"
-                                id="contrasenaUsuario" placeholder="" />
+                                id="contrasenaUsuario" placeholder="Contraseña"
+                                value="<?php echo $datos4['contrasena_user']; ?>" />
                             <label for="formId1">Contraseña</label>
                         </div>
                     </div>
@@ -240,7 +253,8 @@ if (isset($_SESSION['id_user'])) {
                     <div>
                         <div class="form-floating mb-3">
                             <input type="text" class="direccionUsuario form-control form" name="formId3"
-                                id="direccionUsuario" placeholder="" />
+                                id="direccionUsuario" placeholder="Dirección"
+                                value="<?php echo $datos4['direccion_user']; ?>" />
                             <label for="formId1">Dirección</label>
                         </div>
                     </div>
@@ -249,8 +263,14 @@ if (isset($_SESSION['id_user'])) {
                         <div class="form-floating mb-4">
                             <select class="GeneroUsuario form-select" aria-label="Default select example"
                                 id="GeneroUsuario">
-                                <option selected>Masculino</option>
-                                <option value="1">Femenino</option>
+                                <?php if ($datos4['sexo_user'] == 'Masculino') { ?>
+                                    <option selected>Masculino</option>
+                                    <option value="Femenino">Femenino</option>
+                                <?php } else { ?>
+                                    <option value="Femenino" selected>Femenino</option>
+                                    <option value="Masculino">Masculino</option>
+                                <?php }
+                                ; ?>
                             </select>
                             <label for="formId1">Genero</label>
                         </div>
@@ -273,7 +293,8 @@ if (isset($_SESSION['id_user'])) {
 
                     <div>
                         <div class="form-floating mb-3">
-                            <input type="date" class="fechaNacimiento form-control" id="fechaNacimiento" name="fecha">
+                            <input type="date" class="fechaNacimiento form-control" id="fechaNacimiento" name="fecha"
+                                value="<?php echo date('Y-m-d', strtotime($datos4['fecha_nacimiento_user'])); ?>" />
                             <label for="formId1">Fecha de Nacimineto</label>
                         </div>
                     </div>
@@ -281,39 +302,69 @@ if (isset($_SESSION['id_user'])) {
                     <div>
                         <div class="form-floating mb-3 w-auto align-self-center">
                             <input type="number" class="telefonoUsuario form-control" name="formId1"
-                                id="telefonoUsuario" placeholder="" />
+                                id="telefonoUsuario" placeholder="Telefono"
+                                value="<?php echo $datos4['numero_user']; ?>" />
                             <label for="formId1">Telefono</label>
                         </div>
                     </div>
 
-                    <div>
-                        <div class="form-floating mb-3 w-auto">
-                            <p class="text-center">Ingresar como:</p>
-                            <div class="form-floating mb-3 d-flex justify-content-evenly">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1" checked>
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Estudiante
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault2">
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Profesor
-                                    </label>
+                    <?php if ($datos4['rol'] != '2') {
+                        if ($datos4['rol'] == 0) { ?>
+                            <div>
+                                <div class="form-floating mb-3 w-auto">
+                                    <p class="text-center">Ingresar como:</p>
+                                    <div class="form-floating mb-3 d-flex justify-content-evenly">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                id="flexRadioDefault1" checked>
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                Estudiante
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                id="flexRadioDefault2">
+                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                Profesor
+                                            </label>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
+                        <?php } else { ?>
+                            <div>
+                                <div class="form-floating mb-3 w-auto">
+                                    <p class="text-center">Ingresar como:</p>
+                                    <div class="form-floating mb-3 d-flex justify-content-evenly">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                id="flexRadioDefault1" >
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                Estudiante
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                id="flexRadioDefault2" checked>
+                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                Profesor
+                                            </label>
+                                        </div>
+                                    </div>
 
-                        </div>
-                    </div>
+                                </div>
+                            </div>
+                        <?php }
+                    } else { ?>
+                        <input type="hidden" name="flexRadioDefault" value="2">
+                    <?php } ?>
 
                     <div class="text-center">
                         <button type="button" class="btn btn-primary mb-4" onclick="submitData();">
                             Modificar Usuario
                         </button>
-                        <button type="reset" class="btn btn-secondary mb-4" onclick="submitData();">
+                        <button type="reset" class="btn btn-secondary mb-4" >
                             Cancelar Cambios
                         </button>
                     </div>
@@ -322,6 +373,8 @@ if (isset($_SESSION['id_user'])) {
             </form>
         </div>
     </section>
+
+    <?php require "../../assests/php/modificarUsuarioMain.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

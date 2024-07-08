@@ -7,6 +7,7 @@ $nombreCompleto = "";
 $identificacion = "";
 $correo = "";
 $rol = "";
+$id_user = "";
 $cursos = [];
 // Verificar si hay una sesión activa
 if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
@@ -44,12 +45,12 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
         $cursosCantidad = mysqli_num_rows($conexion3) > 0 ? mysqli_num_rows($conexion3) : 0;
 
         // Verificar si se envió el formulario de búsqueda
-        if (isset($_GET['identificacion'])) {
+        if (isset($_GET['identificacion']) && !empty($_GET['identificacion'])) {
             // Obtener la identificación del formulario
             $identificacion = $_GET['identificacion'];
 
             // Consulta para obtener datos del usuario por identificación
-            $consulta_usuario = mysqli_query($mysqli, "SELECT nombre_user, apellido_user, identificacion_user, correo_user, rol FROM usuario WHERE identificacion_user = '$identificacion'");
+            $consulta_usuario = mysqli_query($mysqli, "SELECT id_user, nombre_user, apellido_user, identificacion_user, correo_user, rol FROM usuario WHERE identificacion_user = '$identificacion' AND Empresa_id_empresa = '$empresaUsuario'");
 
             // Verificar si se encontraron resultados
             if (mysqli_num_rows($consulta_usuario) > 0) {
@@ -57,23 +58,22 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                 $datos_usuario = mysqli_fetch_assoc($consulta_usuario);
 
                 // Asignar los datos a variables
+                $id_user = $datos_usuario['id_user'];
                 $nombreCompleto = $datos_usuario['nombre_user'] . ' ' . $datos_usuario['apellido_user'];
                 $identificacion = $datos_usuario['identificacion_user'];
                 $correo = $datos_usuario['correo_user'];
                 $rol = $datos_usuario['rol'];
 
-                if ($rol == 2) {
-
-                    $rol = "Administrador";
-
-                } elseif ($rol == 1) {
-
-                    $rol = "Docente";
+                // Validate if the user is a teacher
+                if ($rol != 0) {
+                    echo "<script>alert('El usuario elegido no es docente!');</script>";
+                    $nombreCompleto = "";
+                    $identificacion = "";
+                    $correo = "";
+                    $rol = "";
                 } else {
-
-                    $rol = "Alumno";
+                    $rol = "Docente";
                 }
-
             }
 
         }
@@ -83,9 +83,32 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
         if (mysqli_num_rows($conexion3) > 0) {
             while ($datos3 = mysqli_fetch_assoc($conexion3)) {
                 $cursos[] = $datos3;
-
             }
         }
+
+        $conexion4 = mysqli_query($mysqli, "SELECT * FROM inscripcion WHERE Usuario_id_user = '$id_user'");
+
+        $inscripciones = array(); // Initialize as an empty array
+
+        if (mysqli_num_rows($conexion4) > 0) {
+            while ($datos4 = mysqli_fetch_assoc($conexion4)) {
+                $inscripciones[] = $datos4;
+            }
+        }
+
+        // $conexion6 = mysqli_query(
+        //     $mysqli,
+        //     "SELECT i.Cursos_id_cur, c.id_cur, c.nombre_cur
+        // FROM inscripcion i
+        // LEFT JOIN cursos c ON i.Cursos_id_cur = c.id_cur
+        // WHERE Usuario_id_user = '$id_user'"
+        // );
+
+        // if (mysqli_num_rows($conexion6) > 0) {
+        //     while ($datos6 = mysqli_fetch_assoc($conexion6)) {
+        //         $inscripciones[] = $datos6;
+        //     }
+        // }
     }
 }
 ?>
@@ -243,73 +266,120 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     </div>
                 </form>
 
-                <div class="row row-cols-1 row-cols-md-2 g-4">
-                    <div class="col">
-                        <div class="card my-3" style="max-width: 540px;">
-                            <div class="row g-0">
-                                <div class="col-md-4">
-                                    <img src="https://github.com/PichiGod.png" class="img-fluid rounded-start"
-                                        alt="...">
-                                </div>
+                <form id="enviar" action="" method="post">
+                    <input type="hidden" id="action" value="inscribirUsuario" />
 
+                    <div class="card my-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://github.com/PichiGod.png" class="img-fluid rounded-start" alt="...">
+                            </div>
 
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><?php echo $nombreCompleto; ?></h5>
-                                        <p class="card-text"><b>Identificación:</b> <?php echo $identificacion; ?></p>
-                                        <p class="card-text"><b>Correo Electronico:</b> <?php echo $correo; ?></p>
-                                        <p class="card-text"><b>Rol: </b><?php echo $rol; ?></p>
-                                    </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <input type="hidden" id="idUser" value="<?php echo $id_user; ?>" />
+                                    <h5 class="card-title"><?php echo $nombreCompleto; ?></h5>
+                                    <p class="card-text"><b>Identificación:</b> <?php echo $identificacion; ?>
+                                    </p>
+                                    <p class="card-text"><b>Correo Electronico:</b> <?php echo $correo; ?></p>
+                                    <p class="card-text"><b>Rol: </b><?php echo $rol; ?></p>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card my-3" style="max-width: 540px;">
 
-                            <div class="card-body overflow-auto " style="height:20rem;">
-                                <ul class="list-group overflow-auto">
-                                    <?php
-                                    if (mysqli_num_rows($conexion3) > 0) {
+                    </div>
+
+
+
+                    <div>
+                        <select id="periodo" class="form-control">
+                            <option value="0" hidden selected>Seleccione el periodo</option>
+                            <?php
+                            $conexion5 = "SELECT * FROM periodo";
+                            $resultado5 = mysqli_query($mysqli, $conexion5);
+                            if (mysqli_num_rows($resultado5) > 0) {
+                                while ($row = mysqli_fetch_array($resultado5)) {
+                                    echo "<option value='" . $row['id_peri'] . "'>" . $row
+                                    ['nombre_peri'] . "</option>";
+                                }
+                            }
+                            ?>
+
+                        </select>
+                    </div>
+
+
+                    <div class="card my-3">
+
+                        <div class="card-body overflow-auto " style="max-height:15rem;">
+                            <ul class="list-group overflow-auto">
+                                <?php
+                                if (mysqli_num_rows($conexion3) > 0) {
+                                    if (mysqli_num_rows($conexion4) > 0) {
+                                        foreach ($cursos as $curso) {
+                                            $isChecked = false;
+                                            foreach ($inscripciones as $inscrip) {
+                                                if ($inscrip['Cursos_id_cur'] == $curso['id_cur']) {
+                                                    $isChecked = true;
+                                                    break;
+                                                }
+                                            }
+                                            ?>
+                                            <li class="list-group-item">
+                                                <input class="form-check-input me-1" type="checkbox"
+                                                    value="<?php echo $curso['id_cur']; ?>" <?php if ($isChecked) {
+                                                                                               echo "checked";
+                                                                                           } ?>>
+                                                <label class="form-check-label"
+                                                    for="firstCheckbox"><?php echo $curso['nombre_cur'] ?></label>
+                                            </li>
+                                            <?php
+                                        }
+                                    } else {
+                                        // Handle the case where $conexion4 returns no rows
                                         foreach ($cursos as $curso) { ?>
                                             <li class="list-group-item">
                                                 <input class="form-check-input me-1" type="checkbox"
-                                                    value="<?php echo $curso['id_cur'] ?>" id="firstCheckbox">
+                                                    value="<?php echo $curso['id_cur']; ?>">
                                                 <label class="form-check-label"
                                                     for="firstCheckbox"><?php echo $curso['nombre_cur'] ?></label>
                                             </li>
                                         <?php }
-                                    } else { ?>
+                                    }
 
-                                        <h3>No hay cursos disponibles en tu Empresa</h3>
+                                } else { ?>
 
-                                    <?php } ?>
-                                </ul>
-                            </div>
+                                    <h3>No hay cursos disponibles en tu Empresa</h3>
 
-                            <div class="card-footer">
-                                <button class="btn btn-primary">Inscribir</button>
-                            </div>
-
+                                <?php } ?>
+                            </ul>
                         </div>
+
+                        <div class="card-footer">
+                            <button class="btn btn-primary" onclick="submitData();">Inscribir</button>
+                        </div>
+
                     </div>
-                </div>
-            </div>
 
             </div>
+        </form>
+
+
+        </div>
+
+        </div>
         </form>
     </section>
 
     <script>
-        // // Assuming you have an element with an ID of 'myElement'
-        // document.getElementById('mrk').addEventListener('click', function (event) {
-        //     // Prevent the default click action
-        //     event.preventDefault();
-
-        //     // Your code here
-        //     console.log('Default action prevented on click!');
-        // });
+        // document.querySelector('#enviar').addEventListener('submit', function (e) {
+        //     e.preventDefault();
+        //     // Add your custom form handling code here
+        //     //console.log('Form submission prevented!');
+        // })
     </script>
+
+    <?php require "../../assests/php/inscribirUsuarioMain.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

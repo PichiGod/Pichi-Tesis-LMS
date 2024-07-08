@@ -1,17 +1,18 @@
 <?php
 require "conexion.php";
 
-if (isset($_POST['action']) && $_POST['action'] == "asignarDocente") {
-    asignarDocente($mysqli);
+if (isset($_POST['action']) && $_POST['action'] == "inscribirUsuario") {
+    inscribirUsuario($mysqli);
 }
 
-function asignarDocente($mysqli)
+function inscribirUsuario($mysqli)
 {
     // Obtener datos del formulario
     $idUser = $_POST['idUser'];
     $allValues = json_decode($_POST['allValues'], true);
     $checkedValues = json_decode($_POST['checkedValues'], true);
     $peri = $_POST['peri'];
+    $solvencia = 0;
 
     // Validar campos obligatorios
     if (empty($idUser) || empty($peri)) {
@@ -32,10 +33,9 @@ function asignarDocente($mysqli)
             if (mysqli_stmt_execute($stmt)) {
                 //echo 'Se eliminarton el curso correctamente';
             } else {
-                echo "Error al eliminar docente del curso";
+                echo "Error al eliminar estudiante del curso";
             }
         }
-
     }
 
     // Insert or update registrations for checked courses
@@ -49,24 +49,12 @@ function asignarDocente($mysqli)
             if (mysqli_stmt_execute($stmt)) {
                 //echo 'Se actualizo el curso correctamente';
             } else {
-                echo "Error al actualizar docente del curso";
+                echo "Error al actualizar estudiante del curso";
             }
         } else {
-            $sql = "SELECT * 
-                FROM inscripcion i 
-                LEFT JOIN usuario u ON i.Usuario_id_user = u.id_user 
-                WHERE i.Cursos_id_cur = '$curso' AND u.rol = 1";
-            
-            $verDocentes = mysqli_query($mysqli, $sql);
-
-            if (mysqli_num_rows($verDocentes) > 0) {
-                echo "No se puede inscribir a este curso, ya que tiene un docente asignado";
-                exit;
-            }
-
             // User is not in the course, insert registration
-            $stmt = mysqli_prepare($mysqli, "INSERT INTO inscripcion (fecha_incripcion, Usuario_id_user, Periodo_id_peri, Cursos_id_cur) VALUES (?, ?, ?, ?)");
-            mysqli_stmt_bind_param($stmt, "siis", $fecha_completa, $idUser, $peri, $curso);
+            $stmt = mysqli_prepare($mysqli, "INSERT INTO inscripcion (solvencia_estu, fecha_incripcion, Usuario_id_user, Periodo_id_peri, Cursos_id_cur) VALUES (?, ?, ?, ?)");
+            mysqli_stmt_bind_param($stmt, "siis", $solvencia, $fecha_completa, $idUser, $peri, $curso);
             if (mysqli_stmt_execute($stmt)) {
                 //echo "Se inserto el curso correctamente";
             } else {

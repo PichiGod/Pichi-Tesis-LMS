@@ -29,28 +29,82 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
             $nombreEmpresa = $datos2['nombre_empresa'];
 
         }
+        if ($rol == 2) {
 
-        $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
+            $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
 
-        if (mysqli_num_rows($conexion3) > 0) {
+            if (mysqli_num_rows($conexion3) > 0) {
+                $cursos = array(); // Define the $cursos array
+                while ($datos3 = mysqli_fetch_assoc($conexion3)) {
+                    $cursos[] = $datos3;
+                }
 
-            while ($datos3 = mysqli_fetch_assoc($conexion3)) {
-                $cursos[] = $datos3;
+                $docente = array(); // Define the $docente array
+                foreach ($cursos as $curso) {
+                    $conexion4 = mysqli_query(
+                        $mysqli,
+                        "SELECT u.nombre_user, u.apellido_user, i.Cursos_id_cur
+             FROM usuario u
+             LEFT JOIN inscripcion i ON i.Usuario_id_user = u.id_user AND i.Cursos_id_cur = '" . $curso['id_cur'] . "'
+             WHERE rol = 1"
+                    );
+                    while ($datos4 = mysqli_fetch_assoc($conexion4)) {
+                        $docente[] = $datos4; // Add data to the $docente array
+                    }
+                }
+
+
+                $usuariosActivos = mysqli_query($mysqli, "SELECT Active_online FROM usuario WHERE Empresa_id_empresa = '$empresaUsuario' AND Active_online = '1'");
+
+                if (mysqli_num_rows($usuariosActivos) > 0) {
+
+                    $usuarioResult = mysqli_num_rows($usuariosActivos);
+
+                }
+
+            } else {
+
+                $cursosCantidad = 0;
 
             }
-
-            $usuariosActivos = mysqli_query($mysqli, "SELECT Active_online FROM usuario WHERE Empresa_id_empresa = '$empresaUsuario' AND Active_online = '1'");
-
-            if (mysqli_num_rows($usuariosActivos) > 0) {
-
-                $usuarioResult = mysqli_num_rows($usuariosActivos);
-
-            }
-
         } else {
 
-            $cursosCantidad = 0;
+            $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
 
+            if (mysqli_num_rows($conexion3) > 0) {
+                $cursos = array(); // Define the $cursos array
+                while ($datos3 = mysqli_fetch_assoc($conexion3)) {
+                    $cursos[] = $datos3;
+                }
+
+                $docente = array(); // Define the $docente array
+                foreach ($cursos as $curso) {
+                    $conexion4 = mysqli_query(
+                        $mysqli,
+                        "SELECT u.nombre_user, u.apellido_user, i.Cursos_id_cur
+             FROM usuario u
+             LEFT JOIN inscripcion i ON i.Usuario_id_user = u.id_user AND i.Cursos_id_cur = '" . $curso['id_cur'] . "'
+             WHERE rol = 1"
+                    );
+                    while ($datos4 = mysqli_fetch_assoc($conexion4)) {
+                        $docente[] = $datos4; // Add data to the $docente array
+                    }
+                }
+
+
+                $usuariosActivos = mysqli_query($mysqli, "SELECT Active_online FROM usuario WHERE Empresa_id_empresa = '$empresaUsuario' AND Active_online = '1'");
+
+                if (mysqli_num_rows($usuariosActivos) > 0) {
+
+                    $usuarioResult = mysqli_num_rows($usuariosActivos);
+
+                }
+
+            } else {
+
+                $cursosCantidad = 0;
+
+            }
         }
 
     }
@@ -230,8 +284,14 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                             <!--Copias esto para añadir un curso-->
                             <?php $contador = 0;
                             foreach ($cursos as $curso) {
-
                                 $contador++;
+                                $docente_nombre = 'No hay docentes registrados';
+                                foreach ($docente as $doc) {
+                                    if ($doc['Cursos_id_cur'] == $curso['id_cur']) {
+                                        $docente_nombre = $doc['nombre_user'] . ' ' . $doc['apellido_user'];
+                                        break; // Exit the inner loop once we find a matching docente
+                                    }
+                                }
                                 ?>
                                 <div class="accordion-item">
                                     <h2 class="accordion-header">
@@ -252,8 +312,8 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="card-body">
-                                                            <h6 class="card-title">José Oropeza</h6>
-                                                            <button class="btn btn-primary ">Ir al Curso</button>
+                                                            <h6 class="card-title"><?php echo $docente_nombre; ?></h6>
+                                                            <button class="btn btn-primary">Ir al Curso</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -261,7 +321,9 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                         </div>
                                     </div>
                                 </div>
-                            <?php } ?>
+                                <?php
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>

@@ -294,19 +294,24 @@ if (isset($_SESSION['id_user'])) {
                             <?php
                             if (mysqli_num_rows($conexion3) > 0) {
                                 if (mysqli_num_rows($conexion4) > 0) {
-                                    $n = 0;
                                     foreach ($cursos as $curso) {
-                                        $n++;
-                                        foreach ($inscripciones as $inscrip) { ?>
-                                            <li class="list-group-item">
-                                                <input class="form-check-input me-1" type="checkbox"
-                                                    value="<?php echo $curso['id_cur']; ?>" <?php if (isset($inscrip['Cursos_id_cur']) && $inscrip['Cursos_id_cur'] == $curso['id_cur']) {
-                                                           echo "checked";
-                                                       } ?>>
-                                                <label class="form-check-label"
-                                                    for="firstCheckbox"><?php echo $curso['nombre_cur'] ?></label>
-                                            </li>
-                                        <?php }
+                                        $isChecked = false;
+                                        foreach ($inscripciones as $inscrip) {
+                                            if ($inscrip['Cursos_id_cur'] == $curso['id_cur']) {
+                                                $isChecked = true;
+                                                break;
+                                            }
+                                        }
+                                        ?>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input me-1" type="checkbox"
+                                                value="<?php echo $curso['id_cur']; ?>" <?php if ($isChecked) {
+                                                                                           echo "checked";
+                                                                                       } ?>>
+                                            <label class="form-check-label"
+                                                for="firstCheckbox"><?php echo $curso['nombre_cur'] ?></label>
+                                        </li>
+                                        <?php
                                     }
                                 } else {
                                     // Handle the case where $conexion4 returns no rows
