@@ -13,8 +13,12 @@ if (isset($_POST['mensaje']) && isset($_POST['id_usuario']) && isset($_POST['id_
     $query = "INSERT INTO mensaje (id_user, id_sala, contenido, fecha_envio) VALUES ('$id_usuario', '$id_sala', '$mensaje', '$fecha_hora_actual')";
     $resultado = mysqli_query($mysqli, $query);
 
+    $query2 = "INSERT INTO seccionhistorial (fecha_apertura, id_sala, mensaje, id_user) VALUES ('$fecha_hora_actual', '$id_sala', '$mensaje', '$id_usuario')";
+
+    $resultado2 = mysqli_query($mysqli, $query2);
+
     // Verificar si la inserción fue exitosa
-    if ($resultado) {
+    if ($resultado && $resultado2) {
         // Obtener todos los mensajes de la sala
         $query_mensajes = "SELECT mensaje.id_user, mensaje.contenido, usuario.nombre_user, usuario.apellido_user 
                            FROM mensaje 
