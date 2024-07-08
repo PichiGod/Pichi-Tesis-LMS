@@ -163,7 +163,7 @@ $enviarContrasena = $datos['contrasena_user'];
         </head>
         <body>
             <div class="container">
-                <img src="https://github.com/PichiGod/Pichi-Tesis-LMS/blob/main/assests/img/text-1710023184778.png" alt="Logo de pichi">
+                <img src="https://i.ibb.co/NWv8ks2/text-1710023184778.png" alt="Logo de Pichi"/>
                 <h1>Recuperar Contraseña - Pichi</h1>
                 <p>Si recibiste este correo de Pichi, este viene con el propósito de recuperar tu cuenta y recuperar tu contraseña. En este caso la contraseña adjunta a tu cuenta pichi es: ' . $enviarContrasena . '.</p>
                 <p>
