@@ -12,6 +12,23 @@ function borrarCurso($mysqli) {
     $mysqli->begin_transaction();
 
     try {
+
+        $conexion5 = mysqli_query(
+            $mysqli,
+            "SELECT * FROM sala
+        WHERE id_curso = '$id'"
+        );
+
+        if (mysqli_num_rows($conexion5) > 0) {
+            $datos5 = mysqli_fetch_assoc($conexion5);
+            $id_sala = $datos5['id_sala'];
+            $sql = "DELETE FROM seccionhistorial WHERE id_sala = $id_sala";
+            $result = $mysqli->query($sql);
+            if (!$result) {
+                throw new Exception("Error al borrar sala");
+            }
+        }
+
         // Delete related records from sala
         $sql = "DELETE FROM sala WHERE id_curso = ?";
         $stmt = $mysqli->prepare($sql);
