@@ -59,7 +59,7 @@
             <ul class="dropdown-menu">
               <li class="dropdown-item">
                 <span class="fa-solid fa-flag-usa"></span
-                ><a class="ms-2 text-body-secondary" href="./index-ingles.html"
+                ><a class="ms-2 text-body-secondary" href="./ingles.php"
                   >Inglés</a
                 >
               </li>
