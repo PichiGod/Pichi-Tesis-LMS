@@ -40,7 +40,30 @@ if (isset($_SESSION['id_user'])) {
 
             }
 
+            $conexion4 = mysqli_query($mysqli, "SELECT * FROM periodo WHERE id_empresa = '$empresaUsuario'");
 
+            if (mysqli_num_rows($conexion4) > 0) {
+                while ($datos4 = mysqli_fetch_assoc($conexion4)) {
+                    $periodos[] = $datos4;
+
+                }
+
+            }
+
+            $conexion5 = mysqli_query(
+                $mysqli,
+                "SELECT * FROM inscripcion i
+            LEFT JOIN usuario u ON u.id_user = i.Usuario_id_user
+            WHERE u.rol = 1"
+            );
+
+            if (mysqli_num_rows($conexion5) > 0) {
+                while ($datos5 = mysqli_fetch_assoc($conexion5)) {
+                    $docentes[] = $datos5;
+
+                }
+
+            }
 
         }
 
@@ -146,12 +169,12 @@ if (isset($_SESSION['id_user'])) {
                     <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
-                <a href="cursos.php" class="nav_link active">
+                <a href="cursos.php" class="nav_link link-dark">
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
                 <?php if ($rol != 0) { ?>
-                    <a href="MenuAdmin.php" class="nav_link link-dark">
+                    <a href="MenuAdmin.php" class="nav_link active">
                         <i class="bx bx-cog nav_icon"></i>
                         <span class="nav_name">Administrar</span>
                     </a>
@@ -205,7 +228,7 @@ if (isset($_SESSION['id_user'])) {
                             <th scope="col">Cupo mínimo</th>
                             <th scope="col">Cupo máximo</th>
                             <th scope="col">Docente</th>
-                            <th scope="col">Periodo Actual</th>
+                            <!-- <th scope="col">Periodo Actual</th> -->
                             <th scope="col">Opciones</th>
                         </tr>
                     </thead>
@@ -218,13 +241,27 @@ if (isset($_SESSION['id_user'])) {
                                 <td><?php echo $curso['fecha_fin']; ?></td>
                                 <td><?php echo $curso['cupos_cur_min']; ?></td>
                                 <td><?php echo $curso['cupos_cur_max']; ?></td>
-                                <td>Docente</td>
-                                <td>Periodo</td>
+                                <td><?php
+                                $found = false;
+                                foreach ($docentes as $docente) {
+                                    if ($docente['Cursos_id_cur'] == $curso['id_cur']) {
+                                        echo $docente['nombre_user'] . " " . $docente['apellido_user'];
+                                        $found = true;
+                                    }
+                                }
+                                if (!$found) {
+                                    echo "N/A";
+                                }
+
+                                ?>
+                                </td>
+                                <!-- <td>Periodo</td> -->
                                 <td>
-                                    <button onclick="location.href='modifCurso.php'" class="btn btn-primary me-1">
+                                    <button onclick="location.href='modifCurso.php?id_cur=<?php echo $curso['id_cur'] ?>'"
+                                        class="btn btn-primary me-1">
                                         Modificar
                                     </button>
-                                    <button onclick="eliminarCurso();" class="btn mt-1 btn-outline-danger">
+                                    <button onclick="eliminarCurso('<?php echo $curso['id_cur'];?>');" class="btn mt-1 btn-outline-danger">
                                         Eliminar
                                     </button>
                                 </td>
@@ -237,13 +274,16 @@ if (isset($_SESSION['id_user'])) {
         </div>
     </section>
 
+    <?php require "../../assests/php/borrarCursoMain.php"; ?>
+
     <script>
-        function eliminarCurso() {
+        function eliminarCurso(id) {
             confimar = confirm('Seguro que quiere eliminar el curso?');
             if (confimar == true) {
                 // e.preventDefault();
                 //Accion para borrar usuario
-                alert('El usuario ha sido eliminado');
+                borrarCurso(id);
+                //alert('El usuario ha sido eliminado');
             }
         }
 

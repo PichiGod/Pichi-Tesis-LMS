@@ -33,7 +33,18 @@ if (isset($_SESSION['id_user'])) {
     }
 
 }
+if (isset($_GET['id_cur'])) {
+    $id_curso_seleccionado = $_GET['id_cur'];
 
+    $consultaCurso = mysqli_query($mysqli, "SELECT *
+                                    FROM cursos 
+                                    WHERE id_cur = '$id_curso_seleccionado'");
+
+    if (mysqli_num_rows($consultaCurso) > 0) {
+        $datos4 = mysqli_fetch_assoc($consultaCurso);
+    }
+
+}
 
 ?>
 
@@ -173,53 +184,25 @@ if (isset($_SESSION['id_user'])) {
 
         <form action="" method="post">
 
-            <input type="hidden" name="action" id="action" value="NuevoCurso">
+            <input type="hidden" name="action" id="action" value="modificarCurso">
 
             <input type="hidden" name="action2" id="action2" value="<?php echo $nombreEmpresa ?>">
 
             <div class="container-fluid bg-blanco mt-3 shadow">
-                <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left"
+                <a href="administrarCurso.php"><i class="fa-solid mt-2 fa-arrow-left"
                         style="font-size:2rem;color:black;"></i></a>
 
                 <div class="TituloCrearCurso">
 
                     <h3 class="TituloCrear"><b>Modificar curso</b></h3>
-                    <p>Aqui solo se muestra la informacion del curso seleccionado para editar</p>
 
                 </div>
 
                 <div class="DivPrinFormulario">
                     <div class="divIDCrear">
                         <label for="id_cur">ID Curso</label>
-                        <?php
-
-
-
-                        // Consultar el último ID de curso utilizado
-                        $consulta_ultimo_id = mysqli_query($mysqli, "SELECT MAX(id_cur) AS ultimo_id FROM cursos");
-
-                        if ($consulta_ultimo_id) {
-                            $datos_ultimo_id = mysqli_fetch_assoc($consulta_ultimo_id);
-                            $ultimo_id = $datos_ultimo_id['ultimo_id'];
-
-                            if ($ultimo_id) {
-                                // Extraer los dos últimos dígitos numéricos del ID
-                                $ultimo_numero = intval(substr($ultimo_id, strrpos($ultimo_id, '_') + 1));
-                                $siguiente_numero = $ultimo_numero + 1;
-
-                                // Generar el nuevo ID con el número siguiente
-                                $nuevo_id_cur = 'Cur_' . $nombreEmpresa . '_' . sprintf('%02d', $siguiente_numero);
-                            } else {
-                                // Si no hay ningún ID anterior, comenzar desde 01
-                                $nuevo_id_cur = 'Cur_01';
-                            }
-                        } else {
-                            // Manejar el caso en que no se puede obtener el último ID
-                            $nuevo_id_cur = 'Cur_01';
-                        }
-                        ?>
                         <input type="text" class="id_cur form-control" id="id_cur" name="id_cur"
-                            value="<?php echo htmlspecialchars($nuevo_id_cur); ?>" readonly>
+                            value="<?php echo $datos4['id_cur']; ?>" readonly>
                     </div>
 
 
@@ -228,7 +211,7 @@ if (isset($_SESSION['id_user'])) {
                         <label for="">Nombre Completo del Curso</label>
 
                         <input type="text" class="nombreCurso form-control" id="nombreCurso" name="nombreCurso"
-                            placeholder="Nombre del Curso">
+                            placeholder="Nombre del Curso" value="<?php echo $datos4['nombre_cur'];?>">
 
                     </div>
 
@@ -240,8 +223,14 @@ if (isset($_SESSION['id_user'])) {
 
                         <select class="visibilidadCurso seleccion form-select" id="visibilidadCurso"
                             name="visibilidadCurso" aria-label="Default select example">
-                            <option selected>Visible</option>
-                            <option value="1">Invisible</option>
+                            <?php if($datos4['visibilidad_curso'] == "Visible"){ ?>
+                                <option value="Visible" selected>Visible</option>
+                                <option value="Invisible">Invisible</option>
+                            <?php } else { ?>
+                                <option value="Visible">Visible</option>
+                                <option value="Invisible" selected>Invisible</option>
+                            <?php };?>
+                            
                         </select>
 
                     </div>
@@ -251,7 +240,8 @@ if (isset($_SESSION['id_user'])) {
 
                         <label for="">Fecha de Inicio</label>
 
-                        <input type="date" class="fechaInicio form-control" id="fechaInicio" name="fechaInicio">
+                        <input type="date" class="fechaInicio form-control" id="fechaInicio" name="fechaInicio"
+                        value="<?php echo date('Y-m-d', strtotime($datos4['fecha_inicio'])); ?>" />
 
                     </div>
 
@@ -260,25 +250,17 @@ if (isset($_SESSION['id_user'])) {
 
                         <label for="">Fecha de Culminación</label>
 
-                        <input type="date" class="fechaFin form-control" id="fechaFin" name="fechaFin">
+                        <input type="date" class="fechaFin form-control" id="fechaFin" name="fechaFin"
+                        value="<?php echo date('Y-m-d', strtotime($datos4['fecha_fin'])); ?>" />
 
                     </div>
-
-                    <div class="div45Crear">
-
-                        <label for="">Nombre del periodo</label>
-
-                        <input type="text" class="inputperiodo form-control" id="inputperiodo" name="inputperiodo"
-                            placeholder="Nombre del periodo">
-
-                    </div>
-
 
                     <div class="div5Crear">
 
                         <label for="">Cupos Minimos del Curso</label>
 
-                        <input type="number" class="minimos form-control" id="minimos" name="minimos" placeholder="0">
+                        <input type="number" class="minimos form-control" id="minimos" name="minimos" placeholder="0"
+                        value="<?php echo $datos4['cupos_cur_min'];?>" />
 
                     </div>
 
@@ -287,7 +269,8 @@ if (isset($_SESSION['id_user'])) {
 
                         <label for="">Cupos Maximos del Curso</label>
 
-                        <input type="number" class="maximos form-control" id="maximos" name="maximos" placeholder="0">
+                        <input type="number" class="maximos form-control" id="maximos" name="maximos" placeholder="0"
+                        value="<?php echo $datos4['cupos_cur_max'];?>" />
 
                     </div>
 
@@ -302,7 +285,6 @@ if (isset($_SESSION['id_user'])) {
 
                     <button type="button" class="botonCrearCursoFin btn btn-primary" onclick="submitData();">Modificar
                         Curso</button>
-
 
                 </div>
 
@@ -320,7 +302,7 @@ if (isset($_SESSION['id_user'])) {
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
 
-    <?php require "../../assests/php/crearCursoMain.php"; ?>
+    <?php require "../../assests/php/modificarCursoMain.php"; ?>
 
 </body>
 
