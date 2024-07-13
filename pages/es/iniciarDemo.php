@@ -42,7 +42,7 @@ if (isset($_SESSION['id_user'])) {
     <header>
         <nav class="navbar container-fluid bg-body-tertiary shadow">
             <div class="container-fluid">
-                <a class="navbar-brand ms-3" href="../../index.html">
+                <a class="navbar-brand ms-3" href="../../index.php">
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
                 <div class="d-flex flex-wrap">
@@ -111,7 +111,7 @@ if (isset($_SESSION['id_user'])) {
                     <div>
                         <div class="form-floating mb-4">
                             <select class="form-select" disabled id="empresa" aria-label="Floating label select example">
-                                <option hidden disabled selected>Pichi</option>
+                                <option value="0" hidden disabled selected>Pichi</option>
                             </select>
                             <label for="empresa">Empresa</label>
                         </div>

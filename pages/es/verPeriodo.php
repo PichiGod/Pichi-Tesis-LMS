@@ -8,7 +8,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
   $usuariosActivos = $_SESSION['usuariosActive'];
 
-  $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+  $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, img_perfil, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
   if (mysqli_num_rows($conexion1) > 0) {
 
@@ -42,8 +42,12 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
       $verPeriodo = mysqli_query($mysqli, "SELECT * FROM periodo WHERE id_empresa = '$idEmpresa'");
 
-      while ($row = mysqli_fetch_assoc($verPeriodo)) {
-        $periodos[] = $row;
+      if (mysqli_num_rows($verPeriodo) > 0){
+        while ($row = mysqli_fetch_assoc($verPeriodo)) {
+          $periodos[] = $row;
+        }
+      } else {
+        $periodos = null;
       }
 
     } else {
@@ -96,7 +100,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
         <div class="header_toggle">
           <i class="bx bx-menu" id="header-toggle"></i>
         </div>
-        <a class="navbar-brand" href="../../index.html">
+        <a class="navbar-brand" href="../../index.php">
           <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
         </a>
 
@@ -120,7 +124,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           <div class="btn-group dropstart me-4 pe-2">
             <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
               id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="https://github.com/PichiGod.png" alt="..." width="32" height="32" class="rounded-circle me-2" />
+              <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil'];?>" alt="..." width="32" height="32" class="rounded-circle me-2" />
               <strong>
                 <?php echo $nombreUsuario . " " . $apellidoUsuario; ?>
               </strong>
@@ -218,22 +222,27 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           </thead>
           <tbody>
             <tr>
-              <?php foreach ($periodos as $periodo) { ?>
+              <?php if($periodos == null)
+              {?>
+              <td colspan="5" class="text-center">No hay periodos registrados</td>
+              <?php }
+              else{ foreach ($periodos as $periodo) { ?>
                 <th scope="row"><?php echo $periodo['id_peri']; ?></th>
                 <td><?php echo $periodo['nombre_peri']; ?></td>
                 <td><?php echo $periodo['fecha_ini_peri']; ?></td>
                 <td><?php echo $periodo['fecha_fin_peri']; ?></td>
                 <td>
                 
-                <button onclick="location.href='modifPeriodo.php'" class="btn mt-1 btn-primary me-1">
+                <button onclick="location.href='modifPeriodo.php?idPeri=<?php echo $periodo['id_peri'];?>'" class="btn mt-1 btn-primary me-1">
                   Modificar
                 </button>
-                <button onclick="eliminarPeri();" class="btn mt-1 btn-outline-danger">
+                <button onclick="eliminarPeri(<?php echo $periodo['id_peri']; ?>);" class="btn mt-1 btn-outline-danger">
                   Eliminar
                 </button>
               </td>
             </tr>
-            <?php } ?>
+            <?php } 
+          }?>
           </tbody>
         </table>
       </div>
@@ -241,13 +250,16 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
     </div>
   </section>
 
+  <?php require "../../assests/php/borrarPeriodoMain.php" ?>
+
   <script>
-    function eliminarPeri() {
+    function eliminarPeri(id) {
       confimar = confirm('Seguro que quiere eliminar al periodo?');
       if (confimar == true) {
         // e.preventDefault();
+        borrarPeriodo(id);
         //Accion para borrar usuario
-        alert('El periodo ha sido eliminado')
+        //alert('El periodo ha sido eliminado')
       }
     }
   </script>

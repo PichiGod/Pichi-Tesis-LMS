@@ -101,7 +101,7 @@ if (!isset($_SESSION['id_user'])) {
         <nav class="navbar sticky-top bg-body-tertiary ">
             <div class="container-fluid ">
 
-                <a class="navbar-brand" href="../../index.html">
+                <a class="navbar-brand" href="../../index.php">
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
                 <span class="navbar-text fs-4 me-3">Chat en Linea</span>

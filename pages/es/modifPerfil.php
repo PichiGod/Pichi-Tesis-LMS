@@ -87,7 +87,7 @@ if (isset($_SESSION['id_user'])) {
                 <div class="header_toggle">
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
-                <a class="navbar-brand" href="../../index.html">
+                <a class="navbar-brand" href="../../index.php">
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
@@ -111,7 +111,7 @@ if (isset($_SESSION['id_user'])) {
                     <div class="btn-group dropstart me-4 pe-2">
                         <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
                             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/PichiGod.png" alt="..." width="32" height="32"
+                            <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil'];?>" alt="..." width="32" height="32"
                                 class="rounded-circle me-2" />
                             <strong>
                                 <?php echo $nombreUsuario . " " . $apellidoUsuario; ?>
@@ -192,85 +192,87 @@ if (isset($_SESSION['id_user'])) {
         <div class="container-fluid bg-blanco my-3 shadow">
             <a href="verUser.php"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
             <h3 class="text-center pt-2">Modificar Perfil</h3>
-            <div class="row d-flex align-items-center">
-                <div class="col-lg-4 ">
-                    <div class="card mb-2">
-                        <div class="card-body text-center">
-                            <img src="https://github.com/PichiGod.png" alt="avatar" id="cambio"
-                                class="rounded-circle img-fluid"
-                                style="height:200px; max-width:150px;max-height:150px;" />
-                            <h5 class="my-3"><?php echo $nombreUsuario; ?></h5>
-                            <label for="imagen" class="btn btn-primary">Cambiar Imagen</label>
-                            <input type="file" accept="image/png, image/jpeg" class="btn btn-primary" id="imagen"
-                                style="display:none;"></input>
+            <form action="">
+                <input type="hidden" id="idUser" value="<?php echo $datos['id_user']; ?>" name="idUser">
+                <input type="hidden" id="action" value="modificarPerfil" name="action">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 ">
+                        <div class="card mb-2">
+                            <div class="card-body text-center">
+                                <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil'];?>" alt="avatar" id="cambio"
+                                    class="rounded-circle img-fluid"
+                                    style="height:200px; max-width:150px;max-height:150px;" />
+                                <h5 class="my-3"><?php echo $nombreUsuario . " " . $apellidoUsuario;?></h5>
+                                <label for="imagen" class="btn btn-primary">Cambiar Imagen</label>
+                                <input type="file" accept="image/png, image/jpeg" class="btn btn-primary" id="imagen"
+                                    style="display:none;"></input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 ">
+                        <div class="card mb-3 ">
+                            <div class="card-body">
+                                
+                                    <div class="row">
+                                        <div class="col-sm-3 w-75">
+                                            <p class="mb-0">Dirección</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="input" id="dirr" value="<?php echo $datos['direccion_user']; ?>"
+                                                class="form-control text-muted mb-0"></input>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3 w-75">
+                                            <p class="mb-0">Número telefónico</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="input" id="telf" value="<?php echo $datos['numero_user']; ?>"
+                                                class="form-control text-muted mb-0"></input>
+                                        </div>
+                                    </div>
+                                    <!-- <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3 w-75">
+                                            <p class="mb-0">Fecha de Nacimiento</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="date" class="form-control text-muted mb-0" id="fechaNacimiento"
+                                                name="fecha" value="<?php $fechaIni = date('Y-m-d', strtotime($datos['fecha_nacimiento_user']));
+                                                echo $fechaIni; ?>" />
+                                        </div>
+                                    </div> -->
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3 w-75">
+                                            <p class="mb-0">Nueva Contraseña</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="password" id="pass" placeholder="Contraseña"
+                                                class="form-control text-muted mb-0"></input>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-sm-3 w-75">
+                                            <p class="mb-0">Confirmar Contraseña</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input placeholder="Confirmar Contraseña" id="confirmar" type="password"
+                                                class="form-control text-muted mb-0"></input>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3 w-75">
+                                            <button class="btn btn-success" onclick="submitData(event);">Aplicar Cambios</button>
+                                        </div>
+                                    </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8 ">
-                    <div class="card mb-3 ">
-                        <div class="card-body">
-                            <form action="">
-                                <div class="row">
-                                    <div class="col-sm-3 w-75">
-                                        <p class="mb-0">Dirección</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="input" value="<?php echo $datos['direccion_user']; ?>"
-                                            class="form-control text-muted mb-0"></input>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3 w-75">
-                                        <p class="mb-0">Número telefónico</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="input" value="<?php echo $datos['numero_user']; ?>"
-                                            class="form-control text-muted mb-0"></input>
-                                    </div>
-                                </div>
-                                <!-- <hr>
-                                <div class="row">
-                                    <div class="col-sm-3 w-75">
-                                        <p class="mb-0">Fecha de Nacimiento</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="date" class="form-control text-muted mb-0" id="fechaNacimiento"
-                                            name="fecha" value="<?php $fechaIni = date('Y-m-d', strtotime($datos['fecha_nacimiento_user']));
-                                            echo $fechaIni; ?>" />
-                                    </div>
-                                </div> -->
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3 w-75">
-                                        <p class="mb-0">Nueva Contraseña</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="password" placeholder="Contraseña"
-                                            class="form-control text-muted mb-0"></input>
-                                    </div>
-                                </div>
-                                <div class="row mt-1">
-                                    <div class="col-sm-3 w-75">
-                                        <p class="mb-0">Confirmar Contraseña</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input placeholder="Confirmar Contraseña" type="password"
-                                            class="form-control text-muted mb-0"></input>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="row">
-                                    <div class="col-sm-3 w-75">
-                                        <button class="btn btn-success">Aplicar Cambios</button>
-                                    </div>
-                                </div>
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </form>
         </div>
     </section>
 
@@ -281,6 +283,8 @@ if (isset($_SESSION['id_user'])) {
             document.getElementById('cambio').src = urlImagen;
         });
     </script>
+
+    <?php require "../../assests/php/modificarPerfilMain.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

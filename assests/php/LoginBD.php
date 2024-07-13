@@ -23,6 +23,8 @@ $cedulaLogin= $_POST['cedulaLogin'];
 
 $contrasenaLogin= $_POST['contrasenaLogin'];
 
+$empresa = $_POST['empresa'];
+
 if(empty($cedulaLogin) || empty($contrasenaLogin)){
 
     echo "Rellene todos los campos ";
@@ -33,7 +35,8 @@ if(empty($cedulaLogin) || empty($contrasenaLogin)){
 $usuarios= mysqli_query($mysqli, "SELECT id_user, nombre_user, apellido_user, contrasena_user,  rol, identificacion_user, Empresa_id_empresa 
 FROM usuario 
 WHERE identificacion_user = '$cedulaLogin'
-AND contrasena_user= '$contrasenaLogin'");
+AND contrasena_user= '$contrasenaLogin'
+AND Empresa_id_empresa = '$empresa'");
 
 if (mysqli_num_rows($usuarios)>0){
 
@@ -59,7 +62,7 @@ if (mysqli_num_rows($usuarios)>0){
 
 
 
-    if($rol==1){
+    if($rol==2){
 
         $_SESSION['Login']=true;
 

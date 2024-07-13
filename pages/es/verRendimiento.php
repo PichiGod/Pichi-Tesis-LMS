@@ -2,13 +2,22 @@
 
 require "../../assests/php/LoginBD.php";
 
-if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
+// Inicializar variables
+$nombreCompleto = "";
+$identificacion = "";
+$correo = "";
+$rol2 = "";
+$id_user = "";
+$cursos = [];
+$img_perfil = "default.png";
+$actividades = [];
+if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {  
 
   $usuarios1 = $_SESSION['id_user'];
 
   $usuariosActivos = $_SESSION['usuariosActive'];
 
-  $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+  $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, img_perfil, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
   if (mysqli_num_rows($conexion1) > 0) {
 
@@ -38,13 +47,57 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
       $cursosCantidad = mysqli_num_rows($conexion3);
 
-    } else {
+      // Verificar si se envió el formulario de búsqueda
+      if (isset($_GET['identificacion']) && !empty($_GET['identificacion'])) {
+        // Obtener la identificación del formulario
+        $identificacion = $_GET['identificacion'];
 
-      $cursosCantidad = 0;
+        // Consulta para obtener datos del usuario por identificación
+        $consulta_usuario = mysqli_query($mysqli, "SELECT id_user, img_perfil, nombre_user, apellido_user, identificacion_user, correo_user, rol FROM usuario WHERE identificacion_user = '$identificacion' AND Empresa_id_empresa = '$empresaUsuario'");
+
+        // Verificar si se encontraron resultados
+        if (mysqli_num_rows($consulta_usuario) > 0) {
+            // Extraer datos del usuario
+            $datos_usuario = mysqli_fetch_assoc($consulta_usuario);
+
+            // Asignar los datos a variables
+            $id_user = $datos_usuario['id_user'];
+            $nombreCompleto = $datos_usuario['nombre_user'] . ' ' . $datos_usuario['apellido_user'];
+            $identificacion = $datos_usuario['identificacion_user'];
+            $correo = $datos_usuario['correo_user'];
+            $img_perfil = $datos_usuario['img_perfil'];
+            $rol2 = $datos_usuario['rol'];
+
+            // Validate if the user is a user
+            if ($rol2 != 0) {
+              echo "<script>alert('El usuario elegido no es un estudiante!');</script>";
+              $id_user = "";
+              $nombreCompleto = "";
+              $identificacion = "";
+              $correo = "";
+              $img_perfil = "default.png";
+              $rol = "";
+          } else {
+              $rol2 = "Estudiante";
+
+              $consultaCursos = mysqli_query($mysqli, 
+              "SELECT * FROM inscripcion LEFT JOIN cursos ON cursos.id_cur = inscripcion.Cursos_id_cur WHERE inscripcion.Usuario_id_user = '$id_user';
+              ");
+
+              if(mysqli_num_rows($consultaCursos) > 0){
+                while ($datos3 = mysqli_fetch_assoc($consultaCursos)) {
+                  $cursos[] = $datos3;
+                } 
+                } 
+
+          }
+        }
 
     }
 
   }
+
+}
 
 }
 
@@ -88,7 +141,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
         <div class="header_toggle">
           <i class="bx bx-menu" id="header-toggle"></i>
         </div>
-        <a class="navbar-brand" href="../../index.html">
+        <a class="navbar-brand" href="../../index.php">
           <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
         </a>
 
@@ -112,7 +165,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           <div class="btn-group dropstart me-4 pe-2">
             <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
               id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="https://github.com/PichiGod.png" alt="..." width="32" height="32" class="rounded-circle me-2" />
+              <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil'];?>" alt="..." width="32" height="32" class="rounded-circle me-2" />
               <strong>
                 <?php echo $nombreUsuario . " " . $apellidoUsuario; ?>
               </strong>
@@ -192,28 +245,30 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
       <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
       <h1 class="text-center pt-2">Consultar Rendimiento Academico</h1>
 
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Buscar estudiante por cedula..."
-          aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
+      <form class="d-flex" role="search" method="GET" action="">
+        <div class="input-group">
+          <input class="form-control me-2" type="number" placeholder="Buscar Estudiante por Cedula..."
+            aria-label="Search" name="identificacion" value="<?php echo $identificacion; ?>">
+          <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </div>
       </form>
 
       <div class="card mt-2" style="max-width: 540px;">
         <div class="row g-0">
           <div class="col-md-4">
-            <img src="https://github.com/PichiGod.png" width="auto" height="150" class="rounded-start" alt="...">
+            <img src="../../assests/archivos/imagen/<?php echo $img_perfil;?>" width="auto" height="150" class="rounded-start" alt="...">
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">Pichi Duarte</h5>
+              <h5 class="card-title"><?php echo $nombreCompleto; ?></h5>
               <p class="card-text">
-                28467144
+                <b>Identificación:</b> <?php echo $identificacion; ?>
               </p>
               <p class="card-text">
-                dsjoseale@gmail.com
+                <b>Correo Electronico:</b> <?php echo $correo; ?>
               </p>
               <p class="card-text">
-                Estudiante
+                <b>Rol: </b><?php echo $rol2; ?>
               </p>
             </div>
           </div>
@@ -221,48 +276,91 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
       </div>
 
       <div class="table-responsive">
-        <table class="table table-striped table-bordered mt-2" style="white-space: nowrap;">
-          <thead>
-            <tr>
-              <th scope="col">Id Curso</th>
-              <th scope="col">Nombre Curso</th>
-              <th scope="col">Nota </th>
-              <th scope="col">Porcentaje</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">CUR_URBE_01</th>
-              <td>Inglés I</td>
-              <td>10</td>
-              <td>10%</td>
-            </tr>
-            <tr>
-              <td colspan="4">
-                <table class="table mb-0">
-                  <thead>
-                    <th scope="col">Actividad</th>
-                    <th scope="col">Nota Minima</th>
-                    <th scope="col">Nota maxima</th>
-                    <th scope="col">Nota</th>
-                    <th scope="col">Porcentaje</th>
-                    <th scope="col">Aporte al curso</th>
-                  </thead>
-                  <tbody>
+          <table class="table table-striped table-bordered mt-2" style="white-space: nowrap;">
+              <thead>
+                  <tr>
+                      <th scope="col">Id Curso</th>
+                      <th scope="col">Nombre Curso</th>
+                      <th scope="col">Nota Media</th>
+                      <!-- <th scope="col">Porcentaje</th> -->
+                  </tr>
+              </thead>
+              <tbody>
+                  <?php if (empty($cursos)){ ?>
                     <tr>
-                      <th scope="row">Verbo To-Be</th>
-                      <td>5</td>
-                      <td>10</td>
-                      <td>10</td>
-                      <td>100%</td>
-                      <td>10%</td>
+                      <td colspan="4" class="text-center">No hay cursos registrados</td>
                     </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                  <?php } else {
+                    $n = 0;
+                    $notaMedia = 0;
+                    foreach ($cursos as $curso) { 
+                      $n++;?>
+                        <tr>
+                            <th scope="row"><?= $curso['id_cur'] ?></th>
+                            <td><?= $curso['nombre_cur'] ?></td>
+                            <td id='notaMedia-<?php echo $n;?>'></td>
+                            <!-- <td></td> -->
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <table class="table mb-0">
+                                    <thead>
+                                        <th scope="col">Actividad</th>
+                                        <th scope="col">Nota Minima</th>
+                                        <th scope="col">Nota maxima</th>
+                                        <th scope="col">Nota</th>
+                                        <th scope="col">Porcentaje</th>
+                                        <th scope="col">Aporte al curso</th>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        //$query = "SELECT * FROM actividades a LEFT JOIN notas n ON n.Cursos_id_cur = a.idCurso_id_cur WHERE idCurso_id_cur = \"" . $curso['id_cur'] . "\"";
+                                        $query ="SELECT a.Titulo, a.notaMinima, a.notaMaxima, a.activarPorcentaje, a.Porcentaje,
+                                                       (SELECT n.NotaAlumno
+                                                        FROM notas n
+                                                        WHERE n.Actividad_id_act = a.idActividades AND n.Usuario_id_user = '$id_user') AS NotaAlumno,
+                                                       (SELECT n.retroalimentacion
+                                                        FROM notas n
+                                                        WHERE n.Actividad_id_act = a.idActividades AND n.Usuario_id_user = '$id_user') AS retroalimentacion
+                                                    FROM actividades a
+                                                    WHERE a.visible = 0 AND a.idCurso_id_cur = \"" . $curso['id_cur'] . "\"";
+                                        $consultaActividades = mysqli_query($mysqli, $query);
+                                        $i = 0;
+                                        while ($actividad = mysqli_fetch_assoc($consultaActividades)) { 
+                                          $i++;?>
+                                            <tr>
+                                                <th scope="row"><?= $actividad['Titulo'] ?></th>
+                                                <td><?= $actividad['notaMinima'] ?></td>
+                                                <td><?= $actividad['notaMaxima'] ?></td>
+                                                <?php if ($actividad['NotaAlumno'] == null) { ?>
+                                                    <td>-</td>
+                                                <?php } else { $notaMedia += $actividad['NotaAlumno']; ?>
+
+                                                    <td><?php echo $actividad['NotaAlumno']; ?></td>
+                                                <?php }
+                                                ; ?>
+                                                <td><?php echo (($actividad['NotaAlumno'] * 100) / $actividad['notaMaxima']) ?>%</td>
+                                                <?php if ($actividad['activarPorcentaje'] == "1") { ?>
+                                                    <td>-</td>
+                                                <?php } else { ?>
+                                                    <td><?php echo $actividad['Porcentaje']; ?>%</td>
+                                                <?php }
+                                                ; ?>
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                      <script>
+                        let notaMedia = <?php  echo $notaMedia; ?>;
+                        let notaMediaFinal = notaMedia / <?php echo $i; ?>;
+                        document.getElementById("notaMedia-<?php echo $n;?>").innerHTML = notaMediaFinal.toFixed(2);
+                      </script>
+                  <?php } ?>
+              </tbody>
+          </table>
       </div>
 
     </div>

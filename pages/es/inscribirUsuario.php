@@ -8,6 +8,7 @@ $identificacion = "";
 $correo = "";
 $rol = "";
 $id_user = "";
+$img_perfil = "default.png";
 $cursos = [];
 // Verificar si hay una sesión activa
 if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
@@ -19,7 +20,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
     $usuariosActivos = $_SESSION['usuariosActive'];
 
     // Consulta para obtener datos del usuario actual
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, img_perfil, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     // Verificar si se encontró el usuario actual
     if (mysqli_num_rows($conexion1) > 0) {
@@ -50,7 +51,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
             $identificacion = $_GET['identificacion'];
 
             // Consulta para obtener datos del usuario por identificación
-            $consulta_usuario = mysqli_query($mysqli, "SELECT id_user, nombre_user, apellido_user, identificacion_user, correo_user, rol FROM usuario WHERE identificacion_user = '$identificacion' AND Empresa_id_empresa = '$empresaUsuario'");
+            $consulta_usuario = mysqli_query($mysqli, "SELECT id_user, img_perfil, nombre_user, apellido_user, identificacion_user, correo_user, rol FROM usuario WHERE identificacion_user = '$identificacion' AND Empresa_id_empresa = '$empresaUsuario'");
 
             // Verificar si se encontraron resultados
             if (mysqli_num_rows($consulta_usuario) > 0) {
@@ -63,16 +64,19 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                 $identificacion = $datos_usuario['identificacion_user'];
                 $correo = $datos_usuario['correo_user'];
                 $rol = $datos_usuario['rol'];
+                $img_perfil = $datos_usuario['img_perfil'];
 
-                // Validate if the user is a teacher
+                // Validate if the user is a user
                 if ($rol != 0) {
-                    echo "<script>alert('El usuario elegido no es docente!');</script>";
+                    echo "<script>alert('El usuario elegido no es un estudiante!');</script>";
                     $nombreCompleto = "";
+                    $id_user = "";
                     $identificacion = "";
                     $correo = "";
                     $rol = "";
+                    $img_perfil = "default.png";
                 } else {
-                    $rol = "Docente";
+                    $rol = "Estudiante";
                 }
             }
 
@@ -149,7 +153,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                 <div class="header_toggle">
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
-                <a class="navbar-brand" href="../../index.html">
+                <a class="navbar-brand" href="../../index.php">
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
@@ -173,7 +177,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <div class="btn-group dropstart me-4 pe-2">
                         <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
                             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/PichiGod.png" alt="..." width="32" height="32"
+                            <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil'];?>" alt="..." width="32" height="32"
                                 class="rounded-circle me-2" />
                             <strong>
                                 <?php echo $nombreUsuario . " " . $apellidoUsuario; ?>
@@ -272,7 +276,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <div class="card my-3" style="max-width: 540px;">
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="https://github.com/PichiGod.png" class="img-fluid rounded-start" alt="...">
+                                <img src="../../assests/archivos/imagen/<?php echo $img_perfil;?>" class="img-fluid rounded-start" alt="...">
                             </div>
 
                             <div class="col-md-8">

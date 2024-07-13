@@ -6,7 +6,7 @@ if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, img_perfil, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
@@ -134,7 +134,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                 <div class="header_toggle">
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
-                <a class="navbar-brand" href="../../index.html">
+                <a class="navbar-brand" href="../../index.php">
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
@@ -158,7 +158,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                     <div class="btn-group dropstart me-4 pe-2">
                         <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
                             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/PichiGod.png" alt="..." width="32" height="32"
+                            <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil'];?>" alt="..." width="32" height="32"
                                 class="rounded-circle me-2" />
                             <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
                         </a>

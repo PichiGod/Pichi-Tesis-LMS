@@ -6,7 +6,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
     $usuarios1 = $_SESSION['id_user'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, img_perfil, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
@@ -34,6 +34,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
             $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
 
             if (mysqli_num_rows($conexion3) > 0) {
+                $cursosCantidad = true;
                 $cursos = array(); // Define the $cursos array
                 while ($datos3 = mysqli_fetch_assoc($conexion3)) {
                     $cursos[] = $datos3;
@@ -43,7 +44,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                 foreach ($cursos as $curso) {
                     $conexion4 = mysqli_query(
                         $mysqli,
-                        "SELECT u.nombre_user, u.apellido_user, i.Cursos_id_cur
+                        "SELECT u.nombre_user, u.apellido_user, i.Cursos_id_cur, u.img_perfil
              FROM usuario u
              LEFT JOIN inscripcion i ON i.Usuario_id_user = u.id_user AND i.Cursos_id_cur = '" . $curso['id_cur'] . "'
              WHERE rol = 1"
@@ -69,9 +70,14 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
             }
         } else {
 
-            $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
+            $conexion3 = mysqli_query($mysqli, "SELECT i.solvencia_estu, 
+                c.id_cur, c.nombre_cur, c.fecha_inicio, c.cupos_cur_min, c.cupos_cur_max, c.fecha_fin, c.visibilidad_curso
+                FROM cursos c
+                LEFT JOIN inscripcion i ON i.Cursos_id_cur = c.id_cur 
+                WHERE Empresa_id_empresa = '$empresaUsuario' AND i.Usuario_id_user = '$usuarios1'");
 
             if (mysqli_num_rows($conexion3) > 0) {
+                $cursosCantidad = true;
                 $cursos = array(); // Define the $cursos array
                 while ($datos3 = mysqli_fetch_assoc($conexion3)) {
                     $cursos[] = $datos3;
@@ -81,7 +87,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                 foreach ($cursos as $curso) {
                     $conexion4 = mysqli_query(
                         $mysqli,
-                        "SELECT u.nombre_user, u.apellido_user, i.Cursos_id_cur
+                        "SELECT u.nombre_user, u.apellido_user, i.Cursos_id_cur, u.img_perfil
              FROM usuario u
              LEFT JOIN inscripcion i ON i.Usuario_id_user = u.id_user AND i.Cursos_id_cur = '" . $curso['id_cur'] . "'
              WHERE rol = 1"
@@ -102,7 +108,15 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
             } else {
 
-                $cursosCantidad = 0;
+                $cursosCantidad = false;
+
+                $usuariosActivos = mysqli_query($mysqli, "SELECT Active_online FROM usuario WHERE Empresa_id_empresa = '$empresaUsuario' AND Active_online = '1'");
+
+                if (mysqli_num_rows($usuariosActivos) > 0) {
+
+                    $usuarioResult = mysqli_num_rows($usuariosActivos);
+
+                }
 
             }
         }
@@ -169,7 +183,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                 <div class="header_toggle">
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
-                <a class="navbar-brand" href="../../index.html">
+                <a class="navbar-brand" href="../../index.php">
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
@@ -193,7 +207,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <div class="btn-group dropstart me-4 pe-2">
                         <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
                             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/PichiGod.png" alt="" width="32" height="32"
+                            <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil'];?>" alt="" width="32" height="32"
                                 class="rounded-circle me-2" />
                             <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
                         </a>
@@ -280,15 +294,20 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <div
                         class="text-center border border-1 border-secondary border-opacity-50  shadow bg-secondary-subtle">
                         <p class="mb-0"><strong>Cursos Inscritos</strong></p>
+                        <?php if($cursosCantidad == false){ ?>
+                            <p class="mb-0">No tienes cursos inscritos</p>
+                        <?php  } else { ?>                        
                         <div class="accordion accordion-flush " id="accordionFlushExample">
                             <!--Copias esto para añadir un curso-->
                             <?php $contador = 0;
                             foreach ($cursos as $curso) {
                                 $contador++;
                                 $docente_nombre = 'No hay docentes registrados';
+                                $docente_perfil = 'default.png';
                                 foreach ($docente as $doc) {
                                     if ($doc['Cursos_id_cur'] == $curso['id_cur']) {
                                         $docente_nombre = $doc['nombre_user'] . ' ' . $doc['apellido_user'];
+                                        $docente_perfil = $doc['img_perfil'];
                                         break; // Exit the inner loop once we find a matching docente
                                     }
                                 }
@@ -307,13 +326,20 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                             <div class="card w-100 mb-3">
                                                 <div class="row g-0">
                                                     <div class="col-md-4">
-                                                        <img src="https://github.com/PichiGod.png"
+                                                        <img src="../../assests/archivos/imagen/<?php echo $docente_perfil;?>"
                                                             class="img-fluid rounded-start" width="150" alt="...">
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="card-body">
                                                             <h6 class="card-title"><?php echo $docente_nombre; ?></h6>
-                                                            <button class="btn btn-primary">Ir al Curso</button>
+                                                            <?php if (isset($curso['solvencia_estu']) && $curso['solvencia_estu'] == "1") { ?>
+                                                                <button class="btn btn-primary mt-2" onclick="aviso();">
+                                                                    Ver Curso
+                                                                </button>
+                                                            <?php } else { ?>
+                                                                <a class="btn btn-primary"
+                                                                    href="verCurso.php?id_cur=<?php echo $curso['id_cur']; ?>">Ver Curso</a>
+                                                            <?php } ?>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -321,10 +347,9 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                         </div>
                                     </div>
                                 </div>
-                                <?php
-                            }
-                            ?>
-                        </div>
+                                <?php } ?>
+                                </div>
+                            <?php } ?>
                     </div>
                 </div>
                 <div class="col-sm ">
@@ -406,7 +431,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                     <h5>Notificaciones</h5>
 
                     <!--Copias esto para hacer una nueva noticifación-->
-                    <div class="border pb-1 border-1 border-secondary 
+                    <!-- <div class="border pb-1 border-1 border-secondary 
                         border-opacity-50  shadow bg-secondary-subtle">
                         <div class="d-flex flex-column">
                             <div>
@@ -419,12 +444,18 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                 <p class="mb-0 ms-2 fs-5"><strong>Fecha de Culminacion: 29/05/2024</strong></p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>
         </div>
     </section>
+
+    <script>
+        function aviso() {
+            alert('Usuario, usted no esta solvente para ver este curso.');
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

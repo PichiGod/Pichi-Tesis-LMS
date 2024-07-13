@@ -6,7 +6,7 @@ if (isset($_SESSION['id_user'])) {
 
     $usuarios1 = $_SESSION['id_user'];
 
-    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, img_perfil, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
     if (mysqli_num_rows($conexion1) > 0) {
 
@@ -82,8 +82,8 @@ if (isset($_GET['id_cur'])) {
                 <div class="header_toggle">
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
-                <a class="navbar-brand" href="../../index.html">
-                    <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
+                <a class="navbar-brand" href="../../index.php">
+                    <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil'];?>" alt="Bootstrap" width="70" height="24" />
                 </a>
 
                 <div class="d-flex flex-wrap justify-content-end">

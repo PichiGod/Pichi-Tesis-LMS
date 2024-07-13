@@ -53,8 +53,8 @@ function inscribirUsuario($mysqli)
             }
         } else {
             // User is not in the course, insert registration
-            $stmt = mysqli_prepare($mysqli, "INSERT INTO inscripcion (solvencia_estu, fecha_incripcion, Usuario_id_user, Periodo_id_peri, Cursos_id_cur) VALUES (?, ?, ?, ?)");
-            mysqli_stmt_bind_param($stmt, "siis", $solvencia, $fecha_completa, $idUser, $peri, $curso);
+            $stmt = mysqli_prepare($mysqli, "INSERT INTO inscripcion (solvencia_estu, fecha_incripcion, Usuario_id_user, Periodo_id_peri, Cursos_id_cur) VALUES (?, ?, ?, ?, ?)");
+            mysqli_stmt_bind_param($stmt, "isiis", $solvencia, $fecha_completa, $idUser, $peri, $curso);
             if (mysqli_stmt_execute($stmt)) {
                 //echo "Se inserto el curso correctamente";
             } else {

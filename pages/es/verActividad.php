@@ -7,7 +7,7 @@ if (isset($_SESSION['id_user'])) {
     $usuarios1 = $_SESSION['id_user'];
     $conexion1 = mysqli_query(
         $mysqli,
-        "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'"
+        "SELECT Empresa_id_empresa, rol, nombre_user, img_perfil, apellido_user FROM usuario WHERE id_user = '$usuarios1'"
     );
     if (mysqli_num_rows($conexion1) > 0) {
 
@@ -59,6 +59,17 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
 
     }
 
+    $consultaDocente = mysqli_query($mysqli, "SELECT * FROM inscripcion 
+    LEFT JOIN usuario ON usuario.id_user = inscripcion.Usuario_id_user 
+    WHERE Cursos_id_cur = '$id_curso_seleccionado' AND usuario.rol = 1");
+
+    if (mysqli_num_rows($consultaDocente) > 0) {
+        $datosDocente = mysqli_fetch_assoc($consultaDocente);
+        $docente = $datosDocente['nombre_user'].' '.$datosDocente['apellido_user'];
+    }else {
+        $docente = null;
+    }
+
     $consultaEntrega = mysqli_query($mysqli, "SELECT * FROM entregas WHERE id_user = '$usuarios1' AND id_actividad = '$id_act_seleccionado'");
     if (mysqli_num_rows($consultaEntrega) > 0) {
         //echo "Aqui estoy";
@@ -73,7 +84,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
     $consultaNota = mysqli_query($mysqli, "SELECT * FROM notas WHERE Usuario_id_user = '$usuarios1' AND Actividad_id_act = '$id_act_seleccionado'");
     $noNota = false;
     if (mysqli_num_rows($consultaNota) > 0) {
-        $datosNotas = mysqli_fetch_assoc($consultaEntrega);
+        $datosNotas = mysqli_fetch_assoc($consultaNota);
     } else {
         $noNota = true;
     }
@@ -118,7 +129,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                 <div class="header_toggle">
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
-                <a class="navbar-brand" href="../../index.html">
+                <a class="navbar-brand" href="../../index.php">
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
@@ -142,7 +153,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                     <div class="btn-group dropstart me-4 pe-2">
                         <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
                             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/PichiGod.png" alt="..." width="32" height="32"
+                            <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil'];?>" alt="..." width="32" height="32"
                                 class="rounded-circle me-2" />
                             <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
                         </a>
@@ -373,7 +384,11 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                                                         <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
                                                     </div>
                                                     <div class="ms-3">
-                                                        <span><strong>Jose Alejandro Duarte Salcedo</strong></span>
+                                                        <?php if ($docente != null && !empty($docente)){ ?>
+                                                            <span><strong><?php echo $docente;?></strong></span>
+                                                        <?php } else { ?>
+                                                            <span><strong>Docente no asignado</strong></span>
+                                                        <?php }; ?>
                                                     </div>
                                                 </div>
 
@@ -407,17 +422,20 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                                                         <?php if ($noNota == true) { ?>
                                                             <span><strong>No
                                                                     calificado</strong></span>
+                                                        <?php } else { ?>
+                                                            <span><strong><?php echo $datosNotas['NotaAlumno']; ?></strong></span>
                                                         <?php }
                                                         ; ?>
-
                                                     </div>
                                                 </div>
                                                 <p class="mb-0 fs-5">Retroalimentación</p>
                                                 <div class="p-2 mb-2 border rounded">
                                                     <p id="retro" class="mb-0">
-                                                        <?php if ($noNota = true) { ?>
+                                                        <?php if ($noNota == true) { ?>
                                                             <strong>No
                                                                 calificado</strong>
+                                                        <?php } else {?>
+                                                            <?php echo $datosNotas['retroalimentacion']; ?>
                                                         <?php }
                                                         ; ?>
                                                         <!-- Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora ad
@@ -508,7 +526,11 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                                                         <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
                                                     </div>
                                                     <div class="ms-3">
-                                                        <span><strong>Jose Alejandro Duarte Salcedo</strong></span>
+                                                        <?php if ($docente != null && !empty($docente)){ ?>
+                                                            <span><strong><?php echo $docente;?></strong></span>
+                                                        <?php } else { ?>
+                                                            <span><strong>Docente no asignado</strong></span>
+                                                        <?php }; ?>
                                                     </div>
                                                 </div>
 
@@ -542,23 +564,22 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                                                         <?php if ($noNota == true) { ?>
                                                             <span><strong>No
                                                                     calificado</strong></span>
+                                                        <?php } else { ?>
+                                                            <span><strong><?php echo $datosNotas['NotaAlumno']; ?></strong></span>
                                                         <?php }
                                                         ; ?>
-
                                                     </div>
                                                 </div>
                                                 <p class="mb-0 fs-5">Retroalimentación</p>
                                                 <div class="p-2 mb-2 border rounded">
                                                     <p id="retro" class="mb-0">
-                                                        <?php if ($noNota = true) { ?>
+                                                        <?php if ($noNota == true) { ?>
                                                             <strong>No
                                                                 calificado</strong>
+                                                        <?php } else {?>
+                                                            <?php echo $datosNotas['retroalimentacion']; ?>
                                                         <?php }
                                                         ; ?>
-                                                        <!-- Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora ad
-                                        deleniti eaque dolore necessitatibus minus! Saepe eligendi adipisci est
-                                        atque
-                                        quas, sequi voluptatibus velit similique nisi voluptatem amet, alias minima. -->
                                                     </p>
                                                 </div>
 
@@ -611,7 +632,11 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                                                             <div class="vr mt-2 " style="width:0.2rem; height:2rem;"></div>
                                                         </div>
                                                         <div class="ms-3">
-                                                            <span><strong>Jose Alejandro Duarte Salcedo</strong></span>
+                                                            <?php if ($docente != null && !empty($docente)){ ?>
+                                                                <span><strong><?php echo $docente;?></strong></span>
+                                                            <?php } else { ?>
+                                                                <span><strong>Docente no asignado</strong></span>
+                                                            <?php }; ?>
                                                         </div>
                                                     </div>
 
@@ -646,23 +671,22 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                                                             <?php if ($noNota == true) { ?>
                                                                 <span><strong>No
                                                                         calificado</strong></span>
+                                                            <?php } else { ?>
+                                                                <span><strong><?php echo $datosNotas['NotaAlumno']; ?></strong></span>
                                                             <?php }
                                                             ; ?>
-
                                                         </div>
                                                     </div>
                                                     <p class="mb-0 fs-5">Retroalimentación</p>
                                                     <div class="p-2 mb-2 border rounded">
                                                         <p id="retro" class="mb-0">
-                                                            <?php if ($noNota = true) { ?>
+                                                            <?php if ($noNota == true) { ?>
                                                                 <strong>No
                                                                     calificado</strong>
+                                                            <?php } else {?>
+                                                                <?php echo $datosNotas['retroalimentacion']; ?>
                                                             <?php }
                                                             ; ?>
-                                                            <!-- Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora ad
-                                        deleniti eaque dolore necessitatibus minus! Saepe eligendi adipisci est
-                                        atque
-                                        quas, sequi voluptatibus velit similique nisi voluptatem amet, alias minima. -->
                                                         </p>
                                                     </div>
 

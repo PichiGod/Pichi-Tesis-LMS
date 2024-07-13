@@ -13,6 +13,8 @@ var data = {
 
     contrasenaLogin: $('#contrasenaLogin').val(),
 
+    empresa: $('#empresa').val(),
+
     action: $('#action').val(),
 
 };

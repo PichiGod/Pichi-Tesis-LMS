@@ -8,7 +8,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
   $usuariosActivos = $_SESSION['usuariosActive'];
 
-  $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+  $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, img_perfil, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
   if (mysqli_num_rows($conexion1) > 0) {
 
@@ -44,6 +44,19 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
     }
 
+  }
+
+}
+
+if (isset($_GET['idPeri'])) {
+  $id_periodo_seleccionado = $_GET['idPeri'];
+
+  $consultaPeriodo = mysqli_query($mysqli, "SELECT *
+                                  FROM periodo 
+                                  WHERE id_peri = '$id_periodo_seleccionado'");
+
+  if (mysqli_num_rows($consultaPeriodo) > 0) {
+      $datos4 = mysqli_fetch_assoc($consultaPeriodo);
   }
 
 }
@@ -88,7 +101,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
         <div class="header_toggle">
           <i class="bx bx-menu" id="header-toggle"></i>
         </div>
-        <a class="navbar-brand" href="../../index.html">
+        <a class="navbar-brand" href="../../index.php">
           <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
         </a>
 
@@ -112,7 +125,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
           <div class="btn-group dropstart me-4 pe-2">
             <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
               id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="https://github.com/PichiGod.png" alt="..." width="32" height="32" class="rounded-circle me-2" />
+              <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil'];?>" alt="..." width="32" height="32" class="rounded-circle me-2" />
               <strong>
                 <?php echo $nombreUsuario . " " . $apellidoUsuario; ?>
               </strong>
@@ -192,26 +205,31 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
       <a href="MenuAdmin.php"><i class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
       <h1 class="text-center pt-2">Modificar Periodo Academico</h1>
 
-      <form action="">
+      <form action="" method="post">
+        <input type="hidden" id="idPeri" value="<?php echo $datos4['id_peri']; ?>"/>
+        <input type="hidden" id="action" value="modificarPeriodo">
 
-        <label class="mt-2" for="periodo">Periodo </label>
+        <label class="mt-2" for="periodo">Periodo</label>
         <input type="text" class="form-control" name="periodo" id="periodo"
-          placeholder="Nombre del periodo seleccionado" value="Periodo Mayo-Septiembre_2024" disabled>
+          placeholder="Nombre del periodo seleccionado" value="<?php echo $datos4['nombre_peri'];?>" disabled>
 
         <div>
           <label class="mt-2" for="fecIni">Fecha de Inicio</label>
-          <input class=" form-control" type="date" name="idPer" id="idPer" />
+          <input class=" form-control" type="date" name="fecIni" id="fecIni" 
+          value="<?php echo date('Y-m-d', strtotime($datos4['fecha_ini_peri'])); ?>" />
 
           <label class="mt-2" for="fecFin">Fecha de Culminacion</label>
-          <input class=" form-control" type="date" name="idPer" id="idPer" />
+          <input class=" form-control" type="date" name="fecFin" id="fecFin" 
+          value="<?php echo date('Y-m-d', strtotime($datos4['fecha_fin_peri'])); ?>" />
         </div>
 
-
-        <button class="btn btn-primary mt-2">Modificar Periodo</button>
+        <button type="button" class="btn btn-primary mt-2" onclick='submitData();'>Modificar Periodo</button>
       </form>
 
     </div>
   </section>
+
+  <?php require '../../assests/php/modificarPeriodoMain.php'?>
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

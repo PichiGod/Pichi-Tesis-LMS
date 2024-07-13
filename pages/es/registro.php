@@ -42,7 +42,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   <header>
     <nav class="navbar bg-body-tertiary shadow">
       <div class="container-fluid">
-        <a class="navbar-brand ms-3" href="../../index.html">
+        <a class="navbar-brand ms-3" href="../../index.php">
           <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
         </a>
         <div class="d-flex flex-wrap justify-content-end">

@@ -48,7 +48,7 @@ if (mysqli_num_rows($consultaEmpresas) > 0) {
   <header>
     <nav class="navbar container-fluid bg-body-tertiary shadow">
       <div class="container-fluid">
-        <a class="navbar-brand ms-3" href="../../index.html">
+        <a class="navbar-brand ms-3" href="../../index.php">
           <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
         </a>
         <div class="d-flex flex-wrap">
@@ -116,7 +116,7 @@ if (mysqli_num_rows($consultaEmpresas) > 0) {
               <select class="form-select" id="empresa" aria-label="Floating label select example">
                 <option hidden disabled selected>Seleccione la empresa</option>
                 <?php foreach ($Empresas as $empresa) { ?>
-                  <option id="<?php echo $empresa['id_empresa']; ?>" value="1"><?php echo $empresa['nombre_empresa']; ?>
+                  <option value="<?php echo $empresa['id_empresa']; ?>"><?php echo $empresa['nombre_empresa']; ?>
                   </option>
                 <?php }
                 ; ?>
