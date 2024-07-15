@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
     //Docker
     $db_host = getenv('DB_HOST'); 
     $db_user = getenv('DB_USER'); 

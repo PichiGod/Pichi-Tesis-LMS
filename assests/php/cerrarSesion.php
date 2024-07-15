@@ -30,8 +30,7 @@ if (isset($_SESSION['id_user'])) {
 
     // Redirigir al usuario al inicio
     header("location: ../../index.php");
+    //header("location: https://pichi.up.railway.app/");
     exit; // Asegura que el script se detenga después de redirigir
 }
 ?>
-
-
