@@ -64,8 +64,10 @@ if (isset($_GET['id_cur'])) {
 
 // Consulta para agrupar por fecha de apertura
 $consultaHistorial = mysqli_query($mysqli, "
-    SELECT DATE(fecha_apertura) as fecha_apertura, MIN(fecha_cierre) as fecha_cierre
+    SELECT seccionhistorial.id_sala as LeninEsSUPERGAY, DATE(fecha_apertura) as fecha_apertura, MIN(fecha_cierre) as fecha_cierre
     FROM seccionhistorial
+    INNER JOIN sala ON sala.id_sala = seccionhistorial.id_sala 
+    WHERE sala.id_curso = '$id_curso_seleccionado'
     GROUP BY DATE(fecha_apertura)
 ");
 
@@ -238,9 +240,9 @@ if (mysqli_num_rows($consultaHistorial) > 0) {
                         </div>
                         <div class="card-footer">
                             <div class="d-flex justify-content-end">
-                                <button class="btn btn-primary">
+                                <a href="verHistorial.php?id_cur=<?php echo $id_curso_seleccionado;?>&id_sala=<?php echo $historial['LeninEsSUPERGAY'] ?>&apertu=<?php echo $historial['fecha_apertura'];?>" class="btn btn-primary">
                                     Ver
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>

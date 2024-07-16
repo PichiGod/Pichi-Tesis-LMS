@@ -28,9 +28,13 @@ if (isset($_SESSION['id_user'])) {
 
             $nombreEmpresa = $datos2['nombre_empresa'];
 
-            $conexionObetenerUsuario = mysqli_query($mysqli, "SELECT id_curso, id_sala FROM usuariosala WHERE id_user = '$idUser'");
+            $curso = $_GET['idCur'];
+
+            $conexionObetenerUsuario = mysqli_query($mysqli, "SELECT id_curso, id_sala FROM usuariosala WHERE id_user = '$idUser' AND id_curso = '$curso'");
 
             if (mysqli_num_rows($conexionObetenerUsuario) > 0) {
+
+                //$conexionObetenerUsuario = mysqli_query($mysqli, "SELECT id_curso, id_sala FROM usuariosala WHERE id_curso = '$idUser'");
 
                 $datosObtener = mysqli_fetch_assoc($conexionObetenerUsuario);
 
@@ -104,7 +108,7 @@ if (!isset($_SESSION['id_user'])) {
                 <a class="navbar-brand" href="../../index.php">
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
-                <span class="navbar-text fs-4 me-3">Chat en Linea</span>
+                <span class="navbar-text fs-4 me-3">Chat en Linea - <?php echo $id_sala; ?> - <?php echo $id_curso_seleccionado; ?></span>
             </div>
         </nav>
     </header>
@@ -299,10 +303,10 @@ resetInactivityTimer();
 
 <script>
 window.addEventListener('beforeunload', function(event) {
-// Envía una solicitud AJAX al servidor para eliminar al usuario de la tabla 'usuariosala'
-var xhr = new XMLHttpRequest();
-xhr.open('POST', '../../assets/php/salirSalaBD.php', true);
-xhr.send();
+    // Envía una solicitud AJAX al servidor para eliminar al usuario de la tabla 'usuariosala'
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '../../assets/php/salirSalaBD.php', true);
+    xhr.send();
 });
 </script>
 

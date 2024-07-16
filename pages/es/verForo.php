@@ -47,7 +47,7 @@ if (isset($_GET['id_cur'])) {
     $empresa = $datos3['nombre_empresa'];
   }
 
-  $consultaComentarios = mysqli_query($mysqli, "SELECT Usuario.nombre_user, Usuario.apellido_user, foro_curso.id_foro_cur, foro_curso.mensaje, foro_curso.modif_fecha, foro_curso.modificacion, foro_curso.usuario_id_user
+  $consultaComentarios = mysqli_query($mysqli, "SELECT Usuario.img_perfil, Usuario.nombre_user, Usuario.apellido_user, foro_curso.id_foro_cur, foro_curso.mensaje, foro_curso.modif_fecha, foro_curso.modificacion, foro_curso.usuario_id_user
   FROM foro_curso 
   LEFT JOIN Usuario ON Usuario.id_user = foro_curso.usuario_id_user
   WHERE curso_id_curso = '$id_curso_seleccionado'
@@ -244,7 +244,7 @@ if (isset($_GET['id_cur'])) {
             <div class="row fs-6 mt-3 mx-2 border border-3 rounded bg-secondary-subtle">
               <div class="col-3 p-0 text-center">
                 <figure class="figure mt-1">
-                  <img src="https://github.com/PichiGod.png" class="img-fluid rounded-circle"
+                  <img src="../../assests/archivos/imagen/<?php echo $comentario['img_perfil'];?>" class="img-fluid rounded-circle"
                     style="width: 3rem; height: auto" alt="..." />
                   <figcaption class="figure-caption fs-6 text-body text-center ">
                     <?php echo $comentario['nombre_user'] . " " . $comentario['apellido_user']; ?> <br>

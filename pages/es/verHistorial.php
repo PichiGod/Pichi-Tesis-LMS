@@ -2,13 +2,11 @@
 
 require "../../assests/php/LoginBD.php";
 
-$cursos = [];
-
 if (isset($_SESSION['id_user'])) {
 
   $usuarios1 = $_SESSION['id_user'];
 
-  $conexion1 = mysqli_query($mysqli, "SELECT * FROM usuario WHERE id_user = '$usuarios1'");
+  $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, img_perfil, rol, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
 
   if (mysqli_num_rows($conexion1) > 0) {
 
@@ -20,19 +18,7 @@ if (isset($_SESSION['id_user'])) {
 
     $apellidoUsuario = $datos['apellido_user'];
 
-    $correoElectronico = $datos['correo_user'];
-
-    $fechaNacimiento = $datos['fecha_nacimiento_user'];
-
-    $TelefonoUsuario = $datos['numero_user'];
-
-    $sexoUsuario = $datos['sexo_user'];
-
-    $direccionUsuario = $datos['direccion_user'];
-
     $rol = $datos['rol'];
-
-    $fechaNacimientoFormateada = date('d-m-Y', strtotime(str_replace('/', '-', $fechaNacimiento)));
 
     $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
 
@@ -42,35 +28,49 @@ if (isset($_SESSION['id_user'])) {
 
       $nombreEmpresa = $datos2['nombre_empresa'];
 
-      $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
-
-      if (mysqli_num_rows($conexion3) > 0) {
-        while ($datos3 = mysqli_fetch_assoc($conexion3)) {
-          $cursos[] = $datos3;
-
-        }
-
-      }
-
-
-
     }
 
   }
 
 }
 
+if (isset($_GET['id_cur']) && isset($_GET['id_sala']) && isset($_GET['apertu'])) {
+  $id_curso_seleccionado = $_GET['id_cur'];
+  $consultaCurso = mysqli_query($mysqli, "SELECT cursos.nombre_cur, empresa.nombre_empresa
+                                    FROM cursos 
+                                    LEFT JOIN empresa ON empresa.id_empresa = cursos.Empresa_id_empresa
+                                    WHERE id_cur = '$id_curso_seleccionado'");
+
+  if (mysqli_num_rows($consultaCurso) > 0) {
+    $datos3 = mysqli_fetch_assoc($consultaCurso);
+    $curso = $datos3['nombre_cur'];
+    $empresa = $datos3['nombre_empresa'];
+  }
+
+  $idSala = $_GET['id_sala'];
+  $fecha_apertura = $_GET['apertu'];
+
+  $consultaComentarios = mysqli_query($mysqli, "SELECT Usuario.img_perfil, Usuario.nombre_user, Usuario.apellido_user, seccionhistorial.mensaje, seccionhistorial.id_user
+  FROM seccionhistorial 
+  LEFT JOIN Usuario ON Usuario.id_user = seccionhistorial.id_user
+  WHERE DATE(fecha_apertura) = '$fecha_apertura' AND id_sala = '$idSala'
+  ORDER BY fecha_apertura ASC");
+
+  if (mysqli_num_rows($consultaComentarios) > 0) {
+    while ($datosComentarios = mysqli_fetch_assoc($consultaComentarios)) {
+      $Comentarios[] = $datosComentarios;
+    }
+  }
+}
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Perfil de Usuario</title>
+  <title>Foro</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -113,8 +113,7 @@ if (isset($_SESSION['id_user'])) {
             </button>
             <ul class="dropdown-menu">
               <li class="dropdown-item">
-                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                  href="../en/viewUser.php">Inglés</a>
+                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary" href="#">Inglés</a>
               </li>
             </ul>
           </div>
@@ -123,12 +122,12 @@ if (isset($_SESSION['id_user'])) {
           <div class="btn-group dropstart me-4 pe-2">
             <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
               id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil'];?>" alt="" width="32" height="32" class="rounded-circle me-2" />
+              <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil'];?>" alt="..." width="32" height="32" class="rounded-circle me-2" />
               <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
               <li>
-                <a class="dropdown-item" href="#">Perfil</a>
+                <a class="dropdown-item" href="verUser.php">Perfil</a>
               </li>
               <li>
                 <hr class="dropdown-divider" />
@@ -158,10 +157,17 @@ if (isset($_SESSION['id_user'])) {
           <i class='bx bx-bookmark nav_icon'></i>
           <span class="nav_name">Tutorial</span>
         </a>
-        <a href="cursos.php" class="nav_link link-dark">
+        <a href="cursos.php" class="nav_link active">
           <i class="bx bxs-book nav_icon"></i>
           <span class="nav_name">Cursos</span>
         </a>
+        <?php if ($rol == 0) { ?>
+          <a href="verCalif.php?id_cur=<?php echo $id_curso_seleccionado; ?>" class="nav_link link-dark">
+            <i class="bx bx-news nav_icon"></i>
+            <span class="nav_name">Evaluaciones</span>
+          </a>
+        <?php }
+        ; ?>
         <?php if ($rol != 0) { ?>
           <a href="MenuAdmin.php" class="nav_link link-dark">
             <i class="bx bx-cog nav_icon"></i>
@@ -173,7 +179,7 @@ if (isset($_SESSION['id_user'])) {
     </nav>
   </div>
 
-  <!-- Modal -->
+  <!-- Modal LogOut ver.Español -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -197,77 +203,36 @@ if (isset($_SESSION['id_user'])) {
 
   <!--Contenido Usuario-->
   <section>
-    <div class="container-fluid bg-blanco mt-3 shadow">
-      <div class="row">
-        <div class="col-lg-4 ">
-          <div class="card mt-5">
-            <div class="card-body text-center">
-              <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil'];?>" alt="avatar" class="rounded-circle img-fluid"
-                style="width: 150px" />
-              <h5 class="my-3"><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></h5>
-              <button onclick="location.href='modifPerfil.php'" class="btn btn-primary">Modificar Perfil</button>
-            </div>
-          </div>
+    <div class="container-fluid bg-blanco my-3 py-2 shadow">
+      <a href="verChatHistorial.php?id_cur=<?php echo $id_curso_seleccionado; ?>"><i class="fa-solid mt-2 fa-arrow-left"
+          style="font-size:2rem;color:black;"></i></a>
+      <!--Titulo-->
+      <div class="p-2 mb-2 rounded shadow">
+        <h2><strong>Histoial - <?php echo $curso; ?> - <?php echo $empresa; ?></strong></h2>
+      </div>
+
+      <div>
+        <div class="p-2  rounded shadow">
+          <h3>Historial de mensajes</h3>
         </div>
-        <div class="col-lg-8">
-          <div class="card my-2">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Nombre Completo</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0"><?php echo $nombreUsuario . " " . $apellidoUsuario ?></p>
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Correo Electronico</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0"><?php echo $correoElectronico ?></p>
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Fecha de Nacimiento</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0"><?php echo $fechaNacimientoFormateada ?></p>
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Telefono</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0"><?php echo $TelefonoUsuario ?></p>
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Sexo</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0"><?php echo $sexoUsuario ?></p>
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Dirección</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0"><?php echo $direccionUsuario ?></p>
-                </div>
-              </div>
+
+        <ul>
+            <?php
+
+        if (mysqli_num_rows($consultaComentarios) > 0) {?>
+        <div class="mt-2 p-2 bg-secondary-subtle">
+          <?php foreach ($Comentarios as $comentario): ?>
+          
+            <div class="mt-2">
+                <?php echo $comentario['mensaje']; ?>
             </div>
-          </div>
-        </div>
+                
+            <?php endforeach;
+            } ?>
+            </div>
+        </ul>
+        
+
       </div>
     </div>
   </section>
