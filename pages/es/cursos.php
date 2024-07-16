@@ -206,7 +206,7 @@ if (isset($_SESSION['id_user'])) {
             <div class="container">
                 <div class="row gy-3 mb-4">
                     <?php foreach ($cursos as $curso) { ?>
-                        <?php if ($curso['visibilidad_curso'] == "Visible" && $rol == "0") { ?>
+                        <?php if ($curso['visibilidad_curso'] == "Visible" && $rol == "0" || $rol == "1") { ?>
                             <div class="col">
                                 <div class="card" style="width: 18rem">
                                     <div class="card-body">

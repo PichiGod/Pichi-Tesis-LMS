@@ -23,7 +23,7 @@ if ($db_host === false || $db_user === false ||  $db_password === false || $db_d
     $db_database = 'pichi'; // Valor predeterminado para el nombre de la base de datos
 }
 
-$mysqli = mysqli_connect($db_host, $db_user, $db_password, $db_database);
+$mysqli = mysqli_connect($db_host, $db_user, $db_password, $db_database, $db_port);
 
 try {
 
