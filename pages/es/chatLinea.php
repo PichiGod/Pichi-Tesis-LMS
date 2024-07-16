@@ -44,7 +44,7 @@ if (isset($_SESSION['id_user'])) {
             
                 // Modificamos la consulta para hacer un JOIN con la tabla 'usuario'
                 $conexion3 = mysqli_query($mysqli, "
-                SELECT usuario.id_user, usuario.nombre_user, usuario.apellido_user, usuariosala.id_sala
+                SELECT usuario.id_user, usuario.nombre_user, usuario.apellido_user, usuariosala.id_sala, usuario.img_perfil
                 FROM usuariosala 
                 JOIN usuario ON usuariosala.id_user = usuario.id_user 
                 WHERE usuariosala.id_curso = '$id_curso_seleccionado'
@@ -108,7 +108,7 @@ if (!isset($_SESSION['id_user'])) {
                 <a class="navbar-brand" href="../../index.php">
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
-                <span class="navbar-text fs-4 me-3">Chat en Linea - <?php echo $id_sala; ?> - <?php echo $id_curso_seleccionado; ?></span>
+                <span class="navbar-text fs-4 me-3">Chat en Linea</span>
             </div>
         </nav>
     </header>
@@ -149,6 +149,9 @@ if (!isset($_SESSION['id_user'])) {
         </div>
     </section>
 
+    <!-- Aquí colocas el script JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
     var idSala = <?php echo $id_sala; ?>; // Asegúrate de pasar el id de la sala correctamente
 
@@ -164,7 +167,7 @@ if (!isset($_SESSION['id_user'])) {
                 usuarios.forEach(function(usuario) {
                     listaUsuarios.append(
                         '<p href="#" class="nav_link link-dark">' +
-                        '<img src="https://github.com/PichiGod.png" width="24" height="24" alt="...">' +
+                        '<img src=' + "../../assests/archivos/imagen/" + usuario.img_perfil +' width="24" height="24" alt="...">' +
                         '<span><strong>' + usuario.nombre_user + ' ' + usuario.apellido_user + '</strong></span>' +
                         '</p>'
                     );
@@ -185,8 +188,7 @@ if (!isset($_SESSION['id_user'])) {
     });
     </script>
 
-<!-- Aquí colocas el script JavaScript -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     $(document).ready(function() {
         obtenerMensajes(); // Llama a la función para obtener mensajes cuando se carga la página

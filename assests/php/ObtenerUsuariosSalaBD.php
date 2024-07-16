@@ -5,7 +5,7 @@ if (isset($_POST['id_sala'])) {
     $id_sala = $_POST['id_sala'];
 
     $query = "
-    SELECT usuario.id_user, usuario.nombre_user, usuario.apellido_user
+    SELECT usuario.id_user, usuario.nombre_user, usuario.apellido_user, usuario.img_perfil
     FROM usuariosala 
     JOIN usuario ON usuariosala.id_user = usuario.id_user 
     WHERE usuariosala.id_sala = '$id_sala'";
