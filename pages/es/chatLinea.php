@@ -115,7 +115,8 @@ if (!isset($_SESSION['id_user'])) {
 
     <div class="l-navbar bg-body-tertiary" id="nav-bar">
         <nav class="nav1">
-            <div class="nav_list" style="overflow: auto">
+            <!-- style="overflow: auto" -->
+            <div class="nav_list" >
                 <a href="javascript:;" class="nav_link1 link-dark">
                     <i class="bx bx-menu nav_icon" id="header-toggle"></i>
                     <span class="nav_name">Usuarios</span>
@@ -166,7 +167,7 @@ if (!isset($_SESSION['id_user'])) {
                 listaUsuarios.empty();
                 usuarios.forEach(function(usuario) {
                     listaUsuarios.append(
-                        '<p href="#" class="nav_link link-dark">' +
+                        '<p href="#" class="nav_link1 link-dark">' +
                         '<img src=' + "../../assests/archivos/imagen/" + usuario.img_perfil +' width="24" height="24" alt="...">' +
                         '<span><strong>' + usuario.nombre_user + ' ' + usuario.apellido_user + '</strong></span>' +
                         '</p>'

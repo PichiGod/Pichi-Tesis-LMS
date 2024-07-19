@@ -60,8 +60,9 @@
             data: data,
 
             success: function (response) {
-
+               //console.log(response);
                alert(response);
+
 
                if (response == "¡Se ha creado un nuevo curso de forma exitosa!") {
 

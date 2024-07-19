@@ -372,7 +372,7 @@
 
     <footer id="contacto" class="text-center">
       <h2 class="mt-5 mb-3">Contactenos</h2>
-      <p class="fs-4">Teléfono: 123-456-7890</p>
+      <p class="fs-4">Teléfono: +58 414-611 9988</p>
       <p class="fs-4 mb-5">
         Correo electrónico: [lms.pichi@gmail.com](mailto:lms.pichi@gmail.com)
       </p>

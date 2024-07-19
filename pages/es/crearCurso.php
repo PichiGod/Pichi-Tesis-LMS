@@ -211,7 +211,7 @@ if (isset($_SESSION['id_user'])) {
 
 
                         // Consultar el último ID de curso utilizado
-                        $consulta_ultimo_id = mysqli_query($mysqli, "SELECT MAX(id_cur) AS ultimo_id FROM cursos");
+                        $consulta_ultimo_id = mysqli_query($mysqli, "SELECT MAX(id_cur) AS ultimo_id FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
 
                         if ($consulta_ultimo_id) {
                             $datos_ultimo_id = mysqli_fetch_assoc($consulta_ultimo_id);
@@ -226,7 +226,7 @@ if (isset($_SESSION['id_user'])) {
                                 $nuevo_id_cur = 'Cur_' . $nombreEmpresa . '_' . sprintf('%02d', $siguiente_numero);
                             } else {
                                 // Si no hay ningún ID anterior, comenzar desde 01
-                                $nuevo_id_cur = 'Cur_01';
+                                $nuevo_id_cur = 'Cur_' . $nombreEmpresa . '_01';
                             }
                         } else {
                             // Manejar el caso en que no se puede obtener el último ID

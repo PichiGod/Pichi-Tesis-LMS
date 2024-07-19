@@ -67,6 +67,14 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
                 $cursosCantidad = 0;
 
+                $usuariosActivos = mysqli_query($mysqli, "SELECT Active_online FROM usuario WHERE Empresa_id_empresa = '$empresaUsuario' AND Active_online = '1'");
+
+                if (mysqli_num_rows($usuariosActivos) > 0) {
+
+                    $usuarioResult = mysqli_num_rows($usuariosActivos);
+
+                }
+
             }
         } else {
 

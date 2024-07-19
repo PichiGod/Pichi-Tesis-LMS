@@ -7,7 +7,8 @@ if (isset($_POST['action']) && $_POST['action'] === "NuevoCurso") {
 
 }
 
-function crearCurso() {
+function crearCurso()
+{
     global $mysqli;
 
     // Obtener datos del formulario
@@ -20,27 +21,29 @@ function crearCurso() {
     $minimos = $_POST['minimos'];
     $maximos = $_POST['maximos'];
 
-    if(isset($_POST['action2'])){
+    if (isset($_POST['action2'])) {
 
-        $nombreEmpresa= $_POST['action2'];
+        $nombreEmpresa = $_POST['action2'];
 
     }
 
 
 
     // Validar que no haya campos vacíos Ps. Se quito input periodo de la validacion
-    if (empty($IDcurso) || empty($nombreCurso) || empty($visibilidadCurso) || empty($fechaInicio) || empty($fechaFin) 
-        || empty($minimos) || empty($maximos)){
+    if (
+        empty($IDcurso) || empty($nombreCurso) || empty($visibilidadCurso) || empty($fechaInicio) || empty($fechaFin)
+        || empty($minimos) || empty($maximos)
+    ) {
         echo "Rellene todos los campos para completar el registro";
         exit;
     }
 
-    if ($maximos <= 0 ){
+    if ($maximos <= 0) {
         echo "El valor de maximos debe ser mayor a 0";
         exit;
     }
 
-    if ($minimos <= 0 || $minimos >= $maximos){
+    if ($minimos <= 0 || $minimos >= $maximos) {
         echo "El valor de minimos debe ser mayor a 0 o menor que cupos maximos.";
         exit;
     }
@@ -80,15 +83,14 @@ function crearCurso() {
               VALUES ('$IDcurso', '$nombreCurso', '$fechaInicioBD', '$minimos', '$maximos', '$idEmpresa', '$fechaFinBD', '$visibilidadCurso')";
 
     if (mysqli_query($mysqli, $query)) {
-
+        
         $query2 = "INSERT INTO sala (nombre_sala, id_curso) VALUES ('$IDcurso', '$IDcurso')";
 
         if (mysqli_query($mysqli, $query2)) {
 
-        echo "¡Se ha creado un nuevo curso de forma exitosa!";
+            echo "¡Se ha creado un nuevo curso de forma exitosa!";
 
         }
-        
     } else {
         echo "Error al crear nuevo curso: " . mysqli_error($mysqli);
     }

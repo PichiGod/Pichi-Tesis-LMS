@@ -145,22 +145,24 @@ if (mysqli_num_rows($consultaEmpresas) > 0) {
                     </div>
 
                     <div class="border font-monospace rounded mx-2 p-2 bg-white">
-                        <p>Para iniciar el demo ponga en los campos la siguiente informacion</p>
-                        <p>Para inciar como administrador:</p>
+                        <p>Para iniciar el demo ponga en los campos la siguiente informacion <br>
+                            AVISO: LA INFORMACION INSERTADA EN EL DEMO SE BORRARA CADA 24 HORAS
+                        </p>
+                        <!-- <p>Para inciar como administrador:</p>
                         <ul>
                             <li>Identificacion del usuario: 00000003</li>
                             <li>Contraseña: admin</li>
-                        </ul>
-                        <p>Para iniciar como docente:</p>
+                        </ul> -->
+                        <p>Para iniciar como admin:</p>
                         <ul>
                             <li>Identificacion del usuario: 00000001</li>
-                            <li>Contraseña: docente</li>
+                            <li>Contraseña: 12345</li>
                         </ul>
-                        <p>Para iniciar como estudiante:</p>
+                        <!-- <p>Para iniciar como estudiante:</p>
                         <ul>
                             <li>Identificacion del usuario: 00000002</li>
                             <li>Contraseña: estudiante</li>
-                        </ul>
+                        </ul> -->
                     </div>
 
                 </div>

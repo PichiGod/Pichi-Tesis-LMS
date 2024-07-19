@@ -54,7 +54,7 @@ if (isset($_GET['id_cur'])) {
                                         FROM cursos 
                                         LEFT JOIN empresa ON empresa.id_empresa = cursos.Empresa_id_empresa
                                         WHERE id_cur = '$id_curso_seleccionado'");
-    
+
     if (mysqli_num_rows($consultaCurso) > 0) {
         $datos3 = mysqli_fetch_assoc($consultaCurso);
         $curso = $datos3['nombre_cur'];
@@ -62,13 +62,26 @@ if (isset($_GET['id_cur'])) {
     }
 }
 
+// SELECT seccionhistorial.id_sala as LeninEsSUPERGAY, DATE(fecha_apertura) as fecha_apertura, MIN(fecha_cierre) as fecha_cierre
+//     FROM seccionhistorial
+//     INNER JOIN sala ON sala.id_sala = seccionhistorial.id_sala 
+//     WHERE sala.id_curso = '$id_curso_seleccionado'
+//     GROUP BY DATE(fecha_apertura)
+
 // Consulta para agrupar por fecha de apertura
 $consultaHistorial = mysqli_query($mysqli, "
-    SELECT seccionhistorial.id_sala as LeninEsSUPERGAY, DATE(fecha_apertura) as fecha_apertura, MIN(fecha_cierre) as fecha_cierre
-    FROM seccionhistorial
-    INNER JOIN sala ON sala.id_sala = seccionhistorial.id_sala 
-    WHERE sala.id_curso = '$id_curso_seleccionado'
-    GROUP BY DATE(fecha_apertura)
+    SELECT DISTINCT 
+  DATE(sh.fecha_apertura) AS fecha_apertura, 
+  sh.id_sala AS LeninEsSUPERGAY, 
+  (SELECT MIN(sh2.fecha_cierre) 
+   FROM seccionhistorial sh2 
+   WHERE DATE(sh2.fecha_apertura) = DATE(sh.fecha_apertura) 
+   AND sh2.id_sala = sh.id_sala) AS fecha_cierre
+FROM 
+  seccionhistorial sh
+  INNER JOIN sala s ON s.id_sala = sh.id_sala
+WHERE 
+  s.id_curso = '$id_curso_seleccionado'
 ");
 
 $historiales = [];
@@ -239,8 +252,8 @@ if (mysqli_num_rows($consultaHistorial) > 0) {
     <!--Contenido-->
     <section>
         <div class="container-fluid bg-blanco my-3 pb-3 shadow">
-            <a href="verChatLinea.php?id_cur=<?php echo $id_curso_seleccionado; ?>"><i class="fa-solid mt-2 fa-arrow-left"
-                    style="font-size:2rem;color:black;"></i></a>
+            <a href="verChatLinea.php?id_cur=<?php echo $id_curso_seleccionado; ?>"><i
+                    class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
             <h1 class="text-center pt-2"><?php echo $curso; ?> - Historial</h1>
 
             <div class="d-flex flex-column align-items-center">
@@ -252,7 +265,8 @@ if (mysqli_num_rows($consultaHistorial) > 0) {
                         </div>
                         <div class="card-footer">
                             <div class="d-flex justify-content-end">
-                                <a href="verHistorial.php?id_cur=<?php echo $id_curso_seleccionado;?>&id_sala=<?php echo $historial['LeninEsSUPERGAY'] ?>&apertu=<?php echo $historial['fecha_apertura'];?>" class="btn btn-primary">
+                                <a href="verHistorial.php?id_cur=<?php echo $id_curso_seleccionado; ?>&id_sala=<?php echo $historial['LeninEsSUPERGAY'] ?>&apertu=<?php echo $historial['fecha_apertura']; ?>"
+                                    class="btn btn-primary">
                                     Ver
                                 </a>
                             </div>
