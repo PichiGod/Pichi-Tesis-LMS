@@ -1,5 +1,6 @@
 <?php
 //Santiago es gay
+//PICHI ES GAY 
 require "conexion.php";
 require "LoginBD.php";
 
