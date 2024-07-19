@@ -41,12 +41,18 @@ function entregarActividad($mysqli)
 
             // Move the uploaded file to a directory
             $uploadDir = "../archivos/entregas/"; // adjust the directory path as needed
+            //Railway
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
             $uploadFile = $uploadDir . $value; // Usar $uniqueFileName para generar un nombre que sea unico
             $i = 0;
             while (file_exists($uploadFile)) {
                 $i++;
                 $uploadFile = $uploadDir . basename($value, ".$fileExtension") . "_$i.$fileExtension";
             }
+            // Set permissions for the upload directory
+            chmod($uploadDir, 0777);
             move_uploaded_file($files['tmp_name'][$key], $uploadFile);
 
             // Add the uploaded file name to the array

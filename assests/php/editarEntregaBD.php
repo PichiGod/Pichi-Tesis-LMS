@@ -119,15 +119,25 @@ function editarEntrega($mysqli)
             echo "Formato de archivo no permitido. Sube un PDF, DOC o DOCX.";
             exit;
         }
+        if (preg_match('/[^a-zA-Z0-9]/', $archivo['name'])) {
+            echo 'El archivo contiene caracteres especiales. Por favor, cambie el nombre al archivo.';
+            exit;
+        }
 
         // Move the uploaded file to a directory
         $uploadDir = "../archivos/entregas/"; // adjust the directory path as needed
+        //Railway
+        if (!file_exists($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
         $uploadFile = $uploadDir . $archivo['name'];
         $i = 0;
         while (file_exists($uploadFile)) {
             $i++;
             $uploadFile = $uploadDir . basename($archivo['name'], ".$fileExtension") . "_$i.$fileExtension";
         }
+        // Set permissions for the upload directory
+        chmod($uploadDir, 0777);
         move_uploaded_file($archivo['tmp_name'], $uploadFile);
 
         // Add the uploaded file name to the array
@@ -142,15 +152,25 @@ function editarEntrega($mysqli)
             echo "Formato de archivo no permitido. Sube un PDF, DOC o DOCX.";
             exit;
         }
+        if (preg_match('/[^a-zA-Z0-9]/', $archivoAdicional['name'])) {
+            echo 'El archivo contiene caracteres especiales. Por favor, cambie el nombre al archivo.';
+            exit;
+        }
 
         // Move the uploaded file to a directory
         $uploadDir = "../archivos/entregas/"; // adjust the directory path as needed
+        //Railway
+        if (!file_exists($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
         $uploadFile = $uploadDir . $archivoAdicional['name'];
         $i = 0;
         while (file_exists($uploadFile)) {
             $i++;
             $uploadFile = $uploadDir . basename($archivoAdicional['name'], ".$fileExtension") . "_$i.$fileExtension";
         }
+        // Set permissions for the upload directory
+        chmod($uploadDir, 0777);
         move_uploaded_file($archivoAdicional['tmp_name'], $uploadFile);
 
         // Add the uploaded file name to the array

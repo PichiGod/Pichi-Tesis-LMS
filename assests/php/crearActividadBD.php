@@ -32,6 +32,10 @@ function crearActividad()
 
     // Manejar archivo principal
     $carpetaDestino = "../archivos/actividades/";
+    //Railway
+    if (!file_exists($carpetaDestino)) {
+        mkdir($carpetaDestino, 0777, true);
+    }
     $archivoPrincipal = isset($_FILES['archivo']['name']) ? $_FILES['archivo']['name'] : null;
     $archivoAdicional = isset($_FILES['archivo1']['name']) ? $_FILES['archivo1']['name'] : null;
 
@@ -42,6 +46,10 @@ function crearActividad()
             echo "Formato de archivo principal no permitido. Sube un PDF, DOC o DOCX.";
             exit;
         } else {
+            if (preg_match('/[^a-zA-Z0-9]/', $archivoPrincipal)) {
+                echo 'El archivo contiene caracteres especiales. Por favor, cambie el nombre al archivo.';
+                exit;
+            }
             $archivoPrincipal = NULL;
         }
     }
@@ -54,11 +62,17 @@ function crearActividad()
             exit;
         }
     } else {
+        if (preg_match('/[^a-zA-Z0-9]/', $archivoAdicional)) {
+            echo 'El archivo contiene caracteres especiales. Por favor, cambie el nombre al archivo.';
+            exit;
+        }
         $archivoAdicional = NULL;
     }
 
     // Mover archivo principal a carpeta de destino
     if (!empty($archivoPrincipal)) {
+        // Set permissions for the upload directory
+        chmod($carpetaDestino, 0777);
         if (!move_uploaded_file($_FILES['archivo']['tmp_name'], $carpetaDestino . $archivoPrincipal)) {
             echo "Error al mover el archivo principal.";
             exit;
@@ -67,6 +81,8 @@ function crearActividad()
 
     // Mover archivo adicional a carpeta de destino si no está vacío
     if (!empty($archivoAdicional)) {
+        // Set permissions for the upload directory
+        chmod($carpetaDestino, 0777);
         if (!move_uploaded_file($_FILES['archivo1']['tmp_name'], $carpetaDestino . $archivoAdicional)) {
             echo "Error al mover el archivo adicional.";
             exit;
