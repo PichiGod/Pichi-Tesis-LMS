@@ -114,7 +114,7 @@ function editarRecurso($mysqli)
             echo "Formato de archivo no permitido. Sube un PDF, DOC o DOCX.";
             exit;
         }
-        if (preg_match('/[^a-zA-Z0-9]/', $archivo['name'])) {
+        if (preg_match('/[^a-zA-Z0-9\.]/', $archivo['name'])) {
             echo 'El archivo contiene caracteres especiales. Por favor, cambie el nombre al archivo.';
             exit;
         }
@@ -141,7 +141,7 @@ function editarRecurso($mysqli)
             echo "Formato de archivo no permitido. Sube un PDF, DOC o DOCX.";
             exit;
         }
-        if (preg_match('/[^a-zA-Z0-9]/', $archivoAdicional['name'])) {
+        if (preg_match('/[^a-zA-Z0-9\.]/', $archivoAdicional['name'])) {
             echo 'El archivo contiene caracteres especiales. Por favor, cambie el nombre al archivo.';
             exit;
         }

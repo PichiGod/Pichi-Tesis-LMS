@@ -35,6 +35,10 @@ function entregarActividad($mysqli)
                 echo "Formato de archivo no permitido. Sube un PDF, DOC o DOCX.";
                 exit;
             }
+            if (preg_match('/[^a-zA-Z0-9\.]/', $value)) {
+                echo 'El archivo contiene caracteres especiales. Por favor, cambie el nombre al archivo.';
+                exit;
+            }
 
             // // Generate a unique file name
             // $uniqueFileName = uniqid() . ".$fileExtension";
