@@ -42,7 +42,8 @@
             processData: false,
             contentType: false,
             success: function (response) {
-                alert(response);
+                console.log(response);
+                //alert(response);
                 if (response.includes('Perfil Modificado Correctamente')) {
                     window.location.href = `verUser.php`;
                 }
