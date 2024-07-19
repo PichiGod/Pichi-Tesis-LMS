@@ -387,6 +387,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
                     </div>
 
+                    holis
                 </div> -->
             </div>
             <hr class="mx-5">
