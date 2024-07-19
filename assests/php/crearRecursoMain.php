@@ -48,7 +48,8 @@
             processData: false,
             contentType: false,
             success: function (response) {
-                alert(response);
+                console.log(response);
+                //alert(response);
                 if (response.includes('Exitosamente')) {
                     window.location.href = `verCurso.php?id_cur=${curso}`;
                 } else {

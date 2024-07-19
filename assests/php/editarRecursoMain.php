@@ -15,7 +15,8 @@
             processData: false,
             contentType: false,
             success: function (response) {
-                alert(response);
+                console.log(response);
+                //alert(response);
                 if (response.includes('Archivo Eliminado Exitosamente')) {
                     window.location.reload();
                 }
@@ -41,7 +42,8 @@
             processData: false,
             contentType: false,
             success: function (response) {
-                alert(response);
+                console.log(response);
+                //alert(response);
                 if (response.includes('Archivo Eliminado Exitosamente')) {
                     window.location.reload();
                 }
@@ -115,7 +117,8 @@
             processData: false,
             contentType: false,
             success: function (response) {
-                alert(response);
+                console.log(response);
+                //alert(response);
                 if (response.includes('Recurso Editado Exitosamente')) {
                     window.location.href = `verRecurso.php?id_cur=${curso}&id_rec=${recurso}`;
                 }

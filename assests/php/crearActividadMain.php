@@ -92,7 +92,8 @@ function submitData() {
             processData: false,
             contentType: false,
             success: function(response) {
-                alert(response);
+                console.log(response);
+                //alert(response);
                 if (response === 'Nueva Actividad Creada Exitosamente') {
                     window.location.reload();
                 }

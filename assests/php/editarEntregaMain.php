@@ -16,7 +16,8 @@ function borrarArchivo() {
             processData: false,
             contentType: false,
             success: function (response) {
-                alert(response);
+                console.log(response);
+                //alert(response);
                 if (response.includes('Archivo Eliminado Exitosamente')) {
                     window.location.reload();
                 }
@@ -42,7 +43,8 @@ function borrarArchivo() {
             processData: false,
             contentType: false,
             success: function (response) {
-                alert(response);
+                console.log(response);
+                //alert(response);
                 if (response.includes('Archivo Eliminado Exitosamente')) {
                     window.location.reload();
                 }
@@ -147,7 +149,8 @@ function borrarArchivo() {
             processData: false,
             contentType: false,
             success: function (response) {
-                alert(response);
+                console.log(response);
+                //alert(response);
                 if (response.includes('Entrega Modificada Exitosamente')) {
                     window.location.href = `verActividad.php?id_act=${actividad}&id_cur=${curso}`;
                 }
