@@ -115,10 +115,13 @@ if (mysqli_num_rows($consultaEmpresas) > 0) {
             <div class="form-floating mb-4">
               <select class="form-select" id="empresa" aria-label="Floating label select example">
                 <option hidden disabled selected>Seleccione la empresa</option>
-                <?php foreach ($Empresas as $empresa) { ?>
-                  <option value="<?php echo $empresa['id_empresa']; ?>"><?php echo $empresa['nombre_empresa']; ?>
-                  </option>
-                <?php }
+                <?php foreach ($Empresas as $empresa) { 
+                  if ($empresa['id_empresa'] != 3) {
+                    ?>
+                    <option value="<?php echo $empresa['id_empresa']; ?>"><?php echo $empresa['nombre_empresa']; ?>
+                    </option>
+                  <?php }
+                }
                 ; ?>
               </select>
               <label for="empresa">Empresa</label>
