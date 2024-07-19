@@ -31,7 +31,7 @@ function crearRecurso($mysqli)
                 echo "Formato de archivo no permitido. Sube un PDF, DOC o DOCX.";
                 exit;
             }
-            if (preg_match('/[^a-zA-Z0-9\.]/', $value)) {
+            if (preg_match('/[^\w\.]/', $value)) {
                 echo 'El archivo contiene caracteres especiales. Por favor, cambie el nombre al archivo.';
                 exit;
             }

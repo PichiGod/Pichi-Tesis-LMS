@@ -143,10 +143,14 @@ function editarActividad($mysqli)
             echo "Formato de archivo no permitido. Sube un PDF, DOC o DOCX.";
             exit;
         }
-        if (preg_match('/[^a-zA-Z0-9\.]/', $archivo['name'])) {
+        if (preg_match('/[^\w\.]/', $archivo['name'])) {
             echo 'El archivo contiene caracteres especiales. Por favor, cambie el nombre al archivo.';
             exit;
         }
+        // if (preg_match('/[^a-zA-Z0-9\.]/', $archivo['name'])) {
+        //     echo 'El archivo contiene caracteres especiales. Por favor, cambie el nombre al archivo.';
+        //     exit;
+        // }
 
         // Move the uploaded file to a directory
         $uploadDir = "../archivos/actividades/"; // adjust the directory path as needed
@@ -177,7 +181,7 @@ function editarActividad($mysqli)
             exit;
         }
 
-        if (preg_match('/[^a-zA-Z0-9\.]/', $archivoAdicional['name'])) {
+        if (preg_match('/[^\w\.]/', $archivoAdicional['name'])) {
             echo 'El archivo contiene caracteres especiales. Por favor, cambie el nombre al archivo.';
             exit;
         }

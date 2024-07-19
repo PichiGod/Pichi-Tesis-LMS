@@ -59,7 +59,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
         while ($datosEntrega = mysqli_fetch_assoc($consultaEntrega)) {
             $Entregas[] = $datosEntrega;
         }
-    }
+    } 
 }
 ?>
 
@@ -258,11 +258,11 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
             <h4 class="text-center fw-light">Haga click en un estudiante para seleccionar</h4>
 
 
-            <form class="d-flex" role="search">
+            <!-- <form class="d-flex" role="search"> -->
                 <input class="form-control me-2" id="searchInput" type="search" placeholder="Search"
                     aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Filtrar</button>
-            </form>
+                <!-- <button class="btn btn-outline-success" type="submit">Filtrar</button> -->
+            <!-- </form> -->
 
             <div class="row mt-2 d-flex">
                 <div class="col-md col-sm col-lg-6 mb-2">
@@ -312,7 +312,10 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                                         <td>Duarte Salcedo</td>
                                     </tr> -->
                                 <?php endforeach;
-                            } ?>
+                            } else{?>
+                                <tr>Actualmente, no hay ninguna entrega.</tr>
+                            <?php } ?>
+
                         </tbody>
                     </table>
                 </div>
@@ -374,6 +377,14 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
     </section>
 
     <script>
+        $(document).ready(function () {
+            $("#searchInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#tableBody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
 
         function selectRow(row, n) {
             //Requeridos para la interfaz
