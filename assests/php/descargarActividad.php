@@ -1,12 +1,13 @@
 <?php
 require "conexion.php";
+var_dump($_GET);
 
 // Get the file ID or name from the database
 $file_name = $_GET['file_name']; // or $_GET['file_name']
-$id_act = $_GET['id_act'];
+$id_actividad = $_GET['id_act'];
 
 // Query the database to retrieve the file
-$query = "SELECT archivosPrincipal FROM actividades WHERE archivosPrincipal = '$file_name' AND idActividades = '$id_act'";
+$query = "SELECT archivosPrincipal FROM actividades WHERE archivosPrincipal = '$file_name' AND idActividades = '$id_actividad'";
 $result = mysqli_query($mysqli, $query);
 if (mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
@@ -30,7 +31,7 @@ if (mysqli_num_rows($result) > 0) {
     }
 
 } else {
-    $query = "SELECT archivosAdicional FROM actividades WHERE archivosAdicional = '$file_name' AND idActividades = '$id_act'";
+    $query = "SELECT archivosAdicional FROM actividades WHERE archivosAdicional = '$file_name' AND idActividades = '$id_actividad'";
     $result = mysqli_query($mysqli, $query);
 
     if (mysqli_num_rows($result) > 0) {

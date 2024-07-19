@@ -47,9 +47,9 @@ if (isset($_GET['id_cur'])) {
     $empresa = $datos3['nombre_empresa'];
   }
 
-  $consultaComentarios = mysqli_query($mysqli, "SELECT Usuario.img_perfil, Usuario.nombre_user, Usuario.apellido_user, foro_curso.id_foro_cur, foro_curso.mensaje, foro_curso.modif_fecha, foro_curso.modificacion, foro_curso.usuario_id_user
+  $consultaComentarios = mysqli_query($mysqli, "SELECT usuario.img_perfil, usuario.nombre_user, usuario.apellido_user, foro_curso.id_foro_cur, foro_curso.mensaje, foro_curso.modif_fecha, foro_curso.modificacion, foro_curso.usuario_id_user
   FROM foro_curso 
-  LEFT JOIN Usuario ON Usuario.id_user = foro_curso.usuario_id_user
+  LEFT JOIN usuario ON usuario.id_user = foro_curso.usuario_id_user
   WHERE curso_id_curso = '$id_curso_seleccionado'
   ORDER BY modif_fecha ASC");
 

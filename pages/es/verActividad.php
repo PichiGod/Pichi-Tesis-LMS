@@ -209,7 +209,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
                     <span class="nav_name">Cursos</span>
                 </a>
                 <?php if ($rol == 0) { ?>
-                    <a href="verCalif.php?id_cur=<?php echo $id_curso_seleccionado; ?>" class="nav_link link-dark">
+                    <a href="verCalif.php?id_cur=<?php echo $id_curso_seleccionado; ?>" class="nav_link1 link-dark">
                         <i class="bx bx-news nav_icon"></i>
                         <span class="nav_name">Evaluaciones</span>
                     </a>
@@ -326,7 +326,7 @@ if (isset($_GET['id_cur']) && isset($_GET['id_act'])) {
 
                                 <li class="list-group-item">
                                     <?= $iconPrincipal ?> <a class="ms-2" target="_blank" rel="noopener noreferrer"
-                                        href="../../assests/php/descargarActividad.php?file_name=<?= $archivoPrincipal ?>&id_act=<?= $id_act_seleccionado; ?>"><?= $archivoPrincipal ?></a>
+                                        href="../../assests/php/descargarActividad.php?file_name=<?= $archivoPrincipal ?>&id_act=<?= $id_act_seleccionado ?>"><?= $archivoPrincipal ?></a>
                                 </li>
 
                             <?php }
