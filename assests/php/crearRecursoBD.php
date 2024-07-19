@@ -31,10 +31,10 @@ function crearRecurso($mysqli)
                 echo "Formato de archivo no permitido. Sube un PDF, DOC o DOCX.";
                 exit;
             }
-            if (preg_match('/[^\w\.]/', $value)) {
-                echo 'El archivo contiene caracteres especiales. Por favor, cambie el nombre al archivo.';
-                exit;
-            }
+            // if (preg_match('/[^\w\.]/', $value)) {
+            //     echo 'El archivo contiene caracteres especiales. Por favor, cambie el nombre al archivo.';
+            //     exit;
+            // }
 
             // // Generate a unique file name
             // $uniqueFileName = uniqid() . ".$fileExtension";
@@ -47,10 +47,10 @@ function crearRecurso($mysqli)
             }
             $uploadFile = $uploadDir . $value; // Usar $uniqueFileName para generar un nombre que sea unico
             $i = 0;
-            while (file_exists($uploadFile)) {
-                $i++;
-                $uploadFile = $uploadDir . basename($value, ".$fileExtension") . "_$i.$fileExtension";
-            }
+            // while (file_exists($uploadFile)) {
+            //     $i++;
+            //     $uploadFile = $uploadDir . basename($value, ".$fileExtension") . "_$i.$fileExtension";
+            // }
             // Set permissions for the upload directory
             chmod($uploadDir, 0777);
             move_uploaded_file($files['tmp_name'][$key], $uploadFile);

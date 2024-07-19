@@ -46,10 +46,10 @@ function crearActividad()
             echo "Formato de archivo principal no permitido. Sube un PDF, DOC o DOCX.";
             exit;
         } else {
-            if (preg_match('/[^\w\.]/', $archivoPrincipal)) {
-                echo 'El archivo contiene caracteres especiales. Por favor, cambie el nombre al archivo.';
-                exit;
-            }
+            // if (preg_match('/[^\w\.]/', $archivoPrincipal)) {
+            //     echo 'El archivo contiene caracteres especiales. Por favor, cambie el nombre al archivo.';
+            //     exit;
+            // }
             $archivoPrincipal = NULL;
         }
     }
@@ -62,10 +62,10 @@ function crearActividad()
             exit;
         }
     } else {
-        if (preg_match('/[^\w\.]/', $archivoAdicional)) {
-            echo 'El archivo contiene caracteres especiales. Por favor, cambie el nombre al archivo.';
-            exit;
-        }
+        // if (preg_match('/[^\w\.]/', $archivoAdicional)) {
+        //     echo 'El archivo contiene caracteres especiales. Por favor, cambie el nombre al archivo.';
+        //     exit;
+        // }
         $archivoAdicional = NULL;
     }
 
