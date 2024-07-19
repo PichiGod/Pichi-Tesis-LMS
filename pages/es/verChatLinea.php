@@ -55,18 +55,18 @@ if (isset($_SESSION['id_user'])) {
 
     if (isset($_GET['id_cur'])) {
         $id_curso_seleccionado = $_GET['id_cur'];
-    
+
         $consultaCurso = mysqli_query($mysqli, "SELECT cursos.nombre_cur, empresa.nombre_empresa
                                         FROM cursos 
                                         LEFT JOIN empresa ON empresa.id_empresa = cursos.Empresa_id_empresa
                                         WHERE id_cur = '$id_curso_seleccionado'");
-    
+
         if (mysqli_num_rows($consultaCurso) > 0) {
             $datos3 = mysqli_fetch_assoc($consultaCurso);
             $curso = $datos3['nombre_cur'];
             $empresa = $datos3['nombre_empresa'];
         }
-    
+
     }
 
 }
@@ -98,85 +98,99 @@ if (isset($_SESSION['id_user'])) {
 <body class="bg-pastel" id="body-pd">
     <!--- Navbar -->
     <header id="header">
-        <nav class="navbar bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <div class="header_toggle">
+                <div class="header_toggle" id="toggle1">
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
                 <a class="navbar-brand" href="../../index.php">
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
-                <div class="d-flex flex-wrap justify-content-end">
-                    <!--Cambio de Idioma ver.Español-->
-                    <div class="vr me-2"></div>
-                    <div class="nav-item dropdown">
-                        <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">
-                            <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                href="#">Español (Latino America)</a>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-item">
-                                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                                    href="../en/viewOnlineChat.php">Inglés</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--Opciones de Usuario ver.Español-->
-                    <div class="vr me-3"></div>
-                    <div class="btn-group dropstart me-4 pe-2">
-                        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
-                            id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil'];?>" alt="" width="32" height="32"
-                                class="rounded-circle me-2" />
-                            <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
-                        </a>
-                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                            <li>
-                                <a class="dropdown-item" href="verUser.php">Perfil</a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider" />
-                            </li>
-                            <li>
-                                <a class="btn dropdown-item log-out" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal" href="">
-                                    <i class="bx bx-log-out log-out-modal"></i>
-                                    <span class="ms-2">Cerrar Sesión</span>
+                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="d-flex">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <!--Cambio de Idioma ver.Español-->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false" href="#">
+                                    <span class="fa-solid fa-earth-americas me-2"></span>Español (Latino America)
                                 </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item">
+                                        <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
+                                            href="../en/viewOnlineChat.php?id_cur=<?php echo $id_curso_seleccionado; ?>">Inglés</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!--Opciones de Usuario ver.Español-->
+                            <li class="nav-item dropstart">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil']; ?>" alt=""
+                                        width="32" height="32" class="rounded-circle me-2" />
+                                    <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item">
+                                        <a class="nav-link" href="verUser.php">Perfil</a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+                                    <li class="dropdown-item">
+                                        <a class="nav-link log-out" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal" href="">
+                                            <i class="bx bx-log-out log-out-modal"></i>
+                                            <span class="ms-2">Cerrar Sesión</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
+
                 </div>
+
             </div>
         </nav>
     </header>
 
     <!-- Sidebar -->
     <div class="l-navbar bg-body-tertiary" id="nav-bar">
-        <nav class="nav">
+        <nav class="nav1">
             <div class="nav_list">
-                <a href="Inicio.php" class="nav_link link-dark">
+                <!-- <div class="nav_link1 visually-hidden" id="toggle2">
+                    <i class="bx bx-menu" id="header-toggle2"></i>
+                    <span class="nav_name">Cerrar</span>
+                </div> -->
+                <a href="Inicio.php" class="nav_link1 link-dark ">
                     <i class="bx bx-grid-alt nav_icon"></i>
                     <span class="nav_name">Inicio</span>
                 </a>
-                <a href="tutorial.php" class="nav_link link-dark">
+                <a href="tutorial.php" class="nav_link1 link-dark">
                     <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
-                <a href="cursos.php" class="nav_link active">
+                <a href="cursos.php" class="nav_link1 active">
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
                 <?php if ($rol == 0) { ?>
-                    <a href="verCalif.php?id_cur=<?php echo $id_curso_seleccionado; ?>" class="nav_link link-dark">
+                    <a href="verCalif.php?id_cur=<?php echo $id_curso_seleccionado; ?>" class="nav_link1 link-dark">
                         <i class="bx bx-news nav_icon"></i>
                         <span class="nav_name">Evaluaciones</span>
                     </a>
                 <?php }
                 ; ?>
                 <?php if ($rol != 0) { ?>
-                    <a href="MenuAdmin.php" class="nav_link link-dark">
+                    <a href="MenuAdmin.php" class="nav_link1 link-dark">
                         <i class="bx bx-cog nav_icon"></i>
                         <span class="nav_name">Administrar</span>
                     </a>
@@ -217,7 +231,7 @@ if (isset($_SESSION['id_user'])) {
                         class="fa-solid mt-2 fa-arrow-left" style="font-size:2rem;color:black;"></i></a>
                 <!--Titulo-->
                 <div class="p-2 mb-2 rounded shadow">
-                    <h2><strong><?php echo $curso;?> - <?php echo $empresa ?> </strong></h2>
+                    <h2><strong><?php echo $curso; ?> - <?php echo $empresa ?> </strong></h2>
                 </div>
                 <form action="" method="post">
 
@@ -229,7 +243,8 @@ if (isset($_SESSION['id_user'])) {
                         <button type="button" class="btn btn-primary" onclick="submitData();">Entrar al Chat</button>
                     </span>
                     <span class="p-2 my-4 rounded ">
-                        <a id="mrk" href="verChatHistorial.php?id_cur=<?php echo $id_curso_seleccionado; ?>" class="btn btn-secondary ">Historial del Chat</a>
+                        <a id="mrk" href="verChatHistorial.php?id_cur=<?php echo $id_curso_seleccionado; ?>"
+                            class="btn btn-secondary ">Historial del Chat</a>
                     </span>
                 </form>
                 <hr>

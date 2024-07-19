@@ -44,48 +44,55 @@ if (mysqli_num_rows($consultaEmpresas) > 0) {
 </head>
 
 <body class="bg-pastel">
-  <!--- Navbar -->
-  <header>
-    <nav class="navbar container-fluid bg-body-tertiary shadow">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary shadow">
       <div class="container-fluid">
         <a class="navbar-brand ms-3" href="../../index.php">
           <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
         </a>
-        <div class="d-flex flex-wrap">
-          <div class="vr me-2"></div>
-          <div class="nav-item dropdown ">
-            <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">
-              <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary" href="#">Español
-                (Latino America)</a>
-            </button>
-            <ul class="dropdown-menu">
-              <li class="dropdown-item">
-                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                  href="../en/login.php">Inglés</a>
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="d-flex">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!--Cambio de Idioma ver.Español-->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                  href="#">
+                  <span class="fa-solid fa-earth-americas me-2"></span>Español
+                  (Latino
+                  America)
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-item">
+                    <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
+                      href="../../ingles.php">Inglés</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="nav-item mt-1 me-2">
+                <a name="demo" id="demo" class="btn btn-secondary " href="./iniciarDemo.php"
+                  role="button">Demo</a>
+              </li>
+              <li class="nav-item mt-1">
+                <a name="login" id="login" class="btn btn-primary " href="#"
+                  role="button">Iniciar sesión</a>
               </li>
             </ul>
-          </div>
-          <div class="vr me-2"></div>
-          <!-- <div>
-                        <a name="regis" id="regis" class="btn btn-secondary shadow me-3" href="registro.php"
-                            role="button">Registrarse</a>
-                    </div> -->
-          <div>
-            <a name="demo" id="demo" class="btn btn-secondary d-flex shadow me-3" href="./iniciarDemo.php" role="button">Demo</a>
-          </div>
-          <div>
-            <a name="login" id="login" class="btn btn-primary shadow" href="#" role="button">Iniciar
-              Sesión</a>
-          </div>
 
-
+          </div>
         </div>
       </div>
     </nav>
   </header>
 
   <section name="formulario" class="d-flex justify-content-center align-items-center my-5">
-    <form action="" autocomplete="off" class="w-50" method="post">
+    <form action="" autocomplete="off" class="w-75" method="post">
       <input type="hidden" name="" id="action" value="Login" class="action">
       <div name="formulario">
         <div class="formulario pt-2 px-3 bg-blanco shadow rounded">

@@ -114,20 +114,20 @@ if (!isset($_SESSION['id_user'])) {
     </header>
 
     <div class="l-navbar bg-body-tertiary" id="nav-bar">
-    <nav class="nav">
-        <div class="nav_list" style="overflow: auto">
-            <a href="javascript:;" class="nav_link link-dark">
-                <i class="bx bx-menu nav_icon" id="header-toggle"></i>
-                <span class="nav_name">Usuarios</span>
-            </a>
+        <nav class="nav1">
+            <div class="nav_list" style="overflow: auto">
+                <a href="javascript:;" class="nav_link1 link-dark">
+                    <i class="bx bx-menu nav_icon" id="header-toggle"></i>
+                    <span class="nav_name">Usuarios</span>
+                </a>
 
-            <div id="listaUsuarios">
-                <!-- Aquí se agregarán los usuarios dinámicamente -->
+                <div id="listaUsuarios">
+                    <!-- Aquí se agregarán los usuarios dinámicamente -->
+                </div>
+
             </div>
-
-        </div>
-    </nav>
-</div>
+        </nav>
+    </div>
     <!--Contenido ChatRoom-->
     <section>
         <div class="col py-3">

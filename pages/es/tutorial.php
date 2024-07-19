@@ -79,78 +79,92 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 <body class="bg-pastel" id="body-pd">
     <!--- Navbar -->
     <header id="header">
-        <nav class="navbar bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <div class="header_toggle">
+                <div class="header_toggle" id="toggle1">
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
                 <a class="navbar-brand" href="../../index.php">
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
-                <div class="d-flex flex-wrap justify-content-end">
-                    <!--Cambio de Idioma ver.Español-->
-                    <div class="vr me-2"></div>
-                    <div class="nav-item dropdown">
-                        <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">
-                            <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                href="#">Español (Latino America)</a>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-item">
-                                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                                    href="../en/tutoIngles.php">Inglés</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--Opciones de Usuario ver.Español-->
-                    <div class="vr me-3"></div>
-                    <div class="btn-group dropstart me-4 pe-2">
-                        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
-                            id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil'];?>" alt="" width="32" height="32"
-                                class="rounded-circle me-2" />
-                            <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
-                        </a>
-                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                            <li>
-                                <a class="dropdown-item" href="verUser.php">Perfil</a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider" />
-                            </li>
-                            <li>
-                                <a class="btn dropdown-item log-out" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal" href="">
-                                    <i class="bx bx-log-out log-out-modal"></i>
-                                    <span class="ms-2">Cerrar Sesión</span>
+                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="d-flex">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <!--Cambio de Idioma ver.Español-->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false" href="#">
+                                    <span class="fa-solid fa-earth-americas me-2"></span>Español (Latino America)
                                 </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item">
+                                        <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
+                                            href="../en/tutoIngles.php">Inglés</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!--Opciones de Usuario ver.Español-->
+                            <li class="nav-item dropstart">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil']; ?>" alt=""
+                                        width="32" height="32" class="rounded-circle me-2" />
+                                    <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item">
+                                        <a class="nav-link" href="verUser.php">Perfil</a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+                                    <li class="dropdown-item">
+                                        <a class="nav-link log-out" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal" href="">
+                                            <i class="bx bx-log-out log-out-modal"></i>
+                                            <span class="ms-2">Cerrar Sesión</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
+
                 </div>
+
             </div>
         </nav>
     </header>
 
     <!-- Sidebar -->
     <div class="l-navbar bg-body-tertiary" id="nav-bar">
-        <nav class="nav">
+        <nav class="nav1">
             <div class="nav_list">
-                <a href="Inicio.php" class="nav_link link-dark ">
+                <!-- <div class="nav_link1 visually-hidden" id="toggle2">
+                    <i class="bx bx-menu" id="header-toggle2"></i>
+                    <span class="nav_name">Cerrar</span>
+                </div> -->
+                <a href="Inicio.php" class="nav_link1 link-dark">
                     <i class="bx bx-grid-alt nav_icon"></i>
                     <span class="nav_name">Inicio</span>
                 </a>
-                <a href="tutorial.php" class="nav_link active">
+                <a href="#" class="nav_link1 active ">
                     <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
-                <a href="cursos.php" class="nav_link link-dark">
+                <a href="cursos.php" class="nav_link1 link-dark">
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
                 <?php if ($rol != 0) { ?>
-                    <a href="MenuAdmin.php" class="nav_link link-dark">
+                    <a href="MenuAdmin.php" class="nav_link1 link-dark">
                         <i class="bx bx-cog nav_icon"></i>
                         <span class="nav_name">Administrar</span>
                     </a>
@@ -189,30 +203,34 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 
             <div class="row g-2">
 
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/X9aZCAqA-Ps?si=_0E4-N2_dcLw7Nqy"
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/1F4izxGPcsQ?si=y6gRlObeUV0JYmWr"
                     title="YouTube video player" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
                 <div class="col g-2">
                     <div class="row g-2">
-                        <div class="col-4">
-                            <div class="card ">
-                                <div class="card-body">
-                                    <i class="fa-solid fa-circle-info"></i>
-                                    <span class="fs-4 ms-2 card-title">Manual de Uso</span>
-                                    <br>
-                                    <button class="btn mt-2 btn-primary">Ver</button>
+                        <div class="col-md-4">
+                            <!-- <div class="col-md-6"> -->
+                                <div class="card ">
+                                    <div class="card-body">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                        <span class="fs-4 ms-2 card-title">Manual de Uso</span>
+                                        <br>
+                                        <a href="../../assests/archivos/ManualUsuario.pdf" rel="noopener"
+                                            target="_blank" class="btn mt-2 btn-primary">Ver</a>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="card mt-2">
-                                <div class="card-body">
-                                    <i class="fa-regular fa-lightbulb"></i>
-                                    <span class="fs-4 ms-2 card-title">Clave del éxito</span>
-                                    <p id="consejo" class="card-text mt-2 fs-5">Consejo</p>
+                            <!-- </div>
+                            <div class="col-md-6"> -->
+                                <div class="card mt-2">
+                                    <div class="card-body">
+                                        <i class="fa-regular fa-lightbulb"></i>
+                                        <span class="fs-4 ms-2 card-title">Clave del éxito</span>
+                                        <p id="consejo" class="card-text mt-2 fs-5">Consejo</p>
+                                    </div>
                                 </div>
-                            </div>
+                            <!-- </div> -->
 
                         </div>
 

@@ -1,10 +1,63 @@
+<?php
+
+require "../../assests/php/LoginBD.php";
+
+if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
+
+    $usuarios1 = $_SESSION['id_user'];
+
+    $usuariosActivos = $_SESSION['usuariosActive'];
+
+    $conexion1 = mysqli_query($mysqli, "SELECT Empresa_id_empresa, rol, img_perfil, nombre_user, apellido_user FROM usuario WHERE id_user = '$usuarios1'");
+
+    if (mysqli_num_rows($conexion1) > 0) {
+
+        $datos = mysqli_fetch_assoc($conexion1);
+
+        $empresaUsuario = $datos['Empresa_id_empresa'];
+
+        $rol = $datos['rol'];
+
+        $nombreUsuario = $datos['nombre_user'];
+
+        $apellidoUsuario = $datos['apellido_user'];
+
+        $conexion2 = mysqli_query($mysqli, "SELECT nombre_empresa FROM empresa WHERE id_empresa = '$empresaUsuario'");
+
+        if (mysqli_num_rows($conexion2) > 0) {
+
+            $datos2 = mysqli_fetch_assoc($conexion2);
+
+            $nombreEmpresa = $datos2['nombre_empresa'];
+
+        }
+
+        $conexion3 = mysqli_query($mysqli, "SELECT * FROM cursos WHERE Empresa_id_empresa = '$empresaUsuario'");
+
+        if (mysqli_num_rows($conexion3) > 0) {
+
+            $cursosCantidad = mysqli_num_rows($conexion3);
+
+        } else {
+
+            $cursosCantidad = 0;
+
+        }
+
+    }
+
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Administrar</title>
+    <title>Manage</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -57,8 +110,8 @@
                     <div class="btn-group dropstart me-4 pe-2">
                         <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
                             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/PichiGod.png" alt="" width="32" height="32"
-                                class="rounded-circle me-2" />
+                            <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil']; ?>" alt="..."
+                                width="32" height="32" class="rounded-circle me-2" />
                             <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
                         </a>
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
@@ -98,10 +151,13 @@
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Courses</span>
                 </a>
-                <a href="#" class="nav_link active">
-                    <i class="bx bx-cog nav_icon"></i>
-                    <span class="nav_name">Manage</span>
-                </a>
+                <?php if ($rol != 0) { ?>
+                    <a href="#" class="nav_link active">
+                        <i class="bx bx-cog nav_icon"></i>
+                        <span class="nav_name">Manage</span>
+                    </a>
+                <?php }
+                ; ?>
             </div>
         </nav>
     </div>
@@ -132,19 +188,25 @@
     <section>
         <div class="container-fluid bg-blanco my-3 pb-2 shadow">
             <h1 class="text-center">Manage</h1>
-            <h3 class="text-center">(Empresa)</h3>
+            <h3 class="text-center">(<?php echo $nombreEmpresa ?>)</h3>
 
             <br>
             <div class="row justify-content-center align-items-center g-1 mb-3">
                 <label for="usuario">Manage Users</label>
                 <hr>
                 <div id="usuario" class="col">
-                    <button onclick="location.href='insertUser.php'" class="btn btn-secondary">
-                        Register User
-                    </button>
-                    <button onclick="location.href='enrollUser.php'" class="btn btn-secondary">
-                        Enroll Course
-                    </button>
+                    <?php if ($rol == 2) { ?>
+                        <button onclick="location.href='insertUser.php'" class="btn btn-secondary">
+                            Register User
+                        </button>
+                        <button onclick="location.href='enrollUser.php'" class="btn btn-secondary">
+                            Enroll Course
+                        </button>
+                        <button onclick="#" class="btn btn-secondary">
+                            Activate/Deactivate Student
+                        </button>
+                    <?php }
+                    ; ?>
                     <button onclick="location.href='manageUser.php'" class="btn btn-secondary">
                         Manage Users
                     </button>
@@ -152,29 +214,71 @@
                 </div>
             </div>
 
-            <div class="row justify-content-center align-items-center g-1 mb-3">
-                <label for="cursos">Manage Courses</label>
-                <hr>
-                <div id="cursos" class="col">
-                    <button onclick="location.href='createCourse.php'" class="btn btn-secondary">Create Course</button>
-                    <button onclick="location.href='manageCourse.php'" class="btn btn-secondary">Manage
-                        Courses</button>
-                    <button onclick="location.href='courseStatus.php'"
-                        class="btn btn-secondary">Course visibility/availability</button>
-                    <button onclick="location.href='assignTeacher.php'" class="btn btn-secondary">Assign
-                        Teacher</button>
+            <?php if ($rol == 2) { ?>
+                <div class="row justify-content-center align-items-center g-1 mb-3">
+                    <label for="cursos">Manage Courses</label>
+                    <hr>
+                    <div id="cursos" class="col">
+                        <button onclick="location.href='createCourse.php'" class="btn btn-secondary">Create Course</button>
+                        <button onclick="location.href='manageCourse.php'" class="btn btn-secondary">Manage
+                            Courses</button>
+                        <button onclick="location.href='courseStatus.php'" class="btn btn-secondary">Course
+                            visibility/availability</button>
+                        <button onclick="location.href='assignTeacher.php'" class="btn btn-secondary">Assign
+                            Teacher</button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="row justify-content-center align-items-center g-1 mb-3">
-                <label for="cursos">Academic Period</label>
-                <hr>
-                <div id="cursos" class="col">
-                    <button class="btn btn-secondary">Create new academic period</button>
-                    <button class="btn btn-secondary">Edit academic period</button>
-                    <button class="btn btn-secondary">View academic periods</button>
+                <div class="row justify-content-center align-items-center g-1 mb-3">
+                    <label for="cursos">Academic Period</label>
+                    <hr>
+                    <div id="cursos" class="col">
+                        <button class="btn btn-secondary">Create new academic period</button>
+                        <button class="btn btn-secondary">Edit academic period</button>
+                        <button class="btn btn-secondary">View academic periods</button>
+                    </div>
                 </div>
-            </div>
+
+                <!-- Modal Reportes-->
+                <div class="modal fade" id="reportes" tabindex="-1" aria-labelledby="reportes" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="reportes">Menu Reporte</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Select a report to generate
+                            </div>
+                            <div class="modal-footer">
+                                <a href="../../../assests/Reportes/reporteUsuarios.php" target="_blank"
+                                    class="btn btn-secondary me-2">User Report</a>
+                                <a href="../../../assests/Reportes/reporteCursos.php" target="_blank"
+                                    class="btn btn-secondary me-2">Course Report</a>
+                                <a href="../../../assests/Reportes/reporteNotas.php" target="_blank"
+                                    class="btn btn-secondary me-2">Grade Report</a>
+                                <a href='../../../assests/Reportes/reportes.php' target="_blank"
+                                    class="btn btn-secondary me-2">General Report
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center align-items-center g-1 mb-3">
+                    <label for="cursos">Report and backup</label> <!-- y respaldo--->
+                    <hr>
+                    <div id="cursos" class="col">
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#reportes"
+                            class="btn btn-secondary">Generate
+                            Report</button>
+                        <button onclick="generarRespaldo(<?php echo $empresaUsuario; ?>)" class="btn btn-secondary">Generate
+                            Backup</button>
+                    </div>
+                </div>
+            <?php }
+            ; ?>
+
 
         </div>
     </section>

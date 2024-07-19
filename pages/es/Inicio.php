@@ -178,78 +178,91 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
 <body class="bg-pastel" id="body-pd">
     <!--- Navbar -->
     <header id="header">
-        <nav class="navbar bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <div class="header_toggle">
+                <div class="header_toggle" id="toggle1">
                     <i class="bx bx-menu" id="header-toggle"></i>
                 </div>
                 <a class="navbar-brand" href="../../index.php">
                     <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
                 </a>
 
-                <div class="d-flex flex-wrap justify-content-end">
-                    <!--Cambio de Idioma ver.Español-->
-                    <div class="vr me-2"></div>
-                    <div class="nav-item dropdown">
-                        <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">
-                            <span class="fa-solid fa-earth-americas"></span><a class="ms-2 text-body-secondary"
-                                href="#">Español (Latino America)</a>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-item">
-                                <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
-                                    href="../en/home.php">Inglés</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--Opciones de Usuario ver.Español-->
-                    <div class="vr me-3"></div>
-                    <div class="btn-group dropstart me-4 pe-2">
-                        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
-                            id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil'];?>" alt="" width="32" height="32"
-                                class="rounded-circle me-2" />
-                            <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
-                        </a>
-                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                            <li>
-                                <a class="dropdown-item" href="verUser.php">Perfil</a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider" />
-                            </li>
-                            <li>
-                                <a class="btn dropdown-item log-out" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal" href="">
-                                    <i class="bx bx-log-out log-out-modal"></i>
-                                    <span class="ms-2">Cerrar Sesión</span>
+                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="d-flex">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <!--Cambio de Idioma ver.Español-->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                                    <span class="fa-solid fa-earth-americas me-2"></span>Español (Latino America)
                                 </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item">
+                                        <span class="fa-solid fa-flag-usa"></span><a class="ms-2 text-body-secondary"
+                                            href="../en/home.php">Inglés</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!--Opciones de Usuario ver.Español-->
+                            <li class="nav-item dropstart">
+                                    <a href="#" class="nav-link dropdown-toggle"
+                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="../../assests/archivos/imagen/<?php echo $datos['img_perfil'];?>" alt="" width="32" height="32"
+                                            class="rounded-circle me-2" />
+                                        <strong><?php echo $nombreUsuario . " " . $apellidoUsuario; ?></strong>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown-item">
+                                            <a class="nav-link" href="verUser.php">Perfil</a>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider" />
+                                        </li>
+                                        <li class="dropdown-item">
+                                            <a class="nav-link log-out" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal" href="">
+                                                <i class="bx bx-log-out log-out-modal"></i>
+                                                <span class="ms-2">Cerrar Sesión</span>
+                                            </a>
+                                        </li>
+                                    </ul>
                             </li>
                         </ul>
-                    </div>
+                    </div>   
+                    
                 </div>
+
             </div>
         </nav>
     </header>
 
     <!-- Sidebar -->
     <div class="l-navbar bg-body-tertiary" id="nav-bar">
-        <nav class="nav">
+        <nav class="nav1">
             <div class="nav_list">
-                <a href="#" class="nav_link active">
+                <!-- <div class="nav_link1 visually-hidden" id="toggle2">
+                    <i class="bx bx-menu" id="header-toggle2"></i>
+                    <span class="nav_name">Cerrar</span>
+                </div> -->
+                <a href="#" class="nav_link1 active">
                     <i class="bx bx-grid-alt nav_icon"></i>
                     <span class="nav_name">Inicio</span>
                 </a>
-                <a href="tutorial.php" class="nav_link link-dark">
+                <a href="tutorial.php" class="nav_link1 link-dark">
                     <i class='bx bx-bookmark nav_icon'></i>
                     <span class="nav_name">Tutorial</span>
                 </a>
-                <a href="cursos.php" class="nav_link link-dark">
+                <a href="cursos.php" class="nav_link1 link-dark">
                     <i class="bx bxs-book nav_icon"></i>
                     <span class="nav_name">Cursos</span>
                 </a>
                 <?php if ($rol != 0) { ?>
-                    <a href="MenuAdmin.php" class="nav_link link-dark">
+                    <a href="MenuAdmin.php" class="nav_link1 link-dark">
                         <i class="bx bx-cog nav_icon"></i>
                         <span class="nav_name">Administrar</span>
                     </a>
@@ -301,7 +314,8 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                             <!--Copias esto para añadir un curso-->
                             <?php $contador = 0;
                             foreach ($cursos as $curso) {
-                                $contador++;
+                                if ($curso['visibilidad_curso'] == "Visible" && $rol != 2) {
+                                    $contador++;
                                 $docente_nombre = 'No hay docentes registrados';
                                 $docente_perfil = 'default.png';
                                 foreach ($docente as $doc) {
@@ -339,15 +353,64 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                                                             <?php } else { ?>
                                                                 <a class="btn btn-primary"
                                                                     href="verCurso.php?id_cur=<?php echo $curso['id_cur']; ?>">Ver Curso</a>
-                                                            <?php } ?>
+                                                            <?php }; ?>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <?php } ?>
+                                </div> 
+                                <?php } elseif ($rol == 2) {
+                                    $contador++;
+                                    $docente_nombre = 'No hay docentes registrados';
+                                    $docente_perfil = 'default.png';
+                                    foreach ($docente as $doc) {
+                                        if ($doc['Cursos_id_cur'] == $curso['id_cur']) {
+                                            $docente_nombre = $doc['nombre_user'] . ' ' . $doc['apellido_user'];
+                                            $docente_perfil = $doc['img_perfil'];
+                                            break; // Exit the inner loop once we find a matching docente
+                                        }
+                                    }
+                                    ?>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#flush-<?php echo $contador; ?>" aria-expanded="false"
+                                                aria-controls="flush-<?php echo $contador; ?>">
+                                                <?php echo $curso["nombre_cur"] ?>
+                                            </button>
+                                        </h2>
+                                        <div id="flush-<?php echo $contador; ?>" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">
+                                                <div class="card w-100 mb-3">
+                                                    <div class="row g-0">
+                                                        <div class="col-md-4">
+                                                            <img src="../../assests/archivos/imagen/<?php echo $docente_perfil;?>"
+                                                                class="img-fluid rounded-start" width="150" alt="...">
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="card-body">
+                                                                <h6 class="card-title"><?php echo $docente_nombre; ?></h6>
+                                                                <?php if (isset($curso['solvencia_estu']) && $curso['solvencia_estu'] == "1") { ?>
+                                                                    <button class="btn btn-primary mt-2" onclick="aviso();">
+                                                                        Ver Curso
+                                                                    </button>
+                                                                <?php } else { ?>
+                                                                    <a class="btn btn-primary"
+                                                                        href="verCurso.php?id_cur=<?php echo $curso['id_cur']; ?>">Ver Curso</a>
+                                                                <?php } ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php }
+                                
+                                 } ?>
                                 </div>
                             <?php } ?>
                     </div>
@@ -391,7 +454,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
             </div>
             <hr class="mx-5">
             <div class="row gx-3 gy-3">
-                <div class="col">
+                <div class="col-md-6">
 
                     <h5>Recursos</h5>
 
@@ -426,7 +489,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['usuariosActive'])) {
                         </div>
                     <?php } ?>
                 </div>
-                <div class="col">
+                <div class="col-md-6">
 
                     <h5>Notificaciones</h5>
 
