@@ -50,9 +50,9 @@ if (isset($_GET['id_cur']) && isset($_GET['id_sala']) && isset($_GET['apertu']))
   $idSala = $_GET['id_sala'];
   $fecha_apertura = $_GET['apertu'];
 
-  $consultaComentarios = mysqli_query($mysqli, "SELECT Usuario.img_perfil, Usuario.nombre_user, Usuario.apellido_user, seccionhistorial.mensaje, seccionhistorial.id_user
+  $consultaComentarios = mysqli_query($mysqli, "SELECT usuario.img_perfil, usuario.nombre_user, usuario.apellido_user, seccionhistorial.mensaje, seccionhistorial.id_user
   FROM seccionhistorial 
-  LEFT JOIN Usuario ON Usuario.id_user = seccionhistorial.id_user
+  LEFT JOIN usuario ON usuario.id_user = seccionhistorial.id_user
   WHERE DATE(fecha_apertura) = '$fecha_apertura' AND id_sala = '$idSala'
   ORDER BY fecha_apertura ASC");
 

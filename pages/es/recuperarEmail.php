@@ -42,8 +42,8 @@ if (isset($_SESSION['id_user'])) {
         <!-- Navbar -->
   <nav class="navbar navbar-expand-lg bg-body-tertiary shadow">
       <div class="container-fluid">
-        <a class="navbar-brand ms-3" href="#">
-          <img src="assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
+        <a class="navbar-brand ms-3" href="../../index.php">
+          <img src="../../assests/img/text-1710023184778.png" alt="Bootstrap" width="70" height="24" />
         </a>
         <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
