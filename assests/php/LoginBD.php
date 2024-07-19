@@ -25,6 +25,8 @@ $contrasenaLogin= $_POST['contrasenaLogin'];
 
 $empresa = $_POST['empresa'];
 
+
+
 if(empty($cedulaLogin) || empty($contrasenaLogin)){
 
     echo "Rellene todos los campos ";
@@ -85,7 +87,6 @@ if (mysqli_num_rows($usuarios)>0){
  
 
 }else{
-
 
     echo "Campos invalidos";
 

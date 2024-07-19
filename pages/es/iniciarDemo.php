@@ -4,17 +4,23 @@ require "../../assests/php/LoginBD.php";
 
 if (isset($_SESSION['id_user'])) {
 
-    if ($_SESSION['Login'] == true) {
+  if ($_SESSION['Login'] == true) {
 
-        header("location: Inicio.php ");
+    header("location: Inicio.php ");
 
-    } elseif ($_SESSION['Login'] == false) {
+  } elseif ($_SESSION['Login'] == false) {
 
-        header("location: Inicio.php ");
+    header("location: Inicio.php ");
 
-    }
+  }
 }
 
+$consultaEmpresas = mysqli_query($mysqli, "SELECT * FROM empresa");
+if (mysqli_num_rows($consultaEmpresas) > 0) {
+  while ($datosEmpresas = mysqli_fetch_assoc($consultaEmpresas)) {
+    $Empresas[] = $datosEmpresas;
+  }
+}
 ?>
 
 
@@ -117,10 +123,17 @@ if (isset($_SESSION['id_user'])) {
 
                     <div>
                         <div class="form-floating mb-4">
-                            <select class="form-select" disabled id="empresa"
-                                aria-label="Floating label select example">
-                                <option value="0" hidden disabled selected>Pichi</option>
-                            </select>
+                        <select class="form-select" id="empresa" aria-label="Floating label select example">
+                        <option hidden disabled selected>Seleccione la empresa</option>
+                        <?php foreach ($Empresas as $empresa) { 
+                        if ($empresa['id_empresa'] == 3) {
+                            ?>
+                            <option value="<?php echo $empresa['id_empresa']; ?>"><?php echo $empresa['nombre_empresa']; ?>
+                            </option>
+                        <?php }
+                        }
+                ; ?>
+              </select>
                             <label for="empresa">Empresa</label>
                         </div>
                     </div>
