@@ -1,6 +1,6 @@
 <?php
 require "conexion.php";
-var_dump($_GET);
+// var_dump($_GET);
 
 // Get the file ID or name from the database
 $file_name = $_GET['file_name']; // or $_GET['file_name']
